@@ -36,7 +36,11 @@
         'label': ['Venue','Publication','Person','School']
       },
       nodeCaption: function(node){
-        return node.caption
+        if (node.label === 'Venue')
+          return node.journal
+        if (node.label === 'Publication')
+          return node.title
+        return node.name
       }
     };
 
