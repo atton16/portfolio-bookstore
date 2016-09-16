@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2016 at 01:41 AM
+-- Generation Time: Sep 16, 2016 at 12:25 PM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
-CREATE DATABASE `bookstore`;
-USE `bookstore`;
 
 -- --------------------------------------------------------
 
@@ -97,7 +95,14 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
-  `Password` varchar(60) NOT NULL
+  `Password` varchar(60) NOT NULL,
+  `Nickname` tinytext NOT NULL,
+  `Firstname` tinytext NOT NULL,
+  `Lastname` tinytext NOT NULL,
+  `Email` tinytext NOT NULL,
+  `Birthyear` smallint(6) NOT NULL,
+  `Address` text NOT NULL,
+  `Credit` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
