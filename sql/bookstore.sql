@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2016 at 12:25 PM
+-- Generation Time: Sep 16, 2016 at 04:21 PM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
-
+CREATE Database 'bookstore';
+USE 'bookstore';
 -- --------------------------------------------------------
 
 --
@@ -65,9 +66,17 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 CREATE TABLE IF NOT EXISTS `Listing` (
   `PubID` bigint(20) unsigned NOT NULL,
   `Title` tinytext NOT NULL,
-  `PubInfo` tinytext NOT NULL,
+  `Authors` text NOT NULL,
+  `Editors` text,
+  `Type` tinytext NOT NULL,
+  `Year` smallint(6) NOT NULL,
+  `Venue` tinytext,
+  `Post` text NOT NULL,
   `SellerID` bigint(20) unsigned NOT NULL,
+  `Picture` tinytext NOT NULL,
   `Price` smallint(5) unsigned NOT NULL,
+  `Status` tinyint(1) NOT NULL,
+  `SoldCount` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -102,8 +111,15 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Email` tinytext NOT NULL,
   `Birthyear` smallint(6) NOT NULL,
   `Address` text NOT NULL,
-  `Credit` tinytext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `CardNumber` tinytext NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `Birthyear`, `Address`, `CardNumber`) VALUES
+(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', 1000, 'admin', '9999999999999999');
 
 -- --------------------------------------------------------
 
@@ -192,7 +208,7 @@ ALTER TABLE `Listing`
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
