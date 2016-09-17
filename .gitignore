@@ -1,3 +1,4 @@
 #exclude content inside build/classes folder
 /build/classes/*
-
+#un-exclude dummy file to ease first time pull from repo
+!/build/classes/dummy
