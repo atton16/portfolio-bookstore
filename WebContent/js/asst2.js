@@ -47,8 +47,10 @@ $(':checkbox').change(function() {
 $(".dropdown-menu li a").click(function(e){
 	var id;
 	id = $(this).parent().parent().attr('id');
-	$(".btn#"+id).html($(".btn#"+id).html().replace($(".btn#"+id).text().trim(), $(this).text()));
-	$("input#"+id).val($(this).html().trim());
+	if($(".btn#"+id).length > 0)
+		$(".btn#"+id).html($(".btn#"+id).html().replace($(".btn#"+id).text().trim(), $(this).text()));
+	if($("input#"+id).length > 0)
+		$("input#"+id).val($(this).html().trim());
 });
 
 $(".dropdown-menu#dropdown-publication-type li a").click(function(e){

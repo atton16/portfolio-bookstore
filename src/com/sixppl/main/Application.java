@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
  *
  */
 public class Application {
+	private static final String title = "DBLP";
 	private static Application app;
 	private ServletContext servletContext;
 	
@@ -20,6 +21,10 @@ public class Application {
 	
 	public String getContextPath() {
 		return servletContext.getContextPath();
+	}
+	
+	public String getTitle() {
+		return title;
 	}
 	
 	public void init(ServletContext servletContext) {
