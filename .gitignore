@@ -5,3 +5,7 @@
 /build/
 #exclude bin folder
 /bin
+#exclude eclipse project meta
+.classpath
+.project
+/.settings
