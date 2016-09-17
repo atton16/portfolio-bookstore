@@ -1,0 +1,196 @@
+{
+    "nodes": [
+        {
+            "id": 0,
+            "label": "Publication",
+            "title": "Supporting the UML State Machine Diagramsat Runtime."
+        },
+        {
+            "id": 1,
+            "label": "Person",
+            "name": "Franck Barbier" 
+        },
+        {
+            "id": 2,
+            "label": "Publication",
+            "title": "Induction By Attribute Elimination."
+        },
+        {
+            "id": 5,
+            "label": "Venue",
+            "journal": "IEEE Trans. Knowl. Data Eng."
+        },
+        {
+            "id": 6,
+            "label": "Publication",
+            "title": "Crawling Hidden Objects with kNN Queries."
+        },
+        {
+            "id": 7,
+            "label": "Person",
+            "name": "Hui Yan"
+        },
+        {
+            "id": 8,
+            "label": "Person",
+            "name": "Zhiguo Gong"
+        },
+        {
+            "id": 9,
+            "label": "Person",
+            "name": "Nan Zhang"
+        },
+        {
+            "id": 10,
+            "label": "Person",
+            "name": "Tao Huang"
+        },
+        {
+            "id": 11,
+            "label": "Person",
+            "name": "Hua Zhong"
+        },
+        {
+            "id": 12,
+            "label": "Person",
+            "name": "Jun Wei"
+        },
+        {
+            "id": 13,
+            "label": "Venue",
+            "journal": "IEEE Access"
+        },
+        {
+            "id": 14,
+            "label": "Publication",
+            "title": "Edge-Guided Dual-Modality Image Reconstruction."
+        },
+        {
+            "id": 15,
+            "label": "Person",
+            "name": "Yang Lu"
+        },
+        {
+            "id": 16,
+            "label": "Person",
+            "name": "Jun Zhao"
+        },
+        {
+            "id": 17,
+            "label": "Person",
+            "name": "Ge Wang"
+        },
+        {
+            "id": 18,
+            "label": "Publication",
+            "title": "A dynamic programming approach to optimal retargetable code generation for irregular architectures."
+        },
+        {
+            "id": 19,
+            "label": "Person",
+            "name": "Andrzej Bednarski"
+        },
+        {
+            "id": 20,
+            "label": "School",
+            "name": "Universität Linköping"
+        },
+        {
+            "id": 21,
+            "label": "Person",
+            "name": "Xindong Wu"
+        },
+        {
+            "id": 22,
+            "label": "Person",
+            "name": "David Urpani"
+        }
+    ],
+    "edges": [
+        {
+            "source": 0,
+            "target": 1,
+            "caption": "authored by"
+        },
+        {
+            "source": 2,
+            "target": 5,
+            "caption": "published in"
+        },
+        {
+            "source": 2,
+            "target": 21,
+            "caption": "authored by"
+        },
+        {
+            "source": 2,
+            "target": 22,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 5,
+            "caption": "published in"
+        },
+        {
+            "source": 6,
+            "target": 7,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 8,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 9,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 10,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 11,
+            "caption": "authored by"
+        },
+        {
+            "source": 6,
+            "target": 12,
+            "caption": "authored by"
+        },
+        {
+            "source": 14,
+            "target": 13,
+            "caption": "published in"
+        },
+        {
+            "source": 14,
+            "target": 15,
+            "caption": "authored by"
+        },
+        {
+            "source": 14,
+            "target": 16,
+            "caption": "authored by"
+        },
+        {
+            "source": 14,
+            "target": 17,
+            "caption": "authored by"
+        },
+        {
+            "source": 18,
+            "target": 19,
+            "caption": "authored by"
+        },
+        {
+            "source": 19,
+            "target": 20,
+            "caption": "affiliated in"
+        }
+    ]
+};

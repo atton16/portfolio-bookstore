@@ -1,0 +1,609 @@
+{
+	"columns": [
+		"n"
+	],
+	"data": [
+		{
+			"row": [
+				{
+					"Title": "Supporting the UML State Machine Diagramsat Runtime."
+				}
+			],
+			"meta": [
+				{
+					"id": 0,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "0",
+						"labels": [
+							"Publication"
+						],
+						"properties": {
+							"Title": "Supporting the UML State Machine Diagramsat Runtime."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Franck Barbier"
+				}
+			],
+			"meta": [
+				{
+					"id": 1,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "1",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Franck Barbier"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Title": "Induction By Attribute Elimination."
+				}
+			],
+			"meta": [
+				{
+					"id": 2,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "2",
+						"labels": [
+							"Publication"
+						],
+						"properties": {
+							"Title": "Induction By Attribute Elimination."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Journal": "IEEE Trans. Knowl. Data Eng."
+				}
+			],
+			"meta": [
+				{
+					"id": 5,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "5",
+						"labels": [
+							"Venue"
+						],
+						"properties": {
+							"Journal": "IEEE Trans. Knowl. Data Eng."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Title": "Crawling Hidden Objects with kNN Queries."
+				}
+			],
+			"meta": [
+				{
+					"id": 6,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "6",
+						"labels": [
+							"Publication"
+						],
+						"properties": {
+							"Title": "Crawling Hidden Objects with kNN Queries."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Hui Yan"
+				}
+			],
+			"meta": [
+				{
+					"id": 7,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "7",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Hui Yan"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Zhiguo Gong"
+				}
+			],
+			"meta": [
+				{
+					"id": 8,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "8",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Zhiguo Gong"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Nan Zhang"
+				}
+			],
+			"meta": [
+				{
+					"id": 9,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "9",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Nan Zhang"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Tao Huang"
+				}
+			],
+			"meta": [
+				{
+					"id": 10,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "10",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Tao Huang"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Hua Zhong"
+				}
+			],
+			"meta": [
+				{
+					"id": 11,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "11",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Hua Zhong"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Jun Wei"
+				}
+			],
+			"meta": [
+				{
+					"id": 12,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "12",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Jun Wei"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Journal": "IEEE Access"
+				}
+			],
+			"meta": [
+				{
+					"id": 13,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "13",
+						"labels": [
+							"Venue"
+						],
+						"properties": {
+							"Journal": "IEEE Access"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Title": "Edge-Guided Dual-Modality Image Reconstruction."
+				}
+			],
+			"meta": [
+				{
+					"id": 14,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "14",
+						"labels": [
+							"Publication"
+						],
+						"properties": {
+							"Title": "Edge-Guided Dual-Modality Image Reconstruction."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Yang Lu"
+				}
+			],
+			"meta": [
+				{
+					"id": 15,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "15",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Yang Lu"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Jun Zhao"
+				}
+			],
+			"meta": [
+				{
+					"id": 16,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "16",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Jun Zhao"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Ge Wang"
+				}
+			],
+			"meta": [
+				{
+					"id": 17,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "17",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Ge Wang"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Title": "A dynamic programming approach to optimal retargetable code generation for irregular architectures."
+				}
+			],
+			"meta": [
+				{
+					"id": 18,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "18",
+						"labels": [
+							"Publication"
+						],
+						"properties": {
+							"Title": "A dynamic programming approach to optimal retargetable code generation for irregular architectures."
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Andrzej Bednarski"
+				}
+			],
+			"meta": [
+				{
+					"id": 19,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "19",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Andrzej Bednarski"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Universität Linköping"
+				}
+			],
+			"meta": [
+				{
+					"id": 20,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "20",
+						"labels": [
+							"School"
+						],
+						"properties": {
+							"Name": "Universität Linköping"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "Xindong Wu"
+				}
+			],
+			"meta": [
+				{
+					"id": 21,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "21",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "Xindong Wu"
+						}
+					}
+				],
+				"relationships": []
+			}
+		},
+		{
+			"row": [
+				{
+					"Name": "David Urpani"
+				}
+			],
+			"meta": [
+				{
+					"id": 22,
+					"type": "node",
+					"deleted": false
+				}
+			],
+			"graph": {
+				"nodes": [
+					{
+						"id": "22",
+						"labels": [
+							"Person"
+						],
+						"properties": {
+							"Name": "David Urpani"
+						}
+					}
+				],
+				"relationships": []
+			}
+		}
+	],
+	"stats": {
+		"contains_updates": false,
+		"nodes_created": 0,
+		"nodes_deleted": 0,
+		"properties_set": 0,
+		"relationships_created": 0,
+		"relationship_deleted": 0,
+		"labels_added": 0,
+		"labels_removed": 0,
+		"indexes_added": 0,
+		"indexes_removed": 0,
+		"constraints_added": 0,
+		"constraints_removed": 0
+	}
+}
