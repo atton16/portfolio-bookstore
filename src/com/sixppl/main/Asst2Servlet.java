@@ -1,7 +1,10 @@
 package com.sixppl.main;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +21,21 @@ import com.sixppl.main.Application;
 @WebServlet(urlPatterns = { "/search" }, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	Map<String,Command> commands;
 
-    public void init() throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
+    	
+    	super.init(config);
+    	
     	Application app;
     	
     	app = Application.getSharedInstance();
     	app.init(getServletContext());
+    	
+    	commands = new HashMap<String,Command>();
+
+		commands.put("Dummy", new DummyCommand());
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
