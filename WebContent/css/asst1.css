@@ -1,0 +1,170 @@
+@CHARSET "UTF-8";
+
+.test-border {
+	border: 1px solid black;
+}
+
+.fill-parent {
+	width:100%;
+	height:100%;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.col-pull-left {
+	margin-left: 0;
+}
+
+.col-pull-right {
+	margin-right: 0;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.as-table {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.as-cell {
+	display: table-cell;
+    vertical-align: middle;
+	padding: 12px;
+}
+
+.as-cell-no-padding {
+	display: table-cell;
+    vertical-align: middle;
+	margin: 0;
+}
+
+.as-cell-50 {
+	width: 50%;
+}
+
+.as-cell-95 {
+	width: 95%;
+}
+
+.as-cell-90 {
+	width: 90%;
+}
+
+.as-cell-83 {
+	width: 83%;
+}
+
+.as-cell-78 {
+	width: 83%;
+}
+
+.as-cell-17 {
+	width: 17%;
+}
+
+.as-cell-12 {
+	width: 12%;
+}
+
+.as-cell-5 {
+	width: 5%;
+}
+
+.as-cell-link, .as-cell-link:hover {
+	text-decoration: none !important;
+  	-webkit-touch-callout: none;
+  	-webkit-user-select: none;
+  	-khtml-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none;
+	color: #434343;
+}
+
+.as-cell-link:hover {
+	background-color: #F2F2F2;
+}
+
+.text-link-info, .text-link-info:hover {
+	color: #33A1CC;
+	background-color: none;
+}
+
+.link-as-text, link-as-text:hover {
+	color: #333333 !important;
+	text-decoration: none !important;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.right-text {
+	text-align: right;
+}
+
+.no-decoration {
+	text-decoration: none !important;
+}
+
+.h1-color, .h1-color:hover {
+	color: #262626;
+}
+
+@media (max-width: 767px) {
+	.col-xs-space {
+		margin-bottom: 12px;
+	}
+	
+	.col-sm-space {
+		margin-bottom: 12px;
+	}
+	
+	.col-md-space {
+		margin-bottom: 12px;
+	}
+	
+	.col-lg-space {
+		margin-bottom: 12px;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.col-sm-space {
+		margin-bottom: 12px;
+	}
+	
+	.col-md-space {
+		margin-bottom: 12px;
+	}
+
+	.col-lg-space {
+		margin-bottom: 12px;
+	}
+}
+
+@media (min-width : 992px) and (max-width: 1199px) {
+	.col-md-space {
+		margin-bottom: 12px;
+	}
+	
+	.col-lg-space {
+		margin-bottom: 12px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.col-lg-space {
+		margin-bottom: 12px;
+	}
+}

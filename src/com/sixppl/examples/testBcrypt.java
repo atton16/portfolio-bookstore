@@ -1,3 +1,5 @@
+package com.sixppl.examples;
+
 import java.util.Random;
 
 import org.mindrot.jbcrypt.BCrypt;
