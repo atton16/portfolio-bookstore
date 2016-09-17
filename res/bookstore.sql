@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2016 at 04:21 PM
+-- Generation Time: Sep 17, 2016 at 10:41 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -66,12 +66,11 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 CREATE TABLE IF NOT EXISTS `Listing` (
   `PubID` bigint(20) unsigned NOT NULL,
   `Title` tinytext NOT NULL,
-  `Authors` text NOT NULL,
+  `Authors` text,
   `Editors` text,
   `Type` tinytext NOT NULL,
   `Year` smallint(6) NOT NULL,
   `Venue` tinytext,
-  `Post` text NOT NULL,
   `SellerID` bigint(20) unsigned NOT NULL,
   `Picture` tinytext NOT NULL,
   `Price` smallint(5) unsigned NOT NULL,
@@ -79,6 +78,19 @@ CREATE TABLE IF NOT EXISTS `Listing` (
   `SoldCount` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LoginSessions`
+--
+
+CREATE TABLE IF NOT EXISTS `LoginSessions` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `JSESSIONID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -94,6 +106,19 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
   `PurchaseTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `SellingPrice` smallint(5) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Unactivated`
+--
+
+CREATE TABLE IF NOT EXISTS `Unactivated` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `TokenString` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -174,12 +199,30 @@ ALTER TABLE `Listing`
   ADD KEY `SellerID` (`SellerID`);
 
 --
+-- Indexes for table `LoginSessions`
+--
+ALTER TABLE `LoginSessions`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `JSESSIONID` (`JSESSIONID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
 -- Indexes for table `Transaction`
 --
 ALTER TABLE `Transaction`
   ADD PRIMARY KEY (`BuyerID`,`SellerID`,`PubID`),
   ADD KEY `PubID` (`PubID`),
   ADD KEY `SellerID` (`SellerID`);
+
+--
+-- Indexes for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD UNIQUE KEY `UserID` (`UserID`),
+  ADD UNIQUE KEY `TokenString` (`TokenString`);
 
 --
 -- Indexes for table `User`
@@ -204,6 +247,16 @@ ALTER TABLE `Variable`
 --
 ALTER TABLE `Listing`
   MODIFY `PubID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `LoginSessions`
+--
+ALTER TABLE `LoginSessions`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `User`
 --
@@ -233,12 +286,24 @@ ALTER TABLE `Cart`
   ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
 
 --
+-- Constraints for table `LoginSessions`
+--
+ALTER TABLE `LoginSessions`
+  ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
+
+--
 -- Constraints for table `Transaction`
 --
 ALTER TABLE `Transaction`
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`PubID`) REFERENCES `Listing` (`PubID`),
   ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`BuyerID`) REFERENCES `User` (`UserID`),
   ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`SellerID`) REFERENCES `User` (`UserID`);
+
+--
+-- Constraints for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  ADD CONSTRAINT `unactivated_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `User` (`UserID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
