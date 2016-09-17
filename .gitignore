@@ -2,3 +2,6 @@
 /build/classes/*
 #un-exclude dummy file to ease first time pull from repo
 !/build/classes/dummy
+/build/
+#exclude bin folder
+/bin
