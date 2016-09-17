@@ -10,7 +10,63 @@
 <title>${title}</title>
 </head>
 <body>
-	<jsp:include page="inc.body.header.jsp" />
-	<jsp:include page="inc.body.footer.jsp" />
+<jsp:include page="inc.body.header.jsp" />
+<div class="container">
+	<!-- Random Pick Title -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<h3>Random Picks</h3>
+			<i>From XXX publications</i>
+		</div>
+	</div>
+	<!-- Random Pick Contents: One item per row -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="fill-width">
+						<tr>
+							<td align="center" class="cell-180px padding-right-12">
+								<img src="${contextPath}/uploads/1984.jpeg" class="square-180-by-180">
+							</td>
+							<td class="border-left padding-left-12"><table>
+								<tr><td valign="top">
+									<h3 class="no-margin"><a href="#" class="link-as-text">1984</a></h3>
+									<h5><i>George Orwell</i></h5>
+								<td></tr>
+								<tr><td valign="bottom">
+									<h4><b>A$40.00</b></h4>
+									<h4><a href="#">Add to Cart</a></h4>
+								<td></tr>
+							</table></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="fill-width">
+						<tr>
+							<td align="center" class="cell-180px padding-right-12">
+								<img src="${contextPath}/uploads/aba-04.png" class="square-180-by-180">
+							</td>
+							<td class="border-left padding-left-12"><table>
+								<tr><td valign="top">
+									<h3 class="no-margin"><a href="#" class="link-as-text">Responsive Web Design</a></h3>
+									<h5><i>Ethan Marcotte</i></h5>
+								<td></tr>
+								<tr><td valign="bottom">
+									<h4><b>A$40.00</b></h4>
+									<h4><a href="#">Add to Cart</a></h4>
+								<td></tr>
+							</table></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<jsp:include page="inc.body.footer.jsp" />
 </body>
 </html>

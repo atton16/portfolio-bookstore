@@ -61,7 +61,7 @@
 				<div class="margin-top-30"></div>
 				<div class="row pull-right">
 					<!-- Graph button -->
-					<a href="${contextPath}/graph" class="margin-left-12 white-color" id="graph">
+					<a href="${contextPath}/graph" class="white-color" id="graph">
 						<span class="glyphicon glyphicon-signal"></span> Graph
 					</a>
 					<span class="white-color margin-left-8">|</span>
