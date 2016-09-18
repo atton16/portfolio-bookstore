@@ -19,12 +19,13 @@ import com.sixppl.main.Application;
  * @author atton16
  *
  */
-@WebServlet(urlPatterns = { "/search", "/dummy" }, loadOnStartup = 0)
+@WebServlet(urlPatterns = { "/search", "/results", "/dummy" }, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE_ATTRIBUTE = "title";
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
+	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
 	
 	Map<String,Command> commands;
 
@@ -34,6 +35,7 @@ public class Asst2Servlet extends HttpServlet {
     	
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
+		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
     }
     
     private void embedAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -58,6 +60,9 @@ public class Asst2Servlet extends HttpServlet {
 		// Search Page
 		if(URI.equalsIgnoreCase("/search")){
 			request.getRequestDispatcher("/search.jsp").forward(request,response);
+		} else if(URI.equalsIgnoreCase("/results")){
+			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		} else if(URI.equalsIgnoreCase("/dummy")){
 			commands.get(DUMMY_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/dummy.jsp").forward(request,response);

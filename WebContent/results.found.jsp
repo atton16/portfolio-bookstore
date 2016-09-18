@@ -1,13 +1,10 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="app" class="com.sixppl.main.Application"/>
-<jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
-<jstl:set var="title" value="${app.getSharedInstance().getTitle()}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}</title>
+<title>${title}: Search Results</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
@@ -15,13 +12,39 @@
 	<!-- Random Pick Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Random Picks</h3>
-			<i>From XXX publications</i>
+			<h3>Search Results</h3>
+			<i>Displaying X-Y of N results</i>
+			<br/>
+			<jstl:forEach var="searchTerm" items="${searchTerms}">
+				<span class="label label-default">${searchTerm}</span>
+			</jstl:forEach>
+		</div>
+	</div>
+	<!-- Page Changers: Top -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="as-table">
+				<div class="as-cell">
+					<%-- <jstl:if test="${prevParams != null}"> --%>
+					<a href="${contextPath}/results?${prevParams}" class="no-decoration"> <span
+						class="glyphicon glyphicon-menu-left"></span> <span>
+							Previous</span>
+					</a>
+					<%-- </jstl:if> --%>
+				</div>
+				<div class="as-cell right-text">
+					<%-- <jstl:if test="${nextParams != null}"> --%>
+					<a href="${contextPath}/results?${nextParams}" class="no-decoration"> <span>Next </span> <span
+						class="glyphicon glyphicon-menu-right"></span>
+					</a>
+					<%-- </jstl:if> --%>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- Random Pick Contents: One item per row -->
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1 col-lg-space">
+		<div class="col-md-10 col-md-offset-1">
 			<!-- Item 1 -->
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -65,6 +88,28 @@
 							</table></td>
 						</tr>
 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Page Changers: Bottom -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="as-table">
+				<div class="as-cell">
+					<%-- <jstl:if test="${prevParams != null}"> --%>
+					<a href="${contextPath}/results?${prevParams}" class="no-decoration"> <span
+						class="glyphicon glyphicon-menu-left"></span> <span>
+							Previous</span>
+					</a>
+					<%-- </jstl:if> --%>
+				</div>
+				<div class="as-cell right-text">
+					<%-- <jstl:if test="${nextParams != null}"> --%>
+					<a href="${contextPath}/results?${nextParams}" class="no-decoration"> <span>Next </span> <span
+						class="glyphicon glyphicon-menu-right"></span>
+					</a>
+					<%-- </jstl:if> --%>
 				</div>
 			</div>
 		</div>

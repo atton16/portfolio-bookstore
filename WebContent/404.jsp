@@ -12,10 +12,8 @@
 <body>
 	<div class="container">
 		<center>
-			<h1><a href="${contextPath}/" class="h1-color no-decoration">Digital Bibliographic Library</a></h1>
-			<br />
-			<h3>Sorry</h3>
-			<h3>Page not found</h3>
+			<h1><a href="${contextPath}/" class="h1-color no-decoration">${title}</a></h1>
+			<h3>Sorry, page not found.</h3>
 			<h4>(404)</h4>
 		</center>
 	</div>

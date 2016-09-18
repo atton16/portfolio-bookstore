@@ -12,8 +12,7 @@
 <body>
 	<div class="container">
 		<center>
-			<h1><a href="${contextPath}/" class="h1-color no-decoration">Digital Bibliographic Library</a></h1>
-			<br />
+			<h1><a href="${contextPath}/" class="h1-color no-decoration">${title}</a></h1>
 			<h3>Server Error</h3>
 			<h3>Please contact system support.</h3>
 		</center>

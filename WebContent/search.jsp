@@ -4,7 +4,7 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}</title>
+<title>${title}: Advanced Search</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
