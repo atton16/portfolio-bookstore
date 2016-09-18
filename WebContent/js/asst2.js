@@ -44,6 +44,18 @@ $(':checkbox').change(function() {
 	}
 });
 
+$('.submit-checkout').click(function(e){
+	e.preventDefault();
+	$('.form-checkout').html($('.datasource-checkout').find($('input')));
+	$('.form-checkout').submit();
+});
+
+$('.submit-cart-remove').click(function(e){
+	e.preventDefault();
+	$('.form-cart-remove').html($('.datasource-cart-remove').find($('input')));
+	$('.form-cart-remove').submit();
+});
+
 $(".dropdown-menu li a").click(function(e){
 	var id;
 	id = $(this).parent().parent().attr('id');

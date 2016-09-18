@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
-CREATE Database 'bookstore';
-USE 'bookstore';
+CREATE Database `bookstore`;
+USE `bookstore`;
 -- --------------------------------------------------------
 
 --

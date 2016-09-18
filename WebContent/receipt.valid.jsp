@@ -4,24 +4,18 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}: Shopping Cart</title>
+<title>${title}: Receipt</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
 <div class="container">
-	<!-- Shopping Cart Title -->
+	<!-- Receipt Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Shopping Cart</h3>
-			<p><i>There are X items in your shopping cart.</i></p>
-			<jstl:forEach var="searchTerm" items="${searchTerms}">
-				<span class="label label-default">${searchTerm}</span>
-			</jstl:forEach>
+			<h3>Receipt</h3>
 		</div>
 	</div>
-	<!-- Shopping Cart Form -->
-	<form class="datasource-cart-remove datasource-checkout">
-	<!-- Shopping Cart Contents: One item per row -->
+	<!-- Receipt: One item per row -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<!-- Item 1 -->
@@ -40,7 +34,6 @@
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
 									<p><i>Seller: Nickname</i></p>
-									<p><input type="checkbox" class="checked-count" name="id" value="pubid1" /> Remove</p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -64,7 +57,6 @@
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
 									<p><i>Seller: Nickname</i></p>
-									<p><input type="checkbox" class="checked-count" name="id" value="pubid2" /> Remove</p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -78,15 +70,41 @@
 		<h4><b>Total: A$80.00</b></h4>
 		</div>
 	</div>
-	</form>
-	<!-- Hidden Forms -->
-	<form action="${contextPath}/cart/remove" method="post" class="form-cart-remove"></form>
-	<form action="${contextPath}/receipt" method="post" class="form-checkout"></form>
-	<!-- Shopping Cart Buttons -->
+	<!-- Billing Details Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<input type="submit" id="checked-count-update" class="btn btn-danger submit-cart-remove" value="Remove from Cart (0)" disabled />
-			<input type="submit" class="btn btn-primary submit-checkout" value="Checkout!" />
+			<h3>Billing Details</h3>
+		</div>
+	</div>
+	<!-- Billing Details: Content -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p><b>Ettus Research</b></p>
+					<p>1/11 Kings st<br/>
+					Kingsford<br/>
+					NSW<br/>
+					1111</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Download Links Title -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<h3>Download Links</h3>
+		</div>
+	</div>
+	<!-- Billing Details: Content -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>1. <a href="#">1984</a></p>
+					<p>2. <a href="#">Responsive Web Design</a></p>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

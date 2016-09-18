@@ -24,6 +24,7 @@ import com.sixppl.main.Application;
 		"/results",
 		"/cart",
 		"/cart/remove",
+		"/receipt",
 		"/dummy" }, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -68,12 +69,18 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
 			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			//TODO: Do the search
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
 		} else if(URI.equalsIgnoreCase("/cart")){
+			//TODO: Get cart
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
+		// Render: Receipt Page
+		} else if(URI.equalsIgnoreCase("/receipt")){
+			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Render: Dummy Page
 		} else if(URI.equalsIgnoreCase("/dummy")){
+			//TODO: Delete this
 			commands.get(DUMMY_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/dummy.jsp").forward(request,response);
 		// Default: Redirect to Home Page
@@ -98,7 +105,19 @@ public class Asst2Servlet extends HttpServlet {
 		// POST Actions
 		// Remove item(s) from cart
 		if(URI.equalsIgnoreCase("/cart/remove")){
+			//TODO: Remove from cart
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
+		// Add item to cart
+		} else if(URI.equalsIgnoreCase("/cart/add")){
+			//TODO: Add item to cart
+	    	response.setStatus(HttpServletResponse.SC_OK);
+	    	response.getWriter().write(String.valueOf(0)); // TODO: Return number of item in the cart
+	    	response.getWriter().flush();
+	    	response.getWriter().close();
+		// Checkout
+		} else if(URI.equalsIgnoreCase("/receipt")){
+			//TODO: Checkout
+			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);
