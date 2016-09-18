@@ -19,7 +19,12 @@ import com.sixppl.main.Application;
  * @author atton16
  *
  */
-@WebServlet(urlPatterns = { "/search", "/results", "/dummy" }, loadOnStartup = 0)
+@WebServlet(urlPatterns = {
+		"/search",
+		"/results",
+		"/cart",
+		"/cart/remove",
+		"/dummy" }, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE_ATTRIBUTE = "title";
@@ -56,13 +61,18 @@ public class Asst2Servlet extends HttpServlet {
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
 		
-		// Render Page
-		// Search Page
+		// GET Actions
+		// Render: Search Page
 		if(URI.equalsIgnoreCase("/search")){
 			request.getRequestDispatcher("/search.jsp").forward(request,response);
+		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
 			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
+		// Render: Cart Page
+		} else if(URI.equalsIgnoreCase("/cart")){
+			request.getRequestDispatcher("/cart.jsp").forward(request,response);
+		// Render: Dummy Page
 		} else if(URI.equalsIgnoreCase("/dummy")){
 			commands.get(DUMMY_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/dummy.jsp").forward(request,response);
@@ -85,6 +95,13 @@ public class Asst2Servlet extends HttpServlet {
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
 		
-		response.sendRedirect(contextPath);
+		// POST Actions
+		// Remove item(s) from cart
+		if(URI.equalsIgnoreCase("/cart/remove")){
+			request.getRequestDispatcher("/cart.jsp").forward(request,response);
+		// Default: Redirect to Home Page
+		} else {
+			response.sendRedirect(contextPath);
+		}
 	}
 }

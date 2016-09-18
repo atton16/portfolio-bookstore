@@ -4,44 +4,25 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}: Search Results</title>
+<title>${title}: Shopping Cart</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
 <div class="container">
-	<!-- Search Results Title -->
+	<!-- Shopping Cart Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Search Results</h3>
-			<p><i>Displaying X-Y of N results</i></p>
+			<h3>Shopping Cart</h3>
+			<p><i>There are X items in your shopping cart.</i></p>
 			<jstl:forEach var="searchTerm" items="${searchTerms}">
 				<span class="label label-default">${searchTerm}</span>
 			</jstl:forEach>
 		</div>
 	</div>
-	<!-- Page Changers: Top -->
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="as-table">
-				<div class="as-cell">
-					<%-- <jstl:if test="${prevParams != null}"> --%>
-					<a href="${contextPath}/results?${prevParams}" class="no-decoration"> <span
-						class="glyphicon glyphicon-menu-left"></span> <span>
-							Previous</span>
-					</a>
-					<%-- </jstl:if> --%>
-				</div>
-				<div class="as-cell right-text">
-					<%-- <jstl:if test="${nextParams != null}"> --%>
-					<a href="${contextPath}/results?${nextParams}" class="no-decoration"> <span>Next </span> <span
-						class="glyphicon glyphicon-menu-right"></span>
-					</a>
-					<%-- </jstl:if> --%>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Search Results Contents: One item per row -->
+	<!-- Shopping Cart Form -->
+	<form action="${contextPath}/cart/remove" method="post">
+	
+	<!-- Shopping Cart Contents: One item per row -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<!-- Item 1 -->
@@ -59,8 +40,8 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
-									<h4><a href="#">Add to Cart</a></h4>
 									<p><i>Seller: Nickname</i></p>
+									<p><input type="checkbox" class="checked-count" name="id" value="pubid1" /> Remove</p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -83,8 +64,8 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
-									<h4><a href="#">Add to Cart</a></h4>
 									<p><i>Seller: Nickname</i></p>
+									<p><input type="checkbox" class="checked-count" name="id" value="pubid2" /> Remove</p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -93,28 +74,16 @@
 			</div>
 		</div>
 	</div>
-	<!-- Page Changers: Bottom -->
+	
+	<!-- Shopping Cart Buttons -->
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="as-table">
-				<div class="as-cell">
-					<%-- <jstl:if test="${prevParams != null}"> --%>
-					<a href="${contextPath}/results?${prevParams}" class="no-decoration"> <span
-						class="glyphicon glyphicon-menu-left"></span> <span>
-							Previous</span>
-					</a>
-					<%-- </jstl:if> --%>
-				</div>
-				<div class="as-cell right-text">
-					<%-- <jstl:if test="${nextParams != null}"> --%>
-					<a href="${contextPath}/results?${nextParams}" class="no-decoration"> <span>Next </span> <span
-						class="glyphicon glyphicon-menu-right"></span>
-					</a>
-					<%-- </jstl:if> --%>
-				</div>
-			</div>
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<input type="submit" id="checked-count-update" class="btn btn-danger" value="Remove from Cart (0)" disabled/>
+			<a href="${contextPath}/search" class="btn btn-primary">Back to Search</a>
 		</div>
 	</div>
+	
+	</form>
 </div>
 <jsp:include page="inc.body.footer.jsp" />
 </body>

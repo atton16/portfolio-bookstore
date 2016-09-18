@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Random Picks</h3>
-			<i>From XXX publications</i>
+			<p><i>From XXX publications</i></p>
 		</div>
 	</div>
 	<!-- Random Pick Contents: One item per row -->
@@ -38,6 +38,7 @@
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
 									<h4><a href="#">Add to Cart</a></h4>
+									<p><i>Seller: Nickname</i></p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -61,6 +62,7 @@
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
 									<h4><a href="#">Add to Cart</a></h4>
+									<p><i>Seller: Nickname</i></p>
 								<td></tr>
 							</table></td>
 						</tr>

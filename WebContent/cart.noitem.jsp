@@ -4,18 +4,14 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}: Search Results</title>
+<title>${title}: Shopping Cart</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
 <div class="container">
 	<center>
 		<br/>
-		<h3 class="no-margin">Sorry, no matching datasets found!</h3>
-		<br/>
-		<jstl:forEach var="searchTerm" items="${searchTerms}">
-			<span class="label label-default">${searchTerm}</span>
-		</jstl:forEach>
+		<h3 class="no-margin">Shopping Cart is Empty!</h3>
 		<br/>
 		<br/>
 		<a href="${contextPath}/search" class="btn btn-primary">Back to Search</a>

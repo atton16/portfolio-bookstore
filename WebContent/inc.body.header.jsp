@@ -13,17 +13,17 @@
 		<!-- Main Row -->
 		<div class="row">
 			<!-- Title Column -->
-			<div class="col-md-2">
+			<div class="col-md-1">
 				<div class="row">
 					<h1><a href="${contextPath}/" class="header-title no-decoration">${title}</a></h1>
 				</div>
 			</div>
 			
 			<!-- Search Bar Column -->
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<!-- Top Space -->
 				<div class="margin-top-24"></div>
-				<div class="row">
+				<div class="row padding-left-16">
 					<!-- Search Bar -->
 					<form action="${contextPath}/results" method="get">
 						<div class="input-group">
@@ -100,8 +100,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-9 col-md-offset-2 col-lg-space">
-				<div class="row">
+			<div class="col-md-9 col-md-offset-1 col-lg-space">
+				<div class="row padding-left-16">
 					<a href="${contextPath}/search" class="white-color">Advanced Search</a>
 				</div>
 			</div>
