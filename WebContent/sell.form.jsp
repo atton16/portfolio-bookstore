@@ -11,13 +11,13 @@
 <div class="container">
 	<!-- Sell Title -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
-			<center><h3>Sell</h3></center>
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<h3>Sell</h3>
 		</div>
 	</div>
 	<!-- Error Message -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<div class="alert alert-danger">
 				Error message
 			</div>
@@ -25,28 +25,40 @@
 	</div>
 	<!-- Sell: Contents -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<!-- Sell Form -->
 					<form action="${contextPath}/user/sell" method="post" enctype="multipart/form-data">
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Publication Title</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Publication Title" name="title" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Authors</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Author 1, Author 2, Author 3 (Optional)" name="authors" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Editors</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Editor 1, Editor 2, Editor 3 (Optional)" name="editors" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Publication Type</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<!-- Publication Type Selector -->
 								<div class="btn-group">
 									<button id="dropdown-publication-type" type="button"
@@ -67,22 +79,34 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Year Published</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Year Published" name="year" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Venue</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Venue" name="venue" id="enable-on-conference-selected" disabled/>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Image</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="file" class="form-control" name="pic" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
+							<div class="col-md-2 col-lg-space">
+								<p>Price</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Price" name="price" />
 							</div>
 						</div>

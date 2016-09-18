@@ -11,13 +11,13 @@
 <div class="container">
 	<!-- Registration Title -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<center><h3>Edit Profile</h3></center>
 		</div>
 	</div>
 	<!-- Error Message -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<div class="alert alert-danger">
 				Error message
 			</div>
@@ -28,68 +28,88 @@
 	</div>
 	<!-- Registration: Contents -->
 	<div class="row">
-		<div class="col-md-4 col-centered col-lg-space">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<!-- Registration Form -->
 					<form action="${contextPath}/user/profile" method="post">
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Username</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Username</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="foo" disabled/>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Nick Name</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Nick Name</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Fb" name="nickname" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>First Name</label>
+							<div class="col-md-2 col-lg-space">
+								<p>First Name</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Foo" name="firstname" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Last Name</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Last Name</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="Bar" name="lastname" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Email</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Email</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="foo@bar.com" name="email" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Year of Birth</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Year of Birth</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="1999" name="yob" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Full Address</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Full Address</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="1/11 King st, Kingsford, NSW, 1111" name="address" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Credit Card Number</label>
+							<div class="col-md-2 col-lg-space">
+								<p>Credit Card Number</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="text" class="form-control" placeholder="1234 5678 9012 3456" name="ccn" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>New Password</label>
+							<div class="col-md-2 col-lg-space">
+								<p>New Password</p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="password" class="form-control" name="npassword" />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 col-lg-space">
-								<label>Current Password <font color="red">*</font></label>
+							<div class="col-md-2 col-lg-space">
+								<p>Current Password <font color="red">*</font></p>
+							</div>
+							<div class="col-md-10 col-lg-space">
 								<input type="password" class="form-control" name="cpassword" />
 							</div>
 						</div>
