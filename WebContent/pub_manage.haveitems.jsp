@@ -1,27 +1,24 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="app" class="com.sixppl.main.Application"/>
-<jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
-<jstl:set var="title" value="${app.getSharedInstance().getTitle()}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}</title>
+<title>${title}: Manage Publications</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
 <div class="container">
-	<!-- Random Pick Title -->
+	<!-- Manage Publications Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Random Picks</h3>
-			<p><i>From XXX publications</i></p>
+			<h3>Manage Publications</h3>
+			<p><i>You have X publications listing in total.</i></p>
 		</div>
 	</div>
-	<!-- Random Pick Contents: One item per row -->
+	<!-- Manage Publications Contents: One item per row -->
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1 col-lg-space">
+		<div class="col-md-10 col-md-offset-1">
 			<!-- Item 1 -->
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -37,18 +34,18 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
-									<h4><a href="#" id="pubid1" class="submit-hidden-ajax">Add to Cart</a></h4>
-									<p><i>Seller: Nickname</i></p>
+									<p><i>Sold: 99</i></p>
+									<p><i>Listed: DD/MM/YY</i></p>
+									<p><input type="checkbox" class="submit-hidden-ajax" name="id" value="pubid1" id="pubid1" /> Pause</p>
 								<td></tr>
 							</table></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<!-- Add to Cart AJAX Form: Item 1 -->
-			<form action="${contextPath}/rest/cart/add" method="post" id="pubid1">
-				<input type="hidden" name="id" value="pubid1"/>
-			</form>
+			<!-- Pause AJAX Form: Item 1 -->
+			<form action="${contextPath}/rest/user/pub/list" method="post" id="pubid1-unchecked"></form>
+			<form action="${contextPath}/rest/user/pub/unlist" method="post" id="pubid1-checked"></form>
 			
 			<!-- Item 2 -->
 			<div class="panel panel-default">
@@ -65,18 +62,18 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
-									<h4><a href="#" id="pubid2" class="submit-hidden-ajax">Add to Cart</a></h4>
-									<p><i>Seller: Nickname</i></p>
+									<p><i>Sold: 102</i></p>
+									<p><i>Listed: DD/MM/YY</i></p>
+									<p><input type="checkbox" class="submit-hidden-ajax" name="id" value="pubid2" id="pubid2"/> Pause</p>
 								<td></tr>
 							</table></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<!-- Add to Cart AJAX Form: Item 2 -->
-			<form action="${contextPath}/rest/cart/add" method="post" id="pubid2">
-				<input type="hidden" name="id" value="pubid2"/>
-			</form>
+			<!-- Pause AJAX Form: Item 2 -->
+			<form action="${contextPath}/rest/user/pub/list" method="post" id="pubid2-unchecked"></form>
+			<form action="${contextPath}/rest/user/pub/unlist" method="post" id="pubid2-checked"></form>
 		</div>
 	</div>
 </div>

@@ -61,7 +61,7 @@
 									<li><a href="#">Ph.D.Thesis</a></li>
 								</ul>
 							</div>
-							<input type="hidden" id="dropdown-publication-type" name="publication-type" value="Any"/>
+							<input type="hidden" id="dropdown-publication-type" name="pubtype" value="Any"/>
 						</div>
 					</div>
 					<div class="row">

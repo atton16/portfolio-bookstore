@@ -203,6 +203,10 @@
 	color: #FFFFFF;
 }
 
+.submit-ajax-result, .submit-ajax-empty-result {
+	display: none;
+}
+
 @media (max-width: 767px) {
 	.col-xs-space {
 		margin-bottom: 12px;
