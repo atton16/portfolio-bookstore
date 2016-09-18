@@ -1,4 +1,4 @@
-package com.sixppl.main;
+package com.sixppl.cmd;
 
 import java.io.IOException;
 
