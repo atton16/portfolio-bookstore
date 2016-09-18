@@ -25,6 +25,11 @@ import com.sixppl.main.Application;
 		"/cart",
 		"/cart/remove",
 		"/receipt",
+		"/pubinfo",
+		"/login",
+		"/logout",
+		"/signup",
+		"/signup/resend",
 		"/dummy" }, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -78,6 +83,20 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Receipt Page
 		} else if(URI.equalsIgnoreCase("/receipt")){
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
+		// Render: Publication Details
+		} else if(URI.equalsIgnoreCase("/pubinfo")){
+			//TODO: Get publication info
+			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
+		// Render: Login Page
+		} else if(URI.equalsIgnoreCase("/login")){
+			request.getRequestDispatcher("/login.jsp").forward(request,response);
+		// Logout
+		} else if(URI.equalsIgnoreCase("/logout")){
+			//TODO: Do logout
+			request.getRequestDispatcher("/home.jsp").forward(request,response);
+		// Render: Registration Page
+		} else if(URI.equalsIgnoreCase("/signup")){
+			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Render: Dummy Page
 		} else if(URI.equalsIgnoreCase("/dummy")){
 			//TODO: Delete this
@@ -118,6 +137,22 @@ public class Asst2Servlet extends HttpServlet {
 		} else if(URI.equalsIgnoreCase("/receipt")){
 			//TODO: Checkout
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
+		// Login
+		} else if(URI.equalsIgnoreCase("/login")){
+			//TODO: Login
+			request.getRequestDispatcher("/home.jsp").forward(request,response);
+		// Register
+		} else if(URI.equalsIgnoreCase("/signup")){
+			//TODO: Register
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			request.getRequestDispatcher("/signup.jsp").forward(request,response);
+		// Resend Confirmation Email
+		} else if(URI.equalsIgnoreCase("/signup/resend")){
+			//TODO: Resend Confirmation Email
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);

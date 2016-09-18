@@ -56,6 +56,11 @@ $('.submit-cart-remove').click(function(e){
 	$('.form-cart-remove').submit();
 });
 
+$('.submit-signup-resend').click(function(e){
+	e.preventDefault();
+	$('.form-signup-resend').submit();
+});
+
 $(".dropdown-menu li a").click(function(e){
 	var id;
 	id = $(this).parent().parent().attr('id');

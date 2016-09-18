@@ -34,7 +34,7 @@
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="#" class="link-as-text">1984</a></h3>
+									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid1" class="link-as-text">1984</a></h3>
 									<h5><i>George Orwell</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
@@ -58,7 +58,7 @@
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="#" class="link-as-text">Responsive Web Design</a></h3>
+									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid2" class="link-as-text">Responsive Web Design</a></h3>
 									<h5><i>Ethan Marcotte</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
