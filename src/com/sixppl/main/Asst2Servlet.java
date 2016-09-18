@@ -47,7 +47,9 @@ import com.sixppl.main.Application;
 		"/admin",
 		"/admin/pub/manage",
 		"/admin/pub/find",
-		"/admin/pub/remove"
+		"/admin/pub/remove",
+		
+		"/graph"
 		}, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -152,6 +154,9 @@ public class Asst2Servlet extends HttpServlet {
 					+ "}"); // TODO: Response in JSON Format
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
+    	// Graph Page
+		} else if(URI.equalsIgnoreCase("/graph")){
+			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);
