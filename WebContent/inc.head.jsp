@@ -6,4 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${contextPath}/css/font-awesome.min.css"  rel="stylesheet"/>
+<link href="${contextPath}/css/alchemy.min.css"  rel="stylesheet"/>
 <link href="${contextPath}/css/asst2.css" rel="stylesheet">

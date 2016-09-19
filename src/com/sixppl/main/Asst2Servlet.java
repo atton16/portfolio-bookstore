@@ -26,6 +26,9 @@ import com.sixppl.main.Application;
 		
 		"/rest/user/pub/list",
 		"/rest/user/pub/unlist",
+
+		"/rest/admin/users/ban",
+		"/rest/admin/users/unban",
 		
 		"/search",
 		"/results",
@@ -48,6 +51,9 @@ import com.sixppl.main.Application;
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
+		"/admin/users/manage",
+		"/admin/users/viewcustomer",
+		"/admin/analytics",
 		
 		"/graph"
 		}, loadOnStartup = 0)
@@ -158,8 +164,20 @@ public class Asst2Servlet extends HttpServlet {
 					+ "}"); // TODO: Response in JSON Format
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
+    	// Admin: Manage Users
+		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
+			//TOTO: Admin: Manage Users - Search
+			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
+    	// Admin: Customer Activity
+		} else if (URI.equalsIgnoreCase("/admin/users/viewcustomer")){
+			//TOTO: Admin: Customer Activity
+			request.getRequestDispatcher("/admin_customer.jsp").forward(request,response);
+    	// Admin: Analytics
+		} else if(URI.equalsIgnoreCase("/admin/analytics")){
+			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
     	// Graph Page
 		} else if(URI.equalsIgnoreCase("/graph")){
+			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
@@ -237,7 +255,20 @@ public class Asst2Servlet extends HttpServlet {
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Manage Publications - Remove
 		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
+			//TODO: Admin: Manage Publications - Remove
 			System.out.println("Remove:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Admin: Manage Users - Ban
+		} else if(URI.equalsIgnoreCase("/rest/admin/users/ban")){
+			//TODO: Admin: Manage Users - Ban
+			System.out.println("Ban:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Admin: Manage Users - Unban
+		} else if(URI.equalsIgnoreCase("/rest/admin/users/unban")){
+			//TODO: Admin: Manage Users - Unban
+			System.out.println("Unban:"+request.getParameter("id"));	//TODO: remove this
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Default: Redirect to Home Page
