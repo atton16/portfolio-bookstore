@@ -5,13 +5,14 @@ import java.sql.*;
 public class DAOSupport {
 	   // JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost/bookstore";
+	   static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore?";
+
 
 	   //  Database credentials
-	   static final String USER = "bookstore";
-	   static final String PASS = "F8ruehc2xCgRmmev";
+	   static final String USER = "zhangyun";
+	   static final String PASS = "123456";
 	   
-	   private Connection conn;
+	   private static Connection conn;
 	   
 	   public DAOSupport() {
 		   try {
@@ -24,7 +25,7 @@ public class DAOSupport {
 		   }
 	   }
 	   
-	   public Connection getConnection() {
+	   public static Connection getConnection() {
 		   return conn;
 	   }
 	   

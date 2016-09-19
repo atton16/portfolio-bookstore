@@ -8,6 +8,7 @@ import com.sixppl.dao.support.*;
 public class DAOFactory {
 	private static final String DUMMY_DAO = "dummyDAO";
 	private static final String FOO_DAO = "fooDAO";
+	private static final String USER_DAO = "userDAO";
 	
 	private Map<String, Object> daos;
 	
@@ -23,5 +24,8 @@ public class DAOFactory {
 	
 	public FooDAO getFooDAO() {
 		return (FooDAO) daos.get(FOO_DAO);
+	}
+	public UserDAO getUserDAO() {
+		return (UserDAO) daos.get(USER_DAO);
 	}
 }
