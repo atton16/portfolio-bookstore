@@ -37,6 +37,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
+	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	
 	Map<String,Command> commands;
 
@@ -47,6 +48,7 @@ public class Asst2Servlet extends HttpServlet {
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
+		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
     }
     
     private void embedAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -79,6 +81,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Cart Page
 		} else if(URI.equalsIgnoreCase("/cart")){
 			//TODO: Get cart
+			commands.get(CARTVIEW_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
 		// Render: Receipt Page
 		} else if(URI.equalsIgnoreCase("/receipt")){

@@ -6,12 +6,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sixppl.bean.CartBean;
+import com.sixppl.dao.CartDAO;
+import com.sixppl.dao.support.CartDAOImpl;
+
 public class CartViewCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		CartDAO viewCart = new CartDAOImpl();
+		CartBean cart = new CartBean();
+		cart.setCartList(viewCart.viewCart(Integer.valueOf(request.getParameter("UserID"))));
+		request.setAttribute("CartList", cart);
 	}
 
 }
