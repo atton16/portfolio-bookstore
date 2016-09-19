@@ -20,6 +20,9 @@
 .margin-top-30 {
 	margin-top: 30px;
 }
+.margin-top-12 {
+	margin-top: 12px;
+}
 .margin-left-8 {
 	margin-left: 8px;
 }
@@ -201,6 +204,10 @@
 
 .white-color, .white-color:hover {
 	color: #FFFFFF;
+}
+
+.submit-ajax-result, .submit-ajax-empty-result {
+	display: none;
 }
 
 @media (max-width: 767px) {

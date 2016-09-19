@@ -35,8 +35,10 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$40.00</b></h4>
-									<h4><a href="#">Add to Cart</a></h4>
+									<h4><a href="#" id="pubid1" class="submit-hidden-ajax">Add to Cart</a></h4>
 									<p><i>Seller: Nickname</i></p>
+									<p><i>Listed: DD/MM/YY</i></p>
+									<p><i>ID: 1</i></p>
 								<td></tr>
 							</table></td>
 						</tr>
@@ -45,6 +47,10 @@
 			</div>
 		</div>
 	</div>
+	<!-- Add to Cart AJAX Form: Item 1 -->
+	<form action="${contextPath}/rest/cart/add" method="post" id="pubid1">
+		<input type="hidden" name="id" value="pubid1"/>
+	</form>
 </div>
 <jsp:include page="inc.body.footer.jsp" />
 </body>

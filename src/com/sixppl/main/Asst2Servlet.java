@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,18 +20,43 @@ import com.sixppl.main.Application;
  * @author atton16
  *
  */
+@MultipartConfig()
 @WebServlet(urlPatterns = {
+		"/rest/cart/add",
+		
+		"/rest/user/pub/list",
+		"/rest/user/pub/unlist",
+
+		"/rest/admin/users/ban",
+		"/rest/admin/users/unban",
+		
 		"/search",
 		"/results",
+		"/pubinfo",
+		
 		"/cart",
 		"/cart/remove",
 		"/receipt",
-		"/pubinfo",
+		
 		"/login",
 		"/logout",
 		"/signup",
 		"/signup/resend",
-		"/dummy" }, loadOnStartup = 0)
+		"/signup/confirm",
+		"/user/profile",
+		"/user/sell",
+		"/user/pub/manage",
+		
+		"/admin",
+		"/admin/pub/manage",
+		"/admin/pub/find",
+		"/admin/pub/remove",
+		"/admin/users/manage",
+		"/admin/users/viewcustomer",
+		"/admin/analytics",
+		
+		"/graph"
+		}, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String TITLE_ATTRIBUTE = "title";
@@ -49,6 +75,10 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(DUMMY_COMMAND, new DummyCommand());
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
+    }
+    
+    public void destroy() {
+    	Application.getSharedInstance().destroy();
     }
     
     private void embedAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -100,11 +130,58 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
-		// Render: Dummy Page
-		} else if(URI.equalsIgnoreCase("/dummy")){
-			//TODO: Delete this
-			commands.get(DUMMY_COMMAND).execute(request, response);
-			request.getRequestDispatcher("/dummy.jsp").forward(request,response);
+		// Confirm Email
+		} else if(URI.equalsIgnoreCase("/signup/confirm")){
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "xx");	//TODO: remove this
+			request.getRequestDispatcher("/signup_confirm.jsp").forward(request,response);
+		// Edit Profile Page
+		} else if(URI.equalsIgnoreCase("/user/profile")){
+			request.getRequestDispatcher("/profile.jsp").forward(request,response);
+		// Sell Page
+		} else if(URI.equalsIgnoreCase("/user/sell")){
+			request.getRequestDispatcher("/sell.jsp").forward(request,response);
+		// Manage Publications Page
+		} else if(URI.equalsIgnoreCase("/user/pub/manage")){
+			request.getRequestDispatcher("/pub_manage.jsp").forward(request,response);
+		// Admin Dashboard Page
+		} else if(URI.equalsIgnoreCase("/admin")){
+			request.getRequestDispatcher("/admin.jsp").forward(request,response);
+		// Admin: Manage Publications
+		} else if(URI.equalsIgnoreCase("/admin/pub/manage")){
+			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
+		// Admin: Manage Publications - Search
+		} else if(URI.equalsIgnoreCase("/admin/pub/find")){
+			//TODO: Admin: Manage Publications - Search
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
+	    	response.getWriter().write("{"
+	    			+ "\"id\":\"pubid1\","
+	    			+ "\"title\":\"1984\","
+	    			+ "\"authors\":[\"George Orwell\"],"
+	    			+ "\"editors\": [],"
+	    			+ "\"picurl\": \""+contextPath+"/uploads/1984.jpeg\","
+					+ "\"price\": 280.00,"
+					+ "\"seller\": \"Hale\","
+					+ "\"listed\": \"DD/MM/YY\""
+					+ "}"); // TODO: Response in JSON Format
+	    	response.getWriter().flush();
+	    	response.getWriter().close();
+    	// Admin: Manage Users
+		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
+			//TOTO: Admin: Manage Users - Search
+			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
+    	// Admin: Customer Activity
+		} else if (URI.equalsIgnoreCase("/admin/users/viewcustomer")){
+			//TOTO: Admin: Customer Activity
+			request.getRequestDispatcher("/admin_customer.jsp").forward(request,response);
+    	// Admin: Analytics
+		} else if(URI.equalsIgnoreCase("/admin/analytics")){
+			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
+    	// Graph Page
+		} else if(URI.equalsIgnoreCase("/graph")){
+			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);
@@ -130,10 +207,10 @@ public class Asst2Servlet extends HttpServlet {
 			//TODO: Remove from cart
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
 		// Add item to cart
-		} else if(URI.equalsIgnoreCase("/cart/add")){
+		} else if(URI.equalsIgnoreCase("/rest/cart/add")){
 			//TODO: Add item to cart
 	    	response.setStatus(HttpServletResponse.SC_OK);
-	    	response.getWriter().write(String.valueOf(0)); // TODO: Return number of item in the cart
+	    	response.getWriter().write(String.valueOf(new java.util.Random().nextInt(2))); // TODO: Return number of item in the cart
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
 		// Checkout
@@ -156,6 +233,47 @@ public class Asst2Servlet extends HttpServlet {
 			request.setAttribute("error", false);	//TODO: remove this
 			request.setAttribute("email", "a@a.com");	//TODO: remove this
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
+		// Edit Profile
+		} else if(URI.equalsIgnoreCase("/user/profile")){
+			//TODO: Edit Profile
+			request.getRequestDispatcher("/profile.jsp").forward(request,response);
+		// Sell
+		} else if(URI.equalsIgnoreCase("/user/sell")){
+			//TODO: Sell
+			System.out.println(request.getParameter("title"));	//TODO: remove this
+			System.out.println(request.getParameter("pubtype"));	//TODO: remove this
+			System.out.println(request.getPart("pic"));	//TODO: remove this
+			request.getRequestDispatcher("/sell.jsp").forward(request,response);
+		// Set Listing
+		} else if(URI.equalsIgnoreCase("/rest/user/pub/list")){
+			//TODO: Set Listing
+			System.out.println("List:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Set Unlist
+		} else if(URI.equalsIgnoreCase("/rest/user/pub/unlist")){
+			//TODO: Set Unlist
+			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Admin: Manage Publications - Remove
+		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
+			//TODO: Admin: Manage Publications - Remove
+			System.out.println("Remove:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Admin: Manage Users - Ban
+		} else if(URI.equalsIgnoreCase("/rest/admin/users/ban")){
+			//TODO: Admin: Manage Users - Ban
+			System.out.println("Ban:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+		// Admin: Manage Users - Unban
+		} else if(URI.equalsIgnoreCase("/rest/admin/users/unban")){
+			//TODO: Admin: Manage Users - Unban
+			System.out.println("Unban:"+request.getParameter("id"));	//TODO: remove this
+	    	response.setStatus(HttpServletResponse.SC_OK);	//200
+	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);
