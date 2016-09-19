@@ -69,6 +69,10 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
     }
     
+    public void destroy() {
+    	Application.getSharedInstance().destroy();
+    }
+    
     private void embedAttributes(HttpServletRequest request, HttpServletResponse response) {
 		request.setAttribute(TITLE_ATTRIBUTE, Application.getSharedInstance().getTitle());
 		request.setAttribute(CONTEXTPATH_ATTRIBUTE, this.getServletContext().getContextPath());

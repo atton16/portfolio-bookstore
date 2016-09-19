@@ -45,4 +45,8 @@ public class Application {
 	public DAOSupport getDAOSupport() {
 		return daoSupport;
 	}
+	
+	public void destroy() {
+		daoSupport.destroy();
+	}
 }
