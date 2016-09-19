@@ -15,9 +15,10 @@ public class CartViewCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CartDAO viewCart = new CartDAOImpl();
-		CartBean cart = new CartBean();
-		cart.setCartList(viewCart.viewCart(Integer.valueOf(request.getParameter("UserID"))));
+		int userID = 0;// Wait for session method
+		CartDAO cart = new CartDAOImpl();
+		CartBean cartBean = new CartBean();
+		cartBean.setCartList(cart.viewCart(userID));
 		request.setAttribute("CartList", cart);
 	}
 

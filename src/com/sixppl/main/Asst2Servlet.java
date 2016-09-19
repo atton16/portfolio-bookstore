@@ -64,6 +64,8 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
+	private static final String CARTADD_COMMAND = "cartAddCommand";
+	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	
 	Map<String,Command> commands;
 
@@ -75,6 +77,8 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(DUMMY_COMMAND, new DummyCommand());
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
+		commands.put(CARTADD_COMMAND, new CartAddCommand());
+		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
     }
     
     public void destroy() {
@@ -205,10 +209,13 @@ public class Asst2Servlet extends HttpServlet {
 		// Remove item(s) from cart
 		if(URI.equalsIgnoreCase("/cart/remove")){
 			//TODO: Remove from cart
-			request.getRequestDispatcher("/cart.jsp").forward(request,response);
+			commands.get(CARTREMOVE_COMMAND).execute(request, response);
+			request.getRequestDispatcher("/cart").forward(request,response);
 		// Add item to cart
 		} else if(URI.equalsIgnoreCase("/rest/cart/add")){
 			//TODO: Add item to cart
+			commands.get(CARTADD_COMMAND).execute(request, response);
+			
 	    	response.setStatus(HttpServletResponse.SC_OK);
 	    	response.getWriter().write(String.valueOf(new java.util.Random().nextInt(2))); // TODO: Return number of item in the cart
 	    	response.getWriter().flush();
