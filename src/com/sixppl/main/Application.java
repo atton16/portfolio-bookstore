@@ -3,6 +3,7 @@ package com.sixppl.main;
 import javax.servlet.ServletContext;
 
 import com.sixppl.dao.DAOFactory;
+import com.sixppl.dao.support.DAOSupport;
 
 /**
  * Singleton Application
@@ -14,6 +15,7 @@ public class Application {
 	private static Application app;
 	private ServletContext servletContext;
 	private DAOFactory daoFactory;
+	private DAOSupport daoSupport;
 	
 	public static Application getSharedInstance() {
 		if (app == null) {
@@ -25,6 +27,7 @@ public class Application {
 	public void init(ServletContext servletContext) {
 		this.servletContext = servletContext;
 		this.daoFactory = new DAOFactory();
+		this.daoSupport = new DAOSupport();
 	}
 	
 	public String getContextPath() {
@@ -37,5 +40,9 @@ public class Application {
 	
 	public DAOFactory getDAOFactory() {
 		return daoFactory;
+	}
+	
+	public DAOSupport getDAOSupport() {
+		return daoSupport;
 	}
 }
