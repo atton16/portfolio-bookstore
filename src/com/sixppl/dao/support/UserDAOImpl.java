@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.sixppl.bean.UserEntity;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.main.Application;
 
 
 public class UserDAOImpl implements UserDAO{
@@ -18,7 +19,7 @@ public class UserDAOImpl implements UserDAO{
 	DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public UserDAOImpl() {
-		connection = DAOSupport.getConnection();
+		connection = Application.getSharedInstance().getDAOSupport().getConnection();
 		logger.info("Got connection");
 	}
 	
