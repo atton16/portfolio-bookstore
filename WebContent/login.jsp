@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="col-md-4 col-centered col-lg-space">
 			<div class="alert alert-danger">
-				Error message
+				${error_msg}
 			</div>
 		</div>
 	</div>

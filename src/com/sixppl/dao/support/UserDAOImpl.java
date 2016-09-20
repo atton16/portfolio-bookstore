@@ -1,15 +1,19 @@
 package com.sixppl.dao.support;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import com.sixppl.bean.UserEntity;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
 
@@ -60,10 +64,21 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public UserEntity findUserByName(String usrname) {
-		String sql = String.format("SELECT * from User where usrname='%s'", usrname);
+		String sql = String.format("SELECT * from `User` where `Username`=?");
+		System.out.println(sql);
+		List<UserEntity> users = new LinkedList<UserEntity>();
 		try{
-			Statement stmt = (Statement) connection.createStatement();
-			List<UserEntity> users = (List<UserEntity>) stmt.executeQuery(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, usrname);
+			System.out.println(stmt.toString());
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				UserEntity ue = new UserEntity();
+				ue.setPassword(rs.getString("Password"));
+				
+				users.add(ue);
+			}
 			 System.out.println("Find user:" + users);
 			 if(users != null && !users.isEmpty())
 				 return users.get(0); 
