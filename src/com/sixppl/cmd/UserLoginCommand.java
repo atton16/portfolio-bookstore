@@ -20,8 +20,6 @@ public class UserLoginCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		UserEntity user = new UserEntity();
-		System.out.println(request.getParameter("username"));
-		System.out.println(request.getParameter("password"));
 		user = userDao.findUserByName(request.getParameter("username"));
 		if(user == null){
 			request.setAttribute("success", false);
