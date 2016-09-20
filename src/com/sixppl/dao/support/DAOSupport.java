@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Enumeration;
 
 public class DAOSupport {
-<<<<<<< HEAD
+
 	   // JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore?";
@@ -37,7 +37,7 @@ public class DAOSupport {
 	   
 	   public void destroy() {
 		   try {
-=======
+
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost/bookstore";
@@ -71,7 +71,7 @@ public class DAOSupport {
 		Driver driver = null;
 		Enumeration<Driver> drivers = DriverManager.getDrivers();  
 		try {
->>>>>>> e82af1a4d2bdcdcb622dc4308e67ced41dde631a
+
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

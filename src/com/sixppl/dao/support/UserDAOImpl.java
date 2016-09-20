@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.sixppl.bean.UserEntity;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.dto.UserDTO;
 
 
 public class UserDAOImpl implements UserDAO{
@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO{
 	
 
 	@Override
-	public Boolean addUser(UserEntity user) {
+	public Boolean addUser(UserDTO user){
 
 		String sql = "insert into User (Username, Password, Nickname, Firstname, Lastname,Email"
 				+ "Birthyear,Address, CardNumber) values ('"
@@ -58,11 +58,11 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public UserEntity findUserByName(String usrname) {
+	public UserDTO findUserByName(String usrname) {
 		String sql = String.format("SELECT * from User where usrname='%s'", usrname);
 		try{
 			Statement stmt = (Statement) connection.createStatement();
-			List<UserEntity> users = (List<UserEntity>) stmt.executeQuery(sql);
+			List<UserDTO> users = (List<UserDTO>) stmt.executeQuery(sql);
 			 System.out.println("Find user:" + users);
 			 if(users != null && !users.isEmpty())
 				 return users.get(0); 
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO{
 
 
 	@Override
-	public Boolean updateUser(UserEntity user) {
+	public Boolean updateUser(UserDTO user) {
 
 		String sql = "update User set Username='"
 				+ user.getUsername()
@@ -105,5 +105,6 @@ public class UserDAOImpl implements UserDAO{
 		return false;
 
 	}
+
 
 }

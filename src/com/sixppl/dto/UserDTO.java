@@ -1,6 +1,6 @@
-package com.sixppl.bean;
+package com.sixppl.dto;
 
-public class UserEntity {
+public class UserDTO {
 	private String userID = "";
     private String username = "";
     private String password = "";
@@ -25,7 +25,7 @@ public class UserEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserEntity(String userID, String username, String password,
+	public UserDTO(String userID, String username, String password,
 			String nickname, String firstname, String lastname, String email,
 			String birthyear, String addr, String cardno) {
 		super();
@@ -40,7 +40,7 @@ public class UserEntity {
 		this.addr = addr;
 		this.cardno = cardno;
 	}
-	public UserEntity() {
+	public UserDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	public String getUsername() {
