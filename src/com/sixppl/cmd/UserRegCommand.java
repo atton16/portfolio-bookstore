@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sixppl.bean.UserEntity;
 import com.sixppl.dao.DummyDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.main.Application;
@@ -19,9 +20,18 @@ public class UserRegCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(true);
-		String action = request.getParameter("action");
-		
+		UserEntity user = new UserEntity();
+
+		user.setUsername(request.getParameter("username")); 
+		user.setPassword(request.getParameter("password")); 
+		user.setNickname(request.getParameter("nickname")); 
+		user.setFirstname(request.getParameter("firstname")); 
+		user.setLastname(request.getParameter("lastname"));
+		user.setEmail(request.getParameter("email"));
+		user.setBirthyear(request.getParameter("yob"));
+		user.setAddr(request.getParameter("address"));
+		user.setCardno(request.getParameter("ccn"));
+		userDao.addUser(user);
 	}
 
 

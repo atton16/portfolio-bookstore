@@ -26,10 +26,8 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public Boolean addUser(UserEntity user) {
 
-		String sql = "insert into User (UserID, Username, Password, Nickname, Firstname, Lastname,Email"
+		String sql = "insert into User (Username, Password, Nickname, Firstname, Lastname,Email"
 				+ "Birthyear,Address, CardNumber) values ('"
-				+ user.getUserID()
-				+ "', '"
 				+ user.getUsername()
 				+ "','"
 				+ user.getPassword()
