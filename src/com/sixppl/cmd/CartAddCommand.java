@@ -1,5 +1,24 @@
 package com.sixppl.cmd;
 
-public class CartAddCommand {
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.sixppl.dao.CartDAO;
+import com.sixppl.dao.support.CartDAOImpl;
+
+public class CartAddCommand implements Command {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int userID = 0;//Wait for session method
+		int pubID = Integer.valueOf(request.getParameter("id"));
+		CartDAO dao = new CartDAOImpl();
+		int cartCount = dao.addCart(pubID,userID);
+		request.setAttribute("cartCount", cartCount);
+	}
 
 }

@@ -4,27 +4,25 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}: Admin Dashboard</title>
+<title>${title}: Admin - Customer Activity</title>
 </head>
 <body>
 <jsp:include page="inc.body.header.jsp" />
 <div class="container">
-	<!-- Admin Dashboard Title -->
+	<!-- Admin - Customer Activity Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Admin Dashboard</h3>
+			<h3>
+				<a href="${contextPath}/admin" class="link-as-text">Admin</a> /
+				<a href="${contextPath}/admin/users/manage" class="link-as-text">Manage Users</a> /
+				Customer Activity
+			</h3>
 		</div>
 	</div>
-	<!-- Admin Dashboard Contents -->
+	<!-- Admin - Customer Activity Contents -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<h3><a href="${contextPath}/admin/pub/manage">Manage Publications</a></h3>
-					<h3><a href="${contextPath}/admin/users/manage">Manage Users</a></h3>
-					<h3><a href="${contextPath}/admin/analytics">Analytics</a></h3>
-				</div>
-			</div>
+			<center><h3>Sorry, user not found.</h3></center>
 		</div>
 	</div>
 </div>

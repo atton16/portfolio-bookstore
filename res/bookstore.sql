@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
   `JSESSIONID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `Unactivated` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
   `TokenString` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

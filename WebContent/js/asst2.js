@@ -33,6 +33,18 @@ $("a[href='#']").click(function(e){
 				$(tmp_this).removeClass('submit-hidden-ajax');
 				$(tmp_this).addClass('link-as-text');
 			}
+			
+			// Ban-Unban specific behaviour
+			if($(tmp_this).hasClass('ban-unban-toggle')){
+				console.log(id);
+				if($(tmp_this).text() === 'Ban'){
+					$(tmp_this).text('Unban');
+					$(tmp_this).attr('id', id.substring(0,id.length-4)+'-unban');
+				} else {
+					$(tmp_this).text('Ban');
+					$(tmp_this).attr('id', id.substring(0,id.length-6)+'-ban');
+				}
+			}
 		});
 	}
 });
@@ -110,6 +122,14 @@ $(".dropdown-menu#dropdown-publication-type li a").click(function(e){
 	} else {
 		$('#enable-on-conference-selected').prop('disabled', true);
 		$('#update-on-conference-selected').val("0");
+	}
+});
+
+$(".dropdown-menu#dropdown-search-type-users li a").click(function(e){
+	if( $(this).html().trim() === 'All Customers' || $(this).html().trim() === 'All Sellers'){
+		$('#disable-on-all-customers-or-sellers-selected').prop('disabled', true);
+	} else {
+		$('#disable-on-all-customers-or-sellers-selected').prop('disabled', false);
 	}
 });
 

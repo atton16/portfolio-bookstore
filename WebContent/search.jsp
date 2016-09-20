@@ -65,10 +65,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 col-lg-space">
+						<div class="col-md-2 col-lg-space">
 							<p>Year</p>
 						</div>
-						<div class="col-md-9 col-lg-space">
+						<div class="col-md-10 col-lg-space">
 							<!-- Year Selector: From -->
 							From 
 							<div class="btn-group">
@@ -102,16 +102,16 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 col-lg-space">
+						<div class="col-md-2 col-lg-space">
 							<p>Conference Venue</p>
 						</div>
-						<div class="col-md-9 col-lg-space">
+						<div class="col-md-10 col-lg-space">
 							<input type="text" class="form-control"
 								placeholder="e.g. BPM" name="venue" id="enable-on-conference-selected"/>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<input type="submit" class="btn btn-primary" value="Advanced Search" />
 						</div>
 					</div>

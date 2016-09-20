@@ -27,7 +27,6 @@
 							<span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span></span>
 							<!-- Search Input -->
 							<input type="text" class="form-control" placeholder="Publication ID" name="id" />
-							<!-- Search Type Dropdown -->
 							<div class="input-group-btn">
 								<input type="submit" class="btn btn-primary" value="Lookup" />
 							</div>

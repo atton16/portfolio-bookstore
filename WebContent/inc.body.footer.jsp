@@ -4,5 +4,8 @@
 <jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
 <script src="${contextPath}/js/jquery-3.1.0.min.js"></script>
 <script src="${contextPath}/js/jquery.color-2.1.2.min.js"></script>
+<script src="${contextPath}/js/d3.min.js"></script>
+<script src="${contextPath}/js/lodash.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js"></script>
+<script src="${contextPath}/js/alchemy.min.js"></script>
 <script src="${contextPath}/js/asst2.js"></script>
