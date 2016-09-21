@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2016 at 10:41 AM
+-- Generation Time: Sep 20, 2016 at 04:52 PM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -21,6 +21,7 @@ SET time_zone = "+00:00";
 --
 CREATE Database `bookstore`;
 USE `bookstore`;
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +56,32 @@ CREATE TABLE IF NOT EXISTS `Cart` (
   `PubID` bigint(20) unsigned NOT NULL,
   `AddTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `RemoveTime` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Entity`
+--
+
+CREATE TABLE IF NOT EXISTS `Entity` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `EntityID` bigint(20) unsigned NOT NULL,
+  `Attribute` text NOT NULL,
+  `Value` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Graph`
+--
+
+CREATE TABLE IF NOT EXISTS `Graph` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `NodeFrom` bigint(20) unsigned NOT NULL,
+  `Edge` bigint(20) unsigned NOT NULL,
+  `NodeTo` bigint(20) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -191,6 +218,18 @@ ALTER TABLE `Cart`
   ADD KEY `PubID` (`PubID`);
 
 --
+-- Indexes for table `Entity`
+--
+ALTER TABLE `Entity`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Graph`
+--
+ALTER TABLE `Graph`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `Listing`
 --
 ALTER TABLE `Listing`
@@ -242,6 +281,16 @@ ALTER TABLE `Variable`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `Entity`
+--
+ALTER TABLE `Entity`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Graph`
+--
+ALTER TABLE `Graph`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Listing`
 --

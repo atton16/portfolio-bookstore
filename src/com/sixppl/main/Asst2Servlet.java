@@ -67,6 +67,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String USERREG_COMMAND = "userRegCommand";
 	
 	Map<String,Command> commands;
 
@@ -81,6 +82,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
     }
     
     public void destroy() {
@@ -136,6 +138,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
+			
 		// Confirm Email
 		} else if(URI.equalsIgnoreCase("/signup/confirm")){
 			request.setAttribute("error", false);	//TODO: remove this
@@ -234,11 +237,14 @@ public class Asst2Servlet extends HttpServlet {
 				response.sendRedirect(contextPath);
 			else
 				request.getRequestDispatcher("/login.jsp").forward(request,response);
-		// Register
+		    // Register
 		} else if(URI.equalsIgnoreCase("/signup")){
 			//TODO: Register
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			commands.get(USERREG_COMMAND).execute(request, response);
+			if((Boolean) request.getAttribute("success"))
+				response.sendRedirect(contextPath);
+			else
+				request.getRequestDispatcher("/login.jsp").forward(request,response);
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Resend Confirmation Email
 		} else if(URI.equalsIgnoreCase("/signup/resend")){

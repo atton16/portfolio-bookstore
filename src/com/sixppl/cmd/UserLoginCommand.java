@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.sixppl.bean.UserEntity;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 public class UserLoginCommand implements Command {
@@ -19,7 +19,11 @@ public class UserLoginCommand implements Command {
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		UserEntity user = new UserEntity();
+	
+		UserDTO user = new UserDTO();
+
+		System.out.println(request.getParameter("username"));
+		System.out.println(request.getParameter("password"));
 		user = userDao.findUserByName(request.getParameter("username"));
 		if(user == null){
 			request.setAttribute("success", false);
@@ -34,7 +38,6 @@ public class UserLoginCommand implements Command {
 			request.setAttribute("success", false);
 			request.setAttribute("error_msg", "Login Failed.");
 		}
-		
 		
 	}
 

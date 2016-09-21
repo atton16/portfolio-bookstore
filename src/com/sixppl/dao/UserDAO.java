@@ -2,16 +2,14 @@ package com.sixppl.dao;
 
 import java.util.List;
 
-import com.sixppl.bean.*;
-
-import com.sixppl.bean.UserEntity;
+import com.sixppl.dto.UserDTO;
 
 
 public interface UserDAO {
 	
-	public Boolean addUser(UserEntity user);
-	public Boolean updateUser(UserEntity user);
-	public UserEntity findUserByName(String usrname);
+	public Boolean addUser(UserDTO user);
+	public Boolean updateUser(UserDTO user);
+	public UserDTO findUserByName(String usrname);
 
 
 }
