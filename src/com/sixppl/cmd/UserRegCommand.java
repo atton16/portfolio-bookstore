@@ -23,6 +23,7 @@ public class UserRegCommand implements Command {
 		UserEntity user = new UserEntity();
 
 		user.setUsername(request.getParameter("username")); 
+		System.out.println(request.getParameter("username"));
 		user.setPassword(request.getParameter("password")); 
 		user.setNickname(request.getParameter("nickname")); 
 		user.setFirstname(request.getParameter("firstname")); 

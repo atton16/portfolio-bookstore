@@ -63,13 +63,11 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public UserEntity findUserByName(String usrname) {
-		String sql = String.format("SELECT * from `User` where `Username`=?");
 		List<UserEntity> users = new LinkedList<UserEntity>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
 			stmt = connection.prepareStatement(sql);
-			stmt.setString(1, usrname);
 			rs = stmt.executeQuery();
 
 			while(rs.next()){
