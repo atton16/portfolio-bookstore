@@ -43,7 +43,7 @@ public class UserRegCommand implements Command {
 		user.setCardno(request.getParameter("ccn"));
 		userDao.addUser(user);
 		String to = request.getParameter("email");
-        String from = "zhangyuny@gmail.com";
+        String from = "asst2unsw@gmail.com";
         String full_path =  request.getRequestURL().toString();
         emailSending.sendEmail(to, from, full_path+"/signup/confirm");
 	}

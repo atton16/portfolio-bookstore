@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `ID` bigint(20) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` int(11) NOT NULL
+  `JSESSIONID` int(11) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
