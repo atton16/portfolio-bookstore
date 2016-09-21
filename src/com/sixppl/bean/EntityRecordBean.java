@@ -2,8 +2,8 @@ package com.sixppl.bean;
 
 public class EntityRecordBean {
 	
-	private long ID;
-	private String entityID;
+	private long ID;			// Auto incremented by database
+	private String entityID;	// Format = 1 prefix + 20 ID e.g. A1 is Author with ID = 1
 	private String attribute;
 	private String value;
 	

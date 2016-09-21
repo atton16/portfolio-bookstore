@@ -1,8 +1,8 @@
 package com.sixppl.bean;
 
 public class EntityBean {
-	
-	private String entityID;
+	// The merged version of all 3 rows of EntityRecordBean into 1 row
+	private String entityID;		// Format = 1 prefix + 20 ID e.g. A1 is Author with ID = 1
 	private String entityClass;		// Node or Edge
 	private String entityType;		// Publication, Person (Author/Editor), Venue, School, directLink etc.
 	private String entityCaption;	// Publication Title, Author Name, Journal, School, Relationship etc.
