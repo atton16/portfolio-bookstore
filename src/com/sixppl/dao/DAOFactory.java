@@ -16,6 +16,7 @@ public class DAOFactory {
 		daos = new HashMap<String, Object>();
 		daos.put(DUMMY_DAO, new DummyDAOImpl());
 		daos.put(FOO_DAO, new FooDAOImpl());
+		daos.put(USER_DAO, new UserDAOImpl());
 	}
 	
 	public DummyDAO getDummyDAO() {

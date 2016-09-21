@@ -66,6 +66,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
+	private static final String USERLOGIN_COMMAND = "userLoginCommand";
 	
 	Map<String,Command> commands;
 
@@ -79,6 +80,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
+		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
     }
     
     public void destroy() {
@@ -227,7 +229,11 @@ public class Asst2Servlet extends HttpServlet {
 		// Login
 		} else if(URI.equalsIgnoreCase("/login")){
 			//TODO: Login
-			request.getRequestDispatcher("/home.jsp").forward(request,response);
+			commands.get(USERLOGIN_COMMAND).execute(request, response);
+			if((Boolean) request.getAttribute("success"))
+				response.sendRedirect(contextPath);
+			else
+				request.getRequestDispatcher("/login.jsp").forward(request,response);
 		// Register
 		} else if(URI.equalsIgnoreCase("/signup")){
 			//TODO: Register

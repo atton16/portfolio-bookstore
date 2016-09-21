@@ -26,8 +26,8 @@ public class Application {
 
 	public void init(ServletContext servletContext) {
 		this.servletContext = servletContext;
-		this.daoFactory = new DAOFactory();
 		this.daoSupport = new DAOSupport();
+		this.daoFactory = new DAOFactory();
 	}
 	
 	public String getContextPath() {
