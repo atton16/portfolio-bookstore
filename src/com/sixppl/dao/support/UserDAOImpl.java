@@ -21,12 +21,12 @@ public class UserDAOImpl implements UserDAO{
 	static Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 	private Connection connection;
 	DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
+
 	public UserDAOImpl() {
 		connection = Application.getSharedInstance().getDAOSupport().getConnection();
 		logger.info("Got connection");
 	}
-	
+
 
 	@Override
 	public Boolean addUser(UserDTO user){
@@ -65,23 +65,26 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public UserEntity findUserByName(String usrname) {
 		String sql = String.format("SELECT * from `User` where `Username`=?");
-		System.out.println(sql);
 		List<UserEntity> users = new LinkedList<UserEntity>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try{
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, usrname);
-			System.out.println(stmt.toString());
-			ResultSet rs = stmt.executeQuery();
-			
+			rs = stmt.executeQuery();
+
 			while(rs.next()){
 				UserEntity ue = new UserEntity();
 				ue.setPassword(rs.getString("Password"));
-				
+
 				users.add(ue);
 			}
-			 System.out.println("Find user:" + users);
-			 if(users != null && !users.isEmpty())
-				 return users.get(0); 
+			
+			if(users != null && !users.isEmpty()){
+				rs.close();
+				stmt.close();
+				return users.get(0);
+			}
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

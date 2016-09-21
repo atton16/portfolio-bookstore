@@ -8,16 +8,19 @@ public class databaseQuery {
 
 	public static void main(String[] args) {
 		Connection conn = null;
-		Statement stmt = null;
-		String sql = "SELECT Name, Value FROM Variable";
+		PreparedStatement stmt = null;
+		String sql = "SELECT Name, Value FROM Variable WHERE Name = ?";
 		try{
 			Application.getSharedInstance().init(null);	//This statement is normally executed by servlet
 			conn = Application.getSharedInstance().getDAOSupport().getConnection();
 
 			//STEP 4: Execute a query
 			System.out.println("Creating statement...");
+			
+			// Use prepare statement to secure the query string
 			stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.setString(1, "OrderNumber");	// Every input should be set by so that we are safe from malicious input
+			ResultSet rs = stmt.executeQuery();
 
 			//STEP 5: Extract data from result set
 			while(rs.next()){

@@ -6,8 +6,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
@@ -23,22 +25,70 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-public class TestUserLoginHttpServletRequest implements HttpServletRequest {
+public class GenericTestHttpServletRequest implements HttpServletRequest {
+	
+	private Map<String, Object> attributes;
+	private Map<String, String[]> parameterMap;
+	
+	public GenericTestHttpServletRequest(Map<String, String[]> parameterMap) {
+		this.attributes = new HashMap<String, Object>();
+		this.parameterMap = (Map<String, String[]>) parameterMap;
+	}
+
+	// Always return the fisrt occurrance of the parameter
+	@Override
+	public String getParameter(String arg0) {
+		String[] values = parameterMap.get(arg0);
+		
+		if(values == null)
+			return null;
+		
+		if(values.length == 0)
+			return null;
+		
+		return values[0];
+	}
 
 	@Override
-	public AsyncContext getAsyncContext() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, String[]> getParameterMap() {
+		return parameterMap;
+	}
+
+	@Override
+	public Enumeration<String> getParameterNames() {
+		return new Vector<String>(parameterMap.keySet()).elements();
+	}
+
+	@Override
+	public String[] getParameterValues(String arg0) {
+		return parameterMap.get(arg0);
 	}
 
 	@Override
 	public Object getAttribute(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return attributes.get(arg0);
 	}
 
 	@Override
 	public Enumeration<String> getAttributeNames() {
+		return new Vector<String>(attributes.keySet()).elements();
+	}
+
+	@Override
+	public void removeAttribute(String arg0) {
+		attributes.remove(arg0);
+
+	}
+
+	@Override
+	public void setAttribute(String arg0, Object arg1) {
+		attributes.put(arg0, arg1);
+	}
+	
+	// UNIMPLEMENTED METHODS
+
+	@Override
+	public AsyncContext getAsyncContext() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -99,30 +149,6 @@ public class TestUserLoginHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public Enumeration<Locale> getLocales() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getParameter(String arg0) {
-		// TODO Auto-generated method stub
-		return "admin";
-	}
-
-	@Override
-	public Map<String, String[]> getParameterMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Enumeration<String> getParameterNames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String[] getParameterValues(String arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -212,21 +238,9 @@ public class TestUserLoginHttpServletRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public void removeAttribute(String arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setAttribute(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -412,13 +426,13 @@ public class TestUserLoginHttpServletRequest implements HttpServletRequest {
 	@Override
 	public void login(String arg0, String arg1) throws ServletException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void logout() throws ServletException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
