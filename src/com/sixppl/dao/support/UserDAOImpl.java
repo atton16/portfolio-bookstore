@@ -63,9 +63,9 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public UserEntity findUserByName(String usrname) {
+	public UserDTO findUserByName(String usrname) {
 		String sql = String.format("SELECT * from `User` where `Username`=?");
-		List<UserEntity> users = new LinkedList<UserEntity>();
+		List<UserDTO> users = new LinkedList<UserDTO>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO{
 			rs = stmt.executeQuery();
 
 			while(rs.next()){
-				UserEntity ue = new UserEntity();
+				UserDTO ue = new UserDTO();
 				ue.setPassword(rs.getString("Password"));
 
 				users.add(ue);
