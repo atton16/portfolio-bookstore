@@ -1,11 +1,19 @@
 package com.sixppl.bean;
 
 public class GraphBean {
-	
+	private long ID;
 	private String nodeFrom;
 	private String edge;
 	private String nodeTo;
-	
+
+	public long getID() {
+		return ID;
+	}
+
+	public void setID(long iD) {
+		ID = iD;
+	}
+
 	public String getNodeFrom() {
 		return nodeFrom;
 	}
