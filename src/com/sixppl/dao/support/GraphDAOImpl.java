@@ -6,32 +6,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.sixppl.bean.EntityBean;
-import com.sixppl.dao.EntityDAO;
+import com.sixppl.bean.GraphBean;
+import com.sixppl.dao.GraphDAO;
 
-public class EntityDAOImpl implements EntityDAO{
+public class GraphDAOImpl implements GraphDAO {
 	private DataSource dataSource;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
-	public EntityDAOImpl() {
+	
+	public GraphDAOImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void insertEntity(EntityBean entity) {
+	public void insertGraph(GraphBean graph) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO Entity (EntityID, Class, Type, Caption) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, entity.getEntityID());
-			ps.setString(2, entity.getEntityClass());
-			ps.setString(3, entity.getEntityType());
-			ps.setString(4, entity.getEntityCaption());
+			ps.setString(1, graph.getNodeFrom());
+			ps.setString(2, graph.getEdge());
+			ps.setString(3, graph.getNodeTo());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -50,18 +49,17 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void updateEntity(EntityBean entity) {
+	public void updateGraph(GraphBean graph) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE ID=?";
+		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, entity.getEntityID());
-			ps.setString(2, entity.getEntityClass());
-			ps.setString(3, entity.getEntityType());
-			ps.setString(4, entity.getEntityCaption());
-			ps.setLong(5, entity.getID());
+			ps.setString(1, graph.getNodeFrom());
+			ps.setString(2, graph.getEdge());
+			ps.setString(3, graph.getNodeTo());
+			ps.setLong(4, graph.getID());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -80,9 +78,9 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void deleteEntity(long ID) {
+	public void deleteGraph(long ID) {
 		// TODO Auto-generated method stub
-		String sql = "DELETE FROM Entity WHERE ID=?";
+		String sql = "DELETE FROM Graph WHERE ID=?";
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
@@ -106,9 +104,9 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public ArrayList<EntityBean> findEntity(String type, String keyword) {
+	public ArrayList<GraphBean> findGraph(String type, String keyword) {
 		// TODO Auto-generated method stub
-		ArrayList<EntityBean> result = new ArrayList<EntityBean>();
+		ArrayList<GraphBean> result = new ArrayList<GraphBean>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
@@ -119,13 +117,12 @@ public class EntityDAOImpl implements EntityDAO{
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
-		      EntityBean entity = new EntityBean();
-		      entity.setID(rs.getLong("ID"));
-		      entity.setEntityID(rs.getString("EntityID"));
-		      entity.setEntityClass(rs.getString("Class"));
-		      entity.setEntityType(rs.getString("Type"));
-		      entity.setEntityCaption(rs.getString("Caption"));
-		      result.add(entity);
+		      GraphBean graph = new GraphBean();
+		      graph.setID(rs.getLong("ID"));
+		      graph.setNodeFrom(rs.getString("NodeFrom"));
+		      graph.setEdge(rs.getString("Edge"));
+		      graph.setNodeTo(rs.getString("NodeTo"));
+		      result.add(graph);
 		    }
 		    rs.close();
 		    ps.close();
