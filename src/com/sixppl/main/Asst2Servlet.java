@@ -48,6 +48,7 @@ import com.sixppl.main.Application;
 		"/user/pub/manage",
 		
 		"/admin",
+		"/admin/login",
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
@@ -153,6 +154,9 @@ public class Asst2Servlet extends HttpServlet {
 		// Admin Dashboard Page
 		} else if(URI.equalsIgnoreCase("/admin")){
 			request.getRequestDispatcher("/admin.jsp").forward(request,response);
+		// Admin: Login Page
+		} else if(URI.equalsIgnoreCase("/admin/login")){
+			request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
 		// Admin: Manage Publications
 		} else if(URI.equalsIgnoreCase("/admin/pub/manage")){
 			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
@@ -269,7 +273,10 @@ public class Asst2Servlet extends HttpServlet {
 			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
-		// Admin: Manage Publications - Remove
+		// Admin: Login
+		} else if(URI.equalsIgnoreCase("/admin/login")){
+			response.sendRedirect(contextPath+"/admin");
+    	// Admin: Manage Publications - Remove
 		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
 			//TODO: Admin: Manage Publications - Remove
 			System.out.println("Remove:"+request.getParameter("id"));	//TODO: remove this
