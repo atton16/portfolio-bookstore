@@ -8,9 +8,23 @@ public class UserDTO {
     private String firstname = "";
     private String lastname = "";
     private String email = "";
-    private String birthyear = "";
+    private String newemail = "";
+    public String getNewemail() {
+		return newemail;
+	}
+	public void setNewemail(String newemail) {
+		this.newemail = newemail;
+	}
+	public String getTokenstring() {
+		return tokenstring;
+	}
+	public void setTokenstring(String tokenstring) {
+		this.tokenstring = tokenstring;
+	}
+	private String birthyear = "";
     private String addr = "";
     private String cardno = "";
+    private String tokenstring = "";
 
 
 	public String getUserID() {

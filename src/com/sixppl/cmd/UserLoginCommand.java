@@ -20,24 +20,35 @@ public class UserLoginCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
-		UserDTO user = new UserDTO();
-
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		System.out.println(request.getParameter("username"));
 		System.out.println(request.getParameter("password"));
-		user = userDao.findUserByName(request.getParameter("username"));
-		if(user == null){
+		if(username == null|| username.equals("") ||password == null|| password.equals("")){
 			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "Cannot find username");
+			request.setAttribute("error_msg", "Null value for username or password.");
 			return;
 		}
-		String password = user.getPassword();
-		if(BCrypt.checkpw(request.getParameter("password"), password))
-		{
-			request.setAttribute("success", true);
-		} else {
-			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "Login Failed.");
+		else{
+			UserDTO user  = userDao.findUserByName(username);
+			if(user == null){
+				request.setAttribute("success", false);
+				request.setAttribute("error_msg", "Cannot find username");
+				return;
+			}
+			else if(BCrypt.checkpw(password, user.getPassword()))
+			{
+				request.setAttribute("success", true);
+			} else {
+				request.setAttribute("success", false);
+				request.setAttribute("error_msg", "Login Failed.");
+				return;
+			}
 		}
+		
+		
+		
 		
 	}
 
