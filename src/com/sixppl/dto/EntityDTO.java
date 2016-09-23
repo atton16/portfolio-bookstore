@@ -13,6 +13,15 @@ public class EntityDTO {
 	private ArrayList<EntityDTO> nodeList;
 	private Stack<EntityDTO> nodeStack;
 	
+	public EntityDTO() {
+		// TODO Auto-generated constructor stub
+		this.ID = 0;
+		this.entityID = null;
+		this.entityClass = null;
+		this.entityType = null;
+		this.entityCaption = null;
+	}
+	
 	public long getID() {
 		return ID;
 	}
@@ -104,9 +113,4 @@ public class EntityDTO {
 	    }
 	    return false;
 	}
-
-	public EntityDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
 }

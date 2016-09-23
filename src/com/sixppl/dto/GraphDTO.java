@@ -9,6 +9,17 @@ public class GraphDTO {
 	private String edge;
 	private String nodeTo;
 	
+	private ArrayList<GraphDTO> edgeList;
+	private Stack<GraphDTO> edgeStack;
+	
+	public GraphDTO() {
+		// TODO Auto-generated constructor stub
+		this.ID = 0;
+		this.nodeFrom = null;
+		this.edge = null;
+		this.nodeTo = null;
+	}
+	
 	public long getID() {
 		return ID;
 	}
@@ -41,6 +52,22 @@ public class GraphDTO {
 		this.nodeTo = nodeTo;
 	}
 	
+	public ArrayList<GraphDTO> getEdgeList() {
+		return edgeList;
+	}
+
+	public void setEdgeList(ArrayList<GraphDTO> edgeList) {
+		this.edgeList = edgeList;
+	}
+
+	public Stack<GraphDTO> getEdgeStack() {
+		return edgeStack;
+	}
+
+	public void setEdgeStack(Stack<GraphDTO> edgeStack) {
+		this.edgeStack = edgeStack;
+	}
+
 	public boolean contains(ArrayList<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
@@ -58,9 +85,4 @@ public class GraphDTO {
 	    }
 	    return false;
 	}
-
-	public GraphDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
 }

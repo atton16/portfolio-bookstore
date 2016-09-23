@@ -15,6 +15,20 @@ public class GraphOutputDTO {
 	private String nodeTo;
 	private String nodeToCaption;
 	
+	public GraphOutputDTO() {
+		// TODO Auto-generated constructor stub
+		this.ID = 0;
+		this.nodeFromID = 0;
+		this.nodeFrom = null;
+		this.nodeFromCaption = null;
+		this.edgeID = 0;
+		this.edge = null;
+		this.edgeCaption = null;
+		this.nodeToID = 0;
+		this.nodeTo = null;
+		this.nodeToCaption = null;
+	}
+	
 	public long getID() {
 		return ID;
 	}
@@ -112,9 +126,4 @@ public class GraphOutputDTO {
 	    }
 	    return false;
 	}
-
-	public GraphOutputDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
 }
