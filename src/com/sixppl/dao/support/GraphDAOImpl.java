@@ -101,69 +101,31 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public ArrayList<GraphDTO> findGraph(String type, String keyword) {
-		// TODO Auto-generated method stub
-		ArrayList<GraphDTO> result = new ArrayList<GraphDTO>();
-		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
-		Connection connection = null;
-		try {
-			connection = Application.getSharedInstance().getDAOSupport().getConnection();
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, type);
-			ps.setString(2, "%" + keyword + "%");
-			ResultSet rs = ps.executeQuery();
-			while ( rs.next() )
-		    {
-		      GraphDTO graph = new GraphDTO();
-		      graph.setID(rs.getLong("ID"));
-		      graph.setNodeFrom(rs.getString("NodeFrom"));
-		      graph.setEdge(rs.getString("Edge"));
-		      graph.setNodeTo(rs.getString("NodeTo"));
-		      result.add(graph);
-		    }
-		    rs.close();
-		    ps.close();
-		}
-		catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public ArrayList<GraphOutputDTO> findGraphOutput(String type, String keyword) {
+	public ArrayList<GraphOutputDTO> findGraphOutput(String node) {
 		// TODO Auto-generated method stub
 		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
-		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
+		String sql = "SELECT * FROM graphoutput WHERE NodeFromCaption LIKE ? OR NodeToCaption LIKE ?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, type);
-			ps.setString(2, "%" + keyword + "%");
+			ps.setString(1, "%" + node + "%");
+			ps.setString(2, "%" + node + "%");
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
-		    {
-		      GraphOutputDTO graph = new GraphOutputDTO();
-		      graph.setID(rs.getLong("ID"));
-		      graph.setNodeFrom(rs.getString("NodeFrom"));
-		      graph.setNodeFromCaption("NodeFromCaption");
-		      graph.setEdge(rs.getString("Edge"));
-		      graph.setEdgeCaption("EdgeCaption");
-		      graph.setNodeTo(rs.getString("NodeTo"));
-		      graph.setNodeToCaption("NodeToCaption");
-		      result.add(graph);
-		    }
-		    rs.close();
-		    ps.close();
+			{
+				GraphOutputDTO graph = new GraphOutputDTO();
+				graph.setID(rs.getLong("ID"));
+				graph.setNodeFrom(rs.getString("NodeFrom"));
+				graph.setNodeFromCaption("NodeFromCaption");
+				graph.setEdge(rs.getString("Edge"));
+				graph.setEdgeCaption("EdgeCaption");
+				graph.setNodeTo(rs.getString("NodeTo"));
+				graph.setNodeToCaption("NodeToCaption");
+				result.add(graph);
+			}
+			rs.close();
+			ps.close();
 		}
 		catch (SQLException e) {
 			throw new RuntimeException(e);

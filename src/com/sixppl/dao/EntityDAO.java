@@ -7,5 +7,7 @@ public interface EntityDAO {
 	void insertEntity(EntityDTO entity);
 	void updateEntity(EntityDTO entity);
 	void deleteEntity(long ID);
+	EntityDTO findEntityByEntityId(String entityID);
 	ArrayList<EntityDTO> findEntity(String type, String keyword);	// Type = Publication/Author/School/Venue etc., Keyword = Caption
+	ArrayList<String> findLinkedEntity(String node);
 }

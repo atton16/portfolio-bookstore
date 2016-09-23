@@ -12,6 +12,5 @@ public interface GraphDAO {
 	// ========== Note - Input Mapping for Graph ==========
 	// Type = Publication/Author/School/Venue etc.
 	// Keyword = Caption
-	ArrayList<GraphDTO> findGraph(String type, String keyword);
-	ArrayList<GraphOutputDTO> findGraphOutput(String type, String keyword);
+	ArrayList<GraphOutputDTO> findGraphOutput(String node);
 }

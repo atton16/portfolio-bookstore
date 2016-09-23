@@ -1,5 +1,8 @@
 package com.sixppl.dto;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class GraphDTO {
 	private long ID;
 	private String nodeFrom;
@@ -36,6 +39,24 @@ public class GraphDTO {
 
 	public void setNodeTo(String nodeTo) {
 		this.nodeTo = nodeTo;
+	}
+	
+	public boolean contains(ArrayList<GraphDTO> graphList, long ID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public boolean contains(Stack<GraphDTO> graphList, long ID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 	public GraphDTO() {

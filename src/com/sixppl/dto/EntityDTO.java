@@ -1,5 +1,8 @@
 package com.sixppl.dto;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class EntityDTO {
 	private long ID;
 	private String entityID;		// Format = 1 prefix + 20 ID e.g. A1 is Author with ID = 1
@@ -7,6 +10,9 @@ public class EntityDTO {
 	private String entityType;		// Publication, Person (Author/Editor), Venue, School, directLink etc.
 	private String entityCaption;	// Publication Title, Author Name, Journal, School, Relationship etc.
 
+	private ArrayList<EntityDTO> nodeList;
+	private Stack<EntityDTO> nodeStack;
+	
 	public long getID() {
 		return ID;
 	}
@@ -45,6 +51,58 @@ public class EntityDTO {
 
 	public void setEntityCaption(String entityCaption) {
 		this.entityCaption = entityCaption;
+	}
+	
+	public ArrayList<EntityDTO> getNodeList() {
+		return nodeList;
+	}
+
+	public void setNodeList(ArrayList<EntityDTO> nodeList) {
+		this.nodeList = nodeList;
+	}
+
+	public Stack<EntityDTO> getNodeStack() {
+		return nodeStack;
+	}
+
+	public void setNodeStack(Stack<EntityDTO> nodeStack) {
+		this.nodeStack = nodeStack;
+	}
+
+	public boolean contains(ArrayList<EntityDTO> nodeList, long ID) {
+	    for (EntityDTO node : nodeList) {
+	        if (node.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public boolean contains(ArrayList<EntityDTO> nodeList, String entityID) {
+	    for (EntityDTO node : nodeList) {
+	        if (node.getEntityID().equals(entityID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public boolean contains(Stack<EntityDTO> nodeList, long ID) {
+	    for (EntityDTO node : nodeList) {
+	        if (node.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public boolean contains(Stack<EntityDTO> nodeList, String entityID) {
+	    for (EntityDTO node : nodeList) {
+	        if (node.getEntityID().equals(entityID)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 	public EntityDTO() {

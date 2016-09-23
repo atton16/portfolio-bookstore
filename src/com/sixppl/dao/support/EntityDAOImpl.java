@@ -1,5 +1,6 @@
 package com.sixppl.dao.support;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -105,12 +106,17 @@ public class EntityDAOImpl implements EntityDAO{
 		// TODO Auto-generated method stub
 		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
+		if (keyword == null) {
+			sql = "SELECT * FROM Entity WHERE Type=?";
+		}
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, type);
-			ps.setString(2, "%" + keyword + "%");
+			if (keyword != null) {
+				ps.setString(2, "%" + keyword + "%");
+			}
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
@@ -122,6 +128,70 @@ public class EntityDAOImpl implements EntityDAO{
 		      entity.setEntityCaption(rs.getString("Caption"));
 		      result.add(entity);
 		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<String> findLinkedEntity(String node) {
+		// TODO Auto-generated method stub
+		ArrayList<String> result = new ArrayList<String>();
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			CallableStatement cStmt = connection.prepareCall("{CALL ListNode(?)}");
+			cStmt.setString(1, node);
+			ResultSet rs = cStmt.executeQuery();
+			while ( rs.next() )
+		    {
+		      result.add(rs.getString("NodeID"));
+		    }
+		    rs.close();
+		    cStmt.close();
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public EntityDTO findEntityByEntityId(String entityID) {
+		// TODO Auto-generated method stub
+		EntityDTO result = new EntityDTO();
+		String sql = "SELECT * FROM Entity WHERE EntityID=?";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, entityID);
+			ResultSet rs = ps.executeQuery();
+			result.setID(rs.getLong("ID"));
+			result.setEntityID(rs.getString("EntityID"));
+			result.setEntityClass(rs.getString("Class"));
+			result.setEntityType(rs.getString("Type"));
+			result.setEntityCaption(rs.getString("Caption"));
 		    rs.close();
 		    ps.close();
 		}
