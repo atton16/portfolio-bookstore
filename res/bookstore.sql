@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2016 at 02:49 PM
+-- Generation Time: Sep 23, 2016 at 04:19 PM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
-
 CREATE Database `bookstore`;
 USE `bookstore`;
 
@@ -154,6 +153,7 @@ INSERT INTO `Graph` (`ID`, `NodeFrom`, `Edge`, `NodeTo`) VALUES
 CREATE TABLE IF NOT EXISTS `graphedge` (
 `ID` bigint(20) unsigned
 ,`NodeFrom` text
+,`EdgeID` bigint(20) unsigned
 ,`Edge` text
 ,`EdgeCaption` text
 ,`NodeTo` text
@@ -166,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `graphedge` (
 --
 CREATE TABLE IF NOT EXISTS `graphnodefrom` (
 `ID` bigint(20) unsigned
+,`NodeFromID` bigint(20) unsigned
 ,`NodeFrom` text
 ,`NodeFromCaption` text
 ,`Edge` text
@@ -181,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `graphnodeto` (
 `ID` bigint(20) unsigned
 ,`NodeFrom` text
 ,`Edge` text
+,`NodeToID` bigint(20) unsigned
 ,`NodeTo` text
 ,`NodeToCaption` text
 );
@@ -192,10 +194,13 @@ CREATE TABLE IF NOT EXISTS `graphnodeto` (
 --
 CREATE TABLE IF NOT EXISTS `graphoutput` (
 `ID` bigint(20) unsigned
+,`NodeFromID` bigint(20) unsigned
 ,`NodeFrom` text
 ,`NodeFromCaption` text
+,`EdgeID` bigint(20) unsigned
 ,`Edge` text
 ,`EdgeCaption` text
+,`NodeToID` bigint(20) unsigned
 ,`NodeTo` text
 ,`NodeToCaption` text
 );
@@ -314,7 +319,7 @@ INSERT INTO `Variable` (`Name`, `Value`) VALUES
 --
 DROP TABLE IF EXISTS `graphedge`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphedge` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`graph`.`Edge` AS `Edge`,`entity`.`Caption` AS `EdgeCaption`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`Edge` = `entity`.`EntityID`) order by `graph`.`ID`;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphedge` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`entity`.`ID` AS `EdgeID`,`graph`.`Edge` AS `Edge`,`entity`.`Caption` AS `EdgeCaption`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`Edge` = `entity`.`EntityID`) order by `graph`.`ID`;
 
 -- --------------------------------------------------------
 
@@ -323,7 +328,7 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `graphnodefrom`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodefrom` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`entity`.`Caption` AS `NodeFromCaption`,`graph`.`Edge` AS `Edge`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`NodeFrom` = `entity`.`EntityID`) order by `graph`.`ID`;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodefrom` AS select `graph`.`ID` AS `ID`,`entity`.`ID` AS `NodeFromID`,`graph`.`NodeFrom` AS `NodeFrom`,`entity`.`Caption` AS `NodeFromCaption`,`graph`.`Edge` AS `Edge`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`NodeFrom` = `entity`.`EntityID`) order by `graph`.`ID`;
 
 -- --------------------------------------------------------
 
@@ -332,7 +337,7 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `graphnodeto`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodeto` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`graph`.`Edge` AS `Edge`,`graph`.`NodeTo` AS `NodeTo`,`entity`.`Caption` AS `NodeToCaption` from (`graph` join `entity`) where (`graph`.`NodeTo` = `entity`.`EntityID`) order by `graph`.`ID`;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodeto` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`graph`.`Edge` AS `Edge`,`entity`.`ID` AS `NodeToID`,`graph`.`NodeTo` AS `NodeTo`,`entity`.`Caption` AS `NodeToCaption` from (`graph` join `entity`) where (`graph`.`NodeTo` = `entity`.`EntityID`) order by `graph`.`ID`;
 
 -- --------------------------------------------------------
 
@@ -341,7 +346,7 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `graphoutput`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphoutput` AS select `graphnodefrom`.`ID` AS `ID`,`graphnodefrom`.`NodeFrom` AS `NodeFrom`,`graphnodefrom`.`NodeFromCaption` AS `NodeFromCaption`,`graphnodefrom`.`Edge` AS `Edge`,`graphedge`.`EdgeCaption` AS `EdgeCaption`,`graphnodefrom`.`NodeTo` AS `NodeTo`,`graphnodeto`.`NodeToCaption` AS `NodeToCaption` from ((`graphnodefrom` join `graphedge`) join `graphnodeto`) where ((`graphnodefrom`.`ID` = `graphedge`.`ID`) and (`graphnodefrom`.`ID` = `graphnodeto`.`ID`) and (`graphedge`.`ID` = `graphnodeto`.`ID`)) order by `graphnodefrom`.`ID`;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphoutput` AS select `graphnodefrom`.`ID` AS `ID`,`graphnodefrom`.`NodeFromID` AS `NodeFromID`,`graphnodefrom`.`NodeFrom` AS `NodeFrom`,`graphnodefrom`.`NodeFromCaption` AS `NodeFromCaption`,`graphedge`.`EdgeID` AS `EdgeID`,`graphnodefrom`.`Edge` AS `Edge`,`graphedge`.`EdgeCaption` AS `EdgeCaption`,`graphnodeto`.`NodeToID` AS `NodeToID`,`graphnodefrom`.`NodeTo` AS `NodeTo`,`graphnodeto`.`NodeToCaption` AS `NodeToCaption` from ((`graphnodefrom` join `graphedge`) join `graphnodeto`) where ((`graphnodefrom`.`ID` = `graphedge`.`ID`) and (`graphnodefrom`.`ID` = `graphnodeto`.`ID`) and (`graphedge`.`ID` = `graphnodeto`.`ID`)) order by `graphnodefrom`.`ID`;
 
 --
 -- Indexes for dumped tables

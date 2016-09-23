@@ -5,10 +5,13 @@ import java.util.Stack;
 
 public class GraphOutputDTO {
 	private long ID;
+	private long nodeFromID;
 	private String nodeFrom;
 	private String nodeFromCaption;
+	private long edgeID;
 	private String edge;
 	private String edgeCaption;
+	private long nodeToID;
 	private String nodeTo;
 	private String nodeToCaption;
 	
@@ -18,6 +21,14 @@ public class GraphOutputDTO {
 
 	public void setID(long iD) {
 		ID = iD;
+	}
+
+	public long getNodeFromID() {
+		return nodeFromID;
+	}
+
+	public void setNodeFromID(long nodeFromID) {
+		this.nodeFromID = nodeFromID;
 	}
 
 	public String getNodeFrom() {
@@ -36,6 +47,14 @@ public class GraphOutputDTO {
 		this.nodeFromCaption = nodeFromCaption;
 	}
 
+	public long getEdgeID() {
+		return edgeID;
+	}
+
+	public void setEdgeID(long edgeID) {
+		this.edgeID = edgeID;
+	}
+
 	public String getEdge() {
 		return edge;
 	}
@@ -50,6 +69,14 @@ public class GraphOutputDTO {
 
 	public void setEdgeCaption(String edgeCaption) {
 		this.edgeCaption = edgeCaption;
+	}
+
+	public long getNodeToID() {
+		return nodeToID;
+	}
+
+	public void setNodeToID(long nodeToID) {
+		this.nodeToID = nodeToID;
 	}
 
 	public String getNodeTo() {
@@ -67,7 +94,7 @@ public class GraphOutputDTO {
 	public void setNodeToCaption(String nodeToCaption) {
 		this.nodeToCaption = nodeToCaption;
 	}
-	
+
 	public boolean contains(ArrayList<GraphOutputDTO> graphList, long ID) {
 	    for (GraphOutputDTO graph : graphList) {
 	        if (graph.getID() == ID) {

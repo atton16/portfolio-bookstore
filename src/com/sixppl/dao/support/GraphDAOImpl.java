@@ -116,12 +116,15 @@ public class GraphDAOImpl implements GraphDAO {
 			{
 				GraphOutputDTO graph = new GraphOutputDTO();
 				graph.setID(rs.getLong("ID"));
+				graph.setNodeFromID(rs.getLong("NodeFromID"));
 				graph.setNodeFrom(rs.getString("NodeFrom"));
-				graph.setNodeFromCaption("NodeFromCaption");
+				graph.setNodeFromCaption(rs.getString("NodeFromCaption"));
+				graph.setEdgeID(rs.getLong("EdgeID"));
 				graph.setEdge(rs.getString("Edge"));
-				graph.setEdgeCaption("EdgeCaption");
+				graph.setEdgeCaption(rs.getString("EdgeCaption"));
+				graph.setNodeToID(rs.getLong("NodeToID"));
 				graph.setNodeTo(rs.getString("NodeTo"));
-				graph.setNodeToCaption("NodeToCaption");
+				graph.setNodeToCaption(rs.getString("NodeToCaption"));
 				result.add(graph);
 			}
 			rs.close();
