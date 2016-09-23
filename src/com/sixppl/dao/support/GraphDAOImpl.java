@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.sixppl.bean.GraphBean;
+import com.sixppl.bean.GraphOutputBean;
 import com.sixppl.dao.GraphDAO;
 
 public class GraphDAOImpl implements GraphDAO {
@@ -122,6 +123,47 @@ public class GraphDAOImpl implements GraphDAO {
 		      graph.setNodeFrom(rs.getString("NodeFrom"));
 		      graph.setEdge(rs.getString("Edge"));
 		      graph.setNodeTo(rs.getString("NodeTo"));
+		      result.add(graph);
+		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<GraphOutputBean> findGraphOutput(String type, String keyword) {
+		// TODO Auto-generated method stub
+		ArrayList<GraphOutputBean> result = new ArrayList<GraphOutputBean>();
+		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, type);
+			ps.setString(2, "%" + keyword + "%");
+			ResultSet rs = ps.executeQuery();
+			while ( rs.next() )
+		    {
+		      GraphOutputBean graph = new GraphOutputBean();
+		      graph.setID(rs.getLong("ID"));
+		      graph.setNodeFrom(rs.getString("NodeFrom"));
+		      graph.setNodeFromCaption("NodeFromCaption");
+		      graph.setEdge(rs.getString("Edge"));
+		      graph.setEdgeCaption("EdgeCaption");
+		      graph.setNodeTo(rs.getString("NodeTo"));
+		      graph.setNodeToCaption("NodeToCaption");
 		      result.add(graph);
 		    }
 		    rs.close();
