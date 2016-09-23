@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2016 at 05:47 AM
+-- Generation Time: Sep 23, 2016 at 02:49 PM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -19,8 +19,40 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
+
 CREATE Database `bookstore`;
 USE `bookstore`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListNode`( IN StartNode VARCHAR(21) )
+BEGIN
+  DECLARE rows BIGINT DEFAULT 0;
+  DROP TABLE IF EXISTS reachedNode;
+  CREATE TABLE reachedNode (
+    NodeID VARCHAR(21) PRIMARY KEY
+  ) ENGINE=HEAP;
+  INSERT INTO reachedNode VALUES (StartNode );
+  SET rows = ROW_COUNT();
+  WHILE rows > 0 DO
+    INSERT IGNORE INTO reachedNode
+      SELECT DISTINCT NodeFrom
+      FROM Graph AS e
+      INNER JOIN reachedNode AS p ON e.NodeTo = p.NodeID;
+    SET rows = ROW_COUNT();
+    INSERT IGNORE INTO reachedNode
+      SELECT DISTINCT NodeTo
+      FROM Graph AS e
+      INNER JOIN reachedNode AS p ON e.NodeFrom = p.NodeID;
+    SET rows = rows + ROW_COUNT();
+  END WHILE;
+  SELECT * FROM reachedNode;
+  DROP TABLE reachedNode;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -65,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 --
 
 CREATE TABLE IF NOT EXISTS `Entity` (
-  `ID` bigint(20) NOT NULL,
+  `ID` bigint(20) unsigned NOT NULL,
   `EntityID` text NOT NULL,
   `Class` text NOT NULL,
   `Type` text NOT NULL,
@@ -180,13 +212,13 @@ CREATE TABLE IF NOT EXISTS `Listing` (
   `Authors` text,
   `Editors` text,
   `Type` tinytext NOT NULL,
-  `Year` smallint(6) NOT NULL,
+  `Year` smallint(6) unsigned NOT NULL,
   `Venue` tinytext,
   `SellerID` bigint(20) unsigned NOT NULL,
   `Picture` tinytext NOT NULL,
   `Price` smallint(5) unsigned NOT NULL,
-  `Status` tinyint(1) NOT NULL,
-  `SoldCount` int(11) NOT NULL DEFAULT '0',
+  `Status` tinyint(1) unsigned NOT NULL,
+  `SoldCount` int(11) unsigned NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -200,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `ID` bigint(20) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` int(11) NOT NULL
+  `JSESSIONID` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -220,6 +252,18 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `Unactivated`
+--
+
+CREATE TABLE IF NOT EXISTS `Unactivated` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `TokenString` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `User`
@@ -229,15 +273,13 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Nickname` tinytext  NULL,
-  `Firstname` tinytext  NULL,
-  `Lastname` tinytext  NULL,
+  `Nickname` tinytext NOT NULL,
+  `Firstname` tinytext NOT NULL,
+  `Lastname` tinytext NOT NULL,
   `Email` tinytext NOT NULL,
-  `NewEmail` tinytext  NULL,
-  `Birthyear` smallint(6)  NULL,
+  `Birthyear` smallint(6) unsigned NOT NULL,
   `Address` text NOT NULL,
-  `CardNumber` tinytext NOT NULL,
-  `TokenString` varchar(20)  NULL
+  `CardNumber` tinytext NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
@@ -364,7 +406,14 @@ ALTER TABLE `Transaction`
   ADD KEY `PubID` (`PubID`),
   ADD KEY `SellerID` (`SellerID`);
 
-
+--
+-- Indexes for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD UNIQUE KEY `UserID` (`UserID`),
+  ADD UNIQUE KEY `TokenString` (`TokenString`);
 
 --
 -- Indexes for table `User`
@@ -388,7 +437,7 @@ ALTER TABLE `Variable`
 -- AUTO_INCREMENT for table `Entity`
 --
 ALTER TABLE `Entity`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `Graph`
 --
@@ -404,7 +453,11 @@ ALTER TABLE `Listing`
 --
 ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `User`
 --
@@ -447,7 +500,11 @@ ALTER TABLE `Transaction`
   ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`BuyerID`) REFERENCES `User` (`UserID`),
   ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`SellerID`) REFERENCES `User` (`UserID`);
 
-
+--
+-- Constraints for table `Unactivated`
+--
+ALTER TABLE `Unactivated`
+  ADD CONSTRAINT `unactivated_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `User` (`UserID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
