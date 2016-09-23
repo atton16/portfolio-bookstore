@@ -1,6 +1,6 @@
-package com.sixppl.bean;
+package com.sixppl.dto;
 
-public class EntityBean {
+public class EntityDTO {
 	private long ID;
 	private String entityID;		// Format = 1 prefix + 20 ID e.g. A1 is Author with ID = 1
 	private String entityClass;		// Node or Edge
@@ -47,7 +47,7 @@ public class EntityBean {
 		this.entityCaption = entityCaption;
 	}
 
-	public EntityBean() {
+	public EntityDTO() {
 		// TODO Auto-generated constructor stub
 	}
 

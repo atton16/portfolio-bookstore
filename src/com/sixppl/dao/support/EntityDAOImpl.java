@@ -1,13 +1,12 @@
 package com.sixppl.dao.support;
 
 import java.sql.Connection;
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.sixppl.bean.EntityBean;
 import com.sixppl.dao.EntityDAO;
+import com.sixppl.dto.EntityDTO;
 import com.sixppl.main.Application;
 
 public class EntityDAOImpl implements EntityDAO{
@@ -17,7 +16,7 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void insertEntity(EntityBean entity) {
+	public void insertEntity(EntityDTO entity) {
 		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Entity (EntityID, Class, Type, Caption) VALUES(?,?,?,?)";
 		Connection connection = null;
@@ -46,7 +45,7 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void updateEntity(EntityBean entity) {
+	public void updateEntity(EntityDTO entity) {
 		// TODO Auto-generated method stub
 		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE ID=?";
 		Connection connection = null;
@@ -102,9 +101,9 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public ArrayList<EntityBean> findEntity(String type, String keyword) {
+	public ArrayList<EntityDTO> findEntity(String type, String keyword) {
 		// TODO Auto-generated method stub
-		ArrayList<EntityBean> result = new ArrayList<EntityBean>();
+		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
@@ -115,7 +114,7 @@ public class EntityDAOImpl implements EntityDAO{
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
-		      EntityBean entity = new EntityBean();
+		      EntityDTO entity = new EntityDTO();
 		      entity.setID(rs.getLong("ID"));
 		      entity.setEntityID(rs.getString("EntityID"));
 		      entity.setEntityClass(rs.getString("Class"));

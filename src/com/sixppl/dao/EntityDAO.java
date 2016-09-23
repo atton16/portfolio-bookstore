@@ -1,12 +1,11 @@
 package com.sixppl.dao;
 
 import java.util.ArrayList;
-
-import com.sixppl.bean.EntityBean;
+import com.sixppl.dto.EntityDTO;
 
 public interface EntityDAO {
-	void insertEntity(EntityBean entity);
-	void updateEntity(EntityBean entity);
+	void insertEntity(EntityDTO entity);
+	void updateEntity(EntityDTO entity);
 	void deleteEntity(long ID);
-	ArrayList<EntityBean> findEntity(String type, String keyword);	// Type = Publication/Author/School/Venue etc., Keyword = Caption
+	ArrayList<EntityDTO> findEntity(String type, String keyword);	// Type = Publication/Author/School/Venue etc., Keyword = Caption
 }

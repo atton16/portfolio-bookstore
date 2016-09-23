@@ -1,14 +1,14 @@
 package com.sixppl.dao.support;
 
 import java.sql.Connection;
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.sixppl.bean.GraphBean;
-import com.sixppl.bean.GraphOutputBean;
+
 import com.sixppl.dao.GraphDAO;
+import com.sixppl.dto.GraphDTO;
+import com.sixppl.dto.GraphOutputDTO;
 import com.sixppl.main.Application;
 
 public class GraphDAOImpl implements GraphDAO {
@@ -18,7 +18,7 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void insertGraph(GraphBean graph) {
+	public void insertGraph(GraphDTO graph) {
 		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
 		Connection connection = null;
@@ -46,7 +46,7 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void updateGraph(GraphBean graph) {
+	public void updateGraph(GraphDTO graph) {
 		// TODO Auto-generated method stub
 		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
 		Connection connection = null;
@@ -101,9 +101,9 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public ArrayList<GraphBean> findGraph(String type, String keyword) {
+	public ArrayList<GraphDTO> findGraph(String type, String keyword) {
 		// TODO Auto-generated method stub
-		ArrayList<GraphBean> result = new ArrayList<GraphBean>();
+		ArrayList<GraphDTO> result = new ArrayList<GraphDTO>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
@@ -114,7 +114,7 @@ public class GraphDAOImpl implements GraphDAO {
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
-		      GraphBean graph = new GraphBean();
+		      GraphDTO graph = new GraphDTO();
 		      graph.setID(rs.getLong("ID"));
 		      graph.setNodeFrom(rs.getString("NodeFrom"));
 		      graph.setEdge(rs.getString("Edge"));
@@ -139,9 +139,9 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public ArrayList<GraphOutputBean> findGraphOutput(String type, String keyword) {
+	public ArrayList<GraphOutputDTO> findGraphOutput(String type, String keyword) {
 		// TODO Auto-generated method stub
-		ArrayList<GraphOutputBean> result = new ArrayList<GraphOutputBean>();
+		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
@@ -152,7 +152,7 @@ public class GraphDAOImpl implements GraphDAO {
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
-		      GraphOutputBean graph = new GraphOutputBean();
+		      GraphOutputDTO graph = new GraphOutputDTO();
 		      graph.setID(rs.getLong("ID"));
 		      graph.setNodeFrom(rs.getString("NodeFrom"));
 		      graph.setNodeFromCaption("NodeFromCaption");
