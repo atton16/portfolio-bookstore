@@ -8,13 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.sixppl.bean.EntityBean;
 import com.sixppl.dao.EntityDAO;
+import com.sixppl.main.Application;
 
 public class EntityDAOImpl implements EntityDAO{
-	private DataSource dataSource;
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
 
 	public EntityDAOImpl() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +22,7 @@ public class EntityDAOImpl implements EntityDAO{
 		String sql = "INSERT INTO Entity (EntityID, Class, Type, Caption) VALUES(?,?,?,?)";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, entity.getEntityID());
 			ps.setString(2, entity.getEntityClass());
@@ -55,7 +51,7 @@ public class EntityDAOImpl implements EntityDAO{
 		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE ID=?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, entity.getEntityID());
 			ps.setString(2, entity.getEntityClass());
@@ -85,7 +81,7 @@ public class EntityDAOImpl implements EntityDAO{
 		String sql = "DELETE FROM Entity WHERE ID=?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setLong(1, ID);
 			ps.executeUpdate();
@@ -112,7 +108,7 @@ public class EntityDAOImpl implements EntityDAO{
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, type);
 			ps.setString(2, "%" + keyword + "%");

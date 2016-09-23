@@ -9,13 +9,9 @@ import java.util.ArrayList;
 import com.sixppl.bean.GraphBean;
 import com.sixppl.bean.GraphOutputBean;
 import com.sixppl.dao.GraphDAO;
+import com.sixppl.main.Application;
 
 public class GraphDAOImpl implements GraphDAO {
-	private DataSource dataSource;
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
 	
 	public GraphDAOImpl() {
 		// TODO Auto-generated constructor stub
@@ -27,7 +23,7 @@ public class GraphDAOImpl implements GraphDAO {
 		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, graph.getNodeFrom());
 			ps.setString(2, graph.getEdge());
@@ -55,7 +51,7 @@ public class GraphDAOImpl implements GraphDAO {
 		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, graph.getNodeFrom());
 			ps.setString(2, graph.getEdge());
@@ -84,7 +80,7 @@ public class GraphDAOImpl implements GraphDAO {
 		String sql = "DELETE FROM Graph WHERE ID=?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setLong(1, ID);
 			ps.executeUpdate();
@@ -111,7 +107,7 @@ public class GraphDAOImpl implements GraphDAO {
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, type);
 			ps.setString(2, "%" + keyword + "%");
@@ -149,7 +145,7 @@ public class GraphDAOImpl implements GraphDAO {
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		Connection connection = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, type);
 			ps.setString(2, "%" + keyword + "%");
