@@ -7,7 +7,7 @@
 <title>${title}: Admin Dashboard</title>
 </head>
 <body>
-<jsp:include page="inc.body.header.jsp" />
+<jsp:include page="inc.body.admin_header.jsp" />
 <div class="container">
 	<!-- Admin Dashboard Title -->
 	<div class="row">
