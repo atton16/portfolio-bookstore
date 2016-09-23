@@ -1,6 +1,8 @@
 package com.sixppl.main;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.*;
 
 import com.sixppl.cmd.*;
 import com.sixppl.main.Application;
@@ -72,6 +76,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
 	private static final String UNLIST_COMMAND = "unlistCommand";
+	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
 	
 	Map<String,Command> commands;
 
@@ -90,6 +95,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
+		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
     }
     
     public void destroy() {
@@ -171,6 +177,18 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
 		// Admin: Manage Publications - Search
 		} else if(URI.equalsIgnoreCase("/admin/pub/find")){
+			String cmd = request.getParameter("cmd");
+			String Pubid = request.getParameter("id");
+			//response.getWriter().write("hello");
+			commands.get(ADMINGETPUB_COMMAND).execute(request, response);
+			StringWriter out = new StringWriter();
+			JSONArray temp =(JSONArray) request.getAttribute("jsonreturn");
+			JSONValue.writeJSONString(temp, out);
+			PrintWriter outPrintWriter = response.getWriter();
+			outPrintWriter.write(temp.toString());
+			
+			
+			/*
 			//TODO: Admin: Manage Publications - Search
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
@@ -183,7 +201,7 @@ public class Asst2Servlet extends HttpServlet {
 					+ "\"price\": 280.00,"
 					+ "\"seller\": \"Hale\","
 					+ "\"listed\": \"DD/MM/YY\""
-					+ "}"); // TODO: Response in JSON Format
+					+ "}"); // TODO: Response in JSON Format*/
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
     	// Admin: Manage Users
