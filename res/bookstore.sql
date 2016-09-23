@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2016 at 04:52 PM
+-- Generation Time: Sep 23, 2016 at 05:47 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
+CREATE Database `bookstore`;
+USE `bookstore`;
 
 -- --------------------------------------------------------
 
@@ -63,53 +65,30 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 --
 
 CREATE TABLE IF NOT EXISTS `Entity` (
-  `ID` bigint(20) unsigned NOT NULL,
+  `ID` bigint(20) NOT NULL,
   `EntityID` text NOT NULL,
-  `Attribute` text NOT NULL,
-  `Value` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+  `Class` text NOT NULL,
+  `Type` text NOT NULL,
+  `Caption` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Entity`
 --
 
-INSERT INTO `Entity` (`ID`, `EntityID`, `Attribute`, `Value`) VALUES
-(1, 'P1', 'Class', 'Node'),
-(2, 'P1', 'Type', 'Publication'),
-(3, 'P1', 'Caption', 'Crawling Hidden Objects with kNN Queries.'),
-(4, 'A1', 'Class', 'Node'),
-(5, 'A1', 'Type', 'Author'),
-(6, 'A1', 'Caption', 'Hui Yan'),
-(7, 'V1', 'Class', 'Node'),
-(8, 'V1', 'Type', 'Venue'),
-(9, 'V1', 'Caption', 'IEEE Trans. Knowl. Data Eng.'),
-(10, 'S1', 'Class', 'Node'),
-(11, 'S1', 'Type', 'School'),
-(12, 'S1', 'Caption', 'Universität Linköping'),
-(13, 'A2', 'Class', 'Node'),
-(14, 'A2', 'Type', 'Author'),
-(15, 'A2', 'Caption', 'Andrzej Bednarski'),
-(16, 'P2', 'Class', 'Node'),
-(17, 'P2', 'Type', 'Publication'),
-(18, 'P2', 'Caption', 'A dynamic programming approach to optimal retargetable code generation for irregular architectures.'),
-(19, 'A3', 'Class', 'Node'),
-(20, 'A3', 'Type', 'Author'),
-(21, 'A3', 'Caption', 'Zhiguo Gong'),
-(22, 'E1', 'Class', 'Edge'),
-(23, 'E1', 'Type', 'DirectLink'),
-(24, 'E1', 'Caption', 'authored by'),
-(25, 'E2', 'Class', 'Edge'),
-(26, 'E2', 'Type', 'DirectLink'),
-(27, 'E2', 'Caption', 'affiliated in'),
-(28, 'E3', 'Class', 'Edge'),
-(29, 'E3', 'Type', 'DirectLink'),
-(30, 'E3', 'Caption', 'authored by'),
-(31, 'E4', 'Class', 'Edge'),
-(32, 'E4', 'Type', 'DirectLink'),
-(33, 'E4', 'Caption', 'authored by'),
-(34, 'E5', 'Class', 'Edge'),
-(35, 'E5', 'Type', 'DirectLink'),
-(36, 'E5', 'Caption', 'published in');
+INSERT INTO `Entity` (`ID`, `EntityID`, `Class`, `Type`, `Caption`) VALUES
+(1, 'P1', 'Node', 'Publication', 'Crawling Hidden Objects with kNN Queries.'),
+(2, 'A1', 'Node', 'Author', 'Hui Yan'),
+(3, 'V1', 'Node', 'Venue', 'IEEE Trans. Knowl. Data Eng.'),
+(4, 'S1', 'Node', 'School', 'Universität Linköping'),
+(5, 'A2', 'Node', 'Author', 'Andrzej Bednarski'),
+(6, 'P2', 'Node', 'Publication', 'A dynamic programming approach to optimal retargetable code generation for irregular architectures.'),
+(7, 'A3', 'Node', 'Author', 'Zhiguo Gong'),
+(8, 'E1', 'Edge', 'DirectedLink', 'authored by'),
+(9, 'E2', 'Edge', 'DirectedLink', 'affiliated in'),
+(10, 'E3', 'Edge', 'DirectedLink', 'authored by'),
+(11, 'E4', 'Edge', 'DirectedLink', 'authored by'),
+(12, 'E5', 'Edge', 'DirectedLink', 'published in');
 
 -- --------------------------------------------------------
 
@@ -134,6 +113,60 @@ INSERT INTO `Graph` (`ID`, `NodeFrom`, `Edge`, `NodeTo`) VALUES
 (3, 'P1', 'E3', 'A1'),
 (4, 'P1', 'E4', 'A3'),
 (5, 'P1', 'E5', 'V1');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `graphedge`
+--
+CREATE TABLE IF NOT EXISTS `graphedge` (
+`ID` bigint(20) unsigned
+,`NodeFrom` text
+,`Edge` text
+,`EdgeCaption` text
+,`NodeTo` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `graphnodefrom`
+--
+CREATE TABLE IF NOT EXISTS `graphnodefrom` (
+`ID` bigint(20) unsigned
+,`NodeFrom` text
+,`NodeFromCaption` text
+,`Edge` text
+,`NodeTo` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `graphnodeto`
+--
+CREATE TABLE IF NOT EXISTS `graphnodeto` (
+`ID` bigint(20) unsigned
+,`NodeFrom` text
+,`Edge` text
+,`NodeTo` text
+,`NodeToCaption` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `graphoutput`
+--
+CREATE TABLE IF NOT EXISTS `graphoutput` (
+`ID` bigint(20) unsigned
+,`NodeFrom` text
+,`NodeFromCaption` text
+,`Edge` text
+,`EdgeCaption` text
+,`NodeTo` text
+,`NodeToCaption` text
+);
 
 -- --------------------------------------------------------
 
@@ -232,6 +265,42 @@ CREATE TABLE IF NOT EXISTS `Variable` (
 INSERT INTO `Variable` (`Name`, `Value`) VALUES
 ('OrderNumber', 0);
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `graphedge`
+--
+DROP TABLE IF EXISTS `graphedge`;
+
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphedge` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`graph`.`Edge` AS `Edge`,`entity`.`Caption` AS `EdgeCaption`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`Edge` = `entity`.`EntityID`) order by `graph`.`ID`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `graphnodefrom`
+--
+DROP TABLE IF EXISTS `graphnodefrom`;
+
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodefrom` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`entity`.`Caption` AS `NodeFromCaption`,`graph`.`Edge` AS `Edge`,`graph`.`NodeTo` AS `NodeTo` from (`graph` join `entity`) where (`graph`.`NodeFrom` = `entity`.`EntityID`) order by `graph`.`ID`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `graphnodeto`
+--
+DROP TABLE IF EXISTS `graphnodeto`;
+
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphnodeto` AS select `graph`.`ID` AS `ID`,`graph`.`NodeFrom` AS `NodeFrom`,`graph`.`Edge` AS `Edge`,`graph`.`NodeTo` AS `NodeTo`,`entity`.`Caption` AS `NodeToCaption` from (`graph` join `entity`) where (`graph`.`NodeTo` = `entity`.`EntityID`) order by `graph`.`ID`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `graphoutput`
+--
+DROP TABLE IF EXISTS `graphoutput`;
+
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `graphoutput` AS select `graphnodefrom`.`ID` AS `ID`,`graphnodefrom`.`NodeFrom` AS `NodeFrom`,`graphnodefrom`.`NodeFromCaption` AS `NodeFromCaption`,`graphnodefrom`.`Edge` AS `Edge`,`graphedge`.`EdgeCaption` AS `EdgeCaption`,`graphnodefrom`.`NodeTo` AS `NodeTo`,`graphnodeto`.`NodeToCaption` AS `NodeToCaption` from ((`graphnodefrom` join `graphedge`) join `graphnodeto`) where ((`graphnodefrom`.`ID` = `graphedge`.`ID`) and (`graphnodefrom`.`ID` = `graphnodeto`.`ID`) and (`graphedge`.`ID` = `graphnodeto`.`ID`)) order by `graphnodefrom`.`ID`;
+
 --
 -- Indexes for dumped tables
 --
@@ -319,7 +388,7 @@ ALTER TABLE `Variable`
 -- AUTO_INCREMENT for table `Entity`
 --
 ALTER TABLE `Entity`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `Graph`
 --
