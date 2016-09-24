@@ -73,6 +73,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
 	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
+	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
 	
 	Map<String,Command> commands;
 
@@ -88,6 +89,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
+		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
     }
     
     public void destroy() {
@@ -208,7 +210,7 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
     	// Graph Page
 		} else if(URI.equalsIgnoreCase("/graph")){
-			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(SEARCHGRAPH_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
