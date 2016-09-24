@@ -19,10 +19,18 @@ public class CartRemoveCommand implements Command {
 		ArrayList<Integer> removedPub = new ArrayList<Integer>();
 		String[] removedPubID = request.getParameterValues("id");
 		for(String pubID:removedPubID){
-			removedPub.add(Integer.valueOf(pubID));
+			try{
+				removedPub.add(Integer.valueOf(pubID));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		CartDAO cart = new CartDAOImpl();
-		cart.removeCart(userID,removedPub);
+		try{
+			cart.removeCart(userID,removedPub);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 
