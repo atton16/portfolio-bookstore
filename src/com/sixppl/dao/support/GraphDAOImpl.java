@@ -115,13 +115,13 @@ public class GraphDAOImpl implements GraphDAO {
 	public ArrayList<GraphOutputDTO> findGraphOutput(String node) {
 		// TODO Auto-generated method stub
 		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
-		String sql = "SELECT * FROM graphoutput WHERE NodeFromCaption LIKE ? OR NodeToCaption LIKE ?";
+		String sql = "SELECT * FROM graphoutput WHERE NodeFrom=? OR NodeTo=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, "%" + node + "%");
-			ps.setString(2, "%" + node + "%");
+			ps.setString(1, node);
+			ps.setString(2, node);
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 			{

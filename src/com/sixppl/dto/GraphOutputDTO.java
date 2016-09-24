@@ -109,7 +109,7 @@ public class GraphOutputDTO {
 		this.nodeToCaption = nodeToCaption;
 	}
 
-	public boolean contains(ArrayList<GraphOutputDTO> graphList, long ID) {
+	public static boolean containsID(ArrayList<GraphOutputDTO> graphList, long ID) {
 	    for (GraphOutputDTO graph : graphList) {
 	        if (graph.getID() == ID) {
 	            return true;
@@ -118,7 +118,7 @@ public class GraphOutputDTO {
 	    return false;
 	}
 	
-	public boolean contains(Stack<GraphOutputDTO> graphList, long ID) {
+	public static boolean containsID(Stack<GraphOutputDTO> graphList, long ID) {
 	    for (GraphOutputDTO graph : graphList) {
 	        if (graph.getID() == ID) {
 	            return true;

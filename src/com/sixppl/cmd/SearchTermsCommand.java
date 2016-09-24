@@ -19,6 +19,8 @@ import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphOutputDTO;
 
 public class SearchTermsCommand implements Command {
+	
+	String data = "{\"nodes\": [],\"edges\": []}";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,13 +41,13 @@ public class SearchTermsCommand implements Command {
 			}
 			// debug search input
 			//System.out.println("graph input: type = "+type+"; keyword = "+keyword);
-			EntityDAO entity = new EntityDAOImpl();
+			EntityDAO entityDAO = new EntityDAOImpl();
 			ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
 			ArrayList<EntityDTO> nodes = new ArrayList<EntityDTO>();
 			ArrayList<GraphOutputDTO> edges = new ArrayList<GraphOutputDTO>();
 			// get all possible nodes by keyword
 			try {
-				keywordnodes = entity.findEntity(type, keyword);
+				keywordnodes = entityDAO.findEntity(type, keyword);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,18 +66,20 @@ public class SearchTermsCommand implements Command {
 						String query = queryList.pop();
 						ArrayList<String> tempNodeIDList = new ArrayList<String>();
 						try {
-							tempNodeIDList = entity.findLinkedEntity(query);
+							tempNodeIDList = entityDAO.findLinkedEntity(query);
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						for (String tempNodeID : tempNodeIDList) {
 							// add new related nodes into result node list
-							if (!nodes.contains(tempNodeID)) {
-								EntityDTO tempNode;
+							if (!EntityDTO.containsEntityID(nodes,tempNodeID)) {
+								EntityDTO tempNode = new EntityDTO();
 								try {
-									tempNode = entity.findEntityByEntityId(tempNodeID);
-									nodes.add(tempNode);
+									tempNode = entityDAO.findEntityByEntityId(tempNodeID);
+									if (tempNode.getEntityID() != null) {
+										nodes.add(tempNode);
+									}
 								} catch (SQLException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -85,57 +89,64 @@ public class SearchTermsCommand implements Command {
 					}
 					// find all edges from node list
 					for (EntityDTO node : nodes) {
-						GraphDAO graph = new GraphDAOImpl();
+						GraphDAO graphDAO = new GraphDAOImpl();
 						ArrayList<GraphOutputDTO> tempEdgeList = new ArrayList<GraphOutputDTO>();
 						try {
-							tempEdgeList = graph.findGraphOutput(node.getEntityID());
+							tempEdgeList = graphDAO.findGraphOutput(node.getEntityID());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						for (GraphOutputDTO edge : tempEdgeList) {
 							// add new edges into result edge list
-							if (!edges.contains(edge.getID())) {
+							if (!GraphOutputDTO.containsID(edges, edge.getID())) {
 								edges.add(edge);
 							}
 						}
 					}
 				}
-				// print GraphJSON output
-				System.out.println("{");
-				System.out.println("\"nodes\": [");
+				// export output as GraphJSON format
+				data = "{ \"nodes\": [";
 				Iterator<EntityDTO> iterN = nodes.iterator();
 				while (iterN.hasNext()) {
 					EntityDTO node = iterN.next();
-					System.out.println("{");
-					System.out.println("\"id\": " + node.getID());
-					System.out.println("\"label\": " + node.getEntityType());
-					System.out.println("\"caption\": " + node.getEntityCaption());
+					data += "{";
+					data += "\"id\": \"";
+					data += node.getID();
+					data += "\",\"label\": \"";
+					data += node.getEntityType();
+					data += "\",\"caption\": \"";
+					data += node.getEntityCaption();
 					if (iterN.hasNext()) {
-						System.out.println("},");
+						data += "\"},";
 					}
 					else {
-						System.out.println("}");
+						data += "\"}";
 					}
 				}
-				System.out.println("],");
-				System.out.println("\"edges\": [");
+				data += "],";
+				data += "\"edges\": [";
 				Iterator<GraphOutputDTO> iterE = edges.iterator();
 				while (iterE.hasNext()) {
 					GraphOutputDTO edge = iterE.next();
-					System.out.println("{");
-					System.out.println("\"source\": " + edge.getNodeFromID());
-					System.out.println("\"target\": " + edge.getNodeToID());
-					System.out.println("\"caption\": " + edge.getEdgeCaption());
+					data += "{";
+					data += "\"source\": \"";
+					data += edge.getNodeFromID();
+					data += "\",\"target\": \"";
+					data += edge.getNodeToID();
+					data += "\",\"caption\": \"";
+					data += edge.getEdgeCaption();
 					if (iterE.hasNext()) {
-						System.out.println("},");
+						data += "\"},";
 					}
 					else {
-						System.out.println("}");
+						data += "\"}";
 					}
 				}
-				System.out.println("}");
+				data += "]}";
+				System.out.println(data);
 			}
+			request.setAttribute("data", data);
 		}
 		request.setAttribute("searchTerms", searchTerms);
 	}

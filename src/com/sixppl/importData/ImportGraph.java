@@ -32,7 +32,7 @@ public class ImportGraph {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -61,7 +61,7 @@ public class ImportGraph {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -88,7 +88,7 @@ public class ImportGraph {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -116,7 +116,7 @@ public class ImportGraph {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -140,7 +140,7 @@ public class ImportGraph {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -182,7 +182,7 @@ public class ImportGraph {
 		    ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -212,7 +212,7 @@ public class ImportGraph {
 		    cStmt.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {
@@ -244,7 +244,7 @@ public class ImportGraph {
 		    ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.getMessage());
 		}
 		finally {
 			if (connection != null) {

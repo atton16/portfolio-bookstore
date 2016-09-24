@@ -26,7 +26,8 @@ public class ExtractXMLGraph {
 		// TODO Auto-generated method stub
 		// 1. Read XML
 				NodeList nodeList = null;
-				String xmlPath = "/Users/monai/Documents/workspace/asst2_importgraph/res/dblp.xml";
+				// !!!IMPORTANT - Update path to XML file before executing
+				String xmlPath = "/Users/monai/Documents/workspace/asst2/res/dblp.xml";
 				InputSource xmlFile = new InputSource(xmlPath);
 				try {
 					DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

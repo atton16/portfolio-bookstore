@@ -78,7 +78,7 @@ public class EntityDTO {
 		this.nodeStack = nodeStack;
 	}
 
-	public boolean contains(ArrayList<EntityDTO> nodeList, long ID) {
+	public static boolean containsID(ArrayList<EntityDTO> nodeList, long ID) {
 	    for (EntityDTO node : nodeList) {
 	        if (node.getID() == ID) {
 	            return true;
@@ -87,7 +87,7 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public boolean contains(ArrayList<EntityDTO> nodeList, String entityID) {
+	public static boolean containsEntityID(ArrayList<EntityDTO> nodeList, String entityID) {
 	    for (EntityDTO node : nodeList) {
 	        if (node.getEntityID().equals(entityID)) {
 	            return true;
@@ -96,7 +96,7 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public boolean contains(Stack<EntityDTO> nodeList, long ID) {
+	public static boolean containsID(Stack<EntityDTO> nodeList, long ID) {
 	    for (EntityDTO node : nodeList) {
 	        if (node.getID() == ID) {
 	            return true;
@@ -105,7 +105,7 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public boolean contains(Stack<EntityDTO> nodeList, String entityID) {
+	public static boolean containsEntityID(Stack<EntityDTO> nodeList, String entityID) {
 	    for (EntityDTO node : nodeList) {
 	        if (node.getEntityID().equals(entityID)) {
 	            return true;

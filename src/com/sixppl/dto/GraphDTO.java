@@ -68,7 +68,7 @@ public class GraphDTO {
 		this.edgeStack = edgeStack;
 	}
 
-	public boolean contains(ArrayList<GraphDTO> graphList, long ID) {
+	public static boolean containsID(ArrayList<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
 	            return true;
@@ -77,7 +77,7 @@ public class GraphDTO {
 	    return false;
 	}
 	
-	public boolean contains(Stack<GraphDTO> graphList, long ID) {
+	public static boolean containsID(Stack<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
 	            return true;

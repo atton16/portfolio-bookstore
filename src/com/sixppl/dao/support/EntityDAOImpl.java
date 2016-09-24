@@ -193,11 +193,13 @@ public class EntityDAOImpl implements EntityDAO{
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, entityID);
 			ResultSet rs = ps.executeQuery();
-			result.setID(rs.getLong("ID"));
-			result.setEntityID(rs.getString("EntityID"));
-			result.setEntityClass(rs.getString("Class"));
-			result.setEntityType(rs.getString("Type"));
-			result.setEntityCaption(rs.getString("Caption"));
+			if (rs.next()) {
+				result.setID(rs.getLong("ID"));
+				result.setEntityID(rs.getString("EntityID"));
+				result.setEntityClass(rs.getString("Class"));
+				result.setEntityType(rs.getString("Type"));
+				result.setEntityCaption(rs.getString("Caption"));
+			}
 		    rs.close();
 		    ps.close();
 		}
