@@ -16,6 +16,44 @@ public class GraphDAOImpl implements GraphDAO {
 	public GraphDAOImpl() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void dropTable() throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DROP TABLE IF EXISTS Graph";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void createTable() throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "CREATE TABLE IF NOT EXISTS Graph ("
+				+ "ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,"
+				+ "NodeFrom text NOT NULL,"
+				+ "Edge text NOT NULL,"
+				+ "NodeTo text NOT NULL,"
+				+ "PRIMARY KEY(ID)"
+				+ ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	@Override
 	public void insertGraph(GraphDTO graph) {
@@ -32,16 +70,7 @@ public class GraphDAOImpl implements GraphDAO {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
-
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -61,16 +90,7 @@ public class GraphDAOImpl implements GraphDAO {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
-
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -87,96 +107,43 @@ public class GraphDAOImpl implements GraphDAO {
 			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
-
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
+			System.out.println(e.getMessage());
 		}
 	}
 
 	@Override
-	public ArrayList<GraphDTO> findGraph(String type, String keyword) {
-		// TODO Auto-generated method stub
-		ArrayList<GraphDTO> result = new ArrayList<GraphDTO>();
-		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
-		Connection connection = null;
-		try {
-			connection = Application.getSharedInstance().getDAOSupport().getConnection();
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, type);
-			ps.setString(2, "%" + keyword + "%");
-			ResultSet rs = ps.executeQuery();
-			while ( rs.next() )
-		    {
-		      GraphDTO graph = new GraphDTO();
-		      graph.setID(rs.getLong("ID"));
-		      graph.setNodeFrom(rs.getString("NodeFrom"));
-		      graph.setEdge(rs.getString("Edge"));
-		      graph.setNodeTo(rs.getString("NodeTo"));
-		      result.add(graph);
-		    }
-		    rs.close();
-		    ps.close();
-		}
-		catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public ArrayList<GraphOutputDTO> findGraphOutput(String type, String keyword) {
+	public ArrayList<GraphOutputDTO> findGraphOutput(String node) {
 		// TODO Auto-generated method stub
 		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
-		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
+		String sql = "SELECT * FROM graphoutput WHERE NodeFrom=? OR NodeTo=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, type);
-			ps.setString(2, "%" + keyword + "%");
+			ps.setString(1, node);
+			ps.setString(2, node);
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
-		    {
-		      GraphOutputDTO graph = new GraphOutputDTO();
-		      graph.setID(rs.getLong("ID"));
-		      graph.setNodeFrom(rs.getString("NodeFrom"));
-		      graph.setNodeFromCaption("NodeFromCaption");
-		      graph.setEdge(rs.getString("Edge"));
-		      graph.setEdgeCaption("EdgeCaption");
-		      graph.setNodeTo(rs.getString("NodeTo"));
-		      graph.setNodeToCaption("NodeToCaption");
-		      result.add(graph);
-		    }
-		    rs.close();
-		    ps.close();
+			{
+				GraphOutputDTO graph = new GraphOutputDTO();
+				graph.setID(rs.getLong("ID"));
+				graph.setNodeFromID(rs.getLong("NodeFromID"));
+				graph.setNodeFrom(rs.getString("NodeFrom"));
+				graph.setNodeFromCaption(rs.getString("NodeFromCaption"));
+				graph.setEdgeID(rs.getLong("EdgeID"));
+				graph.setEdge(rs.getString("Edge"));
+				graph.setEdgeCaption(rs.getString("EdgeCaption"));
+				graph.setNodeToID(rs.getLong("NodeToID"));
+				graph.setNodeTo(rs.getString("NodeTo"));
+				graph.setNodeToCaption(rs.getString("NodeToCaption"));
+				result.add(graph);
+			}
+			rs.close();
+			ps.close();
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
+			System.out.println(e.getMessage());
 		}
 		return result;
 	}
-
 }
