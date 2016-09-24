@@ -83,9 +83,27 @@ public class GraphDTO {
 	    return false;
 	}
 	
+	public static boolean containsEdgeID(ArrayList<GraphDTO> graphList, String edgeID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getEdge().equals(edgeID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 	public static boolean containsID(Stack<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsEdgeID(Stack<GraphDTO> graphList, String edgeID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getEdge().equals(edgeID)) {
 	            return true;
 	        }
 	    }

@@ -11,7 +11,6 @@ public class PublicationHandler {
 	private ArrayList<PublicationDTO> publicationList;
 	
 	public PublicationHandler() {
-		// TODO Auto-generated constructor stub
 		this.publicationList = new ArrayList<PublicationDTO>();
 	}
 

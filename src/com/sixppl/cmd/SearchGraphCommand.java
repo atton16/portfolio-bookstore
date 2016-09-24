@@ -20,6 +20,7 @@ import com.sixppl.dto.GraphOutputDTO;
 public class SearchGraphCommand implements Command {
 
 	String data = "{\"nodes\": [],\"edges\": []}";
+	String matchedNode = "{\"nodes\": []}";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,6 +92,7 @@ public class SearchGraphCommand implements Command {
 				}
 			}
 	// 5. Export output as GraphJSON format
+		// 5.1 All keyword nodes network
 			data = "{ \"nodes\": [";
 			Iterator<EntityDTO> iterN = nodes.iterator();
 			while (iterN.hasNext()) {
@@ -129,9 +131,31 @@ public class SearchGraphCommand implements Command {
 				}
 			}
 			data += "]}";
+		// 5.2 Keyword nodes only
+			matchedNode = "{ \"nodes\": [";
+			Iterator<EntityDTO> iterK = keywordnodes.iterator();
+			while (iterK.hasNext()) {
+				EntityDTO node = iterK.next();
+				matchedNode += "{";
+				matchedNode += "\"id\": \"";
+				matchedNode += node.getID();
+				matchedNode += "\",\"label\": \"";
+				matchedNode += node.getEntityType();
+				matchedNode += "\",\"caption\": \"";
+				matchedNode += node.getEntityCaption();
+				if (iterK.hasNext()) {
+					matchedNode += "\"},";
+				}
+				else {
+					matchedNode += "\"}";
+				}
+			}
+			matchedNode += "]}";
 		}
 	// debug for checking JSON output
 		//System.out.println(data);
+		//System.out.println(matchedNode);
 		request.setAttribute("data", data);
+		request.setAttribute("matchedNode", matchedNode);
 	}
 }

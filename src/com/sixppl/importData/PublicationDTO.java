@@ -31,7 +31,6 @@ public class PublicationDTO {
 	private String type;
 	
 	public PublicationDTO() {
-		// TODO Auto-generated constructor stub
 		this.key = null;
 		this.mdate = null;
 		this.author = new ArrayList<String>();

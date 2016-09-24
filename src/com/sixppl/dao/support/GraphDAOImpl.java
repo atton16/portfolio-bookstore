@@ -14,12 +14,10 @@ import com.sixppl.main.Application;
 public class GraphDAOImpl implements GraphDAO {
 	
 	public GraphDAOImpl() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-	public void dropTable() throws SQLException {
-		// TODO Auto-generated method stub
+	public void dropGraphTable() throws SQLException {
 		String sql = "DROP TABLE IF EXISTS Graph";
 		Connection connection = null;
 		try {
@@ -34,8 +32,7 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void createTable() throws SQLException {
-		// TODO Auto-generated method stub
+	public void createGraphTable() throws SQLException {
 		String sql = "CREATE TABLE IF NOT EXISTS Graph ("
 				+ "ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,"
 				+ "NodeFrom text NOT NULL,"
@@ -57,7 +54,6 @@ public class GraphDAOImpl implements GraphDAO {
 
 	@Override
 	public void insertGraph(GraphDTO graph) {
-		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
 		Connection connection = null;
 		try {
@@ -76,7 +72,6 @@ public class GraphDAOImpl implements GraphDAO {
 
 	@Override
 	public void updateGraph(GraphDTO graph) {
-		// TODO Auto-generated method stub
 		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
 		Connection connection = null;
 		try {
@@ -96,7 +91,6 @@ public class GraphDAOImpl implements GraphDAO {
 
 	@Override
 	public void deleteGraph(long ID) {
-		// TODO Auto-generated method stub
 		String sql = "DELETE FROM Graph WHERE ID=?";
 		Connection connection = null;
 		try {
@@ -113,7 +107,6 @@ public class GraphDAOImpl implements GraphDAO {
 
 	@Override
 	public ArrayList<GraphOutputDTO> findGraphOutput(String node) {
-		// TODO Auto-generated method stub
 		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
 		String sql = "SELECT * FROM graphoutput WHERE NodeFrom=? OR NodeTo=?";
 		Connection connection = null;

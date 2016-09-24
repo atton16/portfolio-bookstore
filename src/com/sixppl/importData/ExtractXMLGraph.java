@@ -18,7 +18,6 @@ import com.sixppl.dto.GraphDTO;
 public class ExtractXMLGraph {
 
 	public ExtractXMLGraph() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	// Randomly select 100 publications from XML file and insert into database
