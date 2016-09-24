@@ -42,12 +42,15 @@ import com.sixppl.main.Application;
 		"/cart/remove",
 		"/receipt",
 		
+		"/ban",
 		"/login",
 		"/logout",
 		"/signup",
 		"/signup/resend",
 		"/signup/confirm",
 		"/user/profile",
+		"/user/profile/verify",
+		"/user/profile/confirm",
 		"/user/sell",
 		"/user/pub/manage",
 		
@@ -142,6 +145,10 @@ public class Asst2Servlet extends HttpServlet {
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
 			//TODO: Get publication info
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
+		// Render: Ban Page
+		} else if(URI.equalsIgnoreCase("/ban")){
+			//TODO: Check ban
+			request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
@@ -160,6 +167,16 @@ public class Asst2Servlet extends HttpServlet {
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
+		// Resend Verification Email
+		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
+			//TODO: Resend Verification Email
+			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
+		// Confirm New Email
+		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
+			//TODO: Confirm New Email
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "xx");	//TODO: remove this
+			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
