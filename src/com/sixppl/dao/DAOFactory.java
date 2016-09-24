@@ -9,6 +9,7 @@ public class DAOFactory {
 	private static final String DUMMY_DAO = "dummyDAO";
 	private static final String FOO_DAO = "fooDAO";
 	private static final String USER_DAO = "userDAO";
+	private static final String SESSION_DAO = "sessionDAO";
 	
 	private Map<String, Object> daos;
 	
@@ -17,6 +18,7 @@ public class DAOFactory {
 		daos.put(DUMMY_DAO, new DummyDAOImpl());
 		daos.put(FOO_DAO, new FooDAOImpl());
 		daos.put(USER_DAO, new UserDAOImpl());
+		daos.put(SESSION_DAO, new SessionDAOImpl());
 	}
 	
 	public DummyDAO getDummyDAO() {
@@ -28,5 +30,8 @@ public class DAOFactory {
 	}
 	public UserDAO getUserDAO() {
 		return (UserDAO) daos.get(USER_DAO);
+	}
+	public SessionDAO getSessionDAO(){
+		return (SessionDAO) daos.get(SESSION_DAO);
 	}
 }

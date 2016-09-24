@@ -20,6 +20,7 @@ import com.sixppl.main.Application;
 public class UserDAOImpl implements UserDAO{
 	static Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 	private Connection connection;
+	public static final int MYSQL_DUPLICATE= 1062;
 	DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public UserDAOImpl() {
@@ -29,7 +30,7 @@ public class UserDAOImpl implements UserDAO{
 
 
 	@Override
-	public Boolean addUser(UserDTO user){
+	public boolean addUser(UserDTO user){
 	boolean flag = true;
 	String sql = "insert into User (Username, Password, Nickname, Firstname, "
 			+ "Lastname,Email, Birthyear,Address, CardNumber,TokenString) values (?,?,?,?,?,?,?,?,?,?)";
@@ -77,7 +78,7 @@ public class UserDAOImpl implements UserDAO{
 
 			while(rs.next()){
 				UserDTO ue = new UserDTO();
-				ue.setUserID(rs.getString("UserID"));
+				ue.setUserID(Integer.parseInt(rs.getString("UserID")));
 				ue.setUsername(rs.getString("Username"));
 				ue.setPassword(rs.getString("Password"));
 				ue.setNickname(rs.getString("Nickname"));
@@ -116,7 +117,7 @@ public class UserDAOImpl implements UserDAO{
 
 			while(rs.next()){
 				UserDTO ue = new UserDTO();
-				ue.setUserID(rs.getString("UserID"));
+				ue.setUserID(Integer.parseInt(rs.getString("UserID")));
 				ue.setUsername(rs.getString("Username"));
 				ue.setPassword(rs.getString("Password"));
 				ue.setNickname(rs.getString("Nickname"));
@@ -143,7 +144,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public Boolean updateUser(UserDTO user) {
+	public boolean updateUser(UserDTO user) {
 		boolean flag = true;
 		String sql = "update User set Password=?,Nickname=?,Firstname=?,Lastname=?"
 				+ "Email=?,NewEmail=?,Birthyear=?,Address=?,CardNumber=?,TokenString=? where Username=?";

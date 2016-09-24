@@ -1,6 +1,7 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import com.sixppl.main.Application;
 public class UserRegCommand implements Command {
 	private UserDAO userDao;
 
+	public static final int MYSQL_DUPLICATE= 1062;
 	public UserRegCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 	}
@@ -37,13 +39,13 @@ public class UserRegCommand implements Command {
 		email = request.getParameter("email");
 		addr = request.getParameter("address");
 		cardno = request.getParameter("ccn");
-		if (username == null || username.equals("") || username == null
+		if (username == null || username.equals("")
 				|| password == null || password.equals("") || addr == null
 				|| addr.equals("") ||cardno == null
 						|| cardno.equals("") ) {
 			request.setAttribute("success", false);
 			request.setAttribute("error_msg",
-					"The username or email or password should not be null.");
+					"The username or email or password or addr or cardno should not be null.");
 			System.out.println("The username or email or password should not be null.");
 			return;
 		} else {
@@ -65,14 +67,17 @@ public class UserRegCommand implements Command {
 			user.setBirthyear(request.getParameter("yob"));
 			user.setAddr(request.getParameter("address"));
 			user.setCardno(request.getParameter("ccn"));
-			String token = UUID.randomUUID().toString();
+			String token = UUID.randomUUID().toString().substring(0, 19);
+			System.out.println("the uuid is" + token);
 			user.setTokenstring(token);
 			userDao.addUser(user);
-			//send email to register
 			
 			String to = request.getParameter("email");
 			String from = "asst2unsw@gmail.com";
-			String full_path = request.getRequestURL().toString();
+
+			//String full_path = request.getRequestURL().toString();
+			String full_path = "http://localhost:8080/asst2";
+			System.out.println("the full path is"+full_path);
 			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
 			
 		}

@@ -68,6 +68,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String USERREG_COMMAND = "userRegCommand";
 	
 	Map<String,Command> commands;
 
@@ -82,6 +83,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
     }
     
     public void destroy() {
