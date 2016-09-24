@@ -72,6 +72,10 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String SEARCH_COMMAND = "searchCommand";
+	private static final String SELL_COMMAND = "sellCommand";
+	private static final String LIST_COMMAND = "listCommand";
+	private static final String UNLIST_COMMAND = "unlistCommand";
 	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
 	
@@ -88,6 +92,10 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+		commands.put(SEARCH_COMMAND, new SearchCommand());
+		commands.put(SELL_COMMAND, new SellCommand());
+		commands.put(LIST_COMMAND, new ListCommand());
+		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
     }
@@ -121,6 +129,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
 			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(SEARCH_COMMAND).execute(request, response);
 			//TODO: Do the search
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
@@ -277,20 +286,20 @@ public class Asst2Servlet extends HttpServlet {
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){
 			//TODO: Sell
-			System.out.println(request.getParameter("title"));	//TODO: remove this
-			System.out.println(request.getParameter("pubtype"));	//TODO: remove this
-			System.out.println(request.getPart("pic"));	//TODO: remove this
+			commands.get(SELL_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/list")){
 			//TODO: Set Listing
 			System.out.println("List:"+request.getParameter("id"));	//TODO: remove this
+			commands.get(LIST_COMMAND).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Set Unlist
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/unlist")){
 			//TODO: Set Unlist
 			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
+			commands.get(UNLIST_COMMAND).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Login

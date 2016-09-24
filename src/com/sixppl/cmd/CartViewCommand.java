@@ -18,7 +18,11 @@ public class CartViewCommand implements Command {
 		int userID = 0;// Wait for session method
 		CartDAO cart = new CartDAOImpl();
 		CartBean cartBean = new CartBean();
-		cartBean.setCartList(cart.viewCart(userID));
+		try{
+			cartBean.setCartList(cart.viewCart(userID));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		request.setAttribute("CartList", cart);
 	}
 
