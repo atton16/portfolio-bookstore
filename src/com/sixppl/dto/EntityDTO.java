@@ -14,12 +14,19 @@ public class EntityDTO {
 	private Stack<EntityDTO> nodeStack;
 	
 	public EntityDTO() {
-		// TODO Auto-generated constructor stub
 		this.ID = 0;
 		this.entityID = null;
 		this.entityClass = null;
 		this.entityType = null;
 		this.entityCaption = null;
+	}
+	
+	public EntityDTO(long ID, String entityID, String entityClass, String entityType, String entityCaption) {
+		this.ID = ID;
+		this.entityID = entityID;
+		this.entityClass = entityClass;
+		this.entityType = entityType;
+		this.entityCaption = entityCaption;
 	}
 	
 	public long getID() {

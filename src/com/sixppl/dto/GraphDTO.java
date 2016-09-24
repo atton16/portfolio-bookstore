@@ -13,11 +13,17 @@ public class GraphDTO {
 	private Stack<GraphDTO> edgeStack;
 	
 	public GraphDTO() {
-		// TODO Auto-generated constructor stub
 		this.ID = 0;
 		this.nodeFrom = null;
 		this.edge = null;
 		this.nodeTo = null;
+	}
+	
+	public GraphDTO(long ID, String nodeFrom, String edge, String nodeTo) {
+		this.ID = ID;
+		this.nodeFrom = nodeFrom;
+		this.edge = edge;
+		this.nodeTo = nodeTo;
 	}
 	
 	public long getID() {
