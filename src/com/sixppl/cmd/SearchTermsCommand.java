@@ -1,6 +1,7 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +44,12 @@ public class SearchTermsCommand implements Command {
 			ArrayList<EntityDTO> nodes = new ArrayList<EntityDTO>();
 			ArrayList<GraphOutputDTO> edges = new ArrayList<GraphOutputDTO>();
 			// get all possible nodes by keyword
-			keywordnodes = entity.findEntity(type, keyword);
+			try {
+				keywordnodes = entity.findEntity(type, keyword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Stack<String> queryList = new Stack<String>();
 			// add all possible nodes by keyword to result node list
 			if (!keywordnodes.isEmpty()) {
@@ -57,12 +63,23 @@ public class SearchTermsCommand implements Command {
 					while (!queryList.isEmpty()) {
 						String query = queryList.pop();
 						ArrayList<String> tempNodeIDList = new ArrayList<String>();
-						tempNodeIDList = entity.findLinkedEntity(query);
+						try {
+							tempNodeIDList = entity.findLinkedEntity(query);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						for (String tempNodeID : tempNodeIDList) {
 							// add new related nodes into result node list
 							if (!nodes.contains(tempNodeID)) {
-								EntityDTO tempNode = entity.findEntityByEntityId(tempNodeID);
-								nodes.add(tempNode);
+								EntityDTO tempNode;
+								try {
+									tempNode = entity.findEntityByEntityId(tempNodeID);
+									nodes.add(tempNode);
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 						}
 					}
@@ -70,7 +87,12 @@ public class SearchTermsCommand implements Command {
 					for (EntityDTO node : nodes) {
 						GraphDAO graph = new GraphDAOImpl();
 						ArrayList<GraphOutputDTO> tempEdgeList = new ArrayList<GraphOutputDTO>();
-						tempEdgeList = graph.findGraphOutput(node.getEntityID());
+						try {
+							tempEdgeList = graph.findGraphOutput(node.getEntityID());
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						for (GraphOutputDTO edge : tempEdgeList) {
 							// add new edges into result edge list
 							if (!edges.contains(edge.getID())) {

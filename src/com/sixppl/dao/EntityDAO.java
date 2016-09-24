@@ -1,13 +1,16 @@
 package com.sixppl.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.sixppl.dto.EntityDTO;
 
 public interface EntityDAO {
-	void insertEntity(EntityDTO entity);
-	void updateEntity(EntityDTO entity);
-	void deleteEntity(long ID);
-	EntityDTO findEntityByEntityId(String entityID);
-	ArrayList<EntityDTO> findEntity(String type, String keyword);	// Type = Publication/Author/School/Venue etc., Keyword = Caption
-	ArrayList<String> findLinkedEntity(String node);
+	void dropTable() throws SQLException;
+	void createTable() throws SQLException;
+	void insertEntity(EntityDTO entity) throws SQLException;
+	void updateEntity(EntityDTO entity) throws SQLException;
+	void deleteEntity(long ID) throws SQLException;
+	EntityDTO findEntityByEntityId(String entityID) throws SQLException;
+	ArrayList<EntityDTO> findEntity(String type, String keyword) throws SQLException;	// Type = Publication/Author/School/Venue etc., Keyword = Caption
+	ArrayList<String> findLinkedEntity(String node) throws SQLException;
 }
