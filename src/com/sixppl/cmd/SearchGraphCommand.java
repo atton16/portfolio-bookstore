@@ -134,9 +134,9 @@ public class SearchGraphCommand implements Command {
 				}
 			}
 			data += "]}";
-			// debug for checking JSON output
-			System.out.println(data);
 		}
+		// debug for checking JSON output
+		System.out.println(data);
 		request.setAttribute("data", data);
 	}
 }
