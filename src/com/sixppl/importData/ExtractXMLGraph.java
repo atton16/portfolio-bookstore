@@ -152,7 +152,7 @@ public class ExtractXMLGraph {
 							ed.setEntityCaption(editor);
 							dao.insertEntity(ed);
 							countAuthor++;
-							// Link Publication authored by Editor
+							// Link Publication edited by Editor
 							ee.setEntityID("E" + Long.toString(countEdge+1));
 							ee.setEntityClass("Edge");
 							ee.setEntityType("DirectedLink");
@@ -171,6 +171,7 @@ public class ExtractXMLGraph {
 						ev.setEntityClass("Node");
 						ev.setEntityType("Venue");
 						ev.setEntityCaption(p.getJournal());
+						dao.insertEntity(ev);
 						countVenue++;
 						// Link Publication published in Venue
 						ee.setEntityID("E" + Long.toString(countEdge+1));
