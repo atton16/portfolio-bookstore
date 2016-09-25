@@ -35,5 +35,6 @@ public class UserConfirmCommand {
 		user.setNewemail(null);
 		user.setTokenstring(null);
 		userDao.updateUser(user);
+		request.setAttribute("success", true);
 	}
 }

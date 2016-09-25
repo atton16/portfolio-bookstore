@@ -11,6 +11,7 @@ public interface UserDAO {
 	public boolean updateUser(UserDTO user);
 	public UserDTO findUserByName(String usrname);
 	UserDTO findUserByToken(String token);
+	UserDTO findUserByEmail(String email);
 
 
 }

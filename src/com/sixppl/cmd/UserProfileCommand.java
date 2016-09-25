@@ -19,7 +19,7 @@ public class UserProfileCommand  implements Command {
 	public UserProfileCommand() {
 		System.out.println("start the registration.");
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
-		System.out.println("init done.");
+		System.out.println("init done");
 	}
 	@Override
 	/*This method is for user profile update*/

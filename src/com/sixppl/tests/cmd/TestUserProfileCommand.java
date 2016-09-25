@@ -24,7 +24,7 @@ public class TestUserProfileCommand {
 	}
 
 	@Test
-	public void testuserProfileUpdate() {
+	public void testUserProfileUpdate() {
 		// Constructing test input
 		Map<String, String[]> inputMap = new HashMap<String, String[]>();
 		inputMap.put("username", new String[]{"tt"});

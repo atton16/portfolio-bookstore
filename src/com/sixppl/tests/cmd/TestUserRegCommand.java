@@ -30,8 +30,8 @@ public class TestUserRegCommand {
 	public void testValidRegistration() {
 		// Constructing test input
 		Map<String, String[]> inputMap = new HashMap<String, String[]>();
-		inputMap.put("username", new String[]{"gg"});
-		inputMap.put("password", new String[]{"gg"});
+		inputMap.put("username", new String[]{"cc"});
+		inputMap.put("password", new String[]{"cc"});
 		inputMap.put("email", new String[]{"zhangyuny@gmail.com"});
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
