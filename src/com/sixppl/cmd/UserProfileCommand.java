@@ -17,12 +17,15 @@ import com.sixppl.main.Application;
 public class UserProfileCommand  implements Command {
 	private UserDAO userDao;
 	public UserProfileCommand() {
+		System.out.println("start the registration.");
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		System.out.println("init done.");
 	}
 	@Override
 	/*This method is for user profile update*/
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDTO user = new UserDTO();
+		
 		String username = request.getParameter("username");
 		String cpassword = request.getParameter("cpassword");
 		String npassword = request.getParameter("npassword");
@@ -78,7 +81,7 @@ public class UserProfileCommand  implements Command {
 			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
 		}
 		userDao.updateUser(user);
-	
+		request.setAttribute("success", true);
 		
 	} 
 

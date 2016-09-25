@@ -56,6 +56,7 @@ public class EmailSending {
 
  		Properties props = new Properties();
  		props.put("mail.smtp.auth", "true");
+ 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
  		props.put("mail.smtp.starttls.enable", "true");
  		props.put("mail.smtp.host", "smtp.gmail.com");
  		props.put("mail.smtp.port", "587");
@@ -73,9 +74,10 @@ public class EmailSending {
  			message.setFrom(new InternetAddress(from));
  			message.setRecipients(Message.RecipientType.TO,
  				InternetAddress.parse(to));
- 			message.setSubject("Testing Subject");
- 			message.setText("Dear Mail Crawler,"
- 				+ "\n\n No spam to my email, please!");
+ 			message.setSubject("Confirm by DBLP");
+ 			message.setText("Dear Customer,"
+ 				+ "\n\n please confirm your registration, please!");
+ 			message.setContent(content, "text/html");
  			System.out.println("before send message");
  			Transport.send(message);
  			//Transport.sendMessage(message, message.getAllRecipients());

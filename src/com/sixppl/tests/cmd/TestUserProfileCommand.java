@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.Test;
 
 import com.sixppl.cmd.Command;
+import com.sixppl.cmd.UserProfileCommand;
 import com.sixppl.cmd.UserRegCommand;
 import com.sixppl.main.Application;
 import com.sixppl.tests.support.GenericTestHttpServletRequest;
@@ -35,7 +36,8 @@ public class TestUserProfileCommand {
 		
 
 		// The actual test
-		Command userCmd = new UserRegCommand();
+		System.out.println("start !!");
+		Command userCmd = new UserProfileCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);

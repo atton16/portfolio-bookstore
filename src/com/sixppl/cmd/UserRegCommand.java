@@ -79,7 +79,7 @@ public class UserRegCommand implements Command {
 			String full_path = "http://localhost:8080/asst2";
 			System.out.println("the full path is"+full_path);
 			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
-			
+			request.setAttribute("success", true);
 		}
 
 	}

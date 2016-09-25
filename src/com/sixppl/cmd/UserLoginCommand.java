@@ -48,7 +48,7 @@ public class UserLoginCommand implements Command {
 			return;
 		}
 		//String sessionId = request.getSession().getId();
-		String sessionId = "24342434";
+		String sessionId = "5642232";
 		if(sessionId == null || sessionId.equals("") )
 		{
 			request.setAttribute("success", false);

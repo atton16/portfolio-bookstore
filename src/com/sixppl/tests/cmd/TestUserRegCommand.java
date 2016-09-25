@@ -30,8 +30,8 @@ public class TestUserRegCommand {
 	public void testValidRegistration() {
 		// Constructing test input
 		Map<String, String[]> inputMap = new HashMap<String, String[]>();
-		inputMap.put("username", new String[]{"tt"});
-		inputMap.put("password", new String[]{"tt"});
+		inputMap.put("username", new String[]{"gg"});
+		inputMap.put("password", new String[]{"gg"});
 		inputMap.put("email", new String[]{"zhangyuny@gmail.com"});
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
@@ -67,7 +67,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -95,7 +95,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -123,7 +123,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -152,7 +152,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -180,7 +180,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -209,7 +209,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -237,7 +237,7 @@ public class TestUserRegCommand {
 		inputMap.put("address", new String[]{"ATP"});
 		inputMap.put("ccn", new String[]{"0404270801"});
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -266,7 +266,7 @@ public class TestUserRegCommand {
 		inputMap.put("ccn", new String[]{"0404270801"});
 
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -296,7 +296,7 @@ public class TestUserRegCommand {
 		inputMap.put("ccn", new String[]{"0404270801"});
 
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
@@ -324,7 +324,7 @@ public class TestUserRegCommand {
 		inputMap.put("ccn", new String[]{"0404270801"});
 
 		// The actual test
-		Command userCmd = new UserLoginCommand();
+		Command userCmd = new UserRegCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);
 		try {
 			userCmd.execute(request, null);
