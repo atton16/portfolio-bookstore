@@ -2,14 +2,18 @@ package com.sixppl.dao.support;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
+import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 public class SessionDAOImpl implements SessionDAO {
@@ -74,5 +78,32 @@ public class SessionDAOImpl implements SessionDAO {
 			}
 			return flag;
 			}
+	public  int finduserIDbySession(SessionDTO session){
+		String sql = String.format("SELECT * from `LoginSessions` where `JSESSIONID`=?");
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, session.getSessionID());
+			rs = stmt.executeQuery();
+			List<Integer> userIds = new LinkedList<Integer>();
+
+			while(rs.next()){
+				int userid = Integer.parseInt(rs.getString("UserID"));
+				userIds.add(userid);
+			}
+			
+			if(userIds != null && !userIds.isEmpty()){
+				rs.close();
+				stmt.close();
+				return userIds.get(0);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
+		
+	};
 
 }

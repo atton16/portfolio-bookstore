@@ -12,6 +12,7 @@ public interface UserDAO {
 	public UserDTO findUserByName(String usrname);
 	UserDTO findUserByToken(String token);
 	UserDTO findUserByEmail(String email);
+	UserDTO findUserByUserID(int userId);
 
 
 }

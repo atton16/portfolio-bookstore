@@ -105,6 +105,45 @@ public class UserDAOImpl implements UserDAO{
 		return null;
 	}
 	@Override
+	public UserDTO findUserByUserID(int userId) {
+		String sql = String.format("SELECT * from `User` where `UserID`=?");
+		List<UserDTO> users = new LinkedList<UserDTO>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, userId);
+			rs = stmt.executeQuery();
+
+			while(rs.next()){
+				UserDTO ue = new UserDTO();
+				ue.setUserID(Integer.parseInt(rs.getString("UserID")));
+				ue.setUsername(rs.getString("Username"));
+				ue.setPassword(rs.getString("Password"));
+				ue.setNickname(rs.getString("Nickname"));
+				ue.setFirstname(rs.getString("Firstname"));
+				ue.setLastname(rs.getString("Lastname"));
+				ue.setEmail(rs.getString("Email"));
+				ue.setNewemail(rs.getString("NewEmail"));
+				ue.setBirthyear(rs.getString("Birthyear"));
+				ue.setAddr(rs.getString("Address"));
+				ue.setCardno(rs.getString("CardNumber"));
+				ue.setTokenstring(rs.getString("TokenString"));
+
+				users.add(ue);
+			}
+			
+			if(users != null && !users.isEmpty()){
+				rs.close();
+				stmt.close();
+				return users.get(0);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@Override
 	public UserDTO findUserByToken(String token) {
 		String sql = String.format("SELECT * from `User` where `TokenString`=?");
 		List<UserDTO> users = new LinkedList<UserDTO>();
