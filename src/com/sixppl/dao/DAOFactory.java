@@ -36,18 +36,20 @@ public class DAOFactory {
 	public FooDAO getFooDAO() {
 		return (FooDAO) daos.get(FOO_DAO);
 	}
+	
 	public UserDAO getUserDAO() {
 		return (UserDAO) daos.get(USER_DAO);
 	}
 
 	public SessionDAO getSessionDAO(){
 		return (SessionDAO) daos.get(SESSION_DAO);
+	}
 
 	public EntityDAO getEntityDAO() {
 		return (EntityDAO) daos.get(ENTITY_DAO);
 	}
+	
 	public GraphDAO getGraphDAO() {
 		return (GraphDAO) daos.get(GRAPH_DAO);
->>>>>>> dc8849b956eacd23fa06dfb1fa3e7bd5e41f94e6
 	}
 }
