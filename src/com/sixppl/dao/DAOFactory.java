@@ -42,12 +42,12 @@ public class DAOFactory {
 
 	public SessionDAO getSessionDAO(){
 		return (SessionDAO) daos.get(SESSION_DAO);
+				}
 
 	public EntityDAO getEntityDAO() {
 		return (EntityDAO) daos.get(ENTITY_DAO);
 	}
 	public GraphDAO getGraphDAO() {
 		return (GraphDAO) daos.get(GRAPH_DAO);
->>>>>>> dc8849b956eacd23fa06dfb1fa3e7bd5e41f94e6
 	}
 }
