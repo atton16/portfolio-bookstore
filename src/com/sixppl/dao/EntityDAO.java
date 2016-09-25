@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.sixppl.dto.EntityDTO;
 
 public interface EntityDAO {
-	void dropTable() throws SQLException;
-	void createTable() throws SQLException;
+	void dropEntityTable() throws SQLException;
+	void createEntityTable() throws SQLException;
 	void insertEntity(EntityDTO entity) throws SQLException;
 	void updateEntity(EntityDTO entity) throws SQLException;
 	void deleteEntity(long ID) throws SQLException;

@@ -9,15 +9,18 @@ public class GraphDTO {
 	private String edge;
 	private String nodeTo;
 	
-	private ArrayList<GraphDTO> edgeList;
-	private Stack<GraphDTO> edgeStack;
-	
 	public GraphDTO() {
-		// TODO Auto-generated constructor stub
 		this.ID = 0;
 		this.nodeFrom = null;
 		this.edge = null;
 		this.nodeTo = null;
+	}
+	
+	public GraphDTO(long ID, String nodeFrom, String edge, String nodeTo) {
+		this.ID = ID;
+		this.nodeFrom = nodeFrom;
+		this.edge = edge;
+		this.nodeTo = nodeTo;
 	}
 	
 	public long getID() {
@@ -52,22 +55,6 @@ public class GraphDTO {
 		this.nodeTo = nodeTo;
 	}
 	
-	public ArrayList<GraphDTO> getEdgeList() {
-		return edgeList;
-	}
-
-	public void setEdgeList(ArrayList<GraphDTO> edgeList) {
-		this.edgeList = edgeList;
-	}
-
-	public Stack<GraphDTO> getEdgeStack() {
-		return edgeStack;
-	}
-
-	public void setEdgeStack(Stack<GraphDTO> edgeStack) {
-		this.edgeStack = edgeStack;
-	}
-
 	public static boolean containsID(ArrayList<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
@@ -77,9 +64,27 @@ public class GraphDTO {
 	    return false;
 	}
 	
+	public static boolean containsEdgeID(ArrayList<GraphDTO> graphList, String edgeID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getEdge().equals(edgeID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 	public static boolean containsID(Stack<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsEdgeID(Stack<GraphDTO> graphList, String edgeID) {
+	    for (GraphDTO graph : graphList) {
+	        if (graph.getEdge().equals(edgeID)) {
 	            return true;
 	        }
 	    }

@@ -16,7 +16,6 @@ public class GraphOutputDTO {
 	private String nodeToCaption;
 	
 	public GraphOutputDTO() {
-		// TODO Auto-generated constructor stub
 		this.ID = 0;
 		this.nodeFromID = 0;
 		this.nodeFrom = null;
@@ -27,6 +26,21 @@ public class GraphOutputDTO {
 		this.nodeToID = 0;
 		this.nodeTo = null;
 		this.nodeToCaption = null;
+	}
+	
+	public GraphOutputDTO(long ID, long nodeFromID, String nodeFrom, String nodeFromCaption,
+			long edgeID, String edge, String edgeCaption,
+			long nodeToID, String nodeTo, String nodeToCaption) {
+		this.ID = ID;
+		this.nodeFromID = nodeFromID;
+		this.nodeFrom = nodeFrom;
+		this.nodeFromCaption = nodeFromCaption;
+		this.edgeID = edgeID;
+		this.edge = edge;
+		this.edgeCaption = edgeCaption;
+		this.nodeToID = nodeToID;
+		this.nodeTo = nodeTo;
+		this.nodeToCaption = nodeToCaption;
 	}
 	
 	public long getID() {
@@ -109,18 +123,36 @@ public class GraphOutputDTO {
 		this.nodeToCaption = nodeToCaption;
 	}
 
-	public static boolean containsID(ArrayList<GraphOutputDTO> graphList, long ID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getID() == ID) {
+	public static boolean containsID(ArrayList<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
 	            return true;
 	        }
 	    }
 	    return false;
 	}
 	
-	public static boolean containsID(Stack<GraphOutputDTO> graphList, long ID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getID() == ID) {
+	public static boolean containsEdgeID(ArrayList<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsID(Stack<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsEdgeID(Stack<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
 	            return true;
 	        }
 	    }

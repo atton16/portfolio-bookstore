@@ -19,7 +19,6 @@ public class ImportGraph {
 	private static final String DB_PASSWORD = "F8ruehc2xCgRmmev";
 	
 	public ImportGraph() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void dropEntityTable() throws SQLException {
@@ -74,7 +73,6 @@ public class ImportGraph {
 	}
 	
 	public void insertEntity(EntityDTO entity) {
-		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Entity (EntityID, Class, Type, Caption) VALUES(?,?,?,?)";
 		Connection connection = null;
 		try {
@@ -101,7 +99,6 @@ public class ImportGraph {
 	}
 
 	public void updateEntity(EntityDTO entity) {
-		// TODO Auto-generated method stub
 		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE ID=?";
 		Connection connection = null;
 		try {
@@ -129,7 +126,6 @@ public class ImportGraph {
 	}
 
 	public void deleteEntity(long ID) {
-		// TODO Auto-generated method stub
 		String sql = "DELETE FROM Entity WHERE ID=?";
 		Connection connection = null;
 		try {
@@ -153,7 +149,6 @@ public class ImportGraph {
 	}
 
 	public ArrayList<EntityDTO> findEntity(String type, String keyword) {
-		// TODO Auto-generated method stub
 		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
 		String sql = "SELECT * FROM Entity WHERE Type=? AND Caption LIKE ?";
 		if (keyword == null) {
@@ -196,7 +191,6 @@ public class ImportGraph {
 	}
 
 	public ArrayList<String> findLinkedEntity(String node) {
-		// TODO Auto-generated method stub
 		ArrayList<String> result = new ArrayList<String>();
 		Connection connection = null;
 		try {
@@ -226,7 +220,6 @@ public class ImportGraph {
 	}
 
 	public EntityDTO findEntityByEntityId(String entityID) {
-		// TODO Auto-generated method stub
 		EntityDTO result = new EntityDTO();
 		String sql = "SELECT * FROM Entity WHERE EntityID=?";
 		Connection connection = null;
@@ -308,7 +301,6 @@ public class ImportGraph {
 	}
 	
 	public void insertGraph(GraphDTO graph) {
-		// TODO Auto-generated method stub
 		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
 		Connection connection = null;
 		try {
@@ -335,7 +327,6 @@ public class ImportGraph {
 	}
 	
 	public void updateGraph(GraphDTO graph) {
-		// TODO Auto-generated method stub
 		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
 		Connection connection = null;
 		try {
@@ -363,7 +354,6 @@ public class ImportGraph {
 	}
 	
 	public void deleteGraph(long ID) {
-		// TODO Auto-generated method stub
 		String sql = "DELETE FROM Graph WHERE ID=?";
 		Connection connection = null;
 		try {

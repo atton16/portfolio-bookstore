@@ -82,7 +82,6 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String LIST_COMMAND = "listCommand";
 	private static final String UNLIST_COMMAND = "unlistCommand";
 	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
-	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
 
 	
 	Map<String,Command> commands;
