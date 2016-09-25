@@ -123,36 +123,36 @@ public class GraphOutputDTO {
 		this.nodeToCaption = nodeToCaption;
 	}
 
-	public static boolean containsID(ArrayList<GraphOutputDTO> graphList, long ID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getID() == ID) {
+	public static boolean containsID(ArrayList<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
 	            return true;
 	        }
 	    }
 	    return false;
 	}
 	
-	public static boolean containsEdgeID(ArrayList<GraphOutputDTO> graphList, String edgeID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getEdge().equals(edgeID)) {
+	public static boolean containsEdgeID(ArrayList<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
 	            return true;
 	        }
 	    }
 	    return false;
 	}
 	
-	public static boolean containsID(Stack<GraphOutputDTO> graphList, long ID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getID() == ID) {
+	public static boolean containsID(Stack<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
 	            return true;
 	        }
 	    }
 	    return false;
 	}
 	
-	public static boolean containsEdgeID(Stack<GraphOutputDTO> graphList, String edgeID) {
-	    for (GraphOutputDTO graph : graphList) {
-	        if (graph.getEdge().equals(edgeID)) {
+	public static boolean containsEdgeID(Stack<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
 	            return true;
 	        }
 	    }

@@ -9,9 +9,6 @@ public class GraphDTO {
 	private String edge;
 	private String nodeTo;
 	
-	private ArrayList<GraphDTO> edgeList;
-	private Stack<GraphDTO> edgeStack;
-	
 	public GraphDTO() {
 		this.ID = 0;
 		this.nodeFrom = null;
@@ -58,22 +55,6 @@ public class GraphDTO {
 		this.nodeTo = nodeTo;
 	}
 	
-	public ArrayList<GraphDTO> getEdgeList() {
-		return edgeList;
-	}
-
-	public void setEdgeList(ArrayList<GraphDTO> edgeList) {
-		this.edgeList = edgeList;
-	}
-
-	public Stack<GraphDTO> getEdgeStack() {
-		return edgeStack;
-	}
-
-	public void setEdgeStack(Stack<GraphDTO> edgeStack) {
-		this.edgeStack = edgeStack;
-	}
-
 	public static boolean containsID(ArrayList<GraphDTO> graphList, long ID) {
 	    for (GraphDTO graph : graphList) {
 	        if (graph.getID() == ID) {

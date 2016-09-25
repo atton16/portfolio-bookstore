@@ -10,9 +10,6 @@ public class EntityDTO {
 	private String entityType;		// Publication, Person (Author/Editor), Venue, School, directLink etc.
 	private String entityCaption;	// Publication Title, Author Name, Journal, School, Relationship etc.
 
-	private ArrayList<EntityDTO> nodeList;
-	private Stack<EntityDTO> nodeStack;
-	
 	public EntityDTO() {
 		this.ID = 0;
 		this.entityID = null;
@@ -69,24 +66,8 @@ public class EntityDTO {
 		this.entityCaption = entityCaption;
 	}
 	
-	public ArrayList<EntityDTO> getNodeList() {
-		return nodeList;
-	}
-
-	public void setNodeList(ArrayList<EntityDTO> nodeList) {
-		this.nodeList = nodeList;
-	}
-
-	public Stack<EntityDTO> getNodeStack() {
-		return nodeStack;
-	}
-
-	public void setNodeStack(Stack<EntityDTO> nodeStack) {
-		this.nodeStack = nodeStack;
-	}
-
-	public static boolean containsID(ArrayList<EntityDTO> nodeList, long ID) {
-	    for (EntityDTO node : nodeList) {
+	public static boolean containsID(ArrayList<EntityDTO> entityList, long ID) {
+	    for (EntityDTO node : entityList) {
 	        if (node.getID() == ID) {
 	            return true;
 	        }
@@ -94,8 +75,8 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public static boolean containsEntityID(ArrayList<EntityDTO> nodeList, String entityID) {
-	    for (EntityDTO node : nodeList) {
+	public static boolean containsEntityID(ArrayList<EntityDTO> entityList, String entityID) {
+	    for (EntityDTO node : entityList) {
 	        if (node.getEntityID().equals(entityID)) {
 	            return true;
 	        }
@@ -103,8 +84,8 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public static boolean containsID(Stack<EntityDTO> nodeList, long ID) {
-	    for (EntityDTO node : nodeList) {
+	public static boolean containsID(Stack<EntityDTO> entityList, long ID) {
+	    for (EntityDTO node : entityList) {
 	        if (node.getID() == ID) {
 	            return true;
 	        }
@@ -112,8 +93,8 @@ public class EntityDTO {
 	    return false;
 	}
 	
-	public static boolean containsEntityID(Stack<EntityDTO> nodeList, String entityID) {
-	    for (EntityDTO node : nodeList) {
+	public static boolean containsEntityID(Stack<EntityDTO> entityList, String entityID) {
+	    for (EntityDTO node : entityList) {
 	        if (node.getEntityID().equals(entityID)) {
 	            return true;
 	        }
