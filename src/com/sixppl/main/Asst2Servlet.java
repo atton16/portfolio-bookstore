@@ -55,7 +55,6 @@ import com.sixppl.main.Application;
 		"/user/pub/manage",
 		
 		"/admin",
-		"/admin/login",
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
@@ -75,6 +74,9 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+
+	private static final String USERREG_COMMAND = "userRegCommand";
+
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
@@ -95,12 +97,16 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+
     }
     
     public void destroy() {

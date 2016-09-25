@@ -29,9 +29,12 @@ public class UserConfirmCommand {
 			return;
 		}
 		String newemail = user.getNewemail();
-		user.setEmail(newemail);
+		if (newemail !=null){
+			user.setEmail(newemail);
+		}
 		user.setNewemail(null);
 		user.setTokenstring(null);
 		userDao.updateUser(user);
+		request.setAttribute("success", true);
 	}
 }

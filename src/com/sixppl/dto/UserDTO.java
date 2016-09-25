@@ -1,7 +1,7 @@
 package com.sixppl.dto;
 
 public class UserDTO {
-	private String userID = "";
+	private int userID;
     private String username = "";
     private String password = "";
     private String nickname = "";
@@ -27,19 +27,14 @@ public class UserDTO {
     private String tokenstring = "";
 
 
-	public String getUserID() {
-		return userID;
-	}
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
+
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserDTO(String userID, String username, String password,
+	public UserDTO(int userID, String username, String password,
 			String nickname, String firstname, String lastname, String email,
 			String birthyear, String addr, String cardno) {
 		super();
@@ -53,6 +48,12 @@ public class UserDTO {
 		this.setBirthyear(birthyear);
 		this.addr = addr;
 		this.cardno = cardno;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	public UserDTO() {
 		// TODO Auto-generated constructor stub
