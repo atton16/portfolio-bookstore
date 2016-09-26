@@ -34,7 +34,7 @@ public class UserRegCommand implements Command {
 		UserDTO user = new UserDTO();
 		String username, password, email, addr, cardno;
 		EmailSending emailSending = new EmailSending();
-<<<<<<< HEAD
+
 		
 		
 		user.setUsername(request.getParameter("username")); 
@@ -48,7 +48,7 @@ public class UserRegCommand implements Command {
 	
 		user.setNickname(request.getParameter("nickname")); 
 		user.setFirstname(request.getParameter("firstname")); 
-=======
+
 		username = request.getParameter("username");
 		password = request.getParameter("password");
 		email = request.getParameter("email");
@@ -83,7 +83,6 @@ public class UserRegCommand implements Command {
 		user.setPassword(password);
 		user.setNickname(request.getParameter("nickname"));
 		user.setFirstname(request.getParameter("firstname"));
->>>>>>> 0921afc384c88c38bf97d8dbd5d2c6bbeec73522
 		user.setLastname(request.getParameter("lastname"));
 		user.setEmail(request.getParameter("email"));
 		user.setBirthyear(request.getParameter("yob"));

@@ -74,19 +74,15 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
-<<<<<<< HEAD
 	private static final String USERREG_COMMAND = "userRegCommand";
-=======
-
-	private static final String USERREG_COMMAND = "userRegCommand";
-
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
 	private static final String UNLIST_COMMAND = "unlistCommand";
 	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
+	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
 
->>>>>>> 0921afc384c88c38bf97d8dbd5d2c6bbeec73522
+
 	
 	Map<String,Command> commands;
 
@@ -101,12 +97,8 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
-<<<<<<< HEAD
 		commands.put(USERREG_COMMAND, new UserRegCommand());
-=======
-
 		commands.put(USERREG_COMMAND, new UserRegCommand());
-
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
@@ -114,7 +106,6 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
 
->>>>>>> 0921afc384c88c38bf97d8dbd5d2c6bbeec73522
     }
     
     public void destroy() {

@@ -1286,13 +1286,6 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 -- Table structure for table `Unactivated`
 --
 
-CREATE TABLE IF NOT EXISTS `Unactivated` (
-  `ID` bigint(20) unsigned NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserID` bigint(20) unsigned NOT NULL,
-  `TokenString` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- --------------------------------------------------------
 
 --
@@ -1303,13 +1296,15 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Nickname` tinytext NOT NULL,
+  `Nickname` tinytext  NOT NULL,
   `Firstname` tinytext NOT NULL,
-  `Lastname` tinytext NOT NULL,
+  `Lastname` tinytext  NOT NULL,
   `Email` tinytext NOT NULL,
+  `NewEmail` tinytext  NOT NULL,
   `Birthyear` smallint(6) unsigned NOT NULL,
   `Address` text NOT NULL,
-  `CardNumber` tinytext NOT NULL
+  `CardNumber` tinytext NOT NULL,
+  `TokenString` varchar(20) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
@@ -1439,11 +1434,7 @@ ALTER TABLE `Transaction`
 --
 -- Indexes for table `Unactivated`
 --
-ALTER TABLE `Unactivated`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `ID` (`ID`),
-  ADD UNIQUE KEY `UserID` (`UserID`),
-  ADD UNIQUE KEY `TokenString` (`TokenString`);
+
 
 --
 -- Indexes for table `User`
@@ -1485,10 +1476,7 @@ ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Unactivated`
---
-ALTER TABLE `Unactivated`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
---
+
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
@@ -1532,9 +1520,7 @@ ALTER TABLE `Transaction`
 
 --
 -- Constraints for table `Unactivated`
---
-ALTER TABLE `Unactivated`
-  ADD CONSTRAINT `unactivated_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `User` (`UserID`);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
