@@ -26,7 +26,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
@@ -59,7 +59,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
@@ -93,7 +93,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
@@ -127,7 +127,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
@@ -161,7 +161,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
@@ -193,7 +193,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
 		    	 temp.setLastname(Lastname);
