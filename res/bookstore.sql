@@ -1268,6 +1268,19 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
 -- --------------------------------------------------------
 
 --
+-- Table Structure for table 'AdminLoginSessions'
+--
+
+CREATE TABLE IF NOT EXISTS `AdminLoginSessions` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `JSESSIONID` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Transaction`
 --
 
@@ -1307,6 +1320,32 @@ CREATE TABLE IF NOT EXISTS `User` (
   `TokenString` varchar(20)  NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
+--
+-- Table structure for table 'Pagehits'
+--
+CREATE TABLE IF NOT EXISTS `PageHits` (
+	`Page` VARCHAR(100) NOT NULL,
+    `Hits` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+--
+-- Table structure for table 'MostAddedToCart'
+--
+
+CREATE TABLE IF NOT EXISTS `MostAddedToCart` (
+	`Title` VARCHAR(100) NOT NULL,
+    `Count` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+--
+-- Table structure for table 'MostViewed'
+--
+CREATE TABLE IF NOT EXISTS `MostViewed` (
+	`Title` VARCHAR(100) NOT NULL,
+    `Count` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
 --
 -- Dumping data for table `User`
 --
@@ -1424,6 +1463,36 @@ ALTER TABLE `LoginSessions`
   ADD KEY `UserID` (`UserID`);
 
 --
+-- Indexes for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `JSESSIONID` (`JSESSIONID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
+-- Indexes for table `PageHits`
+--
+
+ALTER TABLE `PageHits`
+	ADD UNIQUE KEY `Page` (`Page`);
+
+--
+-- Indexes for table `MostAddedToCart`
+--
+
+ALTER TABLE `MostAddedToCart`
+	ADD UNIQUE KEY `Title` (`Title`);
+
+--
+-- Indexes for table `MostViewed`
+--
+	
+ALTER TABLE `MostViewed`
+ADD UNIQUE KEY `Title` (`Title`);
+	
+--
 -- Indexes for table `Transaction`
 --
 ALTER TABLE `Transaction`
@@ -1474,6 +1543,15 @@ ALTER TABLE `Listing`
 --
 ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+<<<<<<< HEAD
+
+-- AUTO_INCREMENT for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  
+=======
+>>>>>>> d2dec7f66b2c76b800fdcdc35319dac2733b771b
 --
 -- AUTO_INCREMENT for table `Unactivated`
 
@@ -1510,6 +1588,12 @@ ALTER TABLE `Cart`
 ALTER TABLE `LoginSessions`
   ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
 
+--
+-- Constraints for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD CONSTRAINT `adminloginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
+  
 --
 -- Constraints for table `Transaction`
 --
