@@ -17,8 +17,16 @@ public class CartAddCommand implements Command {
 		int userID = 0;//Wait for session method
 		int pubID = Integer.valueOf(request.getParameter("id"));
 		CartDAO dao = new CartDAOImpl();
-		int cartCount = dao.addCart(pubID,userID);
+		int cartCount = 0;
+		try{
+			cartCount = dao.addCart(pubID,userID);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			cartCount = 0;
+		}
 		request.setAttribute("cartCount", cartCount);
 	}
 
 }
+ 

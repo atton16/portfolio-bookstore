@@ -9,18 +9,19 @@ import com.sixppl.main.Application;
 
 public class CartDAOImpl implements CartDAO {
 
-//	private ArrayList<ListingDTO> cartInfoList;
-//	private ArrayList<CartDTO> cartList;
+	private Connection conn;
+	public CartDAOImpl(){
+		conn = Application.getSharedInstance().getDAOSupport().getConnection();
+	}
 	
 	public ArrayList<ListingDTO> viewCart(int userID){
 		ArrayList<ListingDTO> cartInfoList = new ArrayList<ListingDTO>();
-		Connection conn = null;
-		Statement stmt = null;
-		String sql = "select * from Listing where PubID in (select PubID from Cart where RemoveTime IS NULL AND UserID = "+ userID + ");";
+		PreparedStatement stmt = null;
+		String sql = "select * from Listing where PubID in (select PubID from Cart where RemoveTime IS NULL AND UserID = ?;";
 		try {
-			conn = Application.getSharedInstance().getDAOSupport().getConnection();
 			stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.setInt(1, userID);
+			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
@@ -51,18 +52,18 @@ public class CartDAOImpl implements CartDAO {
 	}
 	
 	public int addCart(int pubID,int userID){
-		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		int cartCount = 0;
-		String sql = "INSERT INTO `Cart` (`UserID`,`PubID`) VALUES (`"+userID+"`,`"+pubID+"`)";
+		String sql = "INSERT INTO `Cart` (`UserID`,`PubID`) VALUES (?,?)";
 		try {
-			conn = Application.getSharedInstance().getDAOSupport().getConnection();
 			stmt = conn.prepareStatement(sql);
-			stmt.executeQuery(sql);
+			stmt.setInt(1, userID);
+			stmt.setInt(2, pubID);
+			stmt.executeUpdate();
 			
 			sql = "SELECT count(*) as Count from Cart;";
 			stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				cartCount = rs.getInt("Count");
 			}
@@ -85,15 +86,16 @@ public class CartDAOImpl implements CartDAO {
 		return cartCount;
 	}
 	public void removeCart(int userID,ArrayList<Integer> pubIDs){
-		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
-			conn = Application.getSharedInstance().getDAOSupport().getConnection();
 			long removeTime = System.currentTimeMillis();
 			for(int pubID:pubIDs){
-				String sql = "UPDATE Cart SET RemoveTime = "+removeTime+" WHERE UserID = "+userID+" and PubID = "+pubID+";";
+				String sql = "UPDATE Cart SET RemoveTime = ? WHERE UserID = ? and PubID = ?;";
 				stmt = conn.prepareStatement(sql);
-				stmt.executeQuery(sql);
+				stmt.setLong(1, removeTime);
+				stmt.setInt(2, userID);
+				stmt.setInt(3, pubID);
+				stmt.executeUpdate();
 			}
 			
 			//STEP 6: Clean-up environment

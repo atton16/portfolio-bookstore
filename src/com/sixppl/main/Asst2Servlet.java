@@ -1,6 +1,8 @@
 package com.sixppl.main;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.*;
 
 import com.sixppl.cmd.*;
 import com.sixppl.main.Application;
@@ -38,12 +42,15 @@ import com.sixppl.main.Application;
 		"/cart/remove",
 		"/receipt",
 		
+		"/ban",
 		"/login",
 		"/logout",
 		"/signup",
 		"/signup/resend",
 		"/signup/confirm",
 		"/user/profile",
+		"/user/profile/verify",
+		"/user/profile/confirm",
 		"/user/sell",
 		"/user/pub/manage",
 		
@@ -67,7 +74,19 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+<<<<<<< HEAD
 	private static final String USERREG_COMMAND = "userRegCommand";
+=======
+
+	private static final String USERREG_COMMAND = "userRegCommand";
+
+	private static final String SEARCH_COMMAND = "searchCommand";
+	private static final String SELL_COMMAND = "sellCommand";
+	private static final String LIST_COMMAND = "listCommand";
+	private static final String UNLIST_COMMAND = "unlistCommand";
+	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
+
+>>>>>>> 0921afc384c88c38bf97d8dbd5d2c6bbeec73522
 	
 	Map<String,Command> commands;
 
@@ -82,7 +101,20 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+<<<<<<< HEAD
 		commands.put(USERREG_COMMAND, new UserRegCommand());
+=======
+
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+
+		commands.put(SEARCH_COMMAND, new SearchCommand());
+		commands.put(SELL_COMMAND, new SellCommand());
+		commands.put(LIST_COMMAND, new ListCommand());
+		commands.put(UNLIST_COMMAND, new UnlistCommand());
+		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
+		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+
+>>>>>>> 0921afc384c88c38bf97d8dbd5d2c6bbeec73522
     }
     
     public void destroy() {
@@ -114,6 +146,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
 			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(SEARCH_COMMAND).execute(request, response);
 			//TODO: Do the search
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
@@ -128,6 +161,10 @@ public class Asst2Servlet extends HttpServlet {
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
 			//TODO: Get publication info
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
+		// Render: Ban Page
+		} else if(URI.equalsIgnoreCase("/ban")){
+			//TODO: Check ban
+			request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
@@ -147,6 +184,16 @@ public class Asst2Servlet extends HttpServlet {
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
+		// Resend Verification Email
+		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
+			//TODO: Resend Verification Email
+			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
+		// Confirm New Email
+		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
+			//TODO: Confirm New Email
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "xx");	//TODO: remove this
+			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
@@ -156,11 +203,26 @@ public class Asst2Servlet extends HttpServlet {
 		// Admin Dashboard Page
 		} else if(URI.equalsIgnoreCase("/admin")){
 			request.getRequestDispatcher("/admin.jsp").forward(request,response);
+		// Admin: Login Page
+		} else if(URI.equalsIgnoreCase("/admin/login")){
+			request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
 		// Admin: Manage Publications
 		} else if(URI.equalsIgnoreCase("/admin/pub/manage")){
 			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
 		// Admin: Manage Publications - Search
 		} else if(URI.equalsIgnoreCase("/admin/pub/find")){
+			String cmd = request.getParameter("cmd");
+			String Pubid = request.getParameter("id");
+			//response.getWriter().write("hello");
+			commands.get(ADMINGETPUB_COMMAND).execute(request, response);
+			StringWriter out = new StringWriter();
+			JSONArray temp =(JSONArray) request.getAttribute("jsonreturn");
+			JSONValue.writeJSONString(temp, out);
+			PrintWriter outPrintWriter = response.getWriter();
+			outPrintWriter.write(temp.toString());
+			
+			
+			/*
 			//TODO: Admin: Manage Publications - Search
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
@@ -173,7 +235,7 @@ public class Asst2Servlet extends HttpServlet {
 					+ "\"price\": 280.00,"
 					+ "\"seller\": \"Hale\","
 					+ "\"listed\": \"DD/MM/YY\""
-					+ "}"); // TODO: Response in JSON Format
+					+ "}"); // TODO: Response in JSON Format*/
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
     	// Admin: Manage Users
@@ -189,7 +251,8 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
     	// Graph Page
 		} else if(URI.equalsIgnoreCase("/graph")){
-			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+            commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(SEARCHGRAPH_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
@@ -259,23 +322,26 @@ public class Asst2Servlet extends HttpServlet {
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){
 			//TODO: Sell
-			System.out.println(request.getParameter("title"));	//TODO: remove this
-			System.out.println(request.getParameter("pubtype"));	//TODO: remove this
-			System.out.println(request.getPart("pic"));	//TODO: remove this
+			commands.get(SELL_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/list")){
 			//TODO: Set Listing
 			System.out.println("List:"+request.getParameter("id"));	//TODO: remove this
+			commands.get(LIST_COMMAND).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Set Unlist
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/unlist")){
 			//TODO: Set Unlist
 			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
+			commands.get(UNLIST_COMMAND).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
-		// Admin: Manage Publications - Remove
+		// Admin: Login
+		} else if(URI.equalsIgnoreCase("/admin/login")){
+			response.sendRedirect(contextPath+"/admin");
+    	// Admin: Manage Publications - Remove
 		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
 			//TODO: Admin: Manage Publications - Remove
 			System.out.println("Remove:"+request.getParameter("id"));	//TODO: remove this

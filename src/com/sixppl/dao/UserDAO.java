@@ -7,9 +7,12 @@ import com.sixppl.dto.UserDTO;
 
 public interface UserDAO {
 	
-	public Boolean addUser(UserDTO user);
-	public Boolean updateUser(UserDTO user);
+	public boolean addUser(UserDTO user);
+	public boolean updateUser(UserDTO user);
 	public UserDTO findUserByName(String usrname);
+	UserDTO findUserByToken(String token);
+	UserDTO findUserByEmail(String email);
+	UserDTO findUserByUserID(int userId);
 
 
 }

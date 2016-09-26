@@ -29,6 +29,8 @@ public class TestUserLoginCommand {
 		inputMap.put("username", new String[]{"admin"});
 		inputMap.put("password", new String[]{"admin"});
 
+
+
 		// The actual test
 		Command userCmd = new UserLoginCommand();
 		HttpServletRequest request = new GenericTestHttpServletRequest(inputMap);

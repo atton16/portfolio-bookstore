@@ -90,7 +90,6 @@
 					<div class="btn-group">
 						<a href="#" class="margin-left-8 white-color dropdown-toggle white-color" data-toggle="dropdown" id="login">Nickname <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="${contextPath}/admin">Admin Dashboard</a></li>
 							<li><a href="${contextPath}/user/profile">Edit Profile</a></li>
 							<li><a href="${contextPath}/user/pub/manage">Manage Publications</a></li>
 							<li><a href="${contextPath}/logout">Logout</a></li>

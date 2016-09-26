@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.sun.net.httpserver.HttpHandler;
+
 public class GenericTestHttpServletRequest implements HttpServletRequest {
 	
 	private Map<String, Object> attributes;
@@ -433,6 +435,21 @@ public class GenericTestHttpServletRequest implements HttpServletRequest {
 	public void logout() throws ServletException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public long getContentLengthLong() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String changeSessionId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public <T extends HttpHandler> T upgrade(Class<T> arg0) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

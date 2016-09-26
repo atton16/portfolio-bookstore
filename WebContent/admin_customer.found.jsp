@@ -7,14 +7,14 @@
 <title>${title}: Admin - Customer Activity</title>
 </head>
 <body>
-<jsp:include page="inc.body.header.jsp" />
+<jsp:include page="inc.body.admin_header.jsp" />
 <div class="container">
 	<!-- Admin - Customer Activity Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>
-				<a href="${contextPath}/admin" class="link-as-text">Admin</a> /
-				<a href="${contextPath}/admin/users/manage" class="link-as-text">Manage Users</a> /
+				<a href="${contextPath}/admin">Admin</a> /
+				<a href="${contextPath}/admin/users/manage">Manage Users</a> /
 				Customer Activity
 			</h3>
 		</div>
