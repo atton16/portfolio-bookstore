@@ -75,6 +75,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
 	private static final String USERREG_COMMAND = "userRegCommand";
+	private static final String USERPROFILE_COMMAND = "userProfileCommand";
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
@@ -98,7 +99,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
 		commands.put(USERREG_COMMAND, new UserRegCommand());
-		commands.put(USERREG_COMMAND, new UserRegCommand());
+		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
@@ -298,8 +299,7 @@ public class Asst2Servlet extends HttpServlet {
 			if((Boolean) request.getAttribute("success"))
 				response.sendRedirect(contextPath);
 			else
-				request.getRequestDispatcher("/login.jsp").forward(request,response);
-			request.getRequestDispatcher("/signup.jsp").forward(request,response);
+			    request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Resend Confirmation Email
 		} else if(URI.equalsIgnoreCase("/signup/resend")){
 			//TODO: Resend Confirmation Email
@@ -309,6 +309,10 @@ public class Asst2Servlet extends HttpServlet {
 		// Edit Profile
 		} else if(URI.equalsIgnoreCase("/user/profile")){
 			//TODO: Edit Profile
+			commands.get(USERPROFILE_COMMAND).execute(request, response);
+			if((Boolean) request.getAttribute("success"))
+				response.sendRedirect(contextPath);
+			else
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){
