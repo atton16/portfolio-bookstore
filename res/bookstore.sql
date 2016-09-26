@@ -1296,15 +1296,15 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Nickname` tinytext  NOT NULL,
-  `Firstname` tinytext NOT NULL,
-  `Lastname` tinytext  NOT NULL,
+  `Nickname` tinytext   NULL,
+  `Firstname` tinytext  NULL,
+  `Lastname` tinytext   NULL,
   `Email` tinytext NOT NULL,
-  `NewEmail` tinytext  NOT NULL,
-  `Birthyear` smallint(6) unsigned NOT NULL,
+  `NewEmail` tinytext   NULL,
+  `Birthyear` smallint(6) unsigned  NULL,
   `Address` text NOT NULL,
   `CardNumber` tinytext NOT NULL,
-  `TokenString` varchar(20) NOT NULL
+  `TokenString` varchar(20)  NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
