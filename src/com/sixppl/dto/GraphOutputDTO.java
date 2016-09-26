@@ -1,13 +1,47 @@
 package com.sixppl.dto;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class GraphOutputDTO {
 	private long ID;
+	private long nodeFromID;
 	private String nodeFrom;
 	private String nodeFromCaption;
+	private long edgeID;
 	private String edge;
 	private String edgeCaption;
+	private long nodeToID;
 	private String nodeTo;
 	private String nodeToCaption;
+	
+	public GraphOutputDTO() {
+		this.ID = 0;
+		this.nodeFromID = 0;
+		this.nodeFrom = null;
+		this.nodeFromCaption = null;
+		this.edgeID = 0;
+		this.edge = null;
+		this.edgeCaption = null;
+		this.nodeToID = 0;
+		this.nodeTo = null;
+		this.nodeToCaption = null;
+	}
+	
+	public GraphOutputDTO(long ID, long nodeFromID, String nodeFrom, String nodeFromCaption,
+			long edgeID, String edge, String edgeCaption,
+			long nodeToID, String nodeTo, String nodeToCaption) {
+		this.ID = ID;
+		this.nodeFromID = nodeFromID;
+		this.nodeFrom = nodeFrom;
+		this.nodeFromCaption = nodeFromCaption;
+		this.edgeID = edgeID;
+		this.edge = edge;
+		this.edgeCaption = edgeCaption;
+		this.nodeToID = nodeToID;
+		this.nodeTo = nodeTo;
+		this.nodeToCaption = nodeToCaption;
+	}
 	
 	public long getID() {
 		return ID;
@@ -15,6 +49,14 @@ public class GraphOutputDTO {
 
 	public void setID(long iD) {
 		ID = iD;
+	}
+
+	public long getNodeFromID() {
+		return nodeFromID;
+	}
+
+	public void setNodeFromID(long nodeFromID) {
+		this.nodeFromID = nodeFromID;
 	}
 
 	public String getNodeFrom() {
@@ -33,6 +75,14 @@ public class GraphOutputDTO {
 		this.nodeFromCaption = nodeFromCaption;
 	}
 
+	public long getEdgeID() {
+		return edgeID;
+	}
+
+	public void setEdgeID(long edgeID) {
+		this.edgeID = edgeID;
+	}
+
 	public String getEdge() {
 		return edge;
 	}
@@ -47,6 +97,14 @@ public class GraphOutputDTO {
 
 	public void setEdgeCaption(String edgeCaption) {
 		this.edgeCaption = edgeCaption;
+	}
+
+	public long getNodeToID() {
+		return nodeToID;
+	}
+
+	public void setNodeToID(long nodeToID) {
+		this.nodeToID = nodeToID;
 	}
 
 	public String getNodeTo() {
@@ -65,8 +123,39 @@ public class GraphOutputDTO {
 		this.nodeToCaption = nodeToCaption;
 	}
 
-	public GraphOutputDTO() {
-		// TODO Auto-generated constructor stub
+	public static boolean containsID(ArrayList<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
-
+	
+	public static boolean containsEdgeID(ArrayList<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsID(Stack<GraphOutputDTO> graphOutputOutputList, long ID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getID() == ID) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static boolean containsEdgeID(Stack<GraphOutputDTO> graphOutputOutputList, String edgeID) {
+	    for (GraphOutputDTO graphOutput : graphOutputOutputList) {
+	        if (graphOutput.getEdge().equals(edgeID)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 }

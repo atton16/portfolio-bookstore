@@ -42,17 +42,19 @@ import com.sixppl.main.Application;
 		"/cart/remove",
 		"/receipt",
 		
+		"/ban",
 		"/login",
 		"/logout",
 		"/signup",
 		"/signup/resend",
 		"/signup/confirm",
 		"/user/profile",
+		"/user/profile/verify",
+		"/user/profile/confirm",
 		"/user/sell",
 		"/user/pub/manage",
 		
 		"/admin",
-		"/admin/login",
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
@@ -72,11 +74,13 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String USERREG_COMMAND = "userRegCommand";
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
 	private static final String UNLIST_COMMAND = "unlistCommand";
 	private static final String ADMINGETPUB_COMMAND = "adminGetPubCommand";
+
 	private static final String ADMINREMOVEPUB_COMMAND = "adminGetRemoveCommand";
 	private static final String ADMINGETUSER_COMMAND = "adminGetUserCommand";
 	private static final String ADMINBANUSER_COMMAND = "adminBanUserCommand";
@@ -85,7 +89,8 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINPAGEHIT_COMMAND = "adminPageHitCommand";
 	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
 	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
-	
+	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
+
 	
 	Map<String,Command> commands;
 
@@ -100,10 +105,11 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
-		//commands.put(SEARCH_COMMAND, new SearchCommand());
-		//commands.put(SELL_COMMAND, new SellCommand());
-		//commands.put(LIST_COMMAND, new ListCommand());
-		//commands.put(UNLIST_COMMAND, new UnlistCommand());
+
+		commands.put(SEARCH_COMMAND, new SearchCommand());
+		commands.put(SELL_COMMAND, new SellCommand());
+		commands.put(LIST_COMMAND, new ListCommand());
+		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(ADMINREMOVEPUB_COMMAND, new AdminRemovePubCommand());
 		commands.put(ADMINGETUSER_COMMAND, new AdminGetUserCommand());
@@ -113,6 +119,15 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINPAGEHIT_COMMAND, new AdminPageHitCommand());
 		commands.put(ADMINREGISTERSESSION_COMMAND, new AdminRegisterSessionCommand());
 		commands.put(ADMINREMOVESESSION_COMMAND, new AdminRemoveSessionCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+		commands.put(SEARCH_COMMAND, new SearchCommand());
+		commands.put(SELL_COMMAND, new SellCommand());
+		commands.put(LIST_COMMAND, new ListCommand());
+		commands.put(UNLIST_COMMAND, new UnlistCommand());
+		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
+		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+
     }
     
     public void destroy() {
@@ -159,6 +174,10 @@ public class Asst2Servlet extends HttpServlet {
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
 			//TODO: Get publication info
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
+		// Render: Ban Page
+		} else if(URI.equalsIgnoreCase("/ban")){
+			//TODO: Check ban
+			request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
@@ -169,6 +188,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
+			
 		// Confirm Email
 		} else if(URI.equalsIgnoreCase("/signup/confirm")){
 			request.setAttribute("error", false);	//TODO: remove this
@@ -177,6 +197,16 @@ public class Asst2Servlet extends HttpServlet {
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
+		// Resend Verification Email
+		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
+			//TODO: Resend Verification Email
+			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
+		// Confirm New Email
+		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
+			//TODO: Confirm New Email
+			request.setAttribute("error", false);	//TODO: remove this
+			request.setAttribute("email", "xx");	//TODO: remove this
+			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
@@ -252,7 +282,8 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
     	// Graph Page
 		} else if(URI.equalsIgnoreCase("/graph")){
-			commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+            commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(SEARCHGRAPH_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/graph.jsp").forward(request,response);
 		// Default: Redirect to Home Page
 		} else {
@@ -300,11 +331,14 @@ public class Asst2Servlet extends HttpServlet {
 				response.sendRedirect(contextPath);
 			else
 				request.getRequestDispatcher("/login.jsp").forward(request,response);
-		// Register
+		    // Register
 		} else if(URI.equalsIgnoreCase("/signup")){
 			//TODO: Register
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			commands.get(USERREG_COMMAND).execute(request, response);
+			if((Boolean) request.getAttribute("success"))
+				response.sendRedirect(contextPath);
+			else
+				request.getRequestDispatcher("/login.jsp").forward(request,response);
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Resend Confirmation Email
 		} else if(URI.equalsIgnoreCase("/signup/resend")){

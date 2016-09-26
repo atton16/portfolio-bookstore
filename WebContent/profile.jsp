@@ -24,6 +24,9 @@
 			<div class="alert alert-success">
 				Success message
 			</div>
+			<div class="alert alert-info">
+				Your email is not yet verify. <a href="${contextPath}/user/profile/verify">Click here to send verification Email</a>
+			</div>
 		</div>
 	</div>
 	<!-- Registration: Contents -->
