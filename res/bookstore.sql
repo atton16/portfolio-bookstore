@@ -1262,7 +1262,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `ID` bigint(20) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` varchar(40) unsigned NOT NULL
+  `JSESSIONID` varchar(40)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
