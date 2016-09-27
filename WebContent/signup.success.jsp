@@ -23,10 +23,10 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-space">
 							<center>
-								A confirmation email has been sent to xxxx@yyy.zz.<br/>
+								A confirmation email has been sent to ${email}.<br/>
 								Please click the link in your email to confirm your registration.<br/>
 								<form action="${contextPath}/signup/resend" method="post"  class="form-signup-resend">
-									<input type="hidden" name="email" value="xxxx@yyy.zz" />
+									<input type="hidden" name="email" value="${email}" />
 								</form>
 								<a href="#" class="submit-signup-resend">Resend</a>
 							</center>

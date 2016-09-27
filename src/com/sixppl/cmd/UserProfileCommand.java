@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.mindrot.jbcrypt.EmailSending;
@@ -25,7 +26,7 @@ public class UserProfileCommand  implements Command {
 	/*This method is for user profile update*/
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDTO user = new UserDTO();
-		
+		 HttpSession session = request.getSession(true);
 		String username = request.getParameter("username");
 		String cpassword = request.getParameter("cpassword");
 		String npassword = request.getParameter("npassword");
@@ -65,7 +66,7 @@ public class UserProfileCommand  implements Command {
 			user.setLastname(lastname);
 
 		if (yob != null && !yob.equals(""))
-			user.setBirthyear(yob);
+			user.setBirthyear(Integer.parseInt(yob));
 		if (address != null && !address.equals(""))
 			user.setAddr(address);
 		if (ccn != null && !ccn.equals(""))
@@ -81,6 +82,7 @@ public class UserProfileCommand  implements Command {
 			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
 		}
 		userDao.updateUser(user);
+		session.setAttribute("user", user);
 		request.setAttribute("success", true);
 		
 	} 

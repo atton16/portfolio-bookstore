@@ -3,7 +3,9 @@ package com.sixppl.main;
 import javax.servlet.ServletContext;
 
 import com.sixppl.dao.DAOFactory;
+import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.DAOSupport;
+import com.sixppl.dao.support.ListingDAOImpl;
 
 /**
  * Singleton Application
@@ -36,6 +38,18 @@ public class Application {
 	
 	public String getTitle() {
 		return title;
+	}
+	
+	public Integer getListingCount() {
+		Integer count = 0;
+		ListingDAO dao = new ListingDAOImpl();
+		try{
+			count = dao.getListingCount();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 	
 	public DAOFactory getDAOFactory() {

@@ -1262,7 +1262,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `ID` bigint(20) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` int(11) unsigned NOT NULL
+  `JSESSIONID` varchar(40)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1543,15 +1543,12 @@ ALTER TABLE `Listing`
 --
 ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
-<<<<<<< HEAD
 
 -- AUTO_INCREMENT for table `AdminLoginSessions`
 --
 ALTER TABLE `AdminLoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
-  
-=======
->>>>>>> d2dec7f66b2c76b800fdcdc35319dac2733b771b
+
 --
 -- AUTO_INCREMENT for table `Unactivated`
 

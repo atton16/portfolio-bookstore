@@ -14,20 +14,18 @@ import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
-public class UserIsloginCommand {
+public class UserLogoutCommand implements Command {
 	private UserDAO userDao;
 	private SessionDAO sessionDao;
-	public UserIsloginCommand() {
-		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+	public UserLogoutCommand() {
+		
 		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
-		
 
-		//String sessionId = request.getSession().getId();
-		String sessionId = "5642232";
+		String sessionId = request.getSession().getId();
 		if(sessionId == null || sessionId.equals("") )
 		{
 			request.setAttribute("success", false);
@@ -37,14 +35,10 @@ public class UserIsloginCommand {
 		
 		SessionDTO session = new SessionDTO();
 		session.setSessionID(sessionId);
-	
+		session.setUserID(sessionDao.finduserIDbySession(session));
 		System.out.println("the session id is"+session.getSessionID()+"the userID is"+session.getUserID());
-		int exist = sessionDao.finduserIDbySession(session);
-		if (exist < 0){
-			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "can not find sessionID");
-			return;
-		}
+		sessionDao.delSession(session);
 		request.setAttribute("success", true);
 	}
+
 }

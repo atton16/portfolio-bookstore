@@ -34,10 +34,10 @@ public class AdminUserActivityDAOImpl implements AdminUserActivityDAO{
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
 		    	 String Email = rs.getString("Email");
-		    	 String Birthyear = Integer.toString(rs.getInt("Birthyear"));
+		    	 int Birthyear = rs.getInt("Birthyear");
 		    	 String Address = rs.getString("Address");
 		    	 String Cardnumber = Integer.toString(rs.getInt("Cardnumber"));
-		    	 temp.setUserID(UserID);
+		    	 temp.setUserID(Integer.parseInt(UserID));
 		    	 temp.setUsername(Username);
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);
