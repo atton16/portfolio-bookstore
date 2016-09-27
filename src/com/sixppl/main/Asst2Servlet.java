@@ -92,7 +92,9 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
 	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
+	
 	private static final String YEARLIST_COMMAND = "yearListCommand";
+	private static final String USERISBANNED_COMMAND = "userIsBannedCommand";
 
 	
 	Map<String,Command> commands;
@@ -131,7 +133,9 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+		
 		commands.put(YEARLIST_COMMAND, new YearListCommand());
+		commands.put(USERISBANNED_COMMAND, new UserIsBannedCommand());
 
     }
     
@@ -156,6 +160,7 @@ public class Asst2Servlet extends HttpServlet {
 		
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
+		commands.get(USERISBANNED_COMMAND).execute(request,response);
 		
 		// GET Actions
 		// Render: Search Page
@@ -182,8 +187,10 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){
-			//TODO: Check ban
-			request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
+			if((Boolean) request.getAttribute("banned") == true)
+				request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
+			else
+				response.sendRedirect(contextPath);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
 			request.getRequestDispatcher("/login.jsp").forward(request,response);

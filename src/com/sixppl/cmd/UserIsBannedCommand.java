@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.support.AdminUserBanDAOImpl;
+import com.sixppl.dto.SessionDTO;
 import com.sixppl.main.Application;
 
 public class UserIsBannedCommand implements Command {
@@ -17,17 +18,19 @@ public class UserIsBannedCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminUserBanDAO userban = new AdminUserBanDAOImpl();
 		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
-		Integer id = Integer.parseInt(request.getParameter("id"));
-		if(request.getParameter("bantype").equals("ban")){
-			if(!userban.checkBan(id)){
-				request.setAttribute("banflag",userban.userBan(id));
-			}
+		SessionDTO session = new SessionDTO();
+		
+		String sessionId = request.getSession().getId();
+		if(sessionId == null || sessionId.equals("") )
+		{
+			request.setAttribute("success", false);
+			request.setAttribute("error_msg", "can not find sessionID");
+			return;
 		}
-		else if(request.getParameter("bantype").equals("unban")){
-			if(userban.checkBan(id)){
-				request.setAttribute("unbanflag",userban.userUnban(id));
-			}
-		}
+		
+		session.setSessionID(sessionId);
+		Integer id = sessionDao.finduserIDbySession(session);
+		request.setAttribute("banned", userban.checkBan(id));
 	}
 
 }
