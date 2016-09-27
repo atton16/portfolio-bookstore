@@ -78,7 +78,19 @@
 	var data = JSON.parse($('input#data-src').val());
     // Configure Alchemy
     var config = {
-        dataSource: data,
+		alpha: 0.2,
+		backgroundColour: "#222222",
+		curvedEdges: true,
+        directedEdges: true,
+    	dataSource: data,
+        forceLocked: false,
+        initialTranslate: [0, 0],
+        scaleExtent: [0.5, 2.4],
+        showStats: true,
+        nodeStats: true,
+        showControlDash: true,
+        zoomControls: true,
+        initialScale: 0.8,
         graphHeight: function() {
             return 600
         },
@@ -86,53 +98,55 @@
             return 914
         },
         linkDistancefn: function() {
-            return 40
+            return 4
         },
         nodeTypes: {
-            'label': ['Venue','Publication','Person','School', 'Author']
+            'label': ['Venue','Publication','School', 'Author']
         },
-        nodeCaption: function(node){
-               return node.caption
-        },
+        nodeCaption: "caption",
         "nodeStyle": {
             "Publication": {
                 color: "#FFD86E",
                 borderColor: "#EDBA39",
+                borderWidth: function(d, radius) {
+                    return radius / 6;
+                  },
                 //text-color-internal: "#604A0E",
-                caption: '{Title}',
-                radius: 32
+                radius: 16
             },
-            "Person":{
+            "Author":{
                 color: "#6DCE9E",
                 borderColor: "#60B58B",
+                borderWidth: function(d, radius) {
+                    return radius / 6;
+                  },
                 //text-color-internal: "#FFFFFF",
-                caption: '{Name}',
-                radius: 25
+                caption: '{caption}',
+                radius: 8
             },
             "Venue": {
                 color: "#68BDF6",
                 borderColor: "#5CA8DB",
+                borderWidth: function(d, radius) {
+                    return radius / 6;
+                  },
                 //text-color-internal: "#FFFFFF",
-                caption: '{Journal}',
-                radius: 40
+                caption: '{caption}',
+                radius: 24
             },
             "School": {
                 color: "#FF756E",
                 borderColor: "#E06760",
+                borderWidth: function(d, radius) {
+                    return radius / 6;
+                  },
                 //text-color-internal: "#FFFFFF",
-                caption: '{Name}',
-                radius: 40
-            },
-            "Author": {
-                color: "#FF756E",
-                borderColor: "#E06760",
-                //text-color-internal: "#FFFFFF",
-                caption: '{Name}',
-                radius: 40
-            },
+                caption: '{caption}',
+                radius: 24
+            }
         },
         "edgeStyle": {
-            "affiliated in": {
+        	"affiliated in": {
                 color: "#6DCE9E",
                 borderColor: "#60B58B",
                 //text-color-internal: "#FFFFFF",
