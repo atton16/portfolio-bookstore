@@ -21,7 +21,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
@@ -54,7 +54,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
@@ -88,7 +88,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
@@ -122,7 +122,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
@@ -156,7 +156,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");
@@ -188,7 +188,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
 		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
+		    	 Integer UserID = rs.getInt("UserID");
 		    	 String Nickname=rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
 		    	 String Lastname = rs.getString("Lastname");

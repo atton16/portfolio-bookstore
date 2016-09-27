@@ -21,9 +21,11 @@ public class AdminLoginCommand implements Command{
 		temp=UIDcheck.isAnAdmin(UserID);
 		if(temp!=null){
 			request.setAttribute("admincheck", temp);
+			request.setAttribute("error_msg", null);
 		}
 		else{
 			request.setAttribute("admincheck", null);
+			
 		}
 	}
 

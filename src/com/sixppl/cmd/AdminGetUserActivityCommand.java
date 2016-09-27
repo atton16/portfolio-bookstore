@@ -17,24 +17,32 @@ public class AdminGetUserActivityCommand implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Integer UserID=Integer.parseInt(request.getParameter("userid1"));
+		Integer UserID = null;
+		UserID=Integer.parseInt(request.getParameter("userid1"));
+		if(UserID!=null){
+			request.setAttribute("user", UserID);
+		
 		AdminUserActivityDAO temp = new AdminUserActivityDAOImpl();
 		List<CustomerActivityDTO> buyinglist = new ArrayList<CustomerActivityDTO>();
 		List<AdminCartDTO> cartlist = new ArrayList<AdminCartDTO>();
 		buyinglist=temp.getBuyingHistory(UserID);
 		cartlist=temp.getCartHistory(UserID);
 		if(buyinglist.size()>0){
-			request.setAttribute("buyinghistory", buyinglist);
+			request.setAttribute("buys", buyinglist);
 		}
 		else{
-			request.setAttribute("buyinghistory", null);
+			request.setAttribute("buys", null);
 		}
 		if(cartlist.size()>0){
-			request.setAttribute("cartlist", cartlist);
+			request.setAttribute("removes", cartlist);
 		}
 		else{
-			request.setAttribute("cartlist", null);
+			request.setAttribute("removes", null);
 		}
 	}
-
+	
+	else{
+		request.setAttribute("user", null);
+	}
+	}
 }
