@@ -48,12 +48,16 @@ public class AdminGetUserCommand implements Command{
 			request.setAttribute("end", templist.size());
 			String nextParams=null;
 			String prevParams=null;
+			request.setAttribute("nextParams", nextParams);
+			request.setAttribute("prevParams", prevParams);
 			request.setAttribute("items", templist);
 		}
 		else{
 			request.setAttribute("end", 10);
 			String prevParams=null;
 			String nextParams = "?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&nextpage=2";
+			request.setAttribute("nextParams", nextParams);
+			request.setAttribute("prevParams", prevParams);
 		}
 		
 		

@@ -66,10 +66,14 @@ public class AdminUserNextPrevPageCommand implements Command{
 			if((Integer.parseInt(request.getParameter("total"))/10)<=currentpage){
 				String nextParams=null;
 				String prevParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&prevpage=" + Integer.toString((currentpage-1));
+				request.setAttribute("nextParams", nextParams);
+				request.setAttribute("prevParams", prevParams);
 			}
 			else if((Integer.parseInt(request.getParameter("total"))/10)>currentpage){
 				String nextParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&nextpage=" + Integer.toString((currentpage+1));
 				String prevParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&prevpage=" + Integer.toString((currentpage-1));
+				request.setAttribute("nextParams", nextParams);
+				request.setAttribute("prevParams", prevParams);
 			}
 		}
 		else if(request.getParameterMap().containsKey("prevpage")){
@@ -78,10 +82,14 @@ public class AdminUserNextPrevPageCommand implements Command{
 			if(currentpage==1){
 				String prevParams=null;
 				String nextParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&nextpage=" + Integer.toString((currentpage+1));
+				request.setAttribute("nextParams", nextParams);
+				request.setAttribute("prevParams", prevParams);
 			}
 			else if((Integer.parseInt(request.getParameter("total"))/10)>currentpage){
 				String nextParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&nextpage=" + Integer.toString((currentpage+1));
 				String prevParams="?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&prevpage=" + Integer.toString((currentpage-1));
+				request.setAttribute("nextParams", nextParams);
+				request.setAttribute("prevParams", prevParams);
 			}
 		}
 	}
