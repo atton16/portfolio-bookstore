@@ -4,7 +4,6 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.sixppl.dto.UserDTO;
 import java.util.*;
 
@@ -35,25 +34,6 @@ public class AdminGetUserCommand implements Command {
 		if(type == null){
 			return;
 		}
-		
-		if(type.equals("Nickname")){
-			results=adminUserDao.findByNickname(keyword);
-		}
-		else if(type.equals("Firstname")){
-			results=adminUserDao.findByFirstname(keyword);
-		}
-		else if(type.equals("Lastname")){
-			results=adminUserDao.findByLastname(keyword);
-		}
-		else if(type.equals("Email")){
-			results=adminUserDao.findByEmail(keyword);
-		}
-		else if(type.equals("All Customers")){
-			results=adminUserDao.findAllCustomers();
-		}
-		else if(type.equals("All Sellers")){
-			results=adminUserDao.findAllSellers();
-		}
 
 		Integer page = 1;
 		if(request.getParameter("page") != null){
@@ -68,6 +48,25 @@ public class AdminGetUserCommand implements Command {
 		Integer end = page*10;
 		end = end > results.size() ? results.size() : end;
 		
+		if(type.equals("Nickname")){
+			results=adminUserDao.findByNickname(keyword, start-1, 10);
+		}
+		else if(type.equals("Firstname")){
+			results=adminUserDao.findByFirstname(keyword, start-1, 10);
+		}
+		else if(type.equals("Lastname")){
+			results=adminUserDao.findByLastname(keyword, start-1, 10);
+		}
+		else if(type.equals("Email")){
+			results=adminUserDao.findByEmail(keyword, start-1, 10);
+		}
+		else if(type.equals("All Customers")){
+			results=adminUserDao.findAllCustomers(start-1, 10);
+		}
+		else if(type.equals("All Sellers")){
+			results=adminUserDao.findAllSellers(start-1, 10);
+		}
+		
 		String queryString = "";
 		
 		if(request.getQueryString() != null) {
@@ -81,7 +80,6 @@ public class AdminGetUserCommand implements Command {
 				queryString = queryString.substring(0, queryString.length()-1);
 		}
 		
-		results = results.subList(start-1, end);
 		request.setAttribute("items", results);
 		if(page > 1)
 			request.setAttribute("prevParams", queryString+"&page="+String.valueOf(page-1));
