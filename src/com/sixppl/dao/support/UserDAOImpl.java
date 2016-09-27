@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO{
 		stmt.setString(4, user.getFirstname());
 		stmt.setString(5, user.getLastname());
 		stmt.setString(6, user.getEmail());
-		stmt.setString(7, user.getBirthyear());
+		stmt.setInt(7, user.getBirthyear());
 		stmt.setString(8, user.getAddr());
 		stmt.setString(9, user.getCardno());
 		stmt.setString(10, user.getTokenstring());
@@ -86,7 +86,7 @@ public class UserDAOImpl implements UserDAO{
 				ue.setLastname(rs.getString("Lastname"));
 				ue.setEmail(rs.getString("Email"));
 				ue.setNewemail(rs.getString("NewEmail"));
-				ue.setBirthyear(rs.getString("Birthyear"));
+				ue.setBirthyear(rs.getInt("Birthyear"));
 				ue.setAddr(rs.getString("Address"));
 				ue.setCardno(rs.getString("CardNumber"));
 				ue.setTokenstring(rs.getString("TokenString"));
@@ -125,7 +125,7 @@ public class UserDAOImpl implements UserDAO{
 				ue.setLastname(rs.getString("Lastname"));
 				ue.setEmail(rs.getString("Email"));
 				ue.setNewemail(rs.getString("NewEmail"));
-				ue.setBirthyear(rs.getString("Birthyear"));
+				ue.setBirthyear(rs.getInt("Birthyear"));
 				ue.setAddr(rs.getString("Address"));
 				ue.setCardno(rs.getString("CardNumber"));
 				ue.setTokenstring(rs.getString("TokenString"));
@@ -164,7 +164,7 @@ public class UserDAOImpl implements UserDAO{
 				ue.setLastname(rs.getString("Lastname"));
 				ue.setEmail(rs.getString("Email"));
 				ue.setNewemail(rs.getString("NewEmail"));
-				ue.setBirthyear(rs.getString("Birthyear"));
+				ue.setBirthyear(rs.getInt("Birthyear"));
 				ue.setAddr(rs.getString("Address"));
 				ue.setCardno(rs.getString("CardNumber"));
 				ue.setTokenstring(rs.getString("TokenString"));
@@ -202,7 +202,7 @@ public class UserDAOImpl implements UserDAO{
 				ue.setLastname(rs.getString("Lastname"));
 				ue.setEmail(rs.getString("Email"));
 				ue.setNewemail(rs.getString("NewEmail"));
-				ue.setBirthyear(rs.getString("Birthyear"));
+				ue.setBirthyear(rs.getInt("Birthyear"));
 				ue.setAddr(rs.getString("Address"));
 				ue.setCardno(rs.getString("CardNumber"));
 				ue.setTokenstring(rs.getString("TokenString"));
@@ -223,8 +223,8 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public boolean updateUser(UserDTO user) {
 		boolean flag = true;
-		String sql = "UPDATE User SET Password=?,Nickname=?,Firstname=?,Lastname=?"
-				+ "Email=?,NewEmail=?,Birthyear=?,Address=?,CardNumber=?,TokenString=? WHERE Username=?";
+		String sql = "UPDATE `User` SET `Password`=?,`Nickname`=?,`Firstname`=?,`Lastname`=?,"
+				+ "`Email`=?,`NewEmail`=?,`Birthyear`=?,`Address`=?,`CardNumber`=?,`TokenString`=?  WHERE Username=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -235,7 +235,7 @@ public class UserDAOImpl implements UserDAO{
 			stmt.setString(4, user.getLastname());
 			stmt.setString(5, user.getEmail());
 			stmt.setString(6, user.getNewemail());
-			stmt.setString(7, user.getBirthyear());
+			stmt.setInt(7, user.getBirthyear());
 			stmt.setString(8, user.getAddr());
 			stmt.setString(9, user.getCardno());
 			stmt.setString(10, user.getTokenstring());

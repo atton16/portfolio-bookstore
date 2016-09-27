@@ -22,17 +22,27 @@ public class UserConfirmCommand implements Command {
 		System.out.println(request.getParameter("token"));
 		user = userDao.findUserByToken(request.getParameter("token"));
 		if(user == null){
+			System.out.println("no userID is found");
 			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Cannot find token");
 			return;
 		}
 		String newemail = user.getNewemail();
 		if (newemail !=null){
+			System.out.println("set new email as null");
 			user.setEmail(newemail);
 		}
-		user.setNewemail(null);
+		System.out.println("check if succsess,userid is" + user.getUserID()
+				+ "username is" + user.getUsername() + "password is"
+				+ user.getPassword() + "email is"+user.getEmail()+ "address is" + user.getAddr() + "cardno"
+				+ user.getCardno());
+		if(user.getNewemail() != null){
+			user.setNewemail(null);
+		}
 		user.setTokenstring(null);
+		
 		userDao.updateUser(user);
+		System.out.println("succsess");
 		request.setAttribute("email", newemail);
 		request.setAttribute("error", false);
 	}

@@ -66,7 +66,7 @@ public class UserProfileCommand  implements Command {
 			user.setLastname(lastname);
 
 		if (yob != null && !yob.equals(""))
-			user.setBirthyear(yob);
+			user.setBirthyear(Integer.parseInt(yob));
 		if (address != null && !address.equals(""))
 			user.setAddr(address);
 		if (ccn != null && !ccn.equals(""))
