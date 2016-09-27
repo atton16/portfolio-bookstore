@@ -73,8 +73,8 @@ public class GraphDTO {
 	    return false;
 	}
 	
-	public static boolean containsID(Stack<GraphDTO> graphList, long ID) {
-	    for (GraphDTO graph : graphList) {
+	public static boolean containsID(Stack<GraphDTO> graphStack, long ID) {
+	    for (GraphDTO graph : graphStack) {
 	        if (graph.getID() == ID) {
 	            return true;
 	        }
@@ -82,8 +82,8 @@ public class GraphDTO {
 	    return false;
 	}
 	
-	public static boolean containsEdgeID(Stack<GraphDTO> graphList, String edgeID) {
-	    for (GraphDTO graph : graphList) {
+	public static boolean containsEdgeID(Stack<GraphDTO> graphStack, String edgeID) {
+	    for (GraphDTO graph : graphStack) {
 	        if (graph.getEdge().equals(edgeID)) {
 	            return true;
 	        }

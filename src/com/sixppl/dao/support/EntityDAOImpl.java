@@ -106,6 +106,62 @@ public class EntityDAOImpl implements EntityDAO{
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	@Override
+	public EntityDTO findEntityByEntityId(String entityID) throws SQLException {
+		EntityDTO result = new EntityDTO();
+		String sql = "SELECT * FROM Entity WHERE EntityID=?";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, entityID);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				result.setID(rs.getLong("ID"));
+				result.setEntityID(rs.getString("EntityID"));
+				result.setEntityClass(rs.getString("Class"));
+				result.setEntityType(rs.getString("Type"));
+				result.setEntityCaption(rs.getString("Caption"));
+			}
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	
+	@Override
+	public EntityDTO findEntityByCaption(String Class, String Type, String Caption) throws SQLException {
+		EntityDTO result = new EntityDTO();
+		String sql = "SELECT * FROM Entity WHERE Class=? AND Type=? AND Caption =?";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, Class);
+			ps.setString(2, Type);
+			ps.setString(3, Caption);
+			ResultSet rs = ps.executeQuery();
+			if ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 
 	@Override
 	public ArrayList<EntityDTO> findEntity(String type, String keyword) throws SQLException {
@@ -165,22 +221,24 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public EntityDTO findEntityByEntityId(String entityID) throws SQLException {
-		EntityDTO result = new EntityDTO();
-		String sql = "SELECT * FROM Entity WHERE EntityID=?";
+	public ArrayList<EntityDTO> findAllNodes() throws SQLException {
+		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
+		String sql = "SELECT * FROM Entity WHERE Class='Node'";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, entityID);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				result.setID(rs.getLong("ID"));
-				result.setEntityID(rs.getString("EntityID"));
-				result.setEntityClass(rs.getString("Class"));
-				result.setEntityType(rs.getString("Type"));
-				result.setEntityCaption(rs.getString("Caption"));
-			}
+			while ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		      result.add(entity);
+		    }
 		    rs.close();
 		    ps.close();
 		}
@@ -191,13 +249,14 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public ArrayList<EntityDTO> findAllNodes() throws SQLException {
+	public ArrayList<EntityDTO> getRandomNodes(int nodeAmount) throws SQLException {
 		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
-		String sql = "SELECT * FROM Entity WHERE Class='Node'";
+		String sql = "SELECT * FROM Entity WHERE Class='Node' ORDER BY RAND() LIMIT ?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, nodeAmount);
 			ResultSet rs = ps.executeQuery();
 			while ( rs.next() )
 		    {
