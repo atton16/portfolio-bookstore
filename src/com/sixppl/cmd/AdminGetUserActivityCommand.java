@@ -16,7 +16,6 @@ public class AdminGetUserActivityCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Integer UserID = null;
 		UserID=Integer.parseInt(request.getParameter("userid1"));
 		if(UserID!=null){
