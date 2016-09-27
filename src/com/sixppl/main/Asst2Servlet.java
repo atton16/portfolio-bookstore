@@ -90,6 +90,9 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
 	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
+	private static final String ADMINGETPAGEHIT_COMMAND = "adminGetPageHitCommand";
+	private static final String ADMINLOGOUT_COMMAND = "adminLogoutCommand";
+	private static final String ADMINUSERNEXTPREVPAGE_COMMAND = "adminUserNextPrevPageCommand";
 
 	
 	Map<String,Command> commands;
@@ -127,6 +130,9 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+		commands.put(ADMINGETPAGEHIT_COMMAND, new AdminGetPageHitCommand());
+		commands.put(ADMINLOGOUT_COMMAND, new AdminLogoutCommand());
+		commands.put(ADMINUSERNEXTPREVPAGE_COMMAND, new AdminUserNextPrevPageCommand());
 
     }
     
@@ -266,6 +272,9 @@ public class Asst2Servlet extends HttpServlet {
 			if(request.getParameterMap().containsKey("get")){
 				commands.get(ADMINGETUSER_COMMAND).execute(request, response);
 				request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
+			}
+			else if(request.getParameterMap().containsKey("prevpage")|| request.getParameterMap().containsKey("nextpage")){
+				commands.get(ADMINUSERNEXTPREVPAGE_COMMAND).execute(request, response);
 			}
 			else{
 			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);

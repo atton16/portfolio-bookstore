@@ -28,7 +28,7 @@ public class AdminUserActivityDAOImpl implements AdminUserActivityDAO{
 		     stmt.setInt(1, userID);
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){
-		    	 String UserID=rs.getString("UserID");
+		    	 Integer UserID=rs.getInt("UserID");
 		    	 String Username = rs.getString("Username");
 		    	 String Nickname = rs.getString("Nickname");
 		    	 String Firstname = rs.getString("Firstname");
