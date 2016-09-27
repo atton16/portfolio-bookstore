@@ -304,10 +304,8 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
     	// Admin: Customer Activity
 		} else if (URI.equalsIgnoreCase("/admin/users/viewcustomer")){
-			//TOTO: Admin: Customer Activity
-			commands.get(ADMINGETUSERACTIVITY_COMMAND).execute(request, response); //The attribute pair with key "buyinghistory" and "cartlist"
+			commands.get(ADMINGETUSERACTIVITY_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/admin_customer.jsp").forward(request,response);
-			
     	// Admin: Analytics
 		} else if(URI.equalsIgnoreCase("/admin/analytics")){
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
