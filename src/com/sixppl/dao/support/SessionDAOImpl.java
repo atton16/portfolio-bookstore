@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.sixppl.dao.SessionDAO;
-import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
-import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 public class SessionDAOImpl implements SessionDAO {
@@ -104,6 +102,34 @@ public class SessionDAOImpl implements SessionDAO {
 		}
 		return -1;
 		
+	}
+
+	@Override
+	public int findAdminUserIDbySession(SessionDTO session) {
+		String sql = String.format("SELECT * from `AdminLoginSessions` where `JSESSIONID`=?");
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, session.getSessionID());
+			rs = stmt.executeQuery();
+			List<Integer> userIds = new LinkedList<Integer>();
+
+			while(rs.next()){
+				int userid = Integer.parseInt(rs.getString("UserID"));
+				userIds.add(userid);
+			}
+			
+			if(userIds != null && !userIds.isEmpty()){
+				rs.close();
+				stmt.close();
+				return userIds.get(0);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return -1;
 	};
 
 }

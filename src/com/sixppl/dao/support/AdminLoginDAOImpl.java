@@ -38,7 +38,7 @@ public class AdminLoginDAOImpl implements AdminLoginDAO{
 	}*/
 
 	@Override
-	public AdminLoginDTO isAnAdmin(Integer userID) {
+	public AdminLoginDTO getAdmin(Integer userID) {
 		Connection con = null;
 		AdminLoginDTO temp = null;
 		try {
@@ -66,30 +66,7 @@ public class AdminLoginDAOImpl implements AdminLoginDAO{
 	}
 
 	@Override
-	public Integer returnUID(String username, String password) {
-		Connection con = null;
-		Integer UID=null;
-		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
- 
-			 PreparedStatement stmt = con.prepareStatement("SELECT UserID FROM User WHERE Username=? AND Password=?");
-		     stmt.setString(1, username);
-		     stmt.setString(2, password);
-		     ResultSet rs=stmt.executeQuery();
-		     if(rs.next()){
-		    	 UID=rs.getInt("UserID");
-		     }
-		   } 
-		catch (SQLException se) {
-			    se.printStackTrace();
-		   } 
-		catch (Exception e) {
-		   } 
-		return UID;
-	}
-
-	@Override
-	public boolean isAdmin(Integer userID) {
+	public boolean isLoggedIn(Integer userID) {
 		Connection con = null;
 		boolean status = false;
 		try {
@@ -110,7 +87,7 @@ public class AdminLoginDAOImpl implements AdminLoginDAO{
 	}
 
 	@Override
-	public boolean registerAdminSession(Integer UserID, String SessionID) {
+	public boolean login(Integer UserID, String SessionID) {
 		Connection con = null;
 		boolean status = false;
 		try {
@@ -133,7 +110,7 @@ public class AdminLoginDAOImpl implements AdminLoginDAO{
 	}
 
 	@Override
-	public boolean removeAdminSession(String SessionID) {
+	public boolean logout(String SessionID) {
 		Connection con = null;
 		boolean status = false;
 		try {

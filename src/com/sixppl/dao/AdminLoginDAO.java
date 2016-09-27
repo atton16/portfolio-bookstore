@@ -3,15 +3,12 @@ package com.sixppl.dao;
 import com.sixppl.dto.*;
 
 public interface AdminLoginDAO {
-	//public AdminLoginDTO findAdmin(Integer UserID);
 	
-	public AdminLoginDTO isAnAdmin(Integer UserID);
+	public AdminLoginDTO getAdmin(Integer UserID);
 	
-	public Integer returnUID(String Username, String Password);
+	public boolean isLoggedIn(Integer UserID);
 	
-	public boolean isAdmin(Integer UserID);
+	public boolean login(Integer UserID, String SessionID);
 	
-	public boolean registerAdminSession(Integer UserID, String SessionID);
-	
-	public boolean removeAdminSession(String SessionID);
+	public boolean logout(String SessionID);
 }

@@ -18,6 +18,26 @@
 					<h1><a href="${contextPath}/" class="header-title no-decoration">${title}</a></h1>
 				</div>
 			</div>
+			
+			<div class="col-md-6">
+			</div>
+			
+			<!-- Utilities Column -->
+			<div class="col-md-5">
+				<!-- Top Space -->
+				<div class="margin-top-30"></div>
+				<div class="row pull-right">
+					<!-- Admin action dropdown -->
+					<jstl:if test="${sessionScope.admin != null}">
+						<div class="btn-group">
+							<a href="#" class="margin-left-8 white-color dropdown-toggle white-color" data-toggle="dropdown" id="login">${sessionScope.admin.getNickname()} <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${contextPath}/admin/logout">Logout</a></li>
+							</ul>
+						</div>
+					</jstl:if>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

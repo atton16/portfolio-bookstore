@@ -56,6 +56,7 @@ import com.sixppl.main.Application;
 		
 		"/admin",
 		"/admin/login",
+		"/admin/logout",
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
@@ -71,7 +72,9 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
+
 	private static final String EMBEDUSER_COMMAND = "embedUserCommand";
+	private static final String EMBEDADMIN_COMMAND = "embedAdminCommand";
 	
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	private static final String CARTADD_COMMAND = "cartAddCommand";
@@ -98,8 +101,6 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINGETUSERACTIVITY_COMMAND = "adminGetUserActivityCommand";
 	private static final String ADMINLOGIN_COMMAND = "adminLoginCommand";
 	private static final String ADMINPAGEHIT_COMMAND = "adminPageHitCommand";
-	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
-	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
 
 	private static final String ADMINGETPAGEHIT_COMMAND = "adminGetPageHitCommand";
@@ -120,7 +121,10 @@ public class Asst2Servlet extends HttpServlet {
     	
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
+
+		commands.put(EMBEDADMIN_COMMAND, new EmbedAdminCommand());
 		commands.put(EMBEDUSER_COMMAND, new EmbedUserCommand());
+		
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
 		
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
@@ -148,8 +152,6 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINGETUSERACTIVITY_COMMAND, new AdminGetUserActivityCommand());
 		commands.put(ADMINLOGIN_COMMAND, new AdminLoginCommand());
 		commands.put(ADMINPAGEHIT_COMMAND, new AdminPageHitCommand());
-		commands.put(ADMINREGISTERSESSION_COMMAND, new AdminRegisterSessionCommand());
-		commands.put(ADMINREMOVESESSION_COMMAND, new AdminRemoveSessionCommand());
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
@@ -185,6 +187,7 @@ public class Asst2Servlet extends HttpServlet {
 		
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
+		commands.get(EMBEDADMIN_COMMAND).execute(request,response);
 		commands.get(EMBEDUSER_COMMAND).execute(request,response);
 		commands.get(USERISBANNED_COMMAND).execute(request,response);
 		
@@ -255,6 +258,10 @@ public class Asst2Servlet extends HttpServlet {
 		// Admin: Login Page
 		} else if(URI.equalsIgnoreCase("/admin/login")){
 			request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
+		// Admin: Logout Page
+		} else if(URI.equalsIgnoreCase("/admin/logout")){
+			commands.get(ADMINLOGOUT_COMMAND).execute(request, response);
+			response.sendRedirect(contextPath+"/admin/login");
 		// Admin: Manage Publications
 		} else if(URI.equalsIgnoreCase("/admin/pub/manage")){
 			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
@@ -400,7 +407,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Admin: Login
 		} else if(URI.equalsIgnoreCase("/admin/login")){
 			commands.get(ADMINLOGIN_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success") && !request.getAttribute("admincheck").equals(null)){
+			if(request.getAttribute("error_msg") == null){
 				response.sendRedirect(contextPath+"/admin");
 			} else{
 				request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
