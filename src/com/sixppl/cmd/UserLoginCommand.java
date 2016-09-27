@@ -48,8 +48,7 @@ public class UserLoginCommand implements Command {
 			request.setAttribute("error_msg", "Login Failed.");
 			return;
 		}
-		//String sessionId = request.getSession().getId();
-		String sessionId = "55555555";
+		String sessionId = request.getSession().getId();
 		if(sessionId == null || sessionId.equals("") )
 		{
 			request.setAttribute("success", false);
