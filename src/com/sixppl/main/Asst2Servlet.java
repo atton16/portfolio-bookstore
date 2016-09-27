@@ -74,6 +74,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String USERLOGOUT_COMMAND = "userLogoutCommand";
 	private static final String USERREG_COMMAND = "userRegCommand";
 	private static final String USERPROFILE_COMMAND = "userProfileCommand";
 	private static final String SEARCH_COMMAND = "searchCommand";
@@ -107,6 +108,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+		commands.put(USERLOGOUT_COMMAND, new UserLogoutCommand());
 
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
@@ -187,7 +189,7 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
 		// Logout
 		} else if(URI.equalsIgnoreCase("/logout")){
-			//TODO: Do logout
+			commands.get(USERLOGOUT_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/home.jsp").forward(request,response);
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
