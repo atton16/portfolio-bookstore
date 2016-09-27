@@ -298,22 +298,9 @@ public class Asst2Servlet extends HttpServlet {
 	    	
     	// Admin: Manage Users
 		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
-			//TOTO: Admin: Manage Users - Search
-			/*String bob = request.getRequestURI();
-			String bob2 = request.getRequestURI();
-			boolean value=bob2.equals("/asst2/admin/users/manage");
-			*/
-			if(request.getParameterMap().containsKey("get")){
-				commands.get(ADMINGETUSER_COMMAND).execute(request, response);
-				request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
-			}
-			else if(request.getParameterMap().containsKey("prevpage")|| request.getParameterMap().containsKey("nextpage")){
-				commands.get(ADMINUSERNEXTPREVPAGE_COMMAND).execute(request, response);
-			}
-			else{
+            commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(ADMINGETUSER_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
-			}
-			
     	// Admin: Customer Activity
 		} else if (URI.equalsIgnoreCase("/admin/users/viewcustomer")){
 			//TOTO: Admin: Customer Activity

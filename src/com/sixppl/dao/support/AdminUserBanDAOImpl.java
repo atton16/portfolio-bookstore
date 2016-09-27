@@ -12,7 +12,7 @@ import com.sixppl.main.Application;
 
 public class AdminUserBanDAOImpl implements AdminUserBanDAO{
 	
-	public boolean checkBan(Integer userID){
+	public boolean isBanned(Integer userID){
 		Connection con = null;
 		Boolean status = false;
 		try {

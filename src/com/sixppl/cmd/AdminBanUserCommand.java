@@ -16,12 +16,12 @@ public class AdminBanUserCommand implements Command{
 		AdminUserBanDAO userban = new AdminUserBanDAOImpl();
 		Integer id = Integer.parseInt(request.getParameter("id"));
 		if(request.getParameter("bantype").equals("ban")){
-			if(!userban.checkBan(id)){
+			if(!userban.isBanned(id)){
 				request.setAttribute("banflag",userban.userBan(id));
 			}
 		}
 		else if(request.getParameter("bantype").equals("unban")){
-			if(userban.checkBan(id)){
+			if(userban.isBanned(id)){
 				request.setAttribute("unbanflag",userban.userUnban(id));
 			}
 		}

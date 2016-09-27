@@ -117,7 +117,7 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		try {
 		     con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE email=?");
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Email=?");
 			stmt.setString(1, email);
 		     ResultSet rs= stmt.executeQuery();
 		     while(rs.next()){

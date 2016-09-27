@@ -51,117 +51,127 @@
 			<div>
 				<div class="margin-top-24"></div>
 				<!-- No Search -->
-				<center><h4>Please search to begin.</h4></center>
-				<!-- No Results -->
-				<center><h4>User not found.</h4></center>
-				<!-- Results -->
-				<!-- Search Results Title -->
-				<div class="row">
-					<div class="col-md-12 col-lg-space">
-						<h3>Search Results</h3>
-						<p><i>Displaying X-Y of N results</i></p>
-						<jstl:forEach var="searchTerm" items="${searchTerms}">
-							<span class="label label-default">${searchTerm}</span>
-						</jstl:forEach>
-					</div>
-				</div>
-				<!-- Page Changers: Top -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="as-table">
-							<div class="as-cell">
-								<%-- <jstl:if test="${prevParams != null}"> --%>
-								<a href="${contextPath}/admin/users/manage?${prevParams}" class="no-decoration"> <span
-									class="glyphicon glyphicon-menu-left"></span> <span>
-										Previous</span>
-								</a>
-								<%-- </jstl:if> --%>
-							</div>
-							<div class="as-cell right-text">
-								<%-- <jstl:if test="${nextParams != null}"> --%>
-								<a href="${contextPath}/admin/users/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
-									class="glyphicon glyphicon-menu-right"></span>
-								</a>
-								<%-- </jstl:if> --%>
+				<jstl:if test="${items == null}">
+					<center><h4>Please search to begin.</h4></center>
+				</jstl:if>
+				<jstl:if test="${items != null}">
+					<jstl:if test="${items.isEmpty()}">
+						<!-- No Results -->
+						<center><h4>User not found.</h4></center>
+					</jstl:if>
+					<jstl:if test="${!items.isEmpty()}">
+						<!-- Results -->
+						<!-- Search Results Title -->
+						<div class="row">
+							<div class="col-md-12 col-lg-space">
+								<h3>Search Results</h3>
+								<p><i>Displaying ${start}-${end} of ${total} results</i></p>
+								<jstl:forEach var="searchTerm" items="${searchTerms}">
+									<span class="label label-default">${searchTerm}</span>
+								</jstl:forEach>
 							</div>
 						</div>
-					</div>
-				</div>
-				<!-- Search Results Contents: One item per row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<table class="table">
-									<tr>
-										<th>Nick Name</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Email</th>
-										<th>Action</th>
-										<th>Activity (Customer)</th>
-									</tr>
-									<tr>
-										<td>Dave</td>
-										<td>David</td>
-										<td>Hue</td>
-										<td>dhue@a.com</td>
-										<td>
-											<a href="#" id="userid1-ban" class="submit-hidden-ajax ban-unban-toggle">Ban</a>
-											<!-- Ban/Unban AJAX Form: Item 1 -->
-											<form action="${contextPath}/rest/admin/users/ban" method="post" id="userid1-ban">
-												<input type="hidden" name="id" value="userid1"/>
-											</form>
-											<form action="${contextPath}/rest/admin/users/unban" method="post" id="userid1-unban">
-												<input type="hidden" name="id" value="userid1"/>
-											</form>
-										</td>
-										<td><a href="${contextPath}/admin/users/viewcustomer?id=userid1" target="_blank">View</a></td>
-									</tr>
-									<tr>
-										<td>El</td>
-										<td>Eric</td>
-										<td>Ries</td>
-										<td>er@a.com</td>
-										<td>
-											<a href="#" id="userid2-unban" class="submit-hidden-ajax ban-unban-toggle">Unban</a>
-											<!-- Ban/Unban AJAX Form: Item 1 -->
-											<form action="${contextPath}/rest/admin/users/ban" method="post" id="userid2-ban">
-												<input type="hidden" name="id" value="userid2"/>
-											</form>
-											<form action="${contextPath}/rest/admin/users/unban" method="post" id="userid2-unban">
-												<input type="hidden" name="id" value="userid2"/>
-											</form>
-										</td>
-										<td>-</td>
-									</tr>
-								</table>
+						<!-- Page Changers: Top -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="as-table">
+									<div class="as-cell">
+										<jstl:if test="${prevParams != null}">
+										<a href="${contextPath}/admin/users/manage?${prevParams}" class="no-decoration"> <span
+											class="glyphicon glyphicon-menu-left"></span> <span>
+												Previous</span>
+										</a>
+										</jstl:if>
+									</div>
+									<div class="as-cell right-text">
+										<jstl:if test="${nextParams != null}">
+										<a href="${contextPath}/admin/users/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
+											class="glyphicon glyphicon-menu-right"></span>
+										</a>
+										</jstl:if>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<!-- Page Changers: Bottom -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="as-table">
-							<div class="as-cell">
-								<%-- <jstl:if test="${prevParams != null}"> --%>
-								<a href="${contextPath}/admin/users/manage?${prevParams}" class="no-decoration"> <span
-									class="glyphicon glyphicon-menu-left"></span> <span>
-										Previous</span>
-								</a>
-								<%-- </jstl:if> --%>
-							</div>
-							<div class="as-cell right-text">
-								<%-- <jstl:if test="${nextParams != null}"> --%>
-								<a href="${contextPath}/admin/users/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
-									class="glyphicon glyphicon-menu-right"></span>
-								</a>
-								<%-- </jstl:if> --%>
+						<!-- Search Results Contents: One item per row -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<table class="table">
+											<tr>
+												<th>Nick Name</th>
+												<th>First Name</th>
+												<th>Last Name</th>
+												<th>Email</th>
+												<th>Action</th>
+												<th>Activity (Customer)</th>
+											</tr>
+											<jstl:forEach var="user" items="${items}">
+												<tr>
+													<td>${user.getNickname()}</td>
+													<td>${user.getFirstname()}</td>
+													<td>${user.getLastname()}</td>
+													<td>${user.getEmail()}</td>
+													<td>
+														<jstl:if test="${user.isAdmin()}">
+															-
+														</jstl:if>
+														<jstl:if test="${!user.isAdmin()}">
+															<jstl:if test="${user.isBanned()}">
+																<a href="#" id="${user.getUserID()}-unban" class="submit-hidden-ajax ban-unban-toggle">Unban</a>
+															</jstl:if>
+															<jstl:if test="${!user.isBanned()}">
+																<a href="#" id="${user.getUserID()}-ban" class="submit-hidden-ajax ban-unban-toggle">Ban</a>
+															</jstl:if>
+															<!-- Ban/Unban AJAX Form: Item # -->
+															<form action="${contextPath}/rest/admin/users/ban" method="post" id="${user.getUserID()}-ban">
+																<input type="hidden" name="id" value="${user.getUserID()}"/>
+															</form>
+															<form action="${contextPath}/rest/admin/users/unban" method="post" id="${user.getUserID()}-unban">
+																<input type="hidden" name="id" value="${user.getUserID()}"/>
+															</form>
+														</jstl:if>
+													</td>
+													<td>
+														<jstl:if test="${user.isCustomer()}">
+															<a href="${contextPath}/admin/users/viewcustomer?id=${user.getUserID()}" target="_blank">View</a>
+														</jstl:if>
+														<jstl:if test="${!user.isCustomer()}">
+															-
+														</jstl:if>
+													</td>
+												</tr>
+											</jstl:forEach>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+						<!-- Page Changers: Bottom -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="as-table">
+									<div class="as-cell">
+										<jstl:if test="${prevParams != null}">
+										<a href="${contextPath}/admin/users/manage?${prevParams}" class="no-decoration"> <span
+											class="glyphicon glyphicon-menu-left"></span> <span>
+												Previous</span>
+										</a>
+										</jstl:if>
+									</div>
+									<div class="as-cell right-text">
+										<jstl:if test="${nextParams != null}">
+										<a href="${contextPath}/admin/users/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
+											class="glyphicon glyphicon-menu-right"></span>
+										</a>
+										</jstl:if>
+									</div>
+								</div>
+							</div>
+						</div>
+					</jstl:if>
+				</jstl:if>
 			</div>
 		</div>
 	</div>

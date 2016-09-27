@@ -32,7 +32,7 @@
 						<div class="btn-group">
 							<a href="#" class="margin-left-8 white-color dropdown-toggle white-color" data-toggle="dropdown" id="login">${sessionScope.admin.getNickname()} <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="${contextPath}/admin/logout">Logout</a></li>
+								<li><a href="${contextPath}/admin/logout">Admin Logout</a></li>
 							</ul>
 						</div>
 					</jstl:if>
