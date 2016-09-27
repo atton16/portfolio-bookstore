@@ -78,33 +78,34 @@
 	var data = JSON.parse($('input#data-src').val());
     // Configure Alchemy
     var config = {
-		alpha: 0.2,
-		backgroundColour: "#222222",
-		curvedEdges: true,
-        directedEdges: true,
     	dataSource: data,
-        forceLocked: false,
+    // background color and transparency
+    	alpha: 0.2,
+		backgroundColour: "#222222",
+	// scaling factor
+        initialScale: 0.8,
         initialTranslate: [0, 0],
         scaleExtent: [0.5, 2.4],
-        showStats: true,
-        nodeStats: true,
-        showControlDash: true,
-        zoomControls: true,
-        initialScale: 0.8,
         graphHeight: function() {
             return 600
         },
         graphWidth: function() {
             return 914
         },
-        linkDistancefn: function() {
-            return 4
-        },
+	// graph animation effect
+        forceLocked: false,
+	// basic data stats
+        showStats: true,
+        nodeStats: true,
+	// show dashboard menu
+        showControlDash: true,
+        zoomControls: true,
+	// Node config
         nodeTypes: {
             'label': ['Venue','Publication','School', 'Author']
         },
         nodeCaption: "caption",
-        "nodeStyle": {
+        nodeStyle: {
             "Publication": {
                 color: "#FFD86E",
                 borderColor: "#EDBA39",
@@ -145,7 +146,13 @@
                 radius: 24
             }
         },
-        "edgeStyle": {
+	// Edge config
+        curvedEdges: true,
+        directedEdges: true,
+        linkDistancefn: function() {
+            return 4
+        },
+        edgeStyle: {
         	"affiliated in": {
                 color: "#6DCE9E",
                 borderColor: "#60B58B",
