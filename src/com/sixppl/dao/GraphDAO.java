@@ -13,4 +13,5 @@ public interface GraphDAO {
 	void updateGraph(GraphDTO graph) throws SQLException;
 	void deleteGraph(long ID) throws SQLException;
 	ArrayList<GraphOutputDTO> findGraphOutput(String node) throws SQLException;
+	ArrayList<GraphOutputDTO> findAllGraphOutput() throws SQLException;
 }

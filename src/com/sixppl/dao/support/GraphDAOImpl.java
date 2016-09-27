@@ -139,4 +139,37 @@ public class GraphDAOImpl implements GraphDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public ArrayList<GraphOutputDTO> findAllGraphOutput() throws SQLException {
+		ArrayList<GraphOutputDTO> result = new ArrayList<GraphOutputDTO>();
+		String sql = "SELECT * FROM graphoutput";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while ( rs.next() )
+			{
+				GraphOutputDTO graph = new GraphOutputDTO();
+				graph.setID(rs.getLong("ID"));
+				graph.setNodeFromID(rs.getLong("NodeFromID"));
+				graph.setNodeFrom(rs.getString("NodeFrom"));
+				graph.setNodeFromCaption(rs.getString("NodeFromCaption"));
+				graph.setEdgeID(rs.getLong("EdgeID"));
+				graph.setEdge(rs.getString("Edge"));
+				graph.setEdgeCaption(rs.getString("EdgeCaption"));
+				graph.setNodeToID(rs.getLong("NodeToID"));
+				graph.setNodeTo(rs.getString("NodeTo"));
+				graph.setNodeToCaption(rs.getString("NodeToCaption"));
+				result.add(graph);
+			}
+			rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 }

@@ -13,4 +13,5 @@ public interface EntityDAO {
 	EntityDTO findEntityByEntityId(String entityID) throws SQLException;
 	ArrayList<EntityDTO> findEntity(String type, String keyword) throws SQLException;	// Type = Publication/Author/School/Venue etc., Keyword = Caption
 	ArrayList<String> findLinkedEntity(String node) throws SQLException;
+	ArrayList<EntityDTO> findAllNodes() throws SQLException;
 }

@@ -189,4 +189,32 @@ public class EntityDAOImpl implements EntityDAO{
 		}
 		return result;
 	}
+
+	@Override
+	public ArrayList<EntityDTO> findAllNodes() throws SQLException {
+		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
+		String sql = "SELECT * FROM Entity WHERE Class='Node'";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		      result.add(entity);
+		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 }

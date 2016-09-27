@@ -26,71 +26,87 @@ public class SearchGraphCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
-		if(keyword != null) {
-			keyword = keyword.toLowerCase();
-		}
 	// !!!debug search input
 		//System.out.println("graph input: type = "+type+"; keyword = "+keyword);
 		EntityDAO entityDAO = new EntityDAOImpl();
-		ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
+		GraphDAO graphDAO = new GraphDAOImpl();
 		ArrayList<EntityDTO> nodes = new ArrayList<EntityDTO>();
 		ArrayList<GraphOutputDTO> edges = new ArrayList<GraphOutputDTO>();
-	// 1. Get all possible nodes by keyword
-		try {
-			keywordnodes = entityDAO.findEntity(type, keyword);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(type == null) {
+	// Default - Display all nodes and edges
+			try {
+				nodes = entityDAO.findAllNodes();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				edges = graphDAO.findAllGraphOutput();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		Stack<String> queryList = new Stack<String>();
+		else {
+			if(keyword != null) {
+				keyword = keyword.toLowerCase();
+			}
+	// 1. Get all possible nodes by keyword
+			ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
+			try {
+				keywordnodes = entityDAO.findEntity(type, keyword);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Stack<String> queryList = new Stack<String>();
 	// 2. Add all possible nodes by keyword to result node list
-		if (!keywordnodes.isEmpty()) {
-			for (EntityDTO node : keywordnodes) {
-				queryList.push(node.getEntityID());
-				nodes.add(node);
-			}
-		// Found at least 1 node by keyword
-			if (!queryList.isEmpty()) {
+			if (!keywordnodes.isEmpty()) {
+				for (EntityDTO node : keywordnodes) {
+					queryList.push(node.getEntityID());
+					nodes.add(node);
+				}
+				// Found at least 1 node by keyword
+				if (!queryList.isEmpty()) {
 	// 3. Find all reachable nodes
-				while (!queryList.isEmpty()) {
-					String query = queryList.pop();
-					ArrayList<String> tempNodeIDList = new ArrayList<String>();
-					try {
-						tempNodeIDList = entityDAO.findLinkedEntity(query);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					for (String tempNodeID : tempNodeIDList) {
-					// add new related nodes into result node list
-						if (!EntityDTO.containsEntityID(nodes,tempNodeID)) {
-							EntityDTO tempNode = new EntityDTO();
-							try {
-								tempNode = entityDAO.findEntityByEntityId(tempNodeID);
-							} catch (SQLException e) {
-								e.printStackTrace();
-							}
-							if (tempNode.getEntityID() != null) {
-								nodes.add(tempNode);
+					while (!queryList.isEmpty()) {
+						String query = queryList.pop();
+						ArrayList<String> tempNodeIDList = new ArrayList<String>();
+						try {
+							tempNodeIDList = entityDAO.findLinkedEntity(query);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						for (String tempNodeID : tempNodeIDList) {
+							// add new related nodes into result node list
+							if (!EntityDTO.containsEntityID(nodes,tempNodeID)) {
+								EntityDTO tempNode = new EntityDTO();
+								try {
+									tempNode = entityDAO.findEntityByEntityId(tempNodeID);
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+								if (tempNode.getEntityID() != null) {
+									nodes.add(tempNode);
+								}
 							}
 						}
 					}
-				}
 	// 4. Find all edges from node list
-				for (EntityDTO node : nodes) {
-					GraphDAO graphDAO = new GraphDAOImpl();
-					ArrayList<GraphOutputDTO> tempEdgeList = new ArrayList<GraphOutputDTO>();
-					try {
-						tempEdgeList = graphDAO.findGraphOutput(node.getEntityID());
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					for (GraphOutputDTO edge : tempEdgeList) {
-					// add new edges into result edge list
-						if (!GraphOutputDTO.containsID(edges, edge.getID())) {
-							edges.add(edge);
+					for (EntityDTO node : nodes) {
+						ArrayList<GraphOutputDTO> tempEdgeList = new ArrayList<GraphOutputDTO>();
+						try {
+							tempEdgeList = graphDAO.findGraphOutput(node.getEntityID());
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						for (GraphOutputDTO edge : tempEdgeList) {
+							// add new edges into result edge list
+							if (!GraphOutputDTO.containsID(edges, edge.getID())) {
+								edges.add(edge);
+							}
 						}
 					}
 				}
-			}
+		}
+		
 	// 5. Export output as GraphJSON format
 		// 5.1 All keyword nodes network
 			data = "{ \"nodes\": [";
@@ -103,7 +119,7 @@ public class SearchGraphCommand implements Command {
 				data += "\",\"label\": \"";
 				data += node.getEntityType();
 				data += "\",\"caption\": \"";
-				data += node.getEntityCaption();
+				data += node.getEntityCaption().replace("\"", "\\\"");
 				if (iterN.hasNext()) {
 					data += "\"},";
 				}
@@ -142,7 +158,7 @@ public class SearchGraphCommand implements Command {
 				matchedNode += "\",\"label\": \"";
 				matchedNode += node.getEntityType();
 				matchedNode += "\",\"caption\": \"";
-				matchedNode += node.getEntityCaption();
+				matchedNode += node.getEntityCaption().replace("\"", "\\\"");
 				if (iterK.hasNext()) {
 					matchedNode += "\"},";
 				}
