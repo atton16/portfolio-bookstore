@@ -3,11 +3,11 @@ package com.sixppl.dto;
 public class SessionDTO {
 
 	int userID ;
-	int sessionID ;
+	String sessionID ;
 	public SessionDTO(){
 		
 	}
-	public SessionDTO(int userID, int sessionID) {
+	public SessionDTO(int userID, String sessionID) {
 		super();
 		this.userID = userID;
 		this.sessionID = sessionID;
@@ -18,10 +18,10 @@ public class SessionDTO {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	public int getSessionID() {
+	public String getSessionID() {
 		return sessionID;
 	}
-	public void setSessionID(int sessionID) {
+	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
 	}
 

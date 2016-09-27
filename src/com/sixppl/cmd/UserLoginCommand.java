@@ -49,16 +49,16 @@ public class UserLoginCommand implements Command {
 			return;
 		}
 		//String sessionId = request.getSession().getId();
-		String sessionId = "5642232";
+		String sessionId = "55555555";
 		if(sessionId == null || sessionId.equals("") )
 		{
 			request.setAttribute("success", false);
 			request.setAttribute("error_msg", "can not find sessionID");
 			return;
 		}
-		int sessionID = Integer.parseInt(sessionId);
+		
 		SessionDTO sess = new SessionDTO();
-		sess.setSessionID(sessionID);
+		sess.setSessionID(sessionId);
 		sess.setUserID(user.getUserID());
 		System.out.println("the session id is"+sess.getSessionID()+"the userID is"+sess.getUserID());
 		sessionDao.addSession(sess);

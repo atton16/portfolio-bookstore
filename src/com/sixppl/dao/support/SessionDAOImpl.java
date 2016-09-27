@@ -35,7 +35,7 @@ public class SessionDAOImpl implements SessionDAO {
 			System.out.println("test the null pointer");
 			stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, session.getUserID());
-			stmt.setInt(2, session.getSessionID());
+			stmt.setString(2, session.getSessionID());
 			
 			int i = stmt.executeUpdate();
 				if(i==0){
@@ -60,7 +60,7 @@ public class SessionDAOImpl implements SessionDAO {
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, session.getSessionID());
+			stmt.setString(1, session.getSessionID());
 			
 			int i = stmt.executeUpdate();
 				if(i==0){
@@ -85,7 +85,7 @@ public class SessionDAOImpl implements SessionDAO {
 		ResultSet rs = null;
 		try{
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, session.getSessionID());
+			stmt.setString(1, session.getSessionID());
 			rs = stmt.executeQuery();
 			List<Integer> userIds = new LinkedList<Integer>();
 
