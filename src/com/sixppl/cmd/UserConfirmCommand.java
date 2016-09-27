@@ -43,7 +43,8 @@ public class UserConfirmCommand implements Command {
 		
 		userDao.updateUser(user);
 		System.out.println("succsess");
-		request.setAttribute("email", newemail);
+		System.out.println(user.getEmail());
+		request.setAttribute("email", user.getEmail());
 		request.setAttribute("error", false);
 	}
 }

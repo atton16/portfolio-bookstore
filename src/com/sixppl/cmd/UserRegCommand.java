@@ -88,7 +88,7 @@ public class UserRegCommand implements Command {
 		user.setBirthyear(Integer.parseInt(request.getParameter("yob")));
 		user.setAddr(request.getParameter("address"));
 		user.setCardno(request.getParameter("ccn"));
-		String token = UUID.randomUUID().toString().substring(0, 19);
+		String token = UUID.randomUUID().toString();
 		System.out.println("the uuid is" + token);
 		user.setTokenstring(token);
 		userDao.addUser(user);

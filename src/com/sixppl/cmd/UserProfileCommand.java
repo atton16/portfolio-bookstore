@@ -11,23 +11,24 @@ import javax.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.mindrot.jbcrypt.EmailSending;
 
+import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 public class UserProfileCommand  implements Command {
 	private UserDAO userDao;
+	private SessionDAO sessionDao;
 	public UserProfileCommand() {
-		System.out.println("start the registration.");
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
-		System.out.println("init done");
+		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 	}
 	@Override
 	/*This method is for user profile update*/
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDTO user = new UserDTO();
-		 HttpSession session = request.getSession(true);
-		String username = request.getParameter("username");
+		HttpSession session = request.getSession();
 		String cpassword = request.getParameter("cpassword");
 		String npassword = request.getParameter("npassword");
 		String nickname = request.getParameter("nickname");
@@ -37,24 +38,24 @@ public class UserProfileCommand  implements Command {
 		String yob = request.getParameter("yob");
 		String address = request.getParameter("address");
 		String ccn = request.getParameter("ccn");
-		if(username == null || username.equals("")||cpassword == null || cpassword.equals("")){
-			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "username or password should not be null");
+		if(cpassword == null || cpassword.equals("")){
+			request.setAttribute("error", true);
+			request.setAttribute("error_msg", "Password should not be null");
 			return;
 		}
-		user = userDao.findUserByName(username);
+		SessionDTO sessionDto = new SessionDTO();
+		sessionDto.setSessionID(session.getId());
+		user = userDao.findUserByUserID(sessionDao.finduserIDbySession(sessionDto));
 		if(user == null){
-			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "Cannot find username");
+			request.setAttribute("error", true);
+			request.setAttribute("error_msg", "User does not exist");
 			return;
 		}
 		if(!BCrypt.checkpw(cpassword, user.getPassword())){
-			request.setAttribute("success", false);
-			request.setAttribute("error_msg", "input the correct password");
+			request.setAttribute("error", true);
+			request.setAttribute("error_msg", "Incorrect current password");
 			return;
 		}
-
-		
 
 		if (npassword != null && !npassword.equals(""))
 			user.setPassword(npassword);
@@ -71,7 +72,7 @@ public class UserProfileCommand  implements Command {
 			user.setAddr(address);
 		if (ccn != null && !ccn.equals(""))
 			user.setCardno(ccn);
-		if(email != null && !email.equals("")){
+		if(email != null && !email.equals("") && !email.equals(user.getEmail())){
 			user.setNewemail(email);
 			String token = UUID.randomUUID().toString();
 			user.setTokenstring(token);
@@ -83,8 +84,14 @@ public class UserProfileCommand  implements Command {
 		}
 		userDao.updateUser(user);
 		session.setAttribute("user", user);
-		request.setAttribute("success", true);
-		
+		request.setAttribute("user", session.getAttribute("user"));
+		request.setAttribute("error", false);
+		request.setAttribute("error_msg", "Changes saved.");
+		if(user.getNewemail() != null)
+			request.setAttribute("need_verify", true);
+		else
+			request.setAttribute("need_verify", false);
+
 	} 
 
 }

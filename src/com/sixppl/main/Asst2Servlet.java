@@ -70,6 +70,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
+	private static final String EMBEDUSER_COMMAND = "embedUserCommand";
 	
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	private static final String CARTADD_COMMAND = "cartAddCommand";
@@ -81,6 +82,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String USERPROFILE_COMMAND = "userProfileCommand";
 	private static final String USEREMAIL_COMMAND = "userEmailCommand";
 	private static final String USERCONFIRM_COMMAND = "userConfirmCommand";
+	private static final String USERVIEWPROFILE_COMMAND = "userViewProfileCommand";
 	
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
@@ -110,6 +112,7 @@ public class Asst2Servlet extends HttpServlet {
     	
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
+		commands.put(EMBEDUSER_COMMAND, new EmbedUserCommand());
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
 		
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
@@ -122,6 +125,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
 		commands.put(USEREMAIL_COMMAND, new UserEmailCommand());
 		commands.put(USERCONFIRM_COMMAND, new UserConfirmCommand());
+		commands.put(USERVIEWPROFILE_COMMAND, new UserViewProfileCommand());
 
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
@@ -169,6 +173,7 @@ public class Asst2Servlet extends HttpServlet {
 		
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
+		commands.get(EMBEDUSER_COMMAND).execute(request,response);
 		commands.get(USERISBANNED_COMMAND).execute(request,response);
 		
 		// GET Actions
@@ -216,6 +221,7 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/signup_confirm.jsp").forward(request,response);
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
+			commands.get(USERVIEWPROFILE_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Resend Verification Email
 		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
@@ -345,7 +351,6 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Login
 		} else if(URI.equalsIgnoreCase("/login")){
-			//TODO: Login
 			commands.get(USERLOGIN_COMMAND).execute(request, response);
 			if((Boolean) request.getAttribute("success"))
 				response.sendRedirect(contextPath);
@@ -361,11 +366,7 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Edit Profile
 		} else if(URI.equalsIgnoreCase("/user/profile")){
-			//TODO: Edit Profile
 			commands.get(USERPROFILE_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success"))
-				response.sendRedirect(contextPath);
-			else
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){

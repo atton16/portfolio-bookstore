@@ -1317,7 +1317,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Birthyear` smallint(6) unsigned  NULL,
   `Address` text NOT NULL,
   `CardNumber` tinytext NOT NULL,
-  `TokenString` varchar(20)  NULL
+  `TokenString` varchar(36)  NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 

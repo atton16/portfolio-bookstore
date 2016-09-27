@@ -22,7 +22,6 @@ public class UserEmailCommand implements Command {
 		
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 
 		System.out.println(request.getParameter("email"));
@@ -49,8 +48,12 @@ public class UserEmailCommand implements Command {
 		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 		
 		System.out.println("the full path is"+full_path);
+		if(token == null) {
+			request.setAttribute("error", true);
+			request.setAttribute("error_msg", "User is already activated.");
+			return;
+		}
 		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
-
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);
 	}
