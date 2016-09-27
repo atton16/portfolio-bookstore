@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -23,7 +24,7 @@ public class UserLoginCommand implements Command {
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+		 HttpSession session = request.getSession(true);
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -56,11 +57,12 @@ public class UserLoginCommand implements Command {
 			return;
 		}
 		int sessionID = Integer.parseInt(sessionId);
-		SessionDTO session = new SessionDTO();
-		session.setSessionID(sessionID);
-		session.setUserID(user.getUserID());
-		System.out.println("the session id is"+session.getSessionID()+"the userID is"+session.getUserID());
-		sessionDao.addSession(session);
+		SessionDTO sess = new SessionDTO();
+		sess.setSessionID(sessionID);
+		sess.setUserID(user.getUserID());
+		System.out.println("the session id is"+sess.getSessionID()+"the userID is"+sess.getUserID());
+		sessionDao.addSession(sess);
+		session.setAttribute("user", user);
 		request.setAttribute("success", true);
 	}
 
