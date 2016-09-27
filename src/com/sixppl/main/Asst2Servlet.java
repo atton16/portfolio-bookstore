@@ -83,6 +83,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String USEREMAIL_COMMAND = "userEmailCommand";
 	private static final String USERCONFIRM_COMMAND = "userConfirmCommand";
 	private static final String USERVIEWPROFILE_COMMAND = "userViewProfileCommand";
+	private static final String USEREMAILCHANGE_COMMAND = "userEmailChangeCommand";
 	
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
@@ -132,6 +133,8 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(USEREMAIL_COMMAND, new UserEmailCommand());
 		commands.put(USERCONFIRM_COMMAND, new UserConfirmCommand());
 		commands.put(USERVIEWPROFILE_COMMAND, new UserViewProfileCommand());
+		commands.put(USEREMAILCHANGE_COMMAND, new UserEmailChangeCommand());
+		commands.put(USERISBANNED_COMMAND, new UserIsBannedCommand());
 
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
@@ -155,8 +158,8 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINGETPAGEHIT_COMMAND, new AdminGetPageHitCommand());
 		commands.put(ADMINLOGOUT_COMMAND, new AdminLogoutCommand());
 		commands.put(ADMINUSERNEXTPREVPAGE_COMMAND, new AdminUserNextPrevPageCommand());
+		
 		commands.put(YEARLIST_COMMAND, new YearListCommand());
-		commands.put(USERISBANNED_COMMAND, new UserIsBannedCommand());
 
     }
     
@@ -233,13 +236,11 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Resend Verification Email
 		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
-			//TODO: Resend Verification Email
+			commands.get(USEREMAILCHANGE_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
 		// Confirm New Email
 		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
-			//TODO: Confirm New Email
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "xx");	//TODO: remove this
+			commands.get(USERCONFIRM_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){

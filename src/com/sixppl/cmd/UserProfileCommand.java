@@ -78,9 +78,14 @@ public class UserProfileCommand  implements Command {
 			user.setTokenstring(token);
 			String to = request.getParameter("email");
 			String from = "asst2unsw@gmail.com";
-			String full_path = request.getRequestURL().toString();
+			
+			String contextPath = request.getContextPath();
+			String fullURI = request.getRequestURI();
+			String URI = fullURI.substring(contextPath.length());
+			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+			
 			EmailSending emailSending = new EmailSending();
-			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+			emailSending.sendEmail(to, from, full_path + "/user/profile/confirm?token="+token);
 		}
 		userDao.updateUser(user);
 		session.setAttribute("user", user);
