@@ -1,4 +1,5 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -61,6 +62,9 @@
 						</jstl:forEach>
 					</div>
 					
+					<!-- Data Contontainer -->
+					<input id="data-src" type="hidden" value="${fn:escapeXml(data)}"/>
+					
 					<!-- Graph Display -->
 					<div class="margin-top-12"></div>
 					<center><div class="alchemy" id="alchemy"></div></center>
@@ -71,9 +75,10 @@
 </div>
 <jsp:include page="inc.body.footer.jsp" />
 <script type="text/javascript">
+	var data = JSON.parse($('input#data-src').val());
     // Configure Alchemy
     var config = {
-        dataSource: '/asst2/data/sample.json',
+        dataSource: data,
         graphHeight: function() {
             return 600
         },
@@ -84,20 +89,10 @@
             return 40
         },
         nodeTypes: {
-            'label': ['Venue','Publication','Person','School']
+            'label': ['Venue','Publication','Person','School', 'Author']
         },
         nodeCaption: function(node){
-            if(node.label == 'Publication'){
-                return node.title
-            }
-            else if(node.label == 'Person' || node.label == 'School'){
-                return node.name
-            }
-            else if(node.label == 'Venue'){
-                return node.journal
-            }
-            else
-                return node.caption
+               return node.caption
         },
         "nodeStyle": {
             "Publication": {
