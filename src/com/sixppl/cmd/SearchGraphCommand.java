@@ -32,6 +32,7 @@ public class SearchGraphCommand implements Command {
 		GraphDAO graphDAO = new GraphDAOImpl();
 		ArrayList<EntityDTO> nodes = new ArrayList<EntityDTO>();
 		ArrayList<GraphOutputDTO> edges = new ArrayList<GraphOutputDTO>();
+		ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
 		if(type == null) {
 	// Default - Display all nodes and edges
 			try {
@@ -50,7 +51,6 @@ public class SearchGraphCommand implements Command {
 				keyword = keyword.toLowerCase();
 			}
 	// 1. Get all possible nodes by keyword
-			ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
 			try {
 				keywordnodes = entityDAO.findEntity(type, keyword);
 			} catch (SQLException e) {
@@ -105,69 +105,68 @@ public class SearchGraphCommand implements Command {
 						}
 					}
 				}
+			}
 		}
-		
-	// 5. Export output as GraphJSON format
-		// 5.1 All keyword nodes network
-			data = "{ \"nodes\": [";
-			Iterator<EntityDTO> iterN = nodes.iterator();
-			while (iterN.hasNext()) {
-				EntityDTO node = iterN.next();
-				data += "{";
-				data += "\"id\": \"";
-				data += node.getID();
-				data += "\",\"label\": \"";
-				data += node.getEntityType();
-				data += "\",\"caption\": \"";
-				data += node.getEntityCaption().replace("\"", "\\\"");
-				if (iterN.hasNext()) {
-					data += "\"},";
-				}
-				else {
-					data += "\"}";
-				}
-			}
-			data += "],";
-			data += "\"edges\": [";
-			Iterator<GraphOutputDTO> iterE = edges.iterator();
-			while (iterE.hasNext()) {
-				GraphOutputDTO edge = iterE.next();
-				data += "{";
-				data += "\"source\": \"";
-				data += edge.getNodeFromID();
-				data += "\",\"target\": \"";
-				data += edge.getNodeToID();
-				data += "\",\"caption\": \"";
-				data += edge.getEdgeCaption();
-				if (iterE.hasNext()) {
-					data += "\"},";
-				}
-				else {
-					data += "\"}";
-				}
-			}
-			data += "]}";
-		// 5.2 Keyword nodes only
-			matchedNode = "{ \"nodes\": [";
-			Iterator<EntityDTO> iterK = keywordnodes.iterator();
-			while (iterK.hasNext()) {
-				EntityDTO node = iterK.next();
-				matchedNode += "{";
-				matchedNode += "\"id\": \"";
-				matchedNode += node.getID();
-				matchedNode += "\",\"label\": \"";
-				matchedNode += node.getEntityType();
-				matchedNode += "\",\"caption\": \"";
-				matchedNode += node.getEntityCaption().replace("\"", "\\\"");
-				if (iterK.hasNext()) {
-					matchedNode += "\"},";
-				}
-				else {
-					matchedNode += "\"}";
-				}
-			}
-			matchedNode += "]}";
-		}
+		// 5. Export output as GraphJSON format
+				// 5.1 All keyword nodes network
+					data = "{ \"nodes\": [";
+					Iterator<EntityDTO> iterN = nodes.iterator();
+					while (iterN.hasNext()) {
+						EntityDTO node = iterN.next();
+						data += "{";
+						data += "\"id\": \"";
+						data += node.getID();
+						data += "\",\"label\": \"";
+						data += node.getEntityType();
+						data += "\",\"caption\": \"";
+						data += node.getEntityCaption().replace("\"", "\\\"");
+						if (iterN.hasNext()) {
+							data += "\"},";
+						}
+						else {
+							data += "\"}";
+						}
+					}
+					data += "],";
+					data += "\"edges\": [";
+					Iterator<GraphOutputDTO> iterE = edges.iterator();
+					while (iterE.hasNext()) {
+						GraphOutputDTO edge = iterE.next();
+						data += "{";
+						data += "\"source\": \"";
+						data += edge.getNodeFromID();
+						data += "\",\"target\": \"";
+						data += edge.getNodeToID();
+						data += "\",\"caption\": \"";
+						data += edge.getEdgeCaption();
+						if (iterE.hasNext()) {
+							data += "\"},";
+						}
+						else {
+							data += "\"}";
+						}
+					}
+					data += "]}";
+				// 5.2 Keyword nodes only
+					matchedNode = "{ \"nodes\": [";
+					Iterator<EntityDTO> iterK = keywordnodes.iterator();
+					while (iterK.hasNext()) {
+						EntityDTO node = iterK.next();
+						matchedNode += "{";
+						matchedNode += "\"id\": \"";
+						matchedNode += node.getID();
+						matchedNode += "\",\"label\": \"";
+						matchedNode += node.getEntityType();
+						matchedNode += "\",\"caption\": \"";
+						matchedNode += node.getEntityCaption().replace("\"", "\\\"");
+						if (iterK.hasNext()) {
+							matchedNode += "\"},";
+						}
+						else {
+							matchedNode += "\"}";
+						}
+					}
+					matchedNode += "]}";
 	// debug for checking JSON output
 		//System.out.println(data);
 		//System.out.println(matchedNode);
