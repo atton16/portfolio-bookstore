@@ -16,13 +16,16 @@
 		</div>
 	</div>
 	<!-- Error Message -->
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<div class="alert alert-danger">
-				Error message
+	<jstl:if test="${error_msg != NULL}">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 col-lg-space">
+				<div class="alert alert-danger">
+					${error_msg}
+				</div>
 			</div>
 		</div>
-	</div>
+	</jstl:if>
+	
 	<!-- Registration: Contents -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">

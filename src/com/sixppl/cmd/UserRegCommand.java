@@ -58,7 +58,7 @@ public class UserRegCommand implements Command {
 				|| password == null || password.equals("") || addr == null
 				|| addr.equals("") ||cardno == null
 						|| cardno.equals("") ) {
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg",
 					"The username or email or password or addr or cardno should not be null.");
 			System.out.println("The username or email or password should not be null.");
@@ -66,13 +66,13 @@ public class UserRegCommand implements Command {
 		} 
 			//user = userDao.findUserByName(request.getParameter("username"));
 		if (userDao.findUserByName(request.getParameter("username")) != null) {
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "The username has been used.");
 			System.out.println("The username has been used");
 			return;
 		} 
 		if (userDao.findUserByEmail(request.getParameter("email")) != null) {
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "The email has been used.");
 			System.out.println("The email has been used");
 			return;
@@ -96,11 +96,15 @@ public class UserRegCommand implements Command {
 		String to = request.getParameter("email");
 		String from = "asst2unsw@gmail.com";
 
-		//String full_path = request.getRequestURL().toString();
-		String full_path = "http://localhost:8080/asst2";
+		String contextPath = request.getContextPath();
+		String fullURI = request.getRequestURI();
+		String URI = fullURI.substring(contextPath.length());
+		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+		
 		System.out.println("the full path is"+full_path);
 		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
-		request.setAttribute("success", true);
+		request.setAttribute("email", to);
+		request.setAttribute("error", false);
 	
 
 	}

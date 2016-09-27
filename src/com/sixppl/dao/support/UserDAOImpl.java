@@ -223,8 +223,8 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public boolean updateUser(UserDTO user) {
 		boolean flag = true;
-		String sql = "update User set Password=?,Nickname=?,Firstname=?,Lastname=?"
-				+ "Email=?,NewEmail=?,Birthyear=?,Address=?,CardNumber=?,TokenString=? where Username=?";
+		String sql = "UPDATE User SET Password=?,Nickname=?,Firstname=?,Lastname=?"
+				+ "Email=?,NewEmail=?,Birthyear=?,Address=?,CardNumber=?,TokenString=? WHERE Username=?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);

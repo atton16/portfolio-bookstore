@@ -123,6 +123,13 @@
                 caption: '{Name}',
                 radius: 40
             },
+            "Author": {
+                color: "#FF756E",
+                borderColor: "#E06760",
+                //text-color-internal: "#FFFFFF",
+                caption: '{Name}',
+                radius: 40
+            },
         },
         "edgeStyle": {
             "affiliated in": {
@@ -138,6 +145,12 @@
                 //width: 5
             },
             "authored by": {
+                color: "#A5ABB6",
+                borderColor: "#9AA1AC",
+                //text-color-internal: "#FFFFFF",
+                //width: 1
+            },
+            "edited by": {
                 color: "#A5ABB6",
                 borderColor: "#9AA1AC",
                 //text-color-internal: "#FFFFFF",
