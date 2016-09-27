@@ -56,9 +56,9 @@ public class UserLoginCommand implements Command {
 			request.setAttribute("error_msg", "can not find sessionID");
 			return;
 		}
-		int sessionID = Integer.parseInt(sessionId);
+		
 		SessionDTO sess = new SessionDTO();
-		sess.setSessionID(sessionID);
+		sess.setSessionID(sessionId);
 		sess.setUserID(user.getUserID());
 		System.out.println("the session id is"+sess.getSessionID()+"the userID is"+sess.getUserID());
 		sessionDao.addSession(sess);

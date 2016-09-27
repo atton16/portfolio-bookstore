@@ -33,9 +33,9 @@ public class UserLogoutCommand implements Command {
 			request.setAttribute("error_msg", "can not find sessionID");
 			return;
 		}
-		int sessionID = Integer.parseInt(sessionId);
+		
 		SessionDTO session = new SessionDTO();
-		session.setSessionID(sessionID);
+		session.setSessionID(sessionId);
 		System.out.println("the session id is"+session.getSessionID()+"the userID is"+session.getUserID());
 		sessionDao.delSession(session);
 		request.setAttribute("success", true);
