@@ -21,28 +21,24 @@ public class AdminGetUserActivityCommand implements Command{
 		UserID=Integer.parseInt(request.getParameter("userid1"));
 		if(UserID!=null){
 			request.setAttribute("user", UserID);
-		
-		AdminUserActivityDAO temp = new AdminUserActivityDAOImpl();
-		List<CustomerActivityDTO> buyinglist = new ArrayList<CustomerActivityDTO>();
-		List<AdminCartDTO> cartlist = new ArrayList<AdminCartDTO>();
-		buyinglist=temp.getBuyingHistory(UserID);
-		cartlist=temp.getCartHistory(UserID);
-		if(buyinglist.size()>0){
-			request.setAttribute("buys", buyinglist);
+
+			AdminUserActivityDAO temp = new AdminUserActivityDAOImpl();
+			List<CustomerActivityDTO> buyinglist = new ArrayList<CustomerActivityDTO>();
+			List<AdminCartDTO> cartlist = new ArrayList<AdminCartDTO>();
+			buyinglist=temp.getBuyingHistory(UserID);
+			cartlist=temp.getCartHistory(UserID);
+			if(buyinglist.size()>0){
+				request.setAttribute("buys", buyinglist);
+			}
+			else{
+				request.setAttribute("buys", null);
+			}
+			if(cartlist.size()>0){
+				request.setAttribute("removes", cartlist);
+			}
+			else{
+				request.setAttribute("removes", null);
+			}
 		}
-		else{
-			request.setAttribute("buys", null);
-		}
-		if(cartlist.size()>0){
-			request.setAttribute("removes", cartlist);
-		}
-		else{
-			request.setAttribute("removes", null);
-		}
-	}
-	
-	else{
-		request.setAttribute("user", null);
-	}
 	}
 }

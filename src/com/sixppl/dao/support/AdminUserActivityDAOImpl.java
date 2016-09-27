@@ -37,7 +37,7 @@ public class AdminUserActivityDAOImpl implements AdminUserActivityDAO{
 		    	 int Birthyear = rs.getInt("Birthyear");
 		    	 String Address = rs.getString("Address");
 		    	 String Cardnumber = Integer.toString(rs.getInt("Cardnumber"));
-		    	 temp.setUserID(Integer.parseInt(UserID));
+		    	 temp.setUserID(UserID);
 		    	 temp.setUsername(Username);
 		    	 temp.setNickname(Nickname);
 		    	 temp.setFirstname(Firstname);

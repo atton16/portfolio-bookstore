@@ -6,16 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import com.sixppl.dao.SessionDAO;
-import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
-import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 public class UserLogoutCommand implements Command {
-	private UserDAO userDao;
 	private SessionDAO sessionDao;
 	public UserLogoutCommand() {
 		
@@ -38,6 +33,7 @@ public class UserLogoutCommand implements Command {
 		session.setUserID(sessionDao.finduserIDbySession(session));
 		System.out.println("the session id is"+session.getSessionID()+"the userID is"+session.getUserID());
 		sessionDao.delSession(session);
+		request.getSession().removeAttribute("user");
 		request.setAttribute("success", true);
 	}
 
