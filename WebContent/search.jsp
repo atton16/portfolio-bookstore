@@ -78,7 +78,7 @@
 								</button>
 								<ul id="dropdown-year-from" class="dropdown-menu">
 									<li><a href="#">Dawn of the Ape</a></li>
-									<jstl:forEach var="year" items="${years}">
+									<jstl:forEach var="year" items="${years_asc}">
 										<li><a href="#">${year}</a></li>
 									</jstl:forEach>
 								</ul>
@@ -93,7 +93,7 @@
 								</button>
 								<ul id="dropdown-year-to" class="dropdown-menu">
 									<li><a href="#">End of Humanity</a></li>
-									<jstl:forEach var="year" items="${years.descendingSet()}">
+									<jstl:forEach var="year" items="${years_desc}">
 										<li><a href="#">${year}</a></li>
 									</jstl:forEach>
 								</ul>

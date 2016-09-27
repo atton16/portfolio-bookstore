@@ -3,6 +3,7 @@
 <jsp:useBean id="app" class="com.sixppl.main.Application"/>
 <jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
 <jstl:set var="title" value="${app.getSharedInstance().getTitle()}"/>
+<jstl:set var="total_pub" value="${app.getSharedInstance().getListingCount()}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +17,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Random Picks</h3>
-			<p><i>From XXX publications</i></p>
+			<p><i>From ${total_pub} publications</i></p>
 		</div>
 	</div>
 	<!-- Random Pick Contents: One item per row -->

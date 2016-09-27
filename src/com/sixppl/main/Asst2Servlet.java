@@ -91,6 +91,7 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
 	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
+	private static final String YEARLIST_COMMAND = "yearListCommand";
 
 	
 	Map<String,Command> commands;
@@ -128,6 +129,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+		commands.put(YEARLIST_COMMAND, new YearListCommand());
 
     }
     
@@ -156,6 +158,7 @@ public class Asst2Servlet extends HttpServlet {
 		// GET Actions
 		// Render: Search Page
 		if(URI.equalsIgnoreCase("/search")){
+			commands.get(YEARLIST_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/search.jsp").forward(request,response);
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
@@ -375,7 +378,7 @@ public class Asst2Servlet extends HttpServlet {
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Login
 		} else if(URI.equalsIgnoreCase("/admin/login")){
-			commands.get(USERLOGIN_COMMAND).execute(request, response);
+			commands.get(ADMINLOGIN_COMMAND).execute(request, response);
 			if((Boolean) request.getAttribute("success") && !request.getAttribute("admincheck").equals(null)){
 				
 				response.sendRedirect(contextPath+"/admin");
