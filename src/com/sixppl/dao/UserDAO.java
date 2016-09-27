@@ -1,7 +1,5 @@
 package com.sixppl.dao;
 
-import java.util.List;
-
 import com.sixppl.dto.UserDTO;
 
 

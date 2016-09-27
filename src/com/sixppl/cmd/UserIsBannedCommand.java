@@ -30,7 +30,7 @@ public class UserIsBannedCommand implements Command {
 		
 		session.setSessionID(sessionId);
 		Integer id = sessionDao.finduserIDbySession(session);
-		request.setAttribute("banned", userban.checkBan(id));
+		request.setAttribute("banned", userban.isBanned(id));
 	}
 
 }

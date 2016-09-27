@@ -7,59 +7,98 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.sixppl.dto.UserDTO;
 import java.util.*;
+
+import com.sixppl.dao.AdminLoginDAO;
+import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.dao.AdminUserDAO;
+import com.sixppl.dao.support.AdminLoginDAOImpl;
+import com.sixppl.dao.support.AdminUserBanDAOImpl;
 import com.sixppl.dao.support.AdminUserDAOImpl;
 
-public class AdminGetUserCommand implements Command{
+public class AdminGetUserCommand implements Command {
+	private AdminUserDAO adminUserDao;
+	private AdminUserBanDAO adminUserBanDao;
+	private AdminLoginDAO adminLoginDao;
+	
+	public AdminGetUserCommand() {
+		adminUserDao = new AdminUserDAOImpl();
+		adminUserBanDao = new AdminUserBanDAOImpl();
+		adminLoginDao = new AdminLoginDAOImpl();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
-		AdminUserDAO temp = new AdminUserDAOImpl();
-		List<UserDTO> templist= new ArrayList<UserDTO>(); 
-		HttpSession session=request.getSession();
+		List<UserDTO> results= new ArrayList<UserDTO>(); 
+		
+		if(type == null){
+			return;
+		}
 		
 		if(type.equals("Nickname")){
-			templist=temp.findByNickname(keyword);
+			results=adminUserDao.findByNickname(keyword);
 		}
 		else if(type.equals("Firstname")){
-			templist=temp.findByFirstname(keyword);
+			results=adminUserDao.findByFirstname(keyword);
 		}
 		else if(type.equals("Lastname")){
-			templist=temp.findByLastname(keyword);
+			results=adminUserDao.findByLastname(keyword);
 		}
 		else if(type.equals("Email")){
-			templist=temp.findByEmail(keyword);
+			results=adminUserDao.findByEmail(keyword);
 		}
 		else if(type.equals("All Customers")){
-			templist=temp.findAllCustomers();
+			results=adminUserDao.findAllCustomers();
 		}
 		else if(type.equals("All Sellers")){
-			templist=temp.findAllSellers();
+			results=adminUserDao.findAllSellers();
 		}
-		request.setAttribute("type", type);
-		request.setAttribute("keyword", keyword);
-		request.setAttribute("total", templist.size());
-		request.setAttribute("start", 0);
-		request.setAttribute("items", templist);
+
+		Integer page = 1;
+		if(request.getParameter("page") != null){
+			try {
+				page = Integer.parseInt(request.getParameter("page"));
+			} catch(Exception e) {}
+		}
+		while(page*10 > results.size()) page--;	// Overflow protection
+		if(page < 1)
+			page = 1;
+		Integer start = page*10-10+1;
+		Integer end = page*10;
+		end = end > results.size() ? results.size() : end;
 		
-		if(templist.size()<10){
-			request.setAttribute("end", templist.size());
-			String nextParams=null;
-			String prevParams=null;
-			request.setAttribute("nextParams", nextParams);
-			request.setAttribute("prevParams", prevParams);
-			request.setAttribute("items", templist);
-		}
-		else{
-			request.setAttribute("end", 10);
-			String prevParams=null;
-			String nextParams = "?type="+type+"&keyword="+keyword+"&total=" + Integer.toString(templist.size()) + "&nextpage=2";
-			request.setAttribute("nextParams", nextParams);
-			request.setAttribute("prevParams", prevParams);
+		String queryString = "";
+		
+		if(request.getQueryString() != null) {
+			for(String s: request.getQueryString().split("&")) {
+				if(!s.contains("page=")){
+					queryString+=s;
+					queryString+="&";
+				}
+			}
+			if(queryString.length() > 0)
+				queryString = queryString.substring(0, queryString.length()-1);
 		}
 		
+		results = results.subList(start-1, end);
+		request.setAttribute("items", results);
+		if(page > 1)
+			request.setAttribute("prevParams", queryString+"&page="+String.valueOf(page-1));
+		if(end < results.size())
+			request.setAttribute("nextParams", queryString+"&page="+String.valueOf(page+1));
+		
+		for(UserDTO user: results) {
+			user.setIsBanned(adminUserBanDao.isBanned(user.getUserID()));
+			user.setIsAdmin(adminLoginDao.isAdmin(user.getUserID()));
+			user.setIsCustomer(true);	//TODO: IMPLEMENT THIS
+		}
+		
+		request.setAttribute("start", start);
+		request.setAttribute("end", end);
+		request.setAttribute("total", results.size());
+//		request.setAttribute("type", type);
+//		request.setAttribute("keyword", keyword);
 		
 	}
 

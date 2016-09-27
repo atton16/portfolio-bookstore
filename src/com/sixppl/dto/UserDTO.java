@@ -9,6 +9,9 @@ public class UserDTO {
     private String lastname = "";
     private String email = "";
     private String newemail = "";
+    private Boolean isBanned;
+    private Boolean isAdmin;
+    private Boolean isCustomer;
     public String getNewemail() {
 		return newemail;
 	}
@@ -107,5 +110,24 @@ public class UserDTO {
 	public void setBirthyear(int birthyear) {
 		this.birthyear = birthyear;
 	}
+	public void setIsBanned(Boolean flag) {
+		this.isBanned = flag;
+	}
+	public Boolean isBanned(){
+		return this.isBanned;
+	}
+	public void setIsAdmin(Boolean flag) {
+		this.isAdmin = flag;
+	}
+	public Boolean isAdmin(){
+		return this.isAdmin;
+	}
+	public void setIsCustomer(Boolean flag) {
+		this.isCustomer = flag;
+	}
+	public Boolean isCustomer(){
+		return this.isCustomer;
+	}
+	
 
 }
