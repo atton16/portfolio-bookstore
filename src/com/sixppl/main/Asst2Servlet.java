@@ -249,6 +249,8 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
+			request.setAttribute("error", false);
+			request.setAttribute("error_msg", null);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Manage Publications Page
 		} else if(URI.equalsIgnoreCase("/user/pub/manage")){
@@ -373,7 +375,6 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){
-			//TODO: Sell
 			commands.get(SELL_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing

@@ -22,7 +22,6 @@ public class SellCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		ListingDAO listing = new ListingDAOImpl();
 		ListingDTO pubSell = new ListingDTO();
 		pubSell.title = request.getParameter("title").trim();
@@ -40,8 +39,10 @@ public class SellCommand implements Command {
 		}
 		pubSell.type = request.getParameter("pubtype").trim();
 		pubSell.year = Integer.valueOf(request.getParameter("year"));
-		pubSell.venue = request.getParameter("venue").trim();
-		pubSell.picture = request.getParameter("pic").trim();
+		if(request.getParameter("venue") != null)
+			pubSell.venue = request.getParameter("venue").trim();
+//		TODO: Implement upload pic: request.getPart("pic")
+//		pubSell.picture = request.getParameter("pic").trim();
 		pubSell.price = Integer.valueOf(request.getParameter("price"));
 		
 		error = listing.addListing(pubSell);
