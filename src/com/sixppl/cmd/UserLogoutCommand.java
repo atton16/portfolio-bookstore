@@ -14,7 +14,7 @@ import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
-public class UserLogoutCommand {
+public class UserLogoutCommand implements Command {
 	private UserDAO userDao;
 	private SessionDAO sessionDao;
 	public UserLogoutCommand() {
@@ -25,8 +25,8 @@ public class UserLogoutCommand {
 		// TODO Auto-generated method stub
 	
 
-		//String sessionId = request.getSession().getId();
-		String sessionId = "5642232";
+		String sessionId = request.getSession().getId();
+		//String sessionId = "5642232";
 		if(sessionId == null || sessionId.equals("") )
 		{
 			request.setAttribute("success", false);
