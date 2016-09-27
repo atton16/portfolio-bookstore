@@ -42,15 +42,7 @@ public class AdminPubDAOImpl implements AdminPubDAO{
 		   } catch (SQLException se) {
 			    se.printStackTrace();
 		   } catch (Exception e) {
-		   } finally {
-		      if (con != null) {
-		         try {
-		           con.close();
-		         } catch (SQLException e1) {
-		           e1.printStackTrace();
-		         }
-		      }
-		   }
+		   } 
 		
 		/*
 		JSONObject temp= new JSONObject();
@@ -66,23 +58,16 @@ public class AdminPubDAOImpl implements AdminPubDAO{
 		try {
 		     con = Application.getSharedInstance().getDAOSupport().getConnection();
 		     PreparedStatement stmt = con.prepareStatement(
-		       "DELETE FROM Listing WHERE PubID=? && SellerID=?");
+		       "DELETE FROM Listing WHERE PubID=? AND SellerID=?");
 		     stmt.setInt(1, pubID);
 		     stmt.setInt(2, sellerID);
 		     result= stmt.execute();
+		     result=true;
 		     
 		   } catch (SQLException se) {
 			    se.printStackTrace();
 		   } catch (Exception e) {
-		   } finally {
-		      if (con != null) {
-		         try {
-		           con.close();
-		         } catch (SQLException e1) {
-		           e1.printStackTrace();
-		         }
-		      }
-		   }
+		   } 
 		return result;
 	}
 }

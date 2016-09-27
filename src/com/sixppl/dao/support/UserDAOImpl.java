@@ -65,10 +65,10 @@ public class UserDAOImpl implements UserDAO{
 
 	}
 
-	@Override
 	public UserDTO findUserByName(String usrname) {
 		String sql = String.format("SELECT * from `User` where `Username`=?");
 		List<UserDTO> users = new LinkedList<UserDTO>();
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{

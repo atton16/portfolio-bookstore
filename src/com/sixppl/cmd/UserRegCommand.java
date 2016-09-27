@@ -34,6 +34,21 @@ public class UserRegCommand implements Command {
 		UserDTO user = new UserDTO();
 		String username, password, email, addr, cardno;
 		EmailSending emailSending = new EmailSending();
+
+		
+		
+		user.setUsername(request.getParameter("username")); 
+
+		System.out.println(request.getParameter("username"));
+		user.setPassword(request.getParameter("password")); 
+
+		
+		password = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
+		user.setPassword(password);
+	
+		user.setNickname(request.getParameter("nickname")); 
+		user.setFirstname(request.getParameter("firstname")); 
+
 		username = request.getParameter("username");
 		password = request.getParameter("password");
 		email = request.getParameter("email");

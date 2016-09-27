@@ -1268,6 +1268,19 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
 -- --------------------------------------------------------
 
 --
+-- Table Structure for table 'AdminLoginSessions'
+--
+
+CREATE TABLE IF NOT EXISTS `AdminLoginSessions` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `JSESSIONID` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Transaction`
 --
 
@@ -1286,13 +1299,6 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 -- Table structure for table `Unactivated`
 --
 
-CREATE TABLE IF NOT EXISTS `Unactivated` (
-  `ID` bigint(20) unsigned NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserID` bigint(20) unsigned NOT NULL,
-  `TokenString` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- --------------------------------------------------------
 
 --
@@ -1303,15 +1309,43 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Nickname` tinytext NOT NULL,
-  `Firstname` tinytext NOT NULL,
-  `Lastname` tinytext NOT NULL,
+  `Nickname` tinytext   NULL,
+  `Firstname` tinytext  NULL,
+  `Lastname` tinytext   NULL,
   `Email` tinytext NOT NULL,
-  `Birthyear` smallint(6) unsigned NOT NULL,
+  `NewEmail` tinytext   NULL,
+  `Birthyear` smallint(6) unsigned  NULL,
   `Address` text NOT NULL,
-  `CardNumber` tinytext NOT NULL
+  `CardNumber` tinytext NOT NULL,
+  `TokenString` varchar(20)  NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
+--
+-- Table structure for table 'Pagehits'
+--
+CREATE TABLE IF NOT EXISTS `PageHits` (
+	`Page` VARCHAR(100) NOT NULL,
+    `Hits` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+--
+-- Table structure for table 'MostAddedToCart'
+--
+
+CREATE TABLE IF NOT EXISTS `MostAddedToCart` (
+	`Title` VARCHAR(100) NOT NULL,
+    `Count` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+--
+-- Table structure for table 'MostViewed'
+--
+CREATE TABLE IF NOT EXISTS `MostViewed` (
+	`Title` VARCHAR(100) NOT NULL,
+    `Count` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
 --
 -- Dumping data for table `User`
 --
@@ -1429,6 +1463,36 @@ ALTER TABLE `LoginSessions`
   ADD KEY `UserID` (`UserID`);
 
 --
+-- Indexes for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `JSESSIONID` (`JSESSIONID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
+-- Indexes for table `PageHits`
+--
+
+ALTER TABLE `PageHits`
+	ADD UNIQUE KEY `Page` (`Page`);
+
+--
+-- Indexes for table `MostAddedToCart`
+--
+
+ALTER TABLE `MostAddedToCart`
+	ADD UNIQUE KEY `Title` (`Title`);
+
+--
+-- Indexes for table `MostViewed`
+--
+	
+ALTER TABLE `MostViewed`
+ADD UNIQUE KEY `Title` (`Title`);
+	
+--
 -- Indexes for table `Transaction`
 --
 ALTER TABLE `Transaction`
@@ -1439,11 +1503,7 @@ ALTER TABLE `Transaction`
 --
 -- Indexes for table `Unactivated`
 --
-ALTER TABLE `Unactivated`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `ID` (`ID`),
-  ADD UNIQUE KEY `UserID` (`UserID`),
-  ADD UNIQUE KEY `TokenString` (`TokenString`);
+
 
 --
 -- Indexes for table `User`
@@ -1483,12 +1543,18 @@ ALTER TABLE `Listing`
 --
 ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+<<<<<<< HEAD
+
+-- AUTO_INCREMENT for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  
+=======
+>>>>>>> d2dec7f66b2c76b800fdcdc35319dac2733b771b
 --
 -- AUTO_INCREMENT for table `Unactivated`
---
-ALTER TABLE `Unactivated`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
---
+
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
@@ -1523,6 +1589,12 @@ ALTER TABLE `LoginSessions`
   ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
 
 --
+-- Constraints for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD CONSTRAINT `adminloginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);
+  
+--
 -- Constraints for table `Transaction`
 --
 ALTER TABLE `Transaction`
@@ -1532,9 +1604,7 @@ ALTER TABLE `Transaction`
 
 --
 -- Constraints for table `Unactivated`
---
-ALTER TABLE `Unactivated`
-  ADD CONSTRAINT `unactivated_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `User` (`UserID`);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
