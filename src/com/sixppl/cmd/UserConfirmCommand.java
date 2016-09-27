@@ -12,19 +12,17 @@ import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
-public class UserConfirmCommand {
+public class UserConfirmCommand implements Command {
 	private UserDAO userDao;
 	public UserConfirmCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
 		UserDTO user = new UserDTO();
 		System.out.println(request.getParameter("token"));
 		user = userDao.findUserByToken(request.getParameter("token"));
 		if(user == null){
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Cannot find token");
 			return;
 		}
@@ -35,6 +33,7 @@ public class UserConfirmCommand {
 		user.setNewemail(null);
 		user.setTokenstring(null);
 		userDao.updateUser(user);
-		request.setAttribute("success", true);
+		request.setAttribute("email", newemail);
+		request.setAttribute("error", false);
 	}
 }

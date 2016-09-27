@@ -70,13 +70,18 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
+	
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
+	
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
 	private static final String USERLOGOUT_COMMAND = "userLogoutCommand";
 	private static final String USERREG_COMMAND = "userRegCommand";
 	private static final String USERPROFILE_COMMAND = "userProfileCommand";
+	private static final String USEREMAIL_COMMAND = "userEmailCommand";
+	private static final String USERCONFIRM_COMMAND = "userConfirmCommand";
+	
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
@@ -106,11 +111,17 @@ public class Asst2Servlet extends HttpServlet {
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
+		
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
+		
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
 		commands.put(USERLOGOUT_COMMAND, new UserLogoutCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
+		commands.put(USEREMAIL_COMMAND, new UserEmailCommand());
+		commands.put(USERCONFIRM_COMMAND, new UserConfirmCommand());
 
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
@@ -125,8 +136,6 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINPAGEHIT_COMMAND, new AdminPageHitCommand());
 		commands.put(ADMINREGISTERSESSION_COMMAND, new AdminRegisterSessionCommand());
 		commands.put(ADMINREMOVESESSION_COMMAND, new AdminRemoveSessionCommand());
-		commands.put(USERREG_COMMAND, new UserRegCommand());
-		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
@@ -201,11 +210,9 @@ public class Asst2Servlet extends HttpServlet {
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
-			
 		// Confirm Email
 		} else if(URI.equalsIgnoreCase("/signup/confirm")){
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "xx");	//TODO: remove this
+			commands.get(USERCONFIRM_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/signup_confirm.jsp").forward(request,response);
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
@@ -346,17 +353,11 @@ public class Asst2Servlet extends HttpServlet {
 				request.getRequestDispatcher("/login.jsp").forward(request,response);
 		    // Register
 		} else if(URI.equalsIgnoreCase("/signup")){
-			//TODO: Register
 			commands.get(USERREG_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success"))
-				response.sendRedirect(contextPath);
-			else
-			    request.getRequestDispatcher("/signup.jsp").forward(request,response);
+		    request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Resend Confirmation Email
 		} else if(URI.equalsIgnoreCase("/signup/resend")){
-			//TODO: Resend Confirmation Email
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			commands.get(USEREMAIL_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Edit Profile
 		} else if(URI.equalsIgnoreCase("/user/profile")){
