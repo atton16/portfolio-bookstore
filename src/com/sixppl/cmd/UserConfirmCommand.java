@@ -17,6 +17,7 @@ public class UserConfirmCommand {
 	public UserConfirmCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 	}
+	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	

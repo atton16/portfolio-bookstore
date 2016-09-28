@@ -21,6 +21,7 @@ public class UserLoginCommand implements Command {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 	}
+	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
