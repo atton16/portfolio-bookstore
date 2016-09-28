@@ -15,26 +15,25 @@ import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
-public class UserEmailCommand {
+public class UserEmailCommand implements Command {
 	private UserDAO userDao;
 	public UserEmailCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 		
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 
 		System.out.println(request.getParameter("email"));
 		if(email == null|| email.equals("") ){
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Null value for username or password.");
 			return;
 		}
 		
 		UserDTO user  = userDao.findUserByEmail(email);
 		if(user == null){
-			request.setAttribute("success", false);
+			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Cannot find username");
 			return;
 		}
@@ -42,13 +41,21 @@ public class UserEmailCommand {
 		String to = email;
 		String from = "asst2unsw@gmail.com";
 		String token = user.getTokenstring();
-		//here can check if  it is 21 or 26 ,then choose specific full_path
-		//String full_path = request.getRequestURL().toString();
-		String full_path = "http://localhost:8080/asst2";
-		System.out.println("the full path is"+full_path);
-		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
 		
-		request.setAttribute("success", true);
+		String contextPath = request.getContextPath();
+		String fullURI = request.getRequestURI();
+		String URI = fullURI.substring(contextPath.length());
+		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+		
+		System.out.println("the full path is"+full_path);
+		if(token == null) {
+			request.setAttribute("error", true);
+			request.setAttribute("error_msg", "User is already activated.");
+			return;
+		}
+		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+		request.setAttribute("email", to);
+		request.setAttribute("error", false);
 	}
 
 }

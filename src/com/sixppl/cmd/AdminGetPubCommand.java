@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.sixppl.dao.AdminPubDAO;
 import com.sixppl.dao.support.AdminPubDAOImpl;

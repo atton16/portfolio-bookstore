@@ -23,10 +23,8 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-space">
 							<center>
-								The email <b>xxxx@yyy.zz</b> has been confirmed.<br/>
+								The email <b>${email}</b> has been confirmed.<br/>
 								You are ready to go.<br/><br/>
-								<a href="${contextPath}/login" class="btn btn-primary">Login</a>
-								&nbsp;
 								<a href="${contextPath}/">Go back Home</a>
 							</center>
 						</div>

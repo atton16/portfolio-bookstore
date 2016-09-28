@@ -33,19 +33,19 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-2"><label>Nick Name</label></div>
-						<div class="col-md-10">Dave</div>
+						<div class="col-md-10">${user.getNickname()}</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2"><label>First Name</label></div>
-						<div class="col-md-10">David</div>
+						<div class="col-md-10">${user.getFirstname()}</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2"><label>Last Name</label></div>
-						<div class="col-md-10">Hue</div>
+						<div class="col-md-10">${user.getLastname()}</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2"><label>Email</label></div>
-						<div class="col-md-10">dhue@a.com</div>
+						<div class="col-md-10">${user.getEmail()}</div>
 					</div>
 				</div>
 			</div>

@@ -55,6 +55,8 @@ import com.sixppl.main.Application;
 		"/user/pub/manage",
 		
 		"/admin",
+		"/admin/login",
+		"/admin/logout",
 		"/admin/pub/manage",
 		"/admin/pub/find",
 		"/admin/pub/remove",
@@ -70,12 +72,23 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static final String DUMMY_COMMAND = "dummyCommand";
 	private static final String SEARCHTERMS_COMMAND = "searchTermsCommand";
+
+	private static final String EMBEDUSER_COMMAND = "embedUserCommand";
+	private static final String EMBEDADMIN_COMMAND = "embedAdminCommand";
+	
 	private static final String CARTVIEW_COMMAND = "cartViewCommand";
 	private static final String CARTADD_COMMAND = "cartAddCommand";
 	private static final String CARTREMOVE_COMMAND = "cartRemoveCommand";
+	
 	private static final String USERLOGIN_COMMAND = "userLoginCommand";
+	private static final String USERLOGOUT_COMMAND = "userLogoutCommand";
 	private static final String USERREG_COMMAND = "userRegCommand";
 	private static final String USERPROFILE_COMMAND = "userProfileCommand";
+	private static final String USEREMAIL_COMMAND = "userEmailCommand";
+	private static final String USERCONFIRM_COMMAND = "userConfirmCommand";
+	private static final String USERVIEWPROFILE_COMMAND = "userViewProfileCommand";
+	private static final String USEREMAILCHANGE_COMMAND = "userEmailChangeCommand";
+	
 	private static final String SEARCH_COMMAND = "searchCommand";
 	private static final String SELL_COMMAND = "sellCommand";
 	private static final String LIST_COMMAND = "listCommand";
@@ -85,12 +98,20 @@ public class Asst2Servlet extends HttpServlet {
 	private static final String ADMINREMOVEPUB_COMMAND = "adminGetRemoveCommand";
 	private static final String ADMINGETUSER_COMMAND = "adminGetUserCommand";
 	private static final String ADMINBANUSER_COMMAND = "adminBanUserCommand";
+	private static final String ADMINUNBANUSER_COMMAND = "adminUnbanUserCommand";
+	
 	private static final String ADMINGETUSERACTIVITY_COMMAND = "adminGetUserActivityCommand";
 	private static final String ADMINLOGIN_COMMAND = "adminLoginCommand";
 	private static final String ADMINPAGEHIT_COMMAND = "adminPageHitCommand";
-	private static final String ADMINREGISTERSESSION_COMMAND = "adminRegisterSessionCommand";
-	private static final String ADMINREMOVESESSION_COMMAND = "adminRemoveSessionCommand";
 	private static final String SEARCHGRAPH_COMMAND = "searchGraphCommand";
+
+	private static final String ADMINGETPAGEHIT_COMMAND = "adminGetPageHitCommand";
+	private static final String ADMINLOGOUT_COMMAND = "adminLogoutCommand";
+
+	
+	private static final String YEARLIST_COMMAND = "yearListCommand";
+	private static final String USERISBANNED_COMMAND = "userIsBannedCommand";
+
 
 	
 	Map<String,Command> commands;
@@ -101,11 +122,25 @@ public class Asst2Servlet extends HttpServlet {
     	
     	commands = new HashMap<String,Command>();
 		commands.put(DUMMY_COMMAND, new DummyCommand());
+
+		commands.put(EMBEDADMIN_COMMAND, new EmbedAdminCommand());
+		commands.put(EMBEDUSER_COMMAND, new EmbedUserCommand());
+		
 		commands.put(SEARCHTERMS_COMMAND, new SearchTermsCommand());
+		
 		commands.put(CARTVIEW_COMMAND, new CartViewCommand());
 		commands.put(CARTADD_COMMAND, new CartAddCommand());
 		commands.put(CARTREMOVE_COMMAND, new CartRemoveCommand());
+		
 		commands.put(USERLOGIN_COMMAND, new UserLoginCommand());
+		commands.put(USERLOGOUT_COMMAND, new UserLogoutCommand());
+		commands.put(USERREG_COMMAND, new UserRegCommand());
+		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
+		commands.put(USEREMAIL_COMMAND, new UserEmailCommand());
+		commands.put(USERCONFIRM_COMMAND, new UserConfirmCommand());
+		commands.put(USERVIEWPROFILE_COMMAND, new UserViewProfileCommand());
+		commands.put(USEREMAILCHANGE_COMMAND, new UserEmailChangeCommand());
+		commands.put(USERISBANNED_COMMAND, new UserIsBannedCommand());
 
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
@@ -115,19 +150,20 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(ADMINREMOVEPUB_COMMAND, new AdminRemovePubCommand());
 		commands.put(ADMINGETUSER_COMMAND, new AdminGetUserCommand());
 		commands.put(ADMINBANUSER_COMMAND, new AdminBanUserCommand());
+		commands.put(ADMINUNBANUSER_COMMAND, new AdminUnbanUserCommand());
 		commands.put(ADMINGETUSERACTIVITY_COMMAND, new AdminGetUserActivityCommand());
 		commands.put(ADMINLOGIN_COMMAND, new AdminLoginCommand());
 		commands.put(ADMINPAGEHIT_COMMAND, new AdminPageHitCommand());
-		commands.put(ADMINREGISTERSESSION_COMMAND, new AdminRegisterSessionCommand());
-		commands.put(ADMINREMOVESESSION_COMMAND, new AdminRemoveSessionCommand());
-		commands.put(USERREG_COMMAND, new UserRegCommand());
-		commands.put(USERPROFILE_COMMAND, new UserProfileCommand());
 		commands.put(SEARCH_COMMAND, new SearchCommand());
 		commands.put(SELL_COMMAND, new SellCommand());
 		commands.put(LIST_COMMAND, new ListCommand());
 		commands.put(UNLIST_COMMAND, new UnlistCommand());
 		commands.put(ADMINGETPUB_COMMAND, new AdminGetPubCommand());
 		commands.put(SEARCHGRAPH_COMMAND, new SearchGraphCommand());
+		commands.put(ADMINGETPAGEHIT_COMMAND, new AdminGetPageHitCommand());
+		commands.put(ADMINLOGOUT_COMMAND, new AdminLogoutCommand());
+		
+		commands.put(YEARLIST_COMMAND, new YearListCommand());
 
     }
     
@@ -152,10 +188,14 @@ public class Asst2Servlet extends HttpServlet {
 		
 		// Embed default JSP attributes to every page
 		embedAttributes(request, response);
+		commands.get(EMBEDADMIN_COMMAND).execute(request,response);
+		commands.get(EMBEDUSER_COMMAND).execute(request,response);
+		commands.get(USERISBANNED_COMMAND).execute(request,response);
 		
 		// GET Actions
 		// Render: Search Page
 		if(URI.equalsIgnoreCase("/search")){
+			commands.get(YEARLIST_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/search.jsp").forward(request,response);
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
@@ -177,39 +217,40 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){
-			//TODO: Check ban
-			request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
+			if((Boolean) request.getAttribute("banned") == true)
+				request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
+			else
+				response.sendRedirect(contextPath);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
 		// Logout
 		} else if(URI.equalsIgnoreCase("/logout")){
-			//TODO: Do logout
+			commands.get(USERLOGOUT_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/home.jsp").forward(request,response);
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
-			
 		// Confirm Email
 		} else if(URI.equalsIgnoreCase("/signup/confirm")){
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "xx");	//TODO: remove this
+			commands.get(USERCONFIRM_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/signup_confirm.jsp").forward(request,response);
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
+			commands.get(USERVIEWPROFILE_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Resend Verification Email
 		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
-			//TODO: Resend Verification Email
+			commands.get(USEREMAILCHANGE_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
 		// Confirm New Email
 		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
-			//TODO: Confirm New Email
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "xx");	//TODO: remove this
+			commands.get(USERCONFIRM_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
+			request.setAttribute("error", false);
+			request.setAttribute("error_msg", null);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Manage Publications Page
 		} else if(URI.equalsIgnoreCase("/user/pub/manage")){
@@ -217,12 +258,13 @@ public class Asst2Servlet extends HttpServlet {
 		// Admin Dashboard Page
 		} else if(URI.equalsIgnoreCase("/admin")){
 			request.getRequestDispatcher("/admin.jsp").forward(request,response);
-			
 		// Admin: Login Page
 		} else if(URI.equalsIgnoreCase("/admin/login")){
-			
 			request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
-			
+		// Admin: Logout Page
+		} else if(URI.equalsIgnoreCase("/admin/logout")){
+			commands.get(ADMINLOGOUT_COMMAND).execute(request, response);
+			response.sendRedirect(contextPath+"/admin/login");
 		// Admin: Manage Publications
 		} else if(URI.equalsIgnoreCase("/admin/pub/manage")){
 			request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
@@ -259,25 +301,13 @@ public class Asst2Servlet extends HttpServlet {
 	    	
     	// Admin: Manage Users
 		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
-			//TOTO: Admin: Manage Users - Search
-			/*String bob = request.getRequestURI();
-			String bob2 = request.getRequestURI();
-			boolean value=bob2.equals("/asst2/admin/users/manage");
-			*/
-			if(request.getParameterMap().containsKey("get")){
-				commands.get(ADMINGETUSER_COMMAND).execute(request, response);
-				request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
-			}
-			else{
+            commands.get(SEARCHTERMS_COMMAND).execute(request,response);
+			commands.get(ADMINGETUSER_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/admin_users_manage.jsp").forward(request,response);
-			}
-			
     	// Admin: Customer Activity
 		} else if (URI.equalsIgnoreCase("/admin/users/viewcustomer")){
-			//TOTO: Admin: Customer Activity
-			commands.get(ADMINGETUSERACTIVITY_COMMAND).execute(request, response); //The attribute pair with key "buyinghistory" and "cartlist"
+			commands.get(ADMINGETUSERACTIVITY_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/admin_customer.jsp").forward(request,response);
-			
     	// Admin: Analytics
 		} else if(URI.equalsIgnoreCase("/admin/analytics")){
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
@@ -326,7 +356,6 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Login
 		} else if(URI.equalsIgnoreCase("/login")){
-			//TODO: Login
 			commands.get(USERLOGIN_COMMAND).execute(request, response);
 			if((Boolean) request.getAttribute("success"))
 				response.sendRedirect(contextPath);
@@ -334,29 +363,18 @@ public class Asst2Servlet extends HttpServlet {
 				request.getRequestDispatcher("/login.jsp").forward(request,response);
 		    // Register
 		} else if(URI.equalsIgnoreCase("/signup")){
-			//TODO: Register
 			commands.get(USERREG_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success"))
-				response.sendRedirect(contextPath);
-			else
-			    request.getRequestDispatcher("/signup.jsp").forward(request,response);
+		    request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Resend Confirmation Email
 		} else if(URI.equalsIgnoreCase("/signup/resend")){
-			//TODO: Resend Confirmation Email
-			request.setAttribute("error", false);	//TODO: remove this
-			request.setAttribute("email", "a@a.com");	//TODO: remove this
+			commands.get(USEREMAIL_COMMAND).execute(request, response);
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Edit Profile
 		} else if(URI.equalsIgnoreCase("/user/profile")){
-			//TODO: Edit Profile
 			commands.get(USERPROFILE_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success"))
-				response.sendRedirect(contextPath);
-			else
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Sell
 		} else if(URI.equalsIgnoreCase("/user/sell")){
-			//TODO: Sell
 			commands.get(SELL_COMMAND).execute(request,response);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing
@@ -375,14 +393,11 @@ public class Asst2Servlet extends HttpServlet {
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Login
 		} else if(URI.equalsIgnoreCase("/admin/login")){
-			commands.get(USERLOGIN_COMMAND).execute(request, response);
-			if((Boolean) request.getAttribute("success") && !request.getAttribute("admincheck").equals(null)){
-				
+			commands.get(ADMINLOGIN_COMMAND).execute(request, response);
+			if(request.getAttribute("error_msg") == null)
 				response.sendRedirect(contextPath+"/admin");
-			}
-			else{
+			else
 				request.getRequestDispatcher("/admin_login.jsp").forward(request,response);
-			}
 			
     	// Admin: Manage Publications - Remove
 		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
@@ -394,30 +409,18 @@ public class Asst2Servlet extends HttpServlet {
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Manage Users - Ban
 		} else if(URI.equalsIgnoreCase("/rest/admin/users/ban")){
-			//TODO: Admin: Manage Users - Ban
 			commands.get(ADMINBANUSER_COMMAND).execute(request, response);
-			
-			System.out.println("Ban:"+request.getParameter("id"));	//TODO: remove this
-	    	if(((Boolean)request.getAttribute("banflag")).equals(true)){
-	    		response.setStatus(HttpServletResponse.SC_OK);	//200
-	    	}
-	    	else{
+	    	if(((Boolean)request.getAttribute("success")))
+	    		response.setStatus(HttpServletResponse.SC_OK);
+	    	else
 	    		response.setStatus(HttpServletResponse.SC_ACCEPTED);
-	    	}
-	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Admin: Manage Users - Unban
 		} else if(URI.equalsIgnoreCase("/rest/admin/users/unban")){
-			//TODO: Admin: Manage Users - Unban
-			commands.get(ADMINBANUSER_COMMAND).execute(request, response);
-			if(((Boolean)request.getAttribute("unbanflag")).equals(true)){
-	    		response.setStatus(HttpServletResponse.SC_OK);	//200
-	    	}
-	    	else{
+			commands.get(ADMINUNBANUSER_COMMAND).execute(request, response);
+	    	if(((Boolean)request.getAttribute("success")))
+	    		response.setStatus(HttpServletResponse.SC_OK);
+	    	else
 	    		response.setStatus(HttpServletResponse.SC_ACCEPTED);
-	    	}
-			System.out.println("Unban:"+request.getParameter("id"));	//TODO: remove this
-	    	
-	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Default: Redirect to Home Page
 		} else {
 			response.sendRedirect(contextPath);

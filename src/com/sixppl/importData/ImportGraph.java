@@ -147,6 +147,66 @@ public class ImportGraph {
 			}
 		}
 	}
+	
+	public EntityDTO findEntityByEntityId(String entityID) {
+		EntityDTO result = new EntityDTO();
+		String sql = "SELECT * FROM Entity WHERE EntityID=?";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, entityID);
+			ResultSet rs = ps.executeQuery();
+			result.setID(rs.getLong("ID"));
+			result.setEntityID(rs.getString("EntityID"));
+			result.setEntityClass(rs.getString("Class"));
+			result.setEntityType(rs.getString("Type"));
+			result.setEntityCaption(rs.getString("Caption"));
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		return result;
+	}
+	
+	public EntityDTO findEntityByCaption(String Class, String Type, String Caption) throws SQLException {
+		EntityDTO result = new EntityDTO();
+		String sql = "SELECT * FROM Entity WHERE Class=? AND Type=? AND Caption =?";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, Class);
+			ps.setString(2, Type);
+			ps.setString(3, Caption);
+			ResultSet rs = ps.executeQuery();
+			if ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 
 	public ArrayList<EntityDTO> findEntity(String type, String keyword) {
 		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
@@ -219,33 +279,57 @@ public class ImportGraph {
 		return result;
 	}
 
-	public EntityDTO findEntityByEntityId(String entityID) {
-		EntityDTO result = new EntityDTO();
-		String sql = "SELECT * FROM Entity WHERE EntityID=?";
+	public ArrayList<EntityDTO> findAllNodes() throws SQLException {
+		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
+		String sql = "SELECT * FROM Entity WHERE Class='Node'";
 		Connection connection = null;
 		try {
 			connection = getDBConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, entityID);
 			ResultSet rs = ps.executeQuery();
-			result.setID(rs.getLong("ID"));
-			result.setEntityID(rs.getString("EntityID"));
-			result.setEntityClass(rs.getString("Class"));
-			result.setEntityType(rs.getString("Type"));
-			result.setEntityCaption(rs.getString("Caption"));
+			while ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		      result.add(entity);
+		    }
 		    rs.close();
 		    ps.close();
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				}
-				catch (SQLException e) {}
-			}
+		return result;
+	}
+	
+	public ArrayList<EntityDTO> getRandomNodes(long nodeAmount) throws SQLException {
+		ArrayList<EntityDTO> result = new ArrayList<EntityDTO>();
+		String sql = "SELECT * FROM Entity WHERE Class='Node' ORDER BY RAND() LIMIT 3";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			//ps.setLong(1, nodeAmount);
+			ResultSet rs = ps.executeQuery();
+			while ( rs.next() )
+		    {
+		      EntityDTO entity = new EntityDTO();
+		      entity.setID(rs.getLong("ID"));
+		      entity.setEntityID(rs.getString("EntityID"));
+		      entity.setEntityClass(rs.getString("Class"));
+		      entity.setEntityType(rs.getString("Type"));
+		      entity.setEntityCaption(rs.getString("Caption"));
+		      result.add(entity);
+		    }
+		    rs.close();
+		    ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 		return result;
 	}

@@ -82,19 +82,23 @@
 					<a href="${contextPath}/user/sell" class="margin-left-8 white-color" id="sell">
 						<span class="glyphicon glyphicon-bullhorn"></span> Sell
 					</a>
-					<span class="white-color margin-left-8">|</span>
 					<!-- Login link -->
-					<a href="${contextPath}/login" class="margin-left-8 white-color" id="login">Login</a>
-					<span class="white-color margin-left-8">|</span>
+					<jstl:if test="${sessionScope.user == null}">
+						<span class="white-color margin-left-8">|</span>
+						<a href="${contextPath}/login" class="margin-left-8 white-color" id="login">Login</a>
+					</jstl:if>
 					<!-- User action dropdown -->
-					<div class="btn-group">
-						<a href="#" class="margin-left-8 white-color dropdown-toggle white-color" data-toggle="dropdown" id="login">Nickname <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="${contextPath}/user/profile">Edit Profile</a></li>
-							<li><a href="${contextPath}/user/pub/manage">Manage Publications</a></li>
-							<li><a href="${contextPath}/logout">Logout</a></li>
-						</ul>
-					</div>
+					<jstl:if test="${sessionScope.user != null}">
+						<span class="white-color margin-left-8">|</span>
+						<div class="btn-group">
+							<a href="#" class="margin-left-8 white-color dropdown-toggle white-color" data-toggle="dropdown" id="login">${sessionScope.user.getNickname()} <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${contextPath}/user/profile">Edit Profile</a></li>
+								<li><a href="${contextPath}/user/pub/manage">Manage Publications</a></li>
+								<li><a href="${contextPath}/logout">Logout</a></li>
+							</ul>
+						</div>
+					</jstl:if>
 				</div>
 			</div>
 		</div>

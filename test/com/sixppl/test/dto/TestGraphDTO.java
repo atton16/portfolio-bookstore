@@ -19,6 +19,8 @@ public class TestGraphDTO {
 	Stack<GraphDTO> graphStack;
 	GraphDTO graph1;
 	GraphDTO graph2;
+	GraphDTO graph3;
+	GraphDTO graph4;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -34,6 +36,8 @@ public class TestGraphDTO {
 		graphStack = new Stack<GraphDTO>();
 		graph1 = new GraphDTO(1, "P1", "E1", "A1");
 		graph2 = new GraphDTO(2, "P1", "E2", "V1");
+		graph3 = new GraphDTO(3, "P2", "E2", "V1");
+		graph4 = new GraphDTO(4, "P1", "E4", "V1");
 	}
 
 	@After
@@ -83,7 +87,7 @@ public class TestGraphDTO {
 	}
 
 	@Test
-	public void testContainsEdgeinArrayList() {
+	public void testContainsEdgeIDinArrayList() {
 		// Expected false -> Should not found any matched Edge in empty ArrayList
 		assertFalse(GraphDTO.containsEdgeID(graphList, graph1.getEdge()));
 		assertFalse(GraphDTO.containsEdgeID(graphList, graph2.getEdge()));
@@ -104,7 +108,7 @@ public class TestGraphDTO {
 	}
 	
 	@Test
-	public void testContainsEdgeinStack() {
+	public void testContainsEdgeIDinStack() {
 		// Expected false -> Should not found any matched Edge in empty Stack
 		assertFalse(GraphDTO.containsEdgeID(graphStack, graph1.getEdge()));
 		assertFalse(GraphDTO.containsEdgeID(graphStack, graph2.getEdge()));

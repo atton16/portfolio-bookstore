@@ -19,10 +19,18 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<center>
-				<h3>The verification email has been sent to <b>xxxx@yyy.zz</b>.</h3>
-				<h4>Please check your email.</h4>
-				<h3>Failed to send verification email to <b>xxxx@yyy.zz</b>.</h3>
-				<h3>You are already activated.</h3>
+				<jstl:if test="${email != null}">
+					<jstl:if test="${!error}">
+						<h3>The verification email has been sent to <b>${email}</b>.</h3>
+						<h4>Please check your email.</h4>
+					</jstl:if>
+					<jstl:if test="${error}">
+						<h3>Failed to send verification email to <b>${email}</b>.</h3>
+					</jstl:if>
+				</jstl:if>
+				<jstl:if test="${email == null}">
+					<h3>You are already activated.</h3>
+				</jstl:if>
 			</center>
 		</div>
 	</div>

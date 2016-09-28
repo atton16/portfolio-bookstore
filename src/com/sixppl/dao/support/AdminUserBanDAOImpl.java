@@ -12,7 +12,7 @@ import com.sixppl.main.Application;
 
 public class AdminUserBanDAOImpl implements AdminUserBanDAO{
 	
-	public boolean checkBan(Integer userID){
+	public boolean isBanned(Integer userID){
 		Connection con = null;
 		Boolean status = false;
 		try {
@@ -36,7 +36,7 @@ public class AdminUserBanDAOImpl implements AdminUserBanDAO{
 		return status;
 	}
 	
-	public boolean userBan(Integer userID){
+	public boolean ban(Integer userID){
 		boolean status = false;
 		Connection con = null;
 		try {
@@ -57,7 +57,7 @@ public class AdminUserBanDAOImpl implements AdminUserBanDAO{
 		return status;
 	}
 	
-	public boolean userUnban(Integer userID){
+	public boolean unban(Integer userID){
 		boolean status = false;
 		Connection con = null;
 		try {

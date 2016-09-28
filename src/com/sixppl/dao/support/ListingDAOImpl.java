@@ -2,6 +2,7 @@ package com.sixppl.dao.support;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.main.Application;
@@ -198,5 +199,111 @@ public class ListingDAOImpl implements ListingDAO {
 			}catch(SQLException se2){
 			}// nothing we can do
 		}//end try
+	}
+
+	@Override
+	public Integer getListingCount() {
+
+		Integer total = 0;
+		PreparedStatement stmt = null;
+		String sql = "SELECT COUNT(*) AS total FROM Listing";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				total = rs.getInt("total");
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+
+		return total;
+	}
+
+	@Override
+	public List<Integer> getYearsAscending() {
+		
+		List<Integer> years = new ArrayList<Integer>();
+		PreparedStatement stmt = null;
+		String sql = "SELECT distinct Year FROM Listing ORDER BY Year ASC";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				Integer year = rs.getInt("Year");
+				years.add(year);
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}// nothing we can do
+		}//end try
+
+		return years;
+	}
+
+	@Override
+	public List<Integer> getYearsDescending() {
+		
+		List<Integer> years = new ArrayList<Integer>();
+		PreparedStatement stmt = null;
+		String sql = "SELECT distinct Year FROM Listing ORDER BY Year DESC";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				Integer year = rs.getInt("Year");
+				years.add(year);
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}// nothing we can do
+		}//end try
+
+		return years;
 	}
 }

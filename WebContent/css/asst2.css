@@ -198,6 +198,10 @@
 	text-decoration: none !important;
 }
 
+.underline-text {
+	text-decoration: underline !important;
+}
+
 .h1-color, .h1-color:hover {
 	color: #262626;
 }

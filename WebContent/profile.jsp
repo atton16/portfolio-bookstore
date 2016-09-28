@@ -16,17 +16,26 @@
 		</div>
 	</div>
 	<!-- Error Message -->
+	<jstl:if test="${error_msg != null || need_verify}"></jstl:if>
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<div class="alert alert-danger">
-				Error message
-			</div>
-			<div class="alert alert-success">
-				Success message
-			</div>
-			<div class="alert alert-info">
-				Your email is not yet verify. <a href="${contextPath}/user/profile/verify">Click here to send verification Email</a>
-			</div>
+			<jstl:if test="${error_msg != null}">
+				<jstl:if test="${error}">
+					<div class="alert alert-danger">
+						${error_msg}
+					</div>
+				</jstl:if>
+				<jstl:if test="${!error}">
+					<div class="alert alert-success">
+						${error_msg}
+					</div>
+				</jstl:if>
+			</jstl:if>
+			<jstl:if test="${need_verify}">
+				<div class="alert alert-info">
+					Your email is not yet verify. <a href="${contextPath}/user/profile/verify" class="underline-text">Click here to resend verification Email</a>
+				</div>
+			</jstl:if>
 		</div>
 	</div>
 	<!-- Registration: Contents -->
@@ -41,7 +50,7 @@
 								<p>Username</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="foo" disabled/>
+								<input type="text" class="form-control" placeholder="${user.getUsername()}" disabled/>
 							</div>
 						</div>
 						<div class="row">
@@ -49,7 +58,7 @@
 								<p>Nick Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Fb" name="nickname" />
+								<input type="text" class="form-control" placeholder="${user.getNickname()}" name="nickname" />
 							</div>
 						</div>
 						<div class="row">
@@ -57,7 +66,7 @@
 								<p>First Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Foo" name="firstname" />
+								<input type="text" class="form-control" placeholder="${user.getFirstname()}" name="firstname" />
 							</div>
 						</div>
 						<div class="row">
@@ -65,7 +74,7 @@
 								<p>Last Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Bar" name="lastname" />
+								<input type="text" class="form-control" placeholder="${user.getLastname()}" name="lastname" />
 							</div>
 						</div>
 						<div class="row">
@@ -73,7 +82,7 @@
 								<p>Email</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="foo@bar.com" name="email" />
+								<input type="text" class="form-control" placeholder="${user.getEmail()}" name="email" />
 							</div>
 						</div>
 						<div class="row">
@@ -81,7 +90,7 @@
 								<p>Year of Birth</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="1999" name="yob" />
+								<input type="text" class="form-control" placeholder="${user.getBirthyear()}" name="yob" />
 							</div>
 						</div>
 						<div class="row">
@@ -89,7 +98,7 @@
 								<p>Full Address</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="1/11 King st, Kingsford, NSW, 1111" name="address" />
+								<input type="text" class="form-control" placeholder="${user.getAddr()}" name="address" />
 							</div>
 						</div>
 						<div class="row">
@@ -97,7 +106,7 @@
 								<p>Credit Card Number</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="1234 5678 9012 3456" name="ccn" />
+								<input type="text" class="form-control" placeholder="${user.getCardno()}" name="ccn" />
 							</div>
 						</div>
 						<div class="row">

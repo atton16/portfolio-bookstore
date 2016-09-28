@@ -9,204 +9,216 @@ import com.sixppl.dao.AdminUserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 public class AdminUserDAOImpl implements AdminUserDAO{
-	
-	public List<UserDTO> findByNickname(String nickname){
+
+	public List<UserDTO> findByNickname(String nickname, int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Nickname=?");
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Nickname=? LIMIT ?,?");
 			stmt.setString(1, nickname);
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } 
+			stmt.setInt(2, offset);
+			stmt.setInt(3, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
 		return userlist;
 	}
-	
-	public List<UserDTO> findByFirstname(String firstname){
+
+	public List<UserDTO> findByFirstname(String firstname, int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Firstname=?");
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Firstname=? LIMIT ?,?");
 			stmt.setString(1, firstname);
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } 
+			stmt.setInt(2, offset);
+			stmt.setInt(3, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
 		return userlist;
 	}
-	
-	public List<UserDTO>findByLastname(String lastname){
+
+	public List<UserDTO>findByLastname(String lastname, int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
-		
-		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Lastname=?");
+		try {
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
+
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Lastname=? LIMIT ?,?");
 			stmt.setString(1, lastname);
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } 
+			stmt.setInt(2, offset);
+			stmt.setInt(3, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
 		return userlist;
 	}
-	
-	public List<UserDTO> findByEmail(String email){
+
+	public List<UserDTO> findByEmail(String email, int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
-		
-		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE email=?");
+		try {
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
+
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Email=? LIMIT ?,?");
 			stmt.setString(1, email);
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } finally {
-		      
-		   }
+			stmt.setInt(2, offset);
+			stmt.setInt(3, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} finally {
+
+		}
 		return userlist;
 	}
-	
-	public List<UserDTO>findAllCustomers(){
+
+	public List<UserDTO>findAllCustomers(int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User");
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } 
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User LIMIT ?,?");
+			stmt.setInt(1, offset);
+			stmt.setInt(2, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
 		return userlist;
 	}
-	
-	public List<UserDTO>findAllSellers(){
+
+	public List<UserDTO>findAllSellers(int offset, int limit){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User");
-		     ResultSet rs= stmt.executeQuery();
-		     while(rs.next()){
-		    	 UserDTO temp = new UserDTO();
-		    	 String UserID = rs.getString("UserID");
-		    	 String Nickname=rs.getString("Nickname");
-		    	 String Firstname = rs.getString("Firstname");
-		    	 String Lastname = rs.getString("Lastname");
-		    	 String Email = rs.getString("Email");
-		    	 temp.setUserID(Integer.parseInt(UserID));
-		    	 temp.setNickname(Nickname);
-		    	 temp.setFirstname(Firstname);
-		    	 temp.setLastname(Lastname);
-		    	 temp.setEmail(Email);
-		    	 userlist.add(temp);
-		    	 //mainarray.add(temp);
-		     }
-		     
-			
-		   } catch (SQLException se) {
-			    se.printStackTrace();
-		   } catch (Exception e) {
-		   } 
+			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User LIMIT ?,?");
+			stmt.setInt(1, offset);
+			stmt.setInt(2, limit);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				UserDTO temp = new UserDTO();
+				Integer UserID = rs.getInt("UserID");
+				String Nickname=rs.getString("Nickname");
+				String Firstname = rs.getString("Firstname");
+				String Lastname = rs.getString("Lastname");
+				String Email = rs.getString("Email");
+				temp.setUserID(UserID);
+				temp.setNickname(Nickname);
+				temp.setFirstname(Firstname);
+				temp.setLastname(Lastname);
+				temp.setEmail(Email);
+				userlist.add(temp);
+				//mainarray.add(temp);
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
 		return userlist;
 	}
 }
