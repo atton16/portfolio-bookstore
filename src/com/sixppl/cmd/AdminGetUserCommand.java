@@ -5,14 +5,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sixppl.dto.UserDTO;
+import com.sixppl.main.Application;
+
 import java.util.*;
 
 import com.sixppl.dao.AdminLoginDAO;
 import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.dao.AdminUserDAO;
-import com.sixppl.dao.support.AdminLoginDAOImpl;
-import com.sixppl.dao.support.AdminUserBanDAOImpl;
-import com.sixppl.dao.support.AdminUserDAOImpl;
 
 public class AdminGetUserCommand implements Command {
 	private AdminUserDAO adminUserDao;
@@ -20,9 +19,9 @@ public class AdminGetUserCommand implements Command {
 	private AdminLoginDAO adminLoginDao;
 	
 	public AdminGetUserCommand() {
-		adminUserDao = new AdminUserDAOImpl();
-		adminUserBanDao = new AdminUserBanDAOImpl();
-		adminLoginDao = new AdminLoginDAOImpl();
+		adminUserDao = Application.getSharedInstance().getDAOFactory().getAdminUserDAO();
+		adminUserBanDao = Application.getSharedInstance().getDAOFactory().getAdminUserBanDAO();
+		adminLoginDao = Application.getSharedInstance().getDAOFactory().getAdminLoginDAO();
 	}
 
 	@Override

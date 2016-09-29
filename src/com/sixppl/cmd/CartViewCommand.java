@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.bean.CartBean;
 import com.sixppl.dao.CartDAO;
-import com.sixppl.dao.support.CartDAOImpl;
+import com.sixppl.main.Application;
 
 public class CartViewCommand implements Command {
+	private CartDAO cartDao;
+	
+	public CartViewCommand() {
+		cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int userID = 0;// Wait for session method
-		CartDAO cart = new CartDAOImpl();
 		CartBean cartBean = new CartBean();
 		try{
-			cartBean.setCartList(cart.viewCart(userID));
+			cartBean.setCartList(cartDao.viewCart(userID));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		request.setAttribute("CartList", cart);
+		request.setAttribute("CartList", cartDao);	//TODO: Why return DAO?? Return something else
 	}
 
 }

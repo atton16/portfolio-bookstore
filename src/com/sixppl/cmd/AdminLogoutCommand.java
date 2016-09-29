@@ -7,15 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.dao.AdminLoginDAO;
-import com.sixppl.dao.support.AdminLoginDAOImpl;
+import com.sixppl.main.Application;
 
 public class AdminLogoutCommand implements Command{
-
+	private AdminLoginDAO adminLoginDao;
+	
+	public AdminLogoutCommand() {
+		adminLoginDao = Application.getSharedInstance().getDAOFactory().getAdminLoginDAO();
+	}
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdminLoginDAO adminDao = new AdminLoginDAOImpl();
 		String SessionID = request.getSession().getId();
-		adminDao.logout(SessionID);
+		adminLoginDao.logout(SessionID);
 	}
 
 }

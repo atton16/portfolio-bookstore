@@ -8,15 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 
 import com.sixppl.dao.AdminPubDAO;
-import com.sixppl.dao.support.AdminPubDAOImpl;
+import com.sixppl.main.Application;
 
 public class AdminGetPubCommand implements Command{
+	private AdminPubDAO adminPubDao;
+	
+	public AdminGetPubCommand() {
+		adminPubDao = Application.getSharedInstance().getDAOFactory().getAdminPubDAO();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pubID = Integer.parseInt(request.getParameter("id"));
-		AdminPubDAO test = new AdminPubDAOImpl();
-		JSONArray arrayj=test.findPub(pubID);
+		JSONArray arrayj=adminPubDao.findPub(pubID);
 		request.setAttribute("jsonreturn", arrayj);
 	}
 

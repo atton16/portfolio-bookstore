@@ -12,15 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.dao.EntityDAO;
 import com.sixppl.dao.GraphDAO;
-import com.sixppl.dao.support.EntityDAOImpl;
-import com.sixppl.dao.support.GraphDAOImpl;
 import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphOutputDTO;
+import com.sixppl.main.Application;
 
 public class SearchGraphCommand implements Command {
 
-	String data = "{\"nodes\": [],\"edges\": []}";
-	String matchedNode = "{\"nodes\": []}";
+	private String data = "{\"nodes\": [],\"edges\": []}";
+	private String matchedNode = "{\"nodes\": []}";
+	private EntityDAO entityDao;
+	private GraphDAO graphDao;
+	
+	public SearchGraphCommand() {
+		entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
+		graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,8 +36,6 @@ public class SearchGraphCommand implements Command {
 		int RANDOM_SELECT = 3;
 	// DEBUG search input
 		//System.out.println("graph input: type = "+type+"; keyword = "+keyword);
-		EntityDAO entityDAO = new EntityDAOImpl();
-		GraphDAO graphDAO = new GraphDAOImpl();
 		ArrayList<EntityDTO> nodes = new ArrayList<EntityDTO>();
 		ArrayList<GraphOutputDTO> edges = new ArrayList<GraphOutputDTO>();
 		ArrayList<EntityDTO> keywordnodes = new ArrayList<EntityDTO>();
@@ -39,7 +43,7 @@ public class SearchGraphCommand implements Command {
 		// Home - Display randomly <RANDOM_SELECT> nodes and their relations
 		if(type == null) {
 			try {
-				keywordnodes = entityDAO.getRandomNodes(RANDOM_SELECT);
+				keywordnodes = entityDao.getRandomNodes(RANDOM_SELECT);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -50,7 +54,7 @@ public class SearchGraphCommand implements Command {
 				keyword = keyword.toLowerCase();
 			}
 			try {
-				keywordnodes = entityDAO.findEntity(type, keyword);
+				keywordnodes = entityDao.findEntity(type, keyword);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +73,7 @@ public class SearchGraphCommand implements Command {
 					String query = queryList.pop();
 					ArrayList<String> tempNodeIDList = new ArrayList<String>();
 					try {
-						tempNodeIDList = entityDAO.findLinkedEntity(query);
+						tempNodeIDList = entityDao.findLinkedEntity(query);
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -78,7 +82,7 @@ public class SearchGraphCommand implements Command {
 						if (!EntityDTO.containsEntityID(nodes,tempNodeID)) {
 							EntityDTO tempNode = new EntityDTO();
 							try {
-								tempNode = entityDAO.findEntityByEntityId(tempNodeID);
+								tempNode = entityDao.findEntityByEntityId(tempNodeID);
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
@@ -92,7 +96,7 @@ public class SearchGraphCommand implements Command {
 				for (EntityDTO node : nodes) {
 					ArrayList<GraphOutputDTO> tempEdgeList = new ArrayList<GraphOutputDTO>();
 					try {
-						tempEdgeList = graphDAO.findGraphOutput(node.getEntityID());
+						tempEdgeList = graphDao.findGraphOutput(node.getEntityID());
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}

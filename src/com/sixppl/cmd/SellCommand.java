@@ -7,22 +7,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.dao.ListingDAO;
-import com.sixppl.dao.support.ListingDAOImpl;
 import com.sixppl.dto.ListingDTO;
+import com.sixppl.main.Application;
 
 public class SellCommand implements Command {
 	
 	private boolean error;
 	private String error_msg;
+	private ListingDAO listingDao;
 	
 	public SellCommand(){
 		error = false;
 		error_msg = null;
+		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ListingDAO listing = new ListingDAOImpl();
 		ListingDTO pubSell = new ListingDTO();
 		pubSell.title = request.getParameter("title").trim();
 		if(request.getParameter("authors") != null){
@@ -45,7 +46,7 @@ public class SellCommand implements Command {
 //		pubSell.picture = request.getParameter("pic").trim();
 		pubSell.price = Integer.valueOf(request.getParameter("price"));
 		
-		error = listing.addListing(pubSell);
+		error = listingDao.addListing(pubSell);
 		if(error == false){
 			error_msg = null;
 		}
