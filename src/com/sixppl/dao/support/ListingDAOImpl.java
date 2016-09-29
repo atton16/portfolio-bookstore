@@ -1,11 +1,18 @@
 package com.sixppl.dao.support;
 
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.main.Application;
+
+import sun.nio.cs.StandardCharsets;
+
 import com.sixppl.dto.ListingDTO;
 
 public class ListingDAOImpl implements ListingDAO {
@@ -119,7 +126,9 @@ public class ListingDAOImpl implements ListingDAO {
 			stmt.setString(4, pubSell.type);
 			stmt.setInt(5, pubSell.year);
 			stmt.setString(6, pubSell.venue);
-			stmt.setString(7, pubSell.picture);
+			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
+			String picString = s.hasNext() ? s.next() : "";
+			stmt.setString(7, picString);
 			stmt.setInt(8, pubSell.price);
 			stmt.setBoolean(9, true);
 			stmt.executeUpdate();

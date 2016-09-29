@@ -1,7 +1,13 @@
 package com.sixppl.dto;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.http.Part;
+
+import org.apache.commons.io.IOUtils;
 
 public class ListingDTO {
 
@@ -16,7 +22,7 @@ public class ListingDTO {
 	public int toYear;
 	public String venue;
 	public int sellerID;
-	public String picture;
+	public InputStream picture;
 	public int price;
 	public boolean status;
 	public int soldCount;
@@ -33,7 +39,7 @@ public class ListingDTO {
 		this.year = 0;
 		this.venue = "";
 		this.sellerID = 0;
-		this.picture = "";
+		this.picture = null;
 		this.price = 0;
 		this.status = false;
 		this.soldCount = 0;
@@ -44,8 +50,8 @@ public class ListingDTO {
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
-			int year,String venue,int sellerID,String picture,int price,boolean status,
-			int soldCount,long timestamp){
+			int year,String venue,int sellerID,String l,int price,boolean status,
+			int soldCount,long timestamp) throws Exception{
 		this.pubID = pubID;
 		this.title = title;
 		String[] authors_buf = authors.split(",");
@@ -65,7 +71,9 @@ public class ListingDTO {
 		this.year = year;
 		this.venue = venue;
 		this.sellerID = sellerID;
-		this.picture = picture;
+		String source = l;
+		InputStream in = IOUtils.toInputStream(source, "UTF-8");
+		this.picture = in;
 		this.price = price;
 		this.status = status;
 		this.timestamp = timestamp;
@@ -102,7 +110,7 @@ public class ListingDTO {
 	public String getVenue(){
 		return venue;
 	}
-	public String getPicture(){
+	public InputStream getPicture(){
 		return picture;
 	}
 	public int getSellerID(){

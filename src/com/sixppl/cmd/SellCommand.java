@@ -1,14 +1,21 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.catalina.core.ApplicationPart;
 
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
+import com.sun.tools.javac.util.Paths;
 
 public class SellCommand implements Command {
 	
@@ -42,8 +49,12 @@ public class SellCommand implements Command {
 		pubSell.year = Integer.valueOf(request.getParameter("year"));
 		if(request.getParameter("venue") != null)
 			pubSell.venue = request.getParameter("venue").trim();
-//		TODO: Implement upload pic: request.getPart("pic")
-//		pubSell.picture = request.getParameter("pic").trim();
+		
+		
+		Part filePart = request.getPart("pic");
+		InputStream picture = filePart.getInputStream();
+		pubSell.picture = picture;
+		
 		pubSell.price = Integer.valueOf(request.getParameter("price"));
 		
 		error = listingDao.addListing(pubSell);

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.cmd.Command;
 import com.sixppl.dao.ListingDAO;
+import com.sixppl.dao.support.ListingDAOImpl;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
@@ -23,14 +24,15 @@ public class SearchCommand implements Command {
 	private ListingDAO listingDao;
 	
 	public SearchCommand(){
-		start = 1;
-		end = 10;
+		start = 0;
+		end = 0;
 		total = 0;
 		prevParams = null;
 		nextParams = null;
 		items = new ArrayList<ListingDTO>();
 		page = 0;
 		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
+
 	}
 
 	@Override
@@ -106,6 +108,9 @@ public class SearchCommand implements Command {
 	}
 	
 	public void setResultsAttribute(HttpServletRequest request,ArrayList<ListingDTO> results){
+		if(results.size() <= 0){
+			return;
+		}
 		total = results.size();
 		start = page*10 + 1;
 		for(int i = start; results.get(i) != null && i <= start + 10; i++){
