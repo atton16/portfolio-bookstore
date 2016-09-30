@@ -14,8 +14,8 @@ import com.sixppl.dao.support.DAOSupport;
 public class Application {
 	public static final String DEVELOPMENT_ENV = "DEVELOPMENT";
 	public static final String PRODUCTION_ENV = "PRODUCTION";
-	private static final String ENV = DEVELOPMENT_ENV;
-	private static final String PRODUCTION_IP = "1.1.1.1";
+	private static final String ENV = PRODUCTION_ENV;
+	private static final String PRODUCTION_IP = "128.199.244.89";
 	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	private static Application app;
