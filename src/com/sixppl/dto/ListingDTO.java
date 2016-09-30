@@ -87,8 +87,11 @@ public class ListingDTO {
 	}
 	
 	public void setSellerNickname(String name) {
-		System.out.println("nickname: "+name);
 		this.sellerNickname = name;
+	}
+	
+	public void setPubID(int id){
+		this.pubID = id;
 	}
 	
 	public void setYearRange(int fromYear,int toYear){

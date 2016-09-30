@@ -174,32 +174,45 @@ public class UserRegCommand implements Command {
 			request.setAttribute("email", to);
 			request.setAttribute("error", false);
 		}
-		else
-		{	String contextPath = request.getContextPath();
-		String fullURI = request.getRequestURI();
-		String URI = fullURI.substring(contextPath.length());
-		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
-	
-		String ip = request.getLocalAddr();
-		if (ip.equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
-		    InetAddress inetAddress = InetAddress.getLocalHost();
-		    String ipAddress = inetAddress.getHostAddress();
-		    ip = ipAddress;
-		}
+		else if (Judge_env =="PRODUCTION")
+		{	
+	    String ip = Application.getSharedInstance().getProductionIP();
+	    String port = Application.getSharedInstance().getProductionPort();
 		System.out.println("the ip  is"+ip);
-		HttpServletRequest httpRequest=(HttpServletRequest)request;  
-        
-		String strBackUrl = "http://" + ip //服务器地址  
-		                    + ":"   
-		                    + request.getRemotePort()           //端口号  
-		                    + httpRequest.getContextPath()      //项目名称  
-		                    + httpRequest.getServletPath()      //请求页面或其他地址  
-		                + "?" + (httpRequest.getQueryString()); //参数  
-		System.out.println("the addres is"+strBackUrl);
-		System.out.println("the full path is"+full_path);
-		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+		String strUrl = "https://" + ip 
+		                          + ":"   
+		                          + port ;         
+		System.out.println("the addres is"+strUrl);
+		emailSending.sendEmail(to, from, strUrl  + "/asst2/signup/confirm?token="+token);
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);}
+		
+		else if (Judge_env =="PRODUCTION_IP"){
+			String contextPath = request.getContextPath();
+			String fullURI = request.getRequestURI();
+			String URI = fullURI.substring(contextPath.length());
+			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+		
+			String ip = Application.getIpAddress();
+		
+			System.out.println("the ip should be"+ip);
+	        
+			String strBackUrl = "https://" + ip   
+			                    + ":"   
+			                    + Application.getSharedInstance().getProductionPort()
+			                    + request.getContextPath()
+			                    + request.getServletPath();
+			
+			       
+			System.out.println("the addres is "+strBackUrl);
+			System.out.println("the full path is "+full_path);
+			emailSending.sendEmail(to, from, strBackUrl + "/confirm?token="+token);
+			request.setAttribute("email", to);
+			request.setAttribute("error", false);
+		}
+		else {
+			System.out.println("Please put the correct ENV in Application.java!!");
+		}
 	
 
 
