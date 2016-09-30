@@ -193,24 +193,17 @@ public class UserRegCommand implements Command {
 			String URI = fullURI.substring(contextPath.length());
 			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 		
-			String ip = request.getLocalAddr();
-			if (ip.equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
-			    InetAddress inetAddress = InetAddress.getLocalHost();
-			    String ipAddress = inetAddress.getHostAddress();
-			    ip = ipAddress;
-			}
-			System.out.println("the ip  is"+ip);
-			HttpServletRequest httpRequest=(HttpServletRequest)request;  
+			String ip = Application.getIpAddress();
+		
+			System.out.println("the ip should be"+ip);
 	        
-			String strBackUrl = "http://" + ip //服务器地址  
+			String strBackUrl = "https://" + ip   
 			                    + ":"   
-			                    + request.getRemotePort()           //端口号  
-			                    + httpRequest.getContextPath()      //项目名称  
-			                    + httpRequest.getServletPath()      //请求页面或其他地址  
-			                + "?" + (httpRequest.getQueryString()); //参数  
-			System.out.println("the addres is"+strBackUrl);
-			System.out.println("the full path is"+full_path);
-			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+			                    + Application.getSharedInstance().getProductionPort();
+			       
+			System.out.println("the addres is "+strBackUrl);
+			System.out.println("the full path is "+full_path);
+			emailSending.sendEmail(to, from, strBackUrl + "/asst2/signup/confirm?token="+token);
 			request.setAttribute("email", to);
 			request.setAttribute("error", false);
 		}
