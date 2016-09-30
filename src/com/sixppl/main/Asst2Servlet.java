@@ -265,7 +265,6 @@ public class Asst2Servlet extends HttpServlet {
 			if((Boolean)request.getAttribute("error") == true){
 		    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
 			} else {
-		    	response.setStatus(HttpServletResponse.SC_OK);	//200
 				JSONArray temp = (JSONArray) request.getAttribute("jsonreturn");
 				String escapedContextpath = contextPath;
 				String last = "";
@@ -273,10 +272,15 @@ public class Asst2Servlet extends HttpServlet {
 					last = escapedContextpath;
 					escapedContextpath = contextPath.replace("/", "\\/");
 				}
-				System.out.println(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
-				response.getWriter().write(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
-		    	response.getWriter().flush();
-		    	response.getWriter().close();
+				if(temp.size() > 0){
+			    	response.setStatus(HttpServletResponse.SC_OK);	//200
+					System.out.println(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
+					response.getWriter().write(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
+			    	response.getWriter().flush();
+			    	response.getWriter().close();
+				} else {
+			    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
+				}
 			}
     	// Admin: Manage Users
 		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
