@@ -83,7 +83,7 @@ public class SellCommand implements Command {
 		
 		error = !listingDao.addListing(pubSell);
 		if(error == false){
-			error_msg = null;
+			error_msg = "Successfully posted the publication!";
 		}
 		else{
 			error_msg = "ERROR: CANNOT ADD ITEM";
