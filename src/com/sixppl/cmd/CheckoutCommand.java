@@ -33,6 +33,7 @@ public class CheckoutCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
+		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 		String[] pubIds = request.getParameterValues("id");
 		for(String pubID: pubIds){
 			ListingDTO pubKey = new ListingDTO();
@@ -41,7 +42,6 @@ public class CheckoutCommand implements Command {
 		}
 		SessionDTO sessionDTO = new SessionDTO();
 		sessionDTO.setSessionID(request.getSession().getId());
-		SessionDAO sessionDao = new SessionDAOImpl();
 		int userId = sessionDao.finduserIDbySession(sessionDTO);
 		
 		UserDAO userDao = new UserDAOImpl();
