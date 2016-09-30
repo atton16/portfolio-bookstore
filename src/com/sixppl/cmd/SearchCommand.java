@@ -11,6 +11,7 @@ import com.sixppl.cmd.Command;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.ListingDAOImpl;
 import com.sixppl.dto.ListingDTO;
+import com.sixppl.main.Application;
 
 public class SearchCommand implements Command {
 	private int start;
@@ -20,15 +21,18 @@ public class SearchCommand implements Command {
 	private String nextParams;
 	private ArrayList<ListingDTO> items; 
 	private int page;
+	private ListingDAO listingDao;
 	
 	public SearchCommand(){
-		start = 1;
-		end = 10;
+		start = 0;
+		end = 0;
 		total = 0;
 		prevParams = null;
 		nextParams = null;
 		items = new ArrayList<ListingDTO>();
 		page = 0;
+		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
+
 	}
 
 	@Override
@@ -39,8 +43,7 @@ public class SearchCommand implements Command {
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
 			}
-			ListingDAO listing = new ListingDAOImpl();
-			ArrayList<ListingDTO> results = listing.emptySearch();
+			ArrayList<ListingDTO> results = listingDao.emptySearch();
 			setResultsAttribute(request,results);
 			
 		}
@@ -49,7 +52,6 @@ public class SearchCommand implements Command {
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
 			}
-			ListingDAO listing = new ListingDAOImpl();
 			ListingDTO pubKey = new ListingDTO();
 			String keyword = request.getParameter("keyword").toLowerCase().trim();
 			String type = request.getParameter("type").toLowerCase().trim();
@@ -73,7 +75,7 @@ public class SearchCommand implements Command {
 				System.out.println("Cannot Find Parmeters");
 				return;
 			}
-			ArrayList<ListingDTO> results = listing.Search(pubKey);
+			ArrayList<ListingDTO> results = listingDao.Search(pubKey);
 			setResultsAttribute(request,results);
 		}
 		else{
@@ -81,7 +83,6 @@ public class SearchCommand implements Command {
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
 			}
-			ListingDAO listing = new ListingDAOImpl();
 			ListingDTO pubKey = new ListingDTO();
 			pubKey.title = request.getParameter("title").trim();
 			String[] writers = request.getParameter("authors-and-editors").split(",");
@@ -99,7 +100,7 @@ public class SearchCommand implements Command {
 			}
 			pubKey.venue = request.getParameter("venue").trim();
 			
-			ArrayList<ListingDTO> results = listing.Search(pubKey);
+			ArrayList<ListingDTO> results = listingDao.Search(pubKey);
 			setResultsAttribute(request,results);
 			
 		}
@@ -107,6 +108,9 @@ public class SearchCommand implements Command {
 	}
 	
 	public void setResultsAttribute(HttpServletRequest request,ArrayList<ListingDTO> results){
+		if(results.size() <= 0){
+			return;
+		}
 		total = results.size();
 		start = page*10 + 1;
 		for(int i = start; results.get(i) != null && i <= start + 10; i++){

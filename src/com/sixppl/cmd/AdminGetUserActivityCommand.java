@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sixppl.dao.AdminUserActivityDAO;
 import com.sixppl.dao.UserDAO;
-import com.sixppl.dao.support.AdminUserActivityDAOImpl;
 import com.sixppl.dto.AdminCartDTO;
 import com.sixppl.dto.CustomerActivityDTO;
 import com.sixppl.dto.UserDTO;
@@ -18,8 +17,9 @@ import java.util.*;
 public class AdminGetUserActivityCommand implements Command{
 	private AdminUserActivityDAO admunUserActivityDao;
 	private UserDAO userDao;
+	
 	public AdminGetUserActivityCommand(){
-		admunUserActivityDao = new AdminUserActivityDAOImpl();
+		admunUserActivityDao = Application.getSharedInstance().getDAOFactory().getAdminUserActivityDAO();
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 	}
 

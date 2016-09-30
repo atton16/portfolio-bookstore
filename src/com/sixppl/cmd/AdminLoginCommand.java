@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.sixppl.dao.*;
-import com.sixppl.dao.support.*;
 import com.sixppl.dto.*;
 import com.sixppl.main.Application;
 public class AdminLoginCommand implements Command{
 	private UserDAO userDao;
+	private AdminLoginDAO adminLoginDao;
 	public AdminLoginCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		adminLoginDao = Application.getSharedInstance().getDAOFactory().getAdminLoginDAO();
 	}
 
 	@Override
@@ -23,7 +24,6 @@ public class AdminLoginCommand implements Command{
 		String UserName = request.getParameter("username");
 		String Password = request.getParameter("password");
 		AdminLoginDTO adminDto = new AdminLoginDTO();
-		AdminLoginDAO adminDao = new AdminLoginDAOImpl();
 		UserDTO user = userDao.findUserByName(UserName);
 		
 		if(user == null) {
@@ -37,14 +37,14 @@ public class AdminLoginCommand implements Command{
 			return;
 		}
 		
-		adminDto = adminDao.getAdmin(user.getUserID());
+		adminDto = adminLoginDao.getAdmin(user.getUserID());
 		
 		if(adminDto == null) {
 			request.setAttribute("error_msg", "Login failed");
 			return;
 		}
 		
-		Boolean success = adminDao.login(user.getUserID(),request.getSession().getId());
+		Boolean success = adminLoginDao.login(user.getUserID(),request.getSession().getId());
 		
 		if(!success) {
 			request.setAttribute("error_msg", "Login failed");

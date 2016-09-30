@@ -8,9 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.dao.CartDAO;
-import com.sixppl.dao.support.CartDAOImpl;
+import com.sixppl.main.Application;
 
 public class CartRemoveCommand implements Command {
+	private CartDAO cartDao;
+	
+	public CartRemoveCommand() {
+		cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,9 +30,8 @@ public class CartRemoveCommand implements Command {
 				e.printStackTrace();
 			}
 		}
-		CartDAO cart = new CartDAOImpl();
 		try{
-			cart.removeCart(userID,removedPub);
+			cartDao.removeCart(userID,removedPub);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -1,7 +1,6 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,17 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.dao.ListingDAO;
-import com.sixppl.dao.support.ListingDAOImpl;
+import com.sixppl.main.Application;
 
 public class YearListCommand implements Command {
+	private ListingDAO listingDao;
+	
+	public YearListCommand() {
+		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Integer> years_asc, years_desc;
 		years_desc = new LinkedList<Integer>();
-		ListingDAO dao = new ListingDAOImpl();
 		try{
-			years_asc = dao.getYearsAscending();
+			years_asc = listingDao.getYearsAscending();
 			years_desc.addAll(years_asc);
 			Collections.reverse(years_desc);
 		}catch(Exception e){

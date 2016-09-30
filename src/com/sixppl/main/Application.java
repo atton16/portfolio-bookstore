@@ -5,7 +5,6 @@ import javax.servlet.ServletContext;
 import com.sixppl.dao.DAOFactory;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.DAOSupport;
-import com.sixppl.dao.support.ListingDAOImpl;
 
 /**
  * Singleton Application
@@ -42,7 +41,7 @@ public class Application {
 	
 	public Integer getListingCount() {
 		Integer count = 0;
-		ListingDAO dao = new ListingDAOImpl();
+		ListingDAO dao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		try{
 			count = dao.getListingCount();
 		}catch(Exception e){
