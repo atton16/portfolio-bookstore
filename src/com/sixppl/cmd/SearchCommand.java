@@ -157,7 +157,10 @@ public class SearchCommand implements Command {
 			urlpath = "";
 		}
 		int i = -1,j = -1;
-		if(page == 1){
+		if(total <= 10 && page == 1){
+			
+		}
+		else if(page == 1){
 			i = page +1;
 		}
 		else if(page == (total%10 == 0?total/10:total/10+1)){
@@ -170,7 +173,11 @@ public class SearchCommand implements Command {
 		if(urlpath.contains("page")){
 			urlpath = urlpath.substring(0, urlpath.lastIndexOf("&"));
 		}
-		if(j == -1){
+		if(i == -1 && j == -1){
+			prevParams = null;
+			nextParams = null;
+		}
+		else if(j == -1){
 			prevParams = null;
 			nextParams = urlpath + "&page=" + i;
 		}
