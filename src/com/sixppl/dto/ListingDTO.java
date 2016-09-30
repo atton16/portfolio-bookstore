@@ -77,6 +77,11 @@ public class ListingDTO {
 		this.timestamp = timestamp;
 		this.date = new Date(timestamp);
 	}
+	
+	public void setPubID(int id){
+		this.pubID = id;
+	}
+	
 	public void setYearRange(int fromYear,int toYear){
 		this.fromYear = fromYear;
 		this.toYear = toYear;

@@ -3,6 +3,7 @@ package com.sixppl.main;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,7 +113,9 @@ public class Asst2Servlet extends HttpServlet {
 	    SEARCH_GRAPH,
 	    
 	    YEAR_LIST,
-	    USER_IS_BANNED
+	    USER_IS_BANNED, 
+	    CHECKOUT,
+	    PUB_DETAIL
 	}
 	
 	Map<COMMAND,Command> commands;
@@ -158,6 +161,10 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(COMMAND.SEARCH_GRAPH, new SearchGraphCommand());
 		commands.put(COMMAND.ADMIN_GET_PAGE_HIT, new AdminGetPageHitCommand());
 		commands.put(COMMAND.ADMIN_LOGOUT, new AdminLogoutCommand());
+		
+		commands.put(COMMAND.CHECKOUT, new CheckoutCommand());
+		
+		commands.put(COMMAND.PUB_DETAIL, new PubDetailCommand());
 		
 		commands.put(COMMAND.YEAR_LIST, new YearListCommand());
 
@@ -206,10 +213,12 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
 		// Render: Receipt Page
 		} else if(URI.equalsIgnoreCase("/receipt")){
+			request.setAttribute("items", new ArrayList<String>());
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Render: Publication Details
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
 			//TODO: Get publication info
+			commands.get(COMMAND.PUB_DETAIL).execute(request, response);
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){
@@ -349,6 +358,7 @@ public class Asst2Servlet extends HttpServlet {
 		// Checkout
 		} else if(URI.equalsIgnoreCase("/receipt")){
 			//TODO: Checkout
+			commands.get(COMMAND.CHECKOUT).execute(request,response);
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Login
 		} else if(URI.equalsIgnoreCase("/login")){
