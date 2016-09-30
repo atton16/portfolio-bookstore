@@ -13,7 +13,10 @@ public class SearchTermsCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> searchTerms = new ArrayList<String>();
-		for (String[] valueArray : request.getParameterMap().values()) {
+		for (String key: request.getParameterMap().keySet()) {
+			if(key.equalsIgnoreCase("page"))
+				continue;
+			String[] valueArray = request.getParameterMap().get(key);
 			for (String value : valueArray) {
 				searchTerms.add(value);
 			}

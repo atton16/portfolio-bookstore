@@ -61,7 +61,7 @@ public class AdminGetUserCommand implements Command {
 				page = Integer.parseInt(request.getParameter("page"));
 			} catch(Exception e) {}
 		}
-		while(page*10 > total) page--;	// Overflow protection
+		while(page*10 > (total + (10-total%10))) page--;	// Overflow protection
 		if(page < 1)
 			page = 1;
 		Integer start = page*10-10+1;
@@ -83,16 +83,15 @@ public class AdminGetUserCommand implements Command {
 
 		if(page > 1)
 			request.setAttribute("prevParams", queryString+"&page="+String.valueOf(page-1));
-		if(end < results.size())
+		if(end < total)
 			request.setAttribute("nextParams", queryString+"&page="+String.valueOf(page+1));
-		
+
+		results = results.subList(start-1, end);
 		for(UserDTO user: results) {
 			user.setIsBanned(adminUserBanDao.isBanned(user.getUserID()));
 			user.setIsAdmin(adminLoginDao.isAdmin(user.getUserID()));
 			user.setIsCustomer(adminUserDao.isCustomer(user.getUserID()));
 		}
-
-		results = results.subList(start-1, end);
 		request.setAttribute("items", results);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);

@@ -66,6 +66,8 @@ CREATE TABLE IF NOT EXISTS `Admin` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `Admin` (`UserID`, `Level`) VALUES (1, 99);
+
 -- --------------------------------------------------------
 
 --
@@ -1431,7 +1433,48 @@ CREATE TABLE IF NOT EXISTS `MostViewed` (
 --
 
 INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `Birthyear`, `Address`, `CardNumber`) VALUES
-(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', 1000, 'admin', '9999999999999999');
+(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', 1000, 'admin', '9999999999999999'),
+(2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'admin2', NULL, 1000, 'admin2', '9999999999999999', NULL),
+(3, 'admin3', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin3', 'admin3', 'admin3', 'admin3', NULL, 1000, 'admin3', '9999999999999999', NULL),
+(4, 'admin4', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin4', 'admin4', 'admin4', 'admin4', NULL, 1000, 'admin4', '9999999999999999', NULL),
+(5, 'admin5', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin5', 'admin5', 'admin5', 'admin5', NULL, 1000, 'admin5', '9999999999999999', NULL),
+(6, 'admin6', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin6', 'admin6', 'admin6', 'admin6', NULL, 1000, 'admin6', '9999999999999999', NULL),
+(7, 'admin7', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin7', 'admin7', 'admin7', 'admin7', NULL, 1000, 'admin7', '9999999999999999', NULL),
+(8, 'admin8', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin8', 'admin8', 'admin8', 'admin8', NULL, 1000, 'admin8', '9999999999999999', NULL),
+(9, 'admin9', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin9', 'admin9', 'admin9', 'admin9', NULL, 1000, 'admin9', '9999999999999999', NULL),
+(10, 'admin10', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin10', 'admin10', 'admin10', 'admin10', NULL, 1000, 'admin10', '9999999999999999', NULL),
+(11, 'admin11', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin11', 'admin11', 'admin11', 'admin11', NULL, 1000, 'admin11', '9999999999999999', NULL),
+(12, 'admin12', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin12', 'admin12', 'admin12', 'admin12', NULL, 1000, 'admin12', '9999999999999999', NULL),
+(13, 'admin13', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin13', 'admin13', 'admin13', 'admin13', NULL, 1000, 'admin13', '9999999999999999', NULL),
+(14, 'admin14', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin14', 'admin14', 'admin14', 'admin14', NULL, 1000, 'admin14', '9999999999999999', NULL),
+(15, 'admin15', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin15', 'admin15', 'admin15', 'admin15', NULL, 1000, 'admin15', '9999999999999999', NULL),
+(16, 'admin16', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin16', 'admin16', 'admin16', 'admin16', NULL, 1000, 'admin16', '9999999999999999', NULL),
+(17, 'admin17', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin17', 'admin17', 'admin17', 'admin17', NULL, 1000, 'admin17', '9999999999999999', NULL),
+(18, 'admin18', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin18', 'admin18', 'admin18', 'admin18', NULL, 1000, 'admin18', '9999999999999999', NULL),
+(19, 'admin19', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin19', 'admin19', 'admin19', 'admin19', NULL, 1000, 'admin19', '9999999999999999', NULL),
+(20, 'admin20', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin20', 'admin20', 'admin20', 'admin20', NULL, 1000, 'admin20', '9999999999999999', NULL),
+(21, 'admin21', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin21', 'admin21', 'admin21', 'admin21', NULL, 1000, 'admin21', '9999999999999999', NULL),
+(22, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', NULL, 1000, 'user', '9999999999999999', NULL),
+(23, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', NULL, 1000, 'user2', '9999999999999999', NULL),
+(24, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', NULL, 1000, 'user3', '9999999999999999', NULL),
+(25, 'user4', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user4', 'user4', 'user4', 'user4', NULL, 1000, 'user4', '9999999999999999', NULL),
+(26, 'user5', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user5', 'user5', 'user5', 'user5', NULL, 1000, 'user5', '9999999999999999', NULL),
+(27, 'user6', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user6', 'user6', 'user6', 'user6', NULL, 1000, 'user6', '9999999999999999', NULL),
+(28, 'user7', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user7', 'user7', 'user7', 'user7', NULL, 1000, 'user7', '9999999999999999', NULL),
+(29, 'user8', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user8', 'user8', 'user8', 'user8', NULL, 1000, 'user8', '9999999999999999', NULL),
+(30, 'user9', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user9', 'user9', 'user9', 'user9', NULL, 1000, 'user9', '9999999999999999', NULL),
+(31, 'user10', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user10', 'user10', 'user10', 'user10', NULL, 1000, 'user10', '9999999999999999', NULL),
+(32, 'user11', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user11', 'user11', 'user11', 'user11', NULL, 1000, 'user11', '9999999999999999', NULL),
+(33, 'user12', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user12', 'user12', 'user12', 'user12', NULL, 1000, 'user12', '9999999999999999', NULL),
+(34, 'user13', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user13', 'user13', 'user13', 'user13', NULL, 1000, 'user13', '9999999999999999', NULL),
+(35, 'user14', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user14', 'user14', 'user14', 'user14', NULL, 1000, 'user14', '9999999999999999', NULL),
+(36, 'user15', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user15', 'user15', 'user15', 'user15', NULL, 1000, 'user15', '9999999999999999', NULL),
+(37, 'user16', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user16', 'user16', 'user16', 'user16', NULL, 1000, 'user16', '9999999999999999', NULL),
+(38, 'user17', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user17', 'user17', 'user17', 'user17', NULL, 1000, 'user17', '9999999999999999', NULL),
+(39, 'user18', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user18', 'user18', 'user18', 'user18', NULL, 1000, 'user18', '9999999999999999', NULL),
+(40, 'user19', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user19', 'user19', 'user19', 'user19', NULL, 1000, 'user19', '9999999999999999', NULL),
+(41, 'user20', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user20', 'user20', 'user20', 'user20', NULL, 1000, 'user20', '9999999999999999', NULL),
+(42, 'user21', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user21', 'user21', 'user21', 'user21', NULL, 1000, 'user21', '9999999999999999', NULL);
 
 -- --------------------------------------------------------
 
