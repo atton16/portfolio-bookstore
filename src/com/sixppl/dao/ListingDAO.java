@@ -15,4 +15,5 @@ public interface ListingDAO {
 	public Integer getListingCount();
 	public List<Integer> getYearsAscending();
 	public List<Integer> getYearsDescending();
+	public int getTotal();
 }
