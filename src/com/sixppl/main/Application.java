@@ -1,5 +1,6 @@
 package com.sixppl.main;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -9,14 +10,20 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.taglibs.standard.lang.jstl.Logger;
-import org.apache.tomcat.jni.Lock;
-
+import com.sixppl.cmd.EmbedAdminCommand;
+import com.sixppl.cmd.EmbedCartCommand;
+import com.sixppl.cmd.EmbedUserCommand;
+import com.sixppl.cmd.UserIsBannedCommand;
 import com.sixppl.dao.DAOFactory;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.DAOSupport;
 import com.sixppl.dto.ListingDTO;
+import com.sixppl.main.Asst2Servlet.COMMAND;
 
 /**
  * Singleton Application
@@ -32,6 +39,8 @@ public class Application {
 	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	public static final String UPLOADS_PATH = "/Users/atton16/Documents/cs9321/workspace/asst2/WebContent/uploads/";
+	private static final String TITLE_ATTRIBUTE = "title";
+	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static Application app;
 	private ServletContext servletContext;
 	private DAOFactory daoFactory;
@@ -93,7 +102,7 @@ public class Application {
 		return count;
 	}
 	
-	public List<ListingDTO> getRandomPubs() {
+	public List<ListingDTO> getRandomPubs(String sessionId) {
 		List<ListingDTO> results = new ArrayList<ListingDTO>();
 		ListingDAO dao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		Integer count = getListingCount();
@@ -102,7 +111,7 @@ public class Application {
 			limit = count;
 		
 		while(results.size() < limit) {
-			List<ListingDTO> pubs = dao.getRandomPub();
+			List<ListingDTO> pubs = dao.getRandomPub(sessionId);
 			for(ListingDTO pub: pubs) {
 				Boolean contain = false;
 				for(ListingDTO item: results) {
@@ -116,6 +125,21 @@ public class Application {
 			}
 		}
 		return results;
+	}
+	
+	public void embedDefaults(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute(TITLE_ATTRIBUTE, Application.getSharedInstance().getTitle());
+		request.setAttribute(CONTEXTPATH_ATTRIBUTE, servletContext.getContextPath());
+		try {
+			new EmbedAdminCommand().execute(request,response);
+			new EmbedUserCommand().execute(request,response);
+			new EmbedCartCommand().execute(request,response);
+			new UserIsBannedCommand().execute(request,response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public DAOFactory getDAOFactory() {

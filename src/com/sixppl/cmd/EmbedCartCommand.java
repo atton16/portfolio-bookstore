@@ -6,16 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sixppl.bean.CartBean;
 import com.sixppl.dao.CartDAO;
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.main.Application;
 
-public class CartAddCommand implements Command {
+public class EmbedCartCommand implements Command {
 	private CartDAO cartDao;
 	private SessionDAO sessionDao;
 	
-	public CartAddCommand() {
+	public EmbedCartCommand() {
 		cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
 		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 	}
@@ -25,16 +26,13 @@ public class CartAddCommand implements Command {
 		SessionDTO sessionDTO = new SessionDTO();
 		sessionDTO.setSessionID(request.getSession().getId());
 		int userID = sessionDao.finduserIDbySession(sessionDTO);
-		int pubID = Integer.valueOf(request.getParameter("id"));
-		int cartCount = 0;
+		CartBean cartBean = new CartBean();
 		try{
-			cartCount = cartDao.addCart(pubID,userID);
+			cartBean.setCartList(cartDao.viewCart(userID));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		request.setAttribute("cartCount", cartCount);
+		request.getSession().setAttribute("cart", cartBean.getCartList());
 	}
 
 }
- 

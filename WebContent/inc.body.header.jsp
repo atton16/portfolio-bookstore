@@ -68,14 +68,9 @@
 					<!-- Shopping cart button -->
 					<a href="${contextPath}/cart" class="margin-left-8 white-color" id="shopping-cart">
 						<span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
-	
-<!-- TODO: Number of items in the cart
- -->					
-<%--
  						<jstl:if test="${sessionScope.cart != null}">
 							<jstl:if test="${sessionScope.cart.size() > 0}"> (${sessionScope.cart.size()})</jstl:if>
 						</jstl:if>
---%>
 					</a>
 					<span class="white-color margin-left-8">|</span>
 					<!-- Sell button -->

@@ -27,29 +27,38 @@ public class SessionDAOImpl implements SessionDAO {
 	public  boolean addSession(SessionDTO session) {
 		boolean flag = true;
 
-		String sql = "INSERT INTO `LoginSessions`(`UserID`, `JSESSIONID`) VALUES (?,?)";
+		String sql = "UPDATE `LoginSessions` SET (`UserID`) VALUES (?) WHERE `JSESSIONID` = ?";
 		PreparedStatement stmt = null;
 		try {
-			System.out.println("test the null pointer");
 			stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, session.getUserID());
 			stmt.setString(2, session.getSessionID());
-			
-			int i = stmt.executeUpdate();
+			try{
+				stmt.executeUpdate();
+				stmt.close();
+			} catch (SQLException e) {
+				sql = "INSERT INTO `LoginSessions`(`UserID`, `JSESSIONID`) VALUES (?,?)";
+				stmt = connection.prepareStatement(sql);
+				stmt.setInt(1, session.getUserID());
+				stmt.setString(2, session.getSessionID());
+				int i = stmt.executeUpdate();
 				if(i==0){
 					return false;
-					}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					
-					e.printStackTrace();
 				}
 			}
-			return flag;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(stmt!=null)
+					stmt.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+		}
+		return flag;
 	}
 	public  boolean delSession(SessionDTO session) {
 		boolean flag = true;
@@ -59,26 +68,26 @@ public class SessionDAOImpl implements SessionDAO {
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, session.getSessionID());
-			
+
 			int i = stmt.executeUpdate();
-				if(i==0){
-					return false;
-					}
+			if(i==0){
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				stmt.close();
 			} catch (SQLException e) {
+
 				e.printStackTrace();
-			}finally{
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					
-					e.printStackTrace();
-				}
 			}
-			return flag;
-			}
+		}
+		return flag;
+	}
 	public  int finduserIDbySession(SessionDTO session){
 		String sql = String.format("SELECT * from `LoginSessions` where `JSESSIONID`=?");
-		
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
@@ -91,7 +100,7 @@ public class SessionDAOImpl implements SessionDAO {
 				int userid = Integer.parseInt(rs.getString("UserID"));
 				userIds.add(userid);
 			}
-			
+
 			if(userIds != null && !userIds.isEmpty()){
 				rs.close();
 				stmt.close();
@@ -101,13 +110,13 @@ public class SessionDAOImpl implements SessionDAO {
 			e.printStackTrace();
 		}
 		return -1;
-		
+
 	}
 
 	@Override
 	public int findAdminUserIDbySession(SessionDTO session) {
 		String sql = String.format("SELECT * from `AdminLoginSessions` where `JSESSIONID`=?");
-		
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
@@ -120,7 +129,7 @@ public class SessionDAOImpl implements SessionDAO {
 				int userid = Integer.parseInt(rs.getString("UserID"));
 				userIds.add(userid);
 			}
-			
+
 			if(userIds != null && !userIds.isEmpty()){
 				rs.close();
 				stmt.close();

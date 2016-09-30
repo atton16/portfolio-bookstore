@@ -1,20 +1,18 @@
 package com.sixppl.dao.support;
 
-import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-
+import com.sixppl.dao.CartDAO;
 import com.sixppl.dao.ListingDAO;
+import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.main.Application;
 
-//import sun.nio.cs.StandardCharsets;
-
 import com.sixppl.dto.ListingDTO;
+import com.sixppl.dto.SessionDTO;
 
 public class ListingDAOImpl implements ListingDAO {
 
@@ -55,9 +53,14 @@ public class ListingDAOImpl implements ListingDAO {
 		return total;
 	}
 	
-	public ArrayList<ListingDTO> emptySearch(){
+	public ArrayList<ListingDTO> emptySearch(String sessionId){
 		
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
+		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(sessionId);
+		int userID = sessionDao.finduserIDbySession(sessionDTO);
 		PreparedStatement stmt = null;
 		String sql = "SELECT * FROM Listing LEFT JOIN User ON Listing.SellerID=User.UserID";
 		try {
@@ -70,7 +73,7 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
-				
+				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
 				results.add(pub);
 			}
 			//STEP 6: Clean-up environment
@@ -95,9 +98,13 @@ public class ListingDAOImpl implements ListingDAO {
 	}
 
 	@Override
-	public ArrayList<ListingDTO> Search(ListingDTO pubKey) {
-		// TODO Auto-generated method stub
+	public ArrayList<ListingDTO> Search(ListingDTO pubKey, String sessionId) {
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
+		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(sessionId);
+		int userID = sessionDao.finduserIDbySession(sessionDTO);
 		PreparedStatement stmt = null;
 		String sql = "SELECT * FROM Listing LEFT JOIN User ON Listing.SellerID=User.UserID";
 		try {
@@ -110,6 +117,7 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
+				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
 				if(pub.similar(pubKey)){
 					System.out.println("found");
 					results.add(pub);
@@ -353,9 +361,15 @@ public class ListingDAOImpl implements ListingDAO {
 	}
 
 	@Override
-	public List<ListingDTO> getRandomPub() {
+	public List<ListingDTO> getRandomPub(String sessionId) {
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
 		UserDAO userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(sessionId);
+		int userID = sessionDao.finduserIDbySession(sessionDTO);
+		
 		PreparedStatement stmt = null;
 		String sql = "SELECT * FROM Listing AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(PubID) FROM Listing)) AS PubID) AS r2 WHERE r1.PubID >= r2.PubID ORDER BY r1.PubID ASC LIMIT 1";
 		try {
@@ -368,6 +382,7 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(userDao.findUserByUserID(rs.getInt("SellerID")).getNickname());
+				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
 				results.add(pub);
 			}
 			//STEP 6: Clean-up environment

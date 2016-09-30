@@ -69,14 +69,9 @@ import com.sixppl.main.Application;
 		}, loadOnStartup = 0)
 public class Asst2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String TITLE_ATTRIBUTE = "title";
-	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	
 	public enum COMMAND {
 	    SEARCHTERMS,
-	    
-	    EMBED_USER,
-	    EMBED_ADMIN,
 	    
 	    CART_VIEW,
 	    CART_ADD,
@@ -126,9 +121,6 @@ public class Asst2Servlet extends HttpServlet {
     	Application.getSharedInstance().init(this.getServletContext());
     	
     	commands = new HashMap<COMMAND,Command>();
-    	
-		commands.put(COMMAND.EMBED_ADMIN, new EmbedAdminCommand());
-		commands.put(COMMAND.EMBED_USER, new EmbedUserCommand());
 		
 		commands.put(COMMAND.SEARCHTERMS, new SearchTermsCommand());
 		
@@ -176,11 +168,6 @@ public class Asst2Servlet extends HttpServlet {
     	Application.getSharedInstance().destroy();
     }
     
-    private void embedAttributes(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute(TITLE_ATTRIBUTE, Application.getSharedInstance().getTitle());
-		request.setAttribute(CONTEXTPATH_ATTRIBUTE, this.getServletContext().getContextPath());
-    }
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String contextPath;
 		String fullURI;
@@ -192,10 +179,7 @@ public class Asst2Servlet extends HttpServlet {
 		URI = fullURI.substring(contextPath.length());
 		
 		// Embed default JSP attributes to every page
-		embedAttributes(request, response);
-		commands.get(COMMAND.EMBED_ADMIN).execute(request,response);
-		commands.get(COMMAND.EMBED_USER).execute(request,response);
-		commands.get(COMMAND.USER_IS_BANNED).execute(request,response);
+		Application.getSharedInstance().embedDefaults(request, response);
 		
 		// GET Actions
 		// Render: Search Page
@@ -210,7 +194,6 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
 		} else if(URI.equalsIgnoreCase("/cart")){
-			//TODO: Get cart
 			commands.get(COMMAND.CART_VIEW).execute(request, response);
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
 		// Render: Receipt Page
@@ -341,26 +324,22 @@ public class Asst2Servlet extends HttpServlet {
 		URI = fullURI.substring(contextPath.length());
 		
 		// Embed default JSP attributes to every page
-		embedAttributes(request, response);
+		Application.getSharedInstance().embedDefaults(request, response);
 		
 		// POST Actions
 		// Remove item(s) from cart
 		if(URI.equalsIgnoreCase("/cart/remove")){
-			//TODO: Remove from cart
 			commands.get(COMMAND.CART_REMOVE).execute(request, response);
-			request.getRequestDispatcher("/cart").forward(request,response);
+			response.sendRedirect(contextPath+"/cart");
 		// Add item to cart
 		} else if(URI.equalsIgnoreCase("/rest/cart/add")){
-			//TODO: Add item to cart
 			commands.get(COMMAND.CART_ADD).execute(request, response);
-			
 	    	response.setStatus(HttpServletResponse.SC_OK);
-	    	response.getWriter().write(String.valueOf(new java.util.Random().nextInt(2))); // TODO: Return number of item in the cart
+	    	response.getWriter().write(String.valueOf(request.getAttribute("cartCount")));
 	    	response.getWriter().flush();
 	    	response.getWriter().close();
 		// Checkout
 		} else if(URI.equalsIgnoreCase("/receipt")){
-			//TODO: Checkout
 			commands.get(COMMAND.CHECKOUT).execute(request,response);
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Login
@@ -370,7 +349,7 @@ public class Asst2Servlet extends HttpServlet {
 				response.sendRedirect(contextPath);
 			else
 				request.getRequestDispatcher("/login.jsp").forward(request,response);
-		    // Register
+	    // Register
 		} else if(URI.equalsIgnoreCase("/signup")){
 			commands.get(COMMAND.USER_REG).execute(request, response);
 		    request.getRequestDispatcher("/signup.jsp").forward(request,response);
@@ -388,14 +367,12 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/list")){
-			//TODO: Set Listing
 			System.out.println("List:"+request.getParameter("id"));	//TODO: remove this
 			commands.get(COMMAND.LIST).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Set Unlist
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/unlist")){
-			//TODO: Set Unlist
 			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
 			commands.get(COMMAND.UNLIST).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200

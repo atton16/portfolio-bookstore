@@ -1,17 +1,9 @@
 package com.sixppl.dto;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-
-import javax.servlet.http.Part;
-import javax.swing.JSpinner.DateEditor;
-
-import org.apache.commons.io.IOUtils;
 
 public class ListingDTO {
 
@@ -33,6 +25,7 @@ public class ListingDTO {
 	public Timestamp timestamp;
 	public Date date;
 	public String sellerNickname;
+	public Boolean inCart;
 	
 	public ListingDTO(){
 		this.pubID = 0;
@@ -53,6 +46,7 @@ public class ListingDTO {
 		this.fromYear = 0;
 		this.toYear = 9999;
 		this.sellerNickname = "";
+		this.inCart = false;
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
@@ -88,6 +82,10 @@ public class ListingDTO {
 	
 	public void setSellerNickname(String name) {
 		this.sellerNickname = name;
+	}
+	
+	public void setInCart(Boolean flag) {
+		this.inCart = flag;
 	}
 	
 	public void setPubID(int id){
@@ -202,6 +200,10 @@ public class ListingDTO {
 	
 	public String getSellerNickname() {
 		return this.sellerNickname;
+	}
+	
+	public Boolean isInCart() {
+		return this.inCart;
 	}
 	
 }

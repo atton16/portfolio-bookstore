@@ -101,7 +101,7 @@
 								<p>Image</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="file" class="form-control" name="pic" />
+								<input type="file" accept="image/jpg, image/jpeg" class="form-control" name="pic" />
 							</div>
 						</div>
 						<div class="row">

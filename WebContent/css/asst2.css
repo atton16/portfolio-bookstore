@@ -186,6 +186,11 @@
 	text-decoration: none !important;
 }
 
+.link-as-danger-text, link-as-danger-text:hover {
+	color: red !important;
+	text-decoration: none !important;
+}
+
 .center-text {
 	text-align: center;
 }

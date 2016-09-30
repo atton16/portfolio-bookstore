@@ -47,7 +47,7 @@ public class SearchCommand implements Command {
 				page = Integer.valueOf(request.getParameter("page"));
 				System.out.println("page parameter found");
 			}
-			ArrayList<ListingDTO> results = listingDao.emptySearch();
+			ArrayList<ListingDTO> results = listingDao.emptySearch(request.getSession().getId());
 			System.out.println("Item found = " + results.size());
 			setResultsAttribute(request,results);
 			
@@ -85,7 +85,7 @@ public class SearchCommand implements Command {
 				System.out.println("Cannot Find Parmeters");
 				return;
 			}
-			ArrayList<ListingDTO> results = listingDao.Search(pubKey);
+			ArrayList<ListingDTO> results = listingDao.Search(pubKey, request.getSession().getId());
 			setResultsAttribute(request,results);
 		}
 		else{
@@ -111,7 +111,7 @@ public class SearchCommand implements Command {
 			}
 			pubKey.venue = request.getParameter("venue").trim();
 			
-			ArrayList<ListingDTO> results = listingDao.Search(pubKey);
+			ArrayList<ListingDTO> results = listingDao.Search(pubKey, request.getSession().getId());
 			setResultsAttribute(request,results);
 			
 		}
