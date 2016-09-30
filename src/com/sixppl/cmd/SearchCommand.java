@@ -37,13 +37,17 @@ public class SearchCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("SearchCommand EXECUTED");
 		// TODO Auto-generated method stub
 		if(request.getParameterMap() == null || request.getParameterMap().size() <= 1){
+			System.out.println("Empty Search Executed");
 			// Empty Search
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
+				System.out.println("page parameter found");
 			}
 			ArrayList<ListingDTO> results = listingDao.emptySearch();
+			System.out.println("Item found = " + results.size());
 			setResultsAttribute(request,results);
 			
 		}
@@ -109,6 +113,12 @@ public class SearchCommand implements Command {
 	
 	public void setResultsAttribute(HttpServletRequest request,ArrayList<ListingDTO> results){
 		if(results.size() <= 0){
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
+			request.setAttribute("total", total);
+			request.setAttribute("prevParams", prevParams);
+			request.setAttribute("nextParams", nextParams);
+			request.setAttribute("items", items);
 			return;
 		}
 		total = results.size();

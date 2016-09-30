@@ -1,16 +1,12 @@
 package com.sixppl.cmd;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.catalina.core.ApplicationPart;
 
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dto.ListingDTO;
@@ -51,7 +47,18 @@ public class SellCommand implements Command {
 		
 		
 		Part filePart = request.getPart("pic");
-		InputStream picture = filePart.getInputStream();
+		InputStream inputStream = filePart.getInputStream();
+		OutputStream outputStream = new FileOutputStream(new File("/WebContent/uploads/pic"+listingDao.getTotal()+".jpg"));
+
+		int read = 0;
+		byte[] bytes = new byte[1024];
+		while ((read = inputStream.read(bytes)) != -1) {
+			outputStream.write(bytes, 0, read);
+		}
+		outputStream.flush();
+		outputStream.close();
+		
+		String picture  = "/WebContent/uploads/pic"+listingDao.getTotal()+".jpg";
 		pubSell.picture = picture;
 		
 		pubSell.price = Integer.valueOf(request.getParameter("price"));

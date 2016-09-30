@@ -22,7 +22,7 @@ public class ListingDTO {
 	public int toYear;
 	public String venue;
 	public int sellerID;
-	public InputStream picture;
+	public String picture;
 	public int price;
 	public boolean status;
 	public int soldCount;
@@ -39,7 +39,7 @@ public class ListingDTO {
 		this.year = 0;
 		this.venue = "";
 		this.sellerID = 0;
-		this.picture = null;
+		this.picture = "";
 		this.price = 0;
 		this.status = false;
 		this.soldCount = 0;
@@ -50,7 +50,7 @@ public class ListingDTO {
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
-			int year,String venue,int sellerID,String l,int price,boolean status,
+			int year,String venue,int sellerID,String picture,int price,boolean status,
 			int soldCount,long timestamp) throws Exception{
 		this.pubID = pubID;
 		this.title = title;
@@ -71,9 +71,7 @@ public class ListingDTO {
 		this.year = year;
 		this.venue = venue;
 		this.sellerID = sellerID;
-		String source = l;
-		InputStream in = IOUtils.toInputStream(source, "UTF-8");
-		this.picture = in;
+		this.picture = picture;
 		this.price = price;
 		this.status = status;
 		this.timestamp = timestamp;
@@ -110,7 +108,7 @@ public class ListingDTO {
 	public String getVenue(){
 		return venue;
 	}
-	public InputStream getPicture(){
+	public String getPicture(){
 		return picture;
 	}
 	public int getSellerID(){
