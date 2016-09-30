@@ -96,7 +96,7 @@
         forceLocked: false,
 	// basic data stats
         showStats: true,
-        nodeStats: true,
+        nodeStats: false,
 	// show dashboard menu
         showControlDash: true,
         zoomControls: true,
