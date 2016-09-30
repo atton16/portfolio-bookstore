@@ -1319,8 +1319,8 @@ CREATE TABLE IF NOT EXISTS `graphoutput` (
 CREATE TABLE IF NOT EXISTS `Listing` (
   `PubID` bigint(20) unsigned NOT NULL,
   `Title` tinytext NOT NULL,
-  `Authors` text,
-  `Editors` text,
+  `Authors` text NOT NULL,
+  `Editors` text NOT NULL,
   `Type` tinytext NOT NULL,
   `Year` smallint(6) unsigned NOT NULL,
   `Venue` tinytext,
