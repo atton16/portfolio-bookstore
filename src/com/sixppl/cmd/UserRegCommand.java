@@ -1,6 +1,7 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.UUID;
@@ -170,11 +171,16 @@ public class UserRegCommand implements Command {
 		String URI = fullURI.substring(contextPath.length());
 		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 	
-		
+		String ip = request.getRemoteAddr();
+		if (ip.equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
+		    InetAddress inetAddress = InetAddress.getLocalHost();
+		    String ipAddress = inetAddress.getHostAddress();
+		    ip = ipAddress;
+		}
 		//System.out.println("the ip  is"+ip);
 		HttpServletRequest httpRequest=(HttpServletRequest)request;  
         
-		String strBackUrl = "http://" + request.getServerName() //服务器地址  
+		String strBackUrl = "http://" + ip //服务器地址  
 		                    + ":"   
 		                    + request.getServerPort()           //端口号  
 		                    + httpRequest.getContextPath()      //项目名称  
