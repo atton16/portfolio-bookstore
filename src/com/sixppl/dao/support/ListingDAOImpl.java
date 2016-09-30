@@ -58,7 +58,7 @@ public class ListingDAOImpl implements ListingDAO {
 		
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
 		PreparedStatement stmt = null;
-		String sql = "SELECT * FROM Listing;";
+		String sql = "SELECT * FROM Listing LEFT JOIN User ON Listing.SellerID=User.UserID";
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -67,7 +67,8 @@ public class ListingDAOImpl implements ListingDAO {
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
-						rs.getInt("SoldCount"), rs.getLong("timestamp"));
+						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
+				pub.setSellerNickname(rs.getString("Nickname"));
 				
 				results.add(pub);
 			}
@@ -97,7 +98,7 @@ public class ListingDAOImpl implements ListingDAO {
 		// TODO Auto-generated method stub
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
 		PreparedStatement stmt = null;
-		String sql = "SELECT * FROM Listing;";
+		String sql = "SELECT * FROM Listing LEFT JOIN User ON Listing.SellerID=User.UserID";
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -106,7 +107,8 @@ public class ListingDAOImpl implements ListingDAO {
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
-						rs.getInt("SoldCount"), rs.getLong("timestamp"));
+						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
+				pub.setSellerNickname(rs.getString("Nickname"));
 				if(pub.similar(pubKey)){
 					System.out.println("found");
 					results.add(pub);

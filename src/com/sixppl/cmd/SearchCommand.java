@@ -38,6 +38,7 @@ public class SearchCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("SearchCommand EXECUTED");
+		items = new ArrayList<ListingDTO>();
 		// TODO Auto-generated method stub
 		if(request.getParameterMap() == null || request.getParameterMap().size() <= 1){
 			System.out.println("Empty Search Executed");

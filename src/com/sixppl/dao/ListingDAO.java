@@ -16,4 +16,5 @@ public interface ListingDAO {
 	public List<Integer> getYearsAscending();
 	public List<Integer> getYearsDescending();
 	public int getTotal();
+	public List<ListingDTO> getRandomPubs(int limit);
 }

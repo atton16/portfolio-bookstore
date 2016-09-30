@@ -2,10 +2,14 @@ package com.sixppl.dto;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.Part;
+import javax.swing.JSpinner.DateEditor;
 
 import org.apache.commons.io.IOUtils;
 
@@ -26,8 +30,9 @@ public class ListingDTO {
 	public int price;
 	public boolean status;
 	public int soldCount;
-	public long timestamp;
+	public Timestamp timestamp;
 	public Date date;
+	public String sellerNickname;
 	
 	public ListingDTO(){
 		this.pubID = 0;
@@ -43,24 +48,27 @@ public class ListingDTO {
 		this.price = 0;
 		this.status = false;
 		this.soldCount = 0;
-		this.timestamp = 0;
-		this.date = new Date(timestamp);
+		this.timestamp = null;
+		this.date = timestamp;
 		this.fromYear = 0;
 		this.toYear = 9999;
+		this.sellerNickname = "";
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
 			int year,String venue,int sellerID,String picture,int price,boolean status,
-			int soldCount,long timestamp) throws Exception{
+			int soldCount,Timestamp timestamp) throws Exception{
 		this.pubID = pubID;
 		this.title = title;
 		String[] authors_buf = authors.split(",");
 		for(String author:authors_buf){
-			this.authors.add(author.trim());
+			if(author.trim().length() > 0)
+				this.authors.add(author.trim());
 		}
 		String[] editors_buf = editors.split(",");
 		for(String editor:editors_buf){
-			this.editors.add(editor.trim());
+			if(editor.trim().length() > 0)
+				this.editors.add(editor.trim());
 		}
 		writers = this.authors;
 		for(String editor: this.editors){
@@ -75,7 +83,11 @@ public class ListingDTO {
 		this.price = price;
 		this.status = status;
 		this.timestamp = timestamp;
-		this.date = new Date(timestamp);
+		this.date = timestamp;
+	}
+	
+	public void setSellerNickname(String name) {
+		this.sellerNickname = name;
 	}
 	
 	public void setPubID(int id){
@@ -99,6 +111,7 @@ public class ListingDTO {
 		return editors;
 	}
 	public ArrayList<String> getWriters(){
+		System.out.println(writers);
 		return writers;
 	}
 	public String getType(){
@@ -125,11 +138,14 @@ public class ListingDTO {
 	public boolean getStatus(){
 		return status;
 	}
-	public long getTimestamp(){
+	public Timestamp getTimestamp(){
 		return timestamp;
 	}
 	public Date getDate(){
 		return date;
+	}
+	public String getTimestampString(){
+		return new SimpleDateFormat("dd/MM/yy").format(timestamp);
 	}
 	
 	public boolean similar(ListingDTO pubKey){
@@ -176,6 +192,10 @@ public class ListingDTO {
 			return false;
 		}
 		return true;
+	}
+	
+	public String getSellerNickname() {
+		return this.sellerNickname;
 	}
 	
 }
