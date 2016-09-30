@@ -111,7 +111,6 @@ public class ListingDTO {
 		return editors;
 	}
 	public ArrayList<String> getWriters(){
-		System.out.println(writers);
 		return writers;
 	}
 	public String getType(){

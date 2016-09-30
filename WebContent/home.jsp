@@ -24,6 +24,12 @@
 	<!-- Random Pick Contents: One item per row -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<jstl:if test="${items.isEmpty()}">
+				<center><h3>
+				The store has no publication listed <br/>
+				for sell at the moment.
+				</h3></center>
+			</jstl:if>
 			<jstl:forEach var="item" items="${items}">
 			<!-- Item # -->
 				<div class="panel panel-default">
