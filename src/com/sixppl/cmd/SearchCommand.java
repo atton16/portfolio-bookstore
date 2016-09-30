@@ -174,21 +174,24 @@ public class SearchCommand implements Command {
 		if(urlpath.contains("page")){
 			urlpath = urlpath.substring(0, urlpath.lastIndexOf("&"));
 		}
+		if(request.getParameterMap().size() != 0){
+			urlpath = urlpath + "&";
+		}
 		if(i == -1 && j == -1){
 			prevParams = null;
 			nextParams = null;
 		}
 		else if(j == -1){
 			prevParams = null;
-			nextParams = urlpath + "&page=" + i;
+			nextParams = urlpath + "page=" + i;
 		}
 		else if(i == -1){
 			nextParams = null;
-			prevParams = urlpath + "&page=" + j;
+			prevParams = urlpath + "page=" + j;
 		}
 		else if(i != -1 && j != -1){
-			prevParams = urlpath + "&page=" + j;
-			nextParams = urlpath + "&page=" + i;
+			prevParams = urlpath + "page=" + j;
+			nextParams = urlpath + "page=" + i;
 		}
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
