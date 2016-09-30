@@ -165,8 +165,21 @@ public class UserRegCommand implements Command {
 
 		String to = request.getParameter("email");
 		String from = "asst2unsw@gmail.com";
-
-		String contextPath = request.getContextPath();
+		
+		String Judge_env = Application.getSharedInstance().getEnvironment();
+		
+		if (Judge_env =="DEVELOPMENT"){
+			String contextPath = request.getContextPath();
+			String fullURI = request.getRequestURI();
+			String URI = fullURI.substring(contextPath.length());
+			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+			System.out.println("the full path is"+full_path);
+			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+			request.setAttribute("email", to);
+			request.setAttribute("error", false);
+		}
+		else
+		{	String contextPath = request.getContextPath();
 		String fullURI = request.getRequestURI();
 		String URI = fullURI.substring(contextPath.length());
 		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
@@ -190,7 +203,8 @@ public class UserRegCommand implements Command {
 		System.out.println("the full path is"+full_path);
 		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
 		request.setAttribute("email", to);
-		request.setAttribute("error", false);
+		request.setAttribute("error", false);}
+	
 
 
 	}
