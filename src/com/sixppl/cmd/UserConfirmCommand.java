@@ -17,6 +17,7 @@ public class UserConfirmCommand implements Command {
 	public UserConfirmCommand() {
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 	}
+	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDTO user = new UserDTO();
 		System.out.println(request.getParameter("token"));

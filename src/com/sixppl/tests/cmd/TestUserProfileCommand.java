@@ -35,7 +35,6 @@ public class TestUserProfileCommand {
 		inputMap.put("email", new String[]{"yun.zhang@data61.csiro.au"});
 		inputMap.put("address", new String[]{"wollicreek"});
 		inputMap.put("ccn", new String[]{"1234567"});
-		
 
 		// The actual test
 		System.out.println("start !!");
