@@ -1,7 +1,6 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -43,10 +42,8 @@ public class UserRegCommand implements Command {
 	}
 
 	@Override
-	/* This method is for user registration */
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		UserDTO user = new UserDTO();
 		String username, password, email, addr, cardno;
 		Integer yob;

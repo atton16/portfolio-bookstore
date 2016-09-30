@@ -13,7 +13,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.sixppl.cmd.EmbedAdminCommand;
 import com.sixppl.cmd.EmbedCartCommand;
@@ -23,7 +22,6 @@ import com.sixppl.dao.DAOFactory;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.DAOSupport;
 import com.sixppl.dto.ListingDTO;
-import com.sixppl.main.Asst2Servlet.COMMAND;
 
 /**
  * Singleton Application

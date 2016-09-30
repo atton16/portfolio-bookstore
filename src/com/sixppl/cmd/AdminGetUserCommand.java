@@ -33,39 +33,40 @@ public class AdminGetUserCommand implements Command {
 		if(type == null){
 			return;
 		}
+		
+		if(type.equals("Nick Name")){
+			results=adminUserDao.findByNickname(keyword);
+		}
+		else if(type.equals("First Name")){
+			results=adminUserDao.findByFirstname(keyword);
+		}
+		else if(type.equals("Last Name")){
+			results=adminUserDao.findByLastname(keyword);
+		}
+		else if(type.equals("Email")){
+			results=adminUserDao.findByEmail(keyword);
+		}
+		else if(type.equals("All Customers")){
+			results=adminUserDao.findAllCustomers();
+		}
+		else if(type.equals("All Sellers")){
+			results=adminUserDao.findAllSellers();
+		}
+
 
 		Integer page = 1;
+		Integer total = results.size();
 		if(request.getParameter("page") != null){
 			try {
 				page = Integer.parseInt(request.getParameter("page"));
 			} catch(Exception e) {}
 		}
-		//while(page*10 > results.size()) page--;	// Overflow protection
+		while(page*10 > total) page--;	// Overflow protection
 		if(page < 1)
 			page = 1;
 		Integer start = page*10-10+1;
 		Integer end = page*10;
-		
-		if(type.equals("Nickname")){
-			results=adminUserDao.findByNickname(keyword, start-1, 10);
-		}
-		else if(type.equals("Firstname")){
-			results=adminUserDao.findByFirstname(keyword, start-1, 10);
-		}
-		else if(type.equals("Lastname")){
-			results=adminUserDao.findByLastname(keyword, start-1, 10);
-		}
-		else if(type.equals("Email")){
-			results=adminUserDao.findByEmail(keyword, start-1, 10);
-		}
-		else if(type.equals("All Customers")){
-			results=adminUserDao.findAllCustomers(start-1, 10);
-		}
-		else if(type.equals("All Sellers")){
-			results=adminUserDao.findAllSellers(start-1, 10);
-		}
-		
-		end = end > results.size() ? results.size() : end;
+		end = end > total ? total : end;
 		
 		String queryString = "";
 		
@@ -79,8 +80,7 @@ public class AdminGetUserCommand implements Command {
 			if(queryString.length() > 0)
 				queryString = queryString.substring(0, queryString.length()-1);
 		}
-		
-		request.setAttribute("items", results);
+
 		if(page > 1)
 			request.setAttribute("prevParams", queryString+"&page="+String.valueOf(page-1));
 		if(end < results.size())
@@ -89,12 +89,14 @@ public class AdminGetUserCommand implements Command {
 		for(UserDTO user: results) {
 			user.setIsBanned(adminUserBanDao.isBanned(user.getUserID()));
 			user.setIsAdmin(adminLoginDao.isAdmin(user.getUserID()));
-			user.setIsCustomer(true);	//TODO: IMPLEMENT THIS
+			user.setIsCustomer(adminUserDao.isCustomer(user.getUserID()));
 		}
-		
+
+		results = results.subList(start-1, end);
+		request.setAttribute("items", results);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
-		request.setAttribute("total", results.size());
+		request.setAttribute("total", total);
 //		request.setAttribute("type", type);
 //		request.setAttribute("keyword", keyword);
 		

@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 
 import com.sixppl.dto.*;
 import com.sixppl.dao.AdminUserActivityDAO;

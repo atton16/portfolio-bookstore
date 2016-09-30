@@ -170,6 +170,7 @@ public class ListingDAOImpl implements ListingDAO {
 			stmt.setInt(5, pubSell.year);
 			stmt.setString(6, pubSell.venue);
 			stmt.setInt(7, pubSell.sellerID);
+			@SuppressWarnings("resource")
 			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
 			String picString = s.hasNext() ? s.next() : "";
 			stmt.setString(8, picString);
@@ -180,6 +181,7 @@ public class ListingDAOImpl implements ListingDAO {
 
 			//STEP 6: Clean-up environment
 			
+			s.close();
 			stmt.close();
 		}catch(SQLException se){
 			//Handle errors for JDBC
@@ -262,6 +264,41 @@ public class ListingDAOImpl implements ListingDAO {
 		String sql = "SELECT COUNT(*) AS total FROM Listing";
 		try {
 			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				total = rs.getInt("total");
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+
+		return total;
+	}
+
+	@Override
+	public Integer getListingCount(Integer userId) {
+
+		Integer total = 0;
+		PreparedStatement stmt = null;
+		String sql = "SELECT COUNT(*) AS total FROM Listing WHERE SellerID = ?";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, userId);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()){

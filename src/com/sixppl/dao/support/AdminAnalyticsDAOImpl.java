@@ -3,12 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 
 import com.sixppl.dao.*;
 import com.sixppl.dto.AdminAnalyticsDTO;
-import com.sixppl.dto.AdminLoginDTO;
 import com.sixppl.main.Application;
 public class AdminAnalyticsDAOImpl implements AdminAnalyticsDAO{
 
@@ -39,12 +37,6 @@ public class AdminAnalyticsDAOImpl implements AdminAnalyticsDAO{
 		
 		
 		return phlist;
-	}
-
-	@Override
-	public AdminAnalyticsDTO getUsersActive() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -164,6 +156,12 @@ public class AdminAnalyticsDAOImpl implements AdminAnalyticsDAO{
 		catch (Exception e) {
 		   } 
 		return status;
+	}
+
+	@Override
+	public AdminAnalyticsDTO getUsersActive() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

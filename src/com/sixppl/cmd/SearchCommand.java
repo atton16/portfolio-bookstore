@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sixppl.cmd.Command;
 import com.sixppl.dao.ListingDAO;
-import com.sixppl.dao.support.ListingDAOImpl;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
@@ -39,7 +38,6 @@ public class SearchCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("SearchCommand EXECUTED");
 		items = new ArrayList<ListingDTO>();
-		// TODO Auto-generated method stub
 		if(request.getParameterMap() == null || request.getParameterMap().size() <= 1){
 			System.out.println("Empty Search Executed");
 			// Empty Search

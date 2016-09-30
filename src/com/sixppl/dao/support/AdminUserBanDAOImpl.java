@@ -3,9 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-
-import org.json.simple.JSONObject;
 
 import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.main.Application;

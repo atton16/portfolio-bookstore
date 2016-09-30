@@ -17,9 +17,6 @@ public class UserLogoutCommand implements Command {
 		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
-
 		String sessionId = request.getSession().getId();
 		if(sessionId == null || sessionId.equals("") )
 		{

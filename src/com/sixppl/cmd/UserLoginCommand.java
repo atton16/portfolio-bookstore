@@ -24,7 +24,6 @@ public class UserLoginCommand implements Command {
 	}
 	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		 HttpSession session = request.getSession(true);
 		
 		String username = request.getParameter("username");
