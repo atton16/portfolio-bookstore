@@ -12,6 +12,7 @@ public class DAOFactory {
 		GRAPH,
 		CART,
 		LISTING,
+		ADMIN,
 		ADMIN_USER,
 		ADMIN_USER_BAN,
 		ADMIN_LOGIN,
@@ -30,6 +31,7 @@ public class DAOFactory {
 		daos.put(DAO.GRAPH, new GraphDAOImpl());
 		daos.put(DAO.CART, new CartDAOImpl());
 		daos.put(DAO.LISTING, new ListingDAOImpl());
+		daos.put(DAO.ADMIN, new AdminDAOImpl());
 		daos.put(DAO.ADMIN_USER, new AdminUserDAOImpl());
 		daos.put(DAO.ADMIN_USER_BAN, new AdminUserBanDAOImpl());
 		daos.put(DAO.ADMIN_LOGIN, new AdminLoginDAOImpl());
@@ -61,6 +63,10 @@ public class DAOFactory {
 	
 	public ListingDAO getListingDAO() {
 		return (ListingDAO) daos.get(DAO.LISTING);
+	}
+	
+	public AdminDAO getAdminDAO() {
+		return (AdminDAO) daos.get(DAO.ADMIN_USER);
 	}
 	
 	public AdminUserDAO getAdminUserDAO() {

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.sixppl.dao.AdminLoginDAO;
 import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.main.Application;
 
@@ -34,6 +35,10 @@ public class AdminUserBanDAOImpl implements AdminUserBanDAO{
 	}
 	
 	public boolean ban(Integer userID){
+		AdminLoginDAO adminLoginDao = Application.getSharedInstance().getDAOFactory().getAdminLoginDAO();
+		if(adminLoginDao.isAdmin(userID))
+			return false;
+		
 		boolean status = false;
 		Connection con = null;
 		try {
