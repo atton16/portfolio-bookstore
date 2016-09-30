@@ -4,7 +4,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -14,6 +16,7 @@ import org.apache.tomcat.jni.Lock;
 import com.sixppl.dao.DAOFactory;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.support.DAOSupport;
+import com.sixppl.dto.ListingDTO;
 
 /**
  * Singleton Application
@@ -88,6 +91,31 @@ public class Application {
 		}
 		
 		return count;
+	}
+	
+	public List<ListingDTO> getRandomPubs() {
+		List<ListingDTO> results = new ArrayList<ListingDTO>();
+		ListingDAO dao = Application.getSharedInstance().getDAOFactory().getListingDAO();
+		Integer count = getListingCount();
+		Integer limit = 10;
+		if(count < limit)
+			limit = count;
+		
+		while(results.size() < limit) {
+			List<ListingDTO> pubs = dao.getRandomPub();
+			for(ListingDTO pub: pubs) {
+				Boolean contain = false;
+				for(ListingDTO item: results) {
+					if(item.getPubID() == pub.getPubID()){
+						contain = true;
+						break;
+					}
+				}
+				if(!contain)
+					results.add(pub);
+			}
+		}
+		return results;
 	}
 	
 	public DAOFactory getDAOFactory() {
