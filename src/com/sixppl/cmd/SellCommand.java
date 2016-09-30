@@ -15,7 +15,7 @@ import org.apache.catalina.core.ApplicationPart;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
-import com.sun.tools.javac.util.Paths;
+//import com.sun.tools.javac.util.Paths;
 
 public class SellCommand implements Command {
 	
