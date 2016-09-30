@@ -9,7 +9,3 @@
 .classpath
 .project
 /.settings
-#exclude gitignore
-.gitignore
-#exclude web.xml
-#/WebContent/WEB-INF/web.xml
