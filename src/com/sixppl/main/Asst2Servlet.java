@@ -115,7 +115,8 @@ public class Asst2Servlet extends HttpServlet {
 	    YEAR_LIST,
 	    USER_IS_BANNED, 
 	    CHECKOUT,
-	    PUB_DETAIL
+	    PUB_DETAIL,
+	    MANAGE_PUB
 	}
 	
 	Map<COMMAND,Command> commands;
@@ -163,10 +164,11 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(COMMAND.ADMIN_LOGOUT, new AdminLogoutCommand());
 		
 		commands.put(COMMAND.CHECKOUT, new CheckoutCommand());
-		
+		commands.put(COMMAND.MANAGE_PUB, new ManagePubCommand());
 		commands.put(COMMAND.PUB_DETAIL, new PubDetailCommand());
 		
 		commands.put(COMMAND.YEAR_LIST, new YearListCommand());
+		
 
     }
     
@@ -259,6 +261,7 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Manage Publications Page
 		} else if(URI.equalsIgnoreCase("/user/pub/manage")){
+			commands.get(COMMAND.MANAGE_PUB).execute(request, response);
 			request.getRequestDispatcher("/pub_manage.jsp").forward(request,response);
 		// Admin Dashboard Page
 		} else if(URI.equalsIgnoreCase("/admin")){
