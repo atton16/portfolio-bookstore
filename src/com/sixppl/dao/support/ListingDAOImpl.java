@@ -105,6 +105,7 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getLong("timestamp"));
 				if(pub.similar(pubKey)){
+					System.out.println("found");
 					results.add(pub);
 				}
 			}

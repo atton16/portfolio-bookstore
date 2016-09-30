@@ -62,9 +62,9 @@ public class ListingDTO {
 		for(String editor:editors_buf){
 			this.editors.add(editor.trim());
 		}
-		ArrayList<String> writer = this.authors;
+		writers = this.authors;
 		for(String editor: this.editors){
-			writer.add(editor);
+			writers.add(editor);
 		}
 		this.type = type;
 		this.soldCount = soldCount;
@@ -130,33 +130,44 @@ public class ListingDTO {
 	public boolean similar(ListingDTO pubKey){
 		
 		if(!pubKey.title.isEmpty() && !this.title.toLowerCase().contains(pubKey.title.toLowerCase())){
+			System.out.println("title no pass");
 			return false;
 		}
 		
 		if(!pubKey.writers.isEmpty()){
 			for(String keyWriter: pubKey.writers){
+				System.out.println("keyWriter :" + keyWriter);
 				boolean pass = false;
 				for(String writer: this.writers){
+					System.out.println("Writer :" + writer);
 					if(writer.toLowerCase().contains(keyWriter.toLowerCase())){
+						System.out.println("writer one pass");
 						pass = true;
 						break;
 					}
 				}
 				if(pass == false){
+					System.out.println("writer no pass");
 					return false;
 				}
 			}
 		}
 		
 		if(!pubKey.type.isEmpty() && !this.type.toLowerCase().contains(pubKey.type.toLowerCase())){
+			System.out.println("type no pass");
 			return false;
 		}
 		
-		if(this.year >= pubKey.toYear || this.year <= pubKey.fromYear){
+		System.out.println("Year : " + this.year);
+		System.out.println("from : " + pubKey.fromYear);
+		System.out.println("to : " + pubKey.toYear);
+		if(this.year > pubKey.toYear || this.year < pubKey.fromYear){
+			System.out.println("year no pass");
 			return false;
 		}
 		
 		if(!pubKey.venue.isEmpty() && !this.venue.toLowerCase().contains(pubKey.venue.toLowerCase())){
+			System.out.println("venue no pass");
 			return false;
 		}
 		return true;
