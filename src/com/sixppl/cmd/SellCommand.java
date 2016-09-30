@@ -58,7 +58,7 @@ public class SellCommand implements Command {
 		outputStream.flush();
 		outputStream.close();
 		
-		String picture  = "/WebContent/uploads/pic.jpg";
+		String picture  = "/WebContent/uploads/pic"+listingDao.getTotal()+".jpg";
 		pubSell.picture = picture;
 		
 		pubSell.price = Integer.valueOf(request.getParameter("price"));
