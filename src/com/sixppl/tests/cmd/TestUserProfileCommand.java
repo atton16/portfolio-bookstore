@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import com.sixppl.cmd.Command;
 import com.sixppl.cmd.UserProfileCommand;
-import com.sixppl.cmd.UserRegCommand;
 import com.sixppl.main.Application;
 import com.sixppl.tests.support.GenericTestHttpServletRequest;
 

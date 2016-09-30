@@ -18,11 +18,16 @@ public class AdminRemovePubCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean result=false;
-		int pubID = Integer.parseInt(request.getParameter("id"));
-		int sellerID = Integer.parseInt(request.getParameter("sellerid"));
-		result=adminPubDao.removePub(pubID, sellerID);
-		request.setAttribute("removestatus", result);
+		Boolean success=false;
+		Integer pubID;
+		try {
+			pubID = Integer.parseInt(request.getParameter("id"));
+		} catch (Exception e) {
+			request.setAttribute("error", true);
+			return;
+		}
+		success = adminPubDao.removePub(pubID);
+		request.setAttribute("error", !success);
 	}
 
 }

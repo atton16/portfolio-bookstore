@@ -16,13 +16,19 @@ $("a[href='#']").click(function(e){
 			
 			// Add to cart specific behaviour
 			if($(tmp_this).html().indexOf('Add to Cart') >= 0){
-				$(tmp_this).html('In Cart');
+				shoppingCartLabel = $('#shopping-cart').html().substring(0,$('#shopping-cart').html().indexOf('Shopping'));
 				$(tmp_this).removeAttr('href');
 				$(tmp_this).removeClass('text-link-info');
 				$(tmp_this).removeClass('submit-hidden-ajax');
-				$(tmp_this).addClass('link-as-text');
-				shoppingCartLabel = $('#shopping-cart').html().substring(0,$('#shopping-cart').html().indexOf('Shopping'));
-				shoppingCartLabel += "Shopping Cart ("+data+")";
+				if(data == 0){
+					$(tmp_this).addClass('link-as-danger-text');
+					$(tmp_this).html('Cannot add to Cart!');
+					shoppingCartLabel += "Shopping Cart";
+				} else {
+					$(tmp_this).html('In Cart');
+					$(tmp_this).addClass('link-as-text');
+					shoppingCartLabel += "Shopping Cart ("+data+")";
+				}
 				$('#shopping-cart').html(shoppingCartLabel);
 			}
 			
@@ -178,6 +184,8 @@ $("form.submit-ajax").submit(function(e){
 			$(".submit-ajax-remove").attr('id', id);
 			$("a.submit-ajax-remove").html('Remove');
 			$("a.submit-ajax-remove").attr('href', '#');
+			$("a.submit-ajax-remove").attr('id', id);
+			$("input[name=id]").val(id);
 			if(!$("a.submit-ajax-remove").hasClass('submit-hidden-ajax'))
 				$("a.submit-ajax-remove").addClass('submit-hidden-ajax');
 			$("a.submit-ajax-remove").removeClass('link-as-text');

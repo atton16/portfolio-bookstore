@@ -1,47 +1,10 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
 <title>${title}: Admin - Manage Publications</title>
-
-<script>
-	function idSearch(){
-			var PubID=$("#id").val();
-			alert(PubID);
-			
-		$.ajax({
-	        url : "${contextPath}/admin/pub/find",
-	        async: false,
-	        data: {cmd:"AdminGetPub", id:PubID},
-	       // method: "GET",dataType: 'json'
-	        success : function(result) {
-	        	//alert(result);
-	        	var d=$.parseJSON(result);
-	        	/*for(var i=0; i<d.length;i++){
-	        		alert(d[i].Title);
-	        	}*/
-	        	$("#Results").html('<table class="fill-width">')
-	        	  for(var i =0;i<d.length;i++){
-	        			
-	        			 $("#Results").append('<tr><td>Title</td><td>'+d[i].Title+'</td></tr>');
-	        	 
-	        	  }
-	        	
-	        	  $("#Results").append('</table>');
-	        	  $("#Results").show(500);
-	      	  return true;
-	        }  ,
-	        error:function(result) {
-	        	alert("failed ajax call");
-	        }
-	        });	
-	};
-	
-	
-</script>
-
 </head>
 <body>
 <jsp:include page="inc.body.admin_header.jsp" />
@@ -63,21 +26,39 @@
 							<!-- Search Icon -->
 							<span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span></span>
 							<!-- Search Input -->
-							<input type="text" class="form-control" placeholder="Publication ID" id="id" name="id" />
+							<input type="text" class="form-control" placeholder="Publication ID" name="id" />
 							<div class="input-group-btn">
-								<input type="submit" class="btn btn-primary" onClick="javascript:idSearch();" value="Lookup" />
+								<input type="submit" class="btn btn-primary" value="Lookup" />
 							</div>
 						</div>
 					</form>
 					<!-- Search Results -->
-					<div id="Results" style="display:none"> <!-- class="submit-ajax-result"> -->
+					<div class="submit-ajax-result">
 						<div class="margin-top-24"></div>
-						
-						
+                        <table class="fill-width">
+                            <tr>
+                                <td align="center" class="cell-180px padding-right-12">
+                                	<img class="square-180-by-180" id="submit-ajax-picurl">
+                                </td>
+                                <td class="border-left padding-left-12"><table>
+                                	<tr><td valign="top">
+                                		<input type="hidden" id="submit-ajax-context-path" value="${contextPath}"/>
+                               			<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=NULL" class="link-as-text" id="submit-ajax-title"></a></h3>
+                               			<h5><i id="submit-ajax-authors-and-editors"></i></h5>
+                             		<td></tr>
+                             		<tr><td valign="bottom">
+                             			<h4><b id="submit-ajax-price"></b></h4>
+                             			<h4><a href="#" id="NULL" class="submit-hidden-ajax submit-ajax-remove">Remove</a></h4>
+                             			<p><i id="submit-ajax-seller"></i></p>
+                             			<p><i id="submit-ajax-listed"></i></p>
+                            		<td></tr>
+                           		</table></td>
+                          	</tr>
+                         </table>
 					</div>
 					<!-- Remove AJAX Form -->
-					<form action="${contextPath}/admin/pub/remove" method="post" id="" class="submit-ajax-remove">
-						<input type="hidden" name="id" value="pubid1"/>
+					<form action="${contextPath}/admin/pub/remove" method="post" id="NULL" class="submit-ajax-remove">
+						<input type="hidden" name="id" value="NULL"/>
 					</form>
 					<!-- Empty Result -->
 					<div class="submit-ajax-empty-result">

@@ -1,7 +1,5 @@
 package com.sixppl.dto;
 
-import java.util.Date;
-
 public class AdminCartDTO {
 	int userID;
 	String title;

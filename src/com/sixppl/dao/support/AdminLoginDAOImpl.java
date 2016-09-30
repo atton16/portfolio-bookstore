@@ -12,31 +12,6 @@ import com.sixppl.main.Application;
 
 public class AdminLoginDAOImpl implements AdminLoginDAO{
 
-	/*@Override
-	public AdminLoginDTO findAdmin(Integer userID) {
-		Connection con = null;
-		AdminLoginDTO temp = new AdminLoginDTO();
-		try {
-		     con = Application.getSharedInstance().getDAOSupport().getConnection();
-
-			 PreparedStatement stmt = con.prepareStatement("SELECT * FROM Admin WHERE UserID=?");
-		     stmt.setInt(1, userID);
-		     ResultSet rs=stmt.executeQuery();
-		     rs.next();
-		     Integer UserID = rs.getInt("UserID");
-		     Integer Level = rs.getInt("Level");
-		     Timestamp Timestamp = rs.getTimestamp("Timestamp");
-		   } 
-		catch (SQLException se) {
-			    se.printStackTrace();
-		   } 
-		catch (Exception e) {
-		   } 
-
-
-		return temp;
-	}*/
-
 	@Override
 	public AdminLoginDTO getAdmin(Integer userID) {
 		Connection con = null;

@@ -13,11 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sixppl.cmd.Command;
-import com.sixppl.cmd.UserConfirmCommand;
 import com.sixppl.cmd.UserEmailCommand;
-import com.sixppl.cmd.UserProfileCommand;
-import com.sixppl.cmd.UserRegCommand;
 import com.sixppl.main.Application;
 import com.sixppl.tests.support.GenericTestHttpServletRequest;
 

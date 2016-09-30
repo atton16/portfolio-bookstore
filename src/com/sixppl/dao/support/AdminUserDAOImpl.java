@@ -3,23 +3,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONObject;
-
 import com.sixppl.dao.AdminUserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 public class AdminUserDAOImpl implements AdminUserDAO{
 
-	public List<UserDTO> findByNickname(String nickname, int offset, int limit){
+	public List<UserDTO> findByNickname(String nickname){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Nickname=? LIMIT ?,?");
-			stmt.setString(1, nickname);
-			stmt.setInt(2, offset);
-			stmt.setInt(3, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE Nickname LIKE ?");
+			stmt.setString(1, "%"+nickname+"%");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -34,7 +30,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -45,16 +40,14 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		return userlist;
 	}
 
-	public List<UserDTO> findByFirstname(String firstname, int offset, int limit){
+	public List<UserDTO> findByFirstname(String firstname){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Firstname=? LIMIT ?,?");
-			stmt.setString(1, firstname);
-			stmt.setInt(2, offset);
-			stmt.setInt(3, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE Firstname LIKE ?");
+			stmt.setString(1, "%"+firstname+"%");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -69,7 +62,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -80,17 +72,15 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		return userlist;
 	}
 
-	public List<UserDTO>findByLastname(String lastname, int offset, int limit){
+	public List<UserDTO>findByLastname(String lastname){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Lastname=? LIMIT ?,?");
-			stmt.setString(1, lastname);
-			stmt.setInt(2, offset);
-			stmt.setInt(3, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE Lastname LIKE ?");
+			stmt.setString(1, "%"+lastname+"%");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -105,7 +95,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -116,17 +105,15 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		return userlist;
 	}
 
-	public List<UserDTO> findByEmail(String email, int offset, int limit){
+	public List<UserDTO> findByEmail(String email){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User WHERE Email=? LIMIT ?,?");
-			stmt.setString(1, email);
-			stmt.setInt(2, offset);
-			stmt.setInt(3, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE Email LIKE ?");
+			stmt.setString(1, "%"+email+"%");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -141,7 +128,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -154,15 +140,13 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		return userlist;
 	}
 
-	public List<UserDTO>findAllCustomers(int offset, int limit){
+	public List<UserDTO>findAllCustomers(){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User LIMIT ?,?");
-			stmt.setInt(1, offset);
-			stmt.setInt(2, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE EXISTS (SELECT BuyerID FROM Transaction WHERE User.UserID = Transaction.BuyerID)");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -177,7 +161,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -188,15 +171,13 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		return userlist;
 	}
 
-	public List<UserDTO>findAllSellers(int offset, int limit){
+	public List<UserDTO>findAllSellers(){
 		Connection con = null;
 		List<UserDTO> userlist=new ArrayList<UserDTO>();
 		try {
 			con = Application.getSharedInstance().getDAOSupport().getConnection();
 
-			PreparedStatement stmt = con.prepareStatement("SELECT UserID, Nickname, Firstname, Lastname, Email FROM User LIMIT ?,?");
-			stmt.setInt(1, offset);
-			stmt.setInt(2, limit);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM User WHERE EXISTS (SELECT SellerID FROM Listing WHERE User.UserID = Listing.SellerID)");
 			ResultSet rs= stmt.executeQuery();
 			while(rs.next()){
 				UserDTO temp = new UserDTO();
@@ -211,7 +192,6 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 				temp.setLastname(Lastname);
 				temp.setEmail(Email);
 				userlist.add(temp);
-				//mainarray.add(temp);
 			}
 
 
@@ -220,5 +200,27 @@ public class AdminUserDAOImpl implements AdminUserDAO{
 		} catch (Exception e) {
 		} 
 		return userlist;
+	}
+
+	@Override
+	public Boolean isCustomer(Integer userId) {
+		Integer total = 0;
+		Connection con = null;
+		try {
+			con = Application.getSharedInstance().getDAOSupport().getConnection();
+
+			PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) AS Total FROM Transaction WHERE BuyerID = ?");
+			stmt.setInt(1, userId);
+			ResultSet rs= stmt.executeQuery();
+			while(rs.next()){
+				total = rs.getInt("Total");
+			}
+
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+		} 
+		return total > 0 ? true : false;
 	}
 }

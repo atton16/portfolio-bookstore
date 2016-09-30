@@ -55,7 +55,7 @@
 								</td>
 								<td class="border-left padding-left-12"><table>
 									<tr><td valign="top">
-										<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${item.getPubID()}" class="link-as-text">${item.getTitle()} (${item.getYear()})</a></h3>
+										<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${item.getPubID()}" class="link-as-text">${item.getTitle()}</a></h3>
 										<h5><i>
 										<jstl:forEach var="writer" items="${item.getWriters()}" varStatus="stat">
 											${writer}${stat.last ? '' : ', '}
@@ -64,7 +64,14 @@
 									<td></tr>
 									<tr><td valign="bottom">
 										<h4><b>A$${item.getPrice()}.00</b></h4>
-										<h4><a href="#" id="${item.getPubID()}" class="submit-hidden-ajax">Add to Cart</a></h4>
+										<h4>
+											<jstl:if test="${item.isInCart()}">
+												<a id="${item.getPubID()}" class="link-as-text">In Cart</a>
+											</jstl:if>
+											<jstl:if test="${!item.isInCart()}">
+												<a href="#" id="${item.getPubID()}" class="submit-hidden-ajax">Add to Cart</a>
+											</jstl:if>
+										</h4>
 										<p><i>Seller: ${item.getSellerNickname()}</i></p>
 										<p><i>Listed: ${item.getTimestampString()}</i></p>
 									<td></tr>

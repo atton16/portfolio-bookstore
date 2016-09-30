@@ -59,7 +59,6 @@ public class UserDTO {
 		this.userID = userID;
 	}
 	public UserDTO() {
-		// TODO Auto-generated constructor stub
 	}
 	public String getUsername() {
 		return username;

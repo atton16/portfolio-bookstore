@@ -16,7 +16,6 @@ public class PubDetailCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		if(request.getParameter("id") == null || request.getParameter("id").isEmpty()){
 			request.setAttribute("item", null);
 			return;
@@ -26,7 +25,7 @@ public class PubDetailCommand implements Command {
 		ListingDTO pubKey = new ListingDTO();
 		pubKey.setPubID(pubId);
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
-		item = listing.Search(pubKey).get(0);
+		item = listing.Search(pubKey, request.getSession().getId()).get(0);
 		
 		request.setAttribute("item", item);
 	}

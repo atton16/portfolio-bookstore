@@ -25,14 +25,13 @@ public class ManagePubCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		items = new ArrayList<ListingDTO>();
 		SessionDTO sessionDTO = new SessionDTO();
 		sessionDTO.setSessionID(request.getSession().getId());
 		int userId = session.finduserIDbySession(sessionDTO);
 		ListingDTO pubKey = new ListingDTO();
 		pubKey.sellerID = userId;
-		items = listing.Search(pubKey);
+		items = listing.Search(pubKey, request.getSession().getId());
 		
 		request.setAttribute("items", items);
 	}
