@@ -1,6 +1,15 @@
 package com.sixppl.main;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletContext;
+
+import org.apache.taglibs.standard.lang.jstl.Logger;
+import org.apache.tomcat.jni.Lock;
 
 import com.sixppl.dao.DAOFactory;
 import com.sixppl.dao.ListingDAO;
@@ -14,8 +23,9 @@ import com.sixppl.dao.support.DAOSupport;
 public class Application {
 	public static final String DEVELOPMENT_ENV = "DEVELOPMENT";
 	public static final String PRODUCTION_ENV = "PRODUCTION";
-	private static final String ENV = DEVELOPMENT_ENV;
-	private static final String PRODUCTION_IP = "1.1.1.1";
+	public static final String PRODUCTIONIP_ENV = "PRODUCTION_IP";
+	private static final String ENV = PRODUCTIONIP_ENV;
+	private static final String PRODUCTION_IP = "128.199.244.89";
 	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	public static final String UPLOADS_PATH = "/Users/Tanakrit/Desktop/COMP9321/asst2/WebContent/uploads/";
@@ -23,6 +33,25 @@ public class Application {
 	private ServletContext servletContext;
 	private DAOFactory daoFactory;
 	private DAOSupport daoSupport;
+	
+	public static String getIpAddress() { 
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = (NetworkInterface) en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()&&inetAddress instanceof Inet4Address) {
+                        String ipAddress=inetAddress.getHostAddress().toString();
+                        System.out.print("IP address has problem");
+                        return ipAddress;
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            System.out.println("get IP has problem!");
+        }
+        return null; 
+}
 	
 	public static Application getSharedInstance() {
 		if (app == null) {
