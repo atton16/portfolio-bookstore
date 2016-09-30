@@ -40,12 +40,11 @@ public class AdminGetUserCommand implements Command {
 				page = Integer.parseInt(request.getParameter("page"));
 			} catch(Exception e) {}
 		}
-		while(page*10 > results.size()) page--;	// Overflow protection
+		//while(page*10 > results.size()) page--;	// Overflow protection
 		if(page < 1)
 			page = 1;
 		Integer start = page*10-10+1;
 		Integer end = page*10;
-		end = end > results.size() ? results.size() : end;
 		
 		if(type.equals("Nickname")){
 			results=adminUserDao.findByNickname(keyword, start-1, 10);
@@ -65,6 +64,8 @@ public class AdminGetUserCommand implements Command {
 		else if(type.equals("All Sellers")){
 			results=adminUserDao.findAllSellers(start-1, 10);
 		}
+		
+		end = end > results.size() ? results.size() : end;
 		
 		String queryString = "";
 		

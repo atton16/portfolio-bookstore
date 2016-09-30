@@ -12,6 +12,11 @@ import com.sixppl.dao.support.DAOSupport;
  *
  */
 public class Application {
+	public static final String DEVELOPMENT_ENV = "DEVELOPMENT";
+	public static final String PRODUCTION_ENV = "PRODUCTION";
+	private static final String ENV = DEVELOPMENT_ENV;
+	private static final String PRODUCTION_IP = "1.1.1.1";
+	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	private static Application app;
 	private ServletContext servletContext;
@@ -61,5 +66,17 @@ public class Application {
 	
 	public void destroy() {
 		daoSupport.destroy();
+	}
+	
+	public String getEnvironment() {
+		return Application.ENV;
+	}
+	
+	public String getProductionIP() {
+		return Application.PRODUCTION_IP;
+	}
+	
+	public String getProductionPort() {
+		return Application.PRODUCTION_PORT;
 	}
 }
