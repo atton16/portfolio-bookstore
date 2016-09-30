@@ -9,7 +9,10 @@ import javax.servlet.http.Part;
 
 
 import com.sixppl.dao.ListingDAO;
+import com.sixppl.dao.SessionDAO;
+import com.sixppl.dao.support.SessionDAOImpl;
 import com.sixppl.dto.ListingDTO;
+import com.sixppl.dto.SessionDTO;
 import com.sixppl.main.Application;
 
 
@@ -27,6 +30,13 @@ public class SellCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(parameterChecker(request) == false){
+			error = true;
+			error_msg = "Please enter the required fields.";
+			request.setAttribute("error", error);
+			request.setAttribute("error_msg", error_msg);
+			return;
+		}
 		ListingDTO pubSell = new ListingDTO();
 		pubSell.title = request.getParameter("title").trim();
 		if(request.getParameter("authors") != null){
@@ -41,6 +51,11 @@ public class SellCommand implements Command {
 				pubSell.editors.add(editor.trim());
 			}
 		}
+		SessionDAO sessionDao = new SessionDAOImpl();
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(request.getSession().getId());
+		pubSell.sellerID = sessionDao.finduserIDbySession(sessionDTO);
+		
 		pubSell.type = request.getParameter("pubtype").trim();
 		pubSell.year = Integer.valueOf(request.getParameter("year"));
 		if(request.getParameter("venue") != null)
@@ -49,7 +64,10 @@ public class SellCommand implements Command {
 		
 		Part filePart = request.getPart("pic");
 		InputStream inputStream = filePart.getInputStream();
-		OutputStream outputStream = new FileOutputStream(new File("/WebContent/uploads/pic"+listingDao.getTotal()+".jpg"));
+		int picId = listingDao.getTotal()+1;
+		String picUrl = Application.UPLOADS_PATH + "pic"+picId+".jpg";
+		System.out.println(picUrl);
+		OutputStream outputStream = new FileOutputStream(new File(picUrl));
 
 		int read = 0;
 		byte[] bytes = new byte[1024];
@@ -58,15 +76,14 @@ public class SellCommand implements Command {
 		}
 		outputStream.flush();
 		outputStream.close();
-		
-		String picture  = "/WebContent/uploads/pic"+listingDao.getTotal()+".jpg";
-		pubSell.picture = picture;
+
+		pubSell.picture = "/uploads/pic"+picId+".jpg";
 		
 		pubSell.price = Integer.valueOf(request.getParameter("price"));
 		
-		error = listingDao.addListing(pubSell);
+		error = !listingDao.addListing(pubSell);
 		if(error == false){
-			error_msg = null;
+			error_msg = "Successfully posted the publication!";
 		}
 		else{
 			error_msg = "ERROR: CANNOT ADD ITEM";
@@ -74,6 +91,30 @@ public class SellCommand implements Command {
 		
 		request.setAttribute("error", error);
 		request.setAttribute("error_msg", error_msg);
+	}
+	
+	public boolean parameterChecker(HttpServletRequest request){
+		boolean pass = true;
+		if(request.getParameter("title") == null || request.getParameter("title").trim().isEmpty()){
+			pass = false;
+		}
+		if(request.getParameter("authors") == null && request.getParameter("editors")== null){
+			pass = false;
+		}
+		if(request.getParameter("authors").trim().isEmpty() && request.getParameter("editors").trim().isEmpty()){
+			pass = false;
+		}
+		if(request.getParameter("pubtype") == null || request.getParameter("pubtype").contains("Publication Type")){
+			pass = false;
+		}
+		if(request.getParameter("year") == null || request.getParameter("year").trim().isEmpty()){
+			pass = false;
+		}
+		if(request.getParameter("price") == null || request.getParameter("price").trim().isEmpty()){
+			pass = false;
+		}
+		
+		return pass;
 	}
 
 }

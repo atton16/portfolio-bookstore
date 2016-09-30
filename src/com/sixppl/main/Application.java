@@ -28,6 +28,7 @@ public class Application {
 	private static final String PRODUCTION_IP = "128.199.244.89";
 	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
+	public static final String UPLOADS_PATH = "/Users/Tanakrit/Desktop/COMP9321/asst2/WebContent/uploads/";
 	private static Application app;
 	private ServletContext servletContext;
 	private DAOFactory daoFactory;
@@ -63,6 +64,10 @@ public class Application {
 		this.servletContext = servletContext;
 		this.daoSupport = new DAOSupport();
 		this.daoFactory = new DAOFactory();
+	}
+	
+	public ServletContext getServletContext() {
+		return servletContext;
 	}
 	
 	public String getContextPath() {
