@@ -53,6 +53,7 @@ public class SearchCommand implements Command {
 		}
 		else if(request.getParameter("keyword") != null){
 			// Simple Search
+			System.out.println("Simple Search Executed");
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
 			}
@@ -63,7 +64,11 @@ public class SearchCommand implements Command {
 				pubKey.title = keyword;
 			}
 			else if(type.contains("author") || type.contains("editor")){
-				pubKey.writers.add(keyword);
+				System.out.println("writer keyword: " + keyword);
+				String[] writers = keyword.split(",");
+				for(String writer:writers){
+					pubKey.writers.add(writer.trim());
+				}
 			}
 			else if(type.contains("type")){
 				pubKey.type = keyword;
@@ -83,6 +88,7 @@ public class SearchCommand implements Command {
 			setResultsAttribute(request,results);
 		}
 		else{
+			System.out.println("Advanced Search Executed");
 			//Advance Search
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
@@ -113,20 +119,35 @@ public class SearchCommand implements Command {
 	
 	public void setResultsAttribute(HttpServletRequest request,ArrayList<ListingDTO> results){
 		if(results.size() <= 0){
-			request.setAttribute("start", start);
-			request.setAttribute("end", end);
-			request.setAttribute("total", total);
-			request.setAttribute("prevParams", prevParams);
-			request.setAttribute("nextParams", nextParams);
-			request.setAttribute("items", items);
+			request.setAttribute("start", 0);
+			request.setAttribute("end", 0);
+			request.setAttribute("total", 0);
+			request.setAttribute("prevParams", null);
+			request.setAttribute("nextParams", null);
+			request.setAttribute("items", new ArrayList<ListingDTO>());
 			return;
 		}
+		
+		page = 1;
+		if(request.getParameter("page") != null){
+			try {
+				page = Integer.parseInt(request.getParameter("page"));
+			} catch(Exception e) {}
+		}
+		while(page*10 > results.size()) page--;	// Overflow protection
+		if(page < 1)
+			page = 1;
+		start = page*10-10+1;
+		end = page*10;
+		end = end > results.size() ? results.size() : end;
+		
 		total = results.size();
-		start = page*10 + 1;
-		for(int i = start; results.get(i) != null && i <= start + 10; i++){
+		System.out.println(start);
+		System.out.println(end);
+		System.out.println(total);
+		for(int i = start-1; i < end; i++){
 			items.add(results.get(i));
 		}
-		end = start + items.size() - 1;
 		
 		String urlpath = request.getContextPath();
 		if(urlpath.contains("?")){
@@ -136,7 +157,7 @@ public class SearchCommand implements Command {
 			urlpath = "";
 		}
 		int i = -1,j = -1;
-		if(page == 0){
+		if(page == 1){
 			i = page +1;
 		}
 		else if(page == (total%10 == 0?total/10:total/10+1)){
@@ -148,18 +169,18 @@ public class SearchCommand implements Command {
 		}
 		if(urlpath.contains("page")){
 			urlpath = urlpath.substring(0, urlpath.lastIndexOf("&"));
-			if(j == -1){
-				prevParams = null;
-				nextParams = urlpath + "&page=" + i;
-			}
-			else if(i == -1){
-				nextParams = null;
-				prevParams = urlpath + "&page=" + j;
-			}
-			else if(i != -1 && j != -1){
-				prevParams = urlpath + "&page=" + j;
-				nextParams = urlpath + "&page=" + i;
-			}
+		}
+		if(j == -1){
+			prevParams = null;
+			nextParams = urlpath + "&page=" + i;
+		}
+		else if(i == -1){
+			nextParams = null;
+			prevParams = urlpath + "&page=" + j;
+		}
+		else if(i != -1 && j != -1){
+			prevParams = urlpath + "&page=" + j;
+			nextParams = urlpath + "&page=" + i;
 		}
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);

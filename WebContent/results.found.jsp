@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Search Results</h3>
-			<p><i>Displaying X-Y of N results</i></p>
+			<p><i>Displaying ${start}-${end} of ${total} results</i></p>
 			<jstl:forEach var="searchTerm" items="${searchTerms}">
 				<span class="label label-default">${searchTerm}</span>
 			</jstl:forEach>

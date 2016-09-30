@@ -12,6 +12,7 @@ import com.sixppl.dao.ListingDAO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
+
 public class SellCommand implements Command {
 	
 	private boolean error;
