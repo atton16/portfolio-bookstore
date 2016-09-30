@@ -150,6 +150,13 @@ public class ListingDTO {
 	
 	public boolean similar(ListingDTO pubKey){
 		
+		if(pubKey.pubID != 0 && pubKey.pubID != this.pubID){
+			return false;
+		}
+		
+		if(pubKey.sellerID != 0 && pubKey.sellerID != this.sellerID){
+			return false;
+		}
 		if(!pubKey.title.isEmpty() && !this.title.toLowerCase().contains(pubKey.title.toLowerCase())){
 			System.out.println("title no pass");
 			return false;

@@ -27,7 +27,7 @@ public class CartDAOImpl implements CartDAO {
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
 						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
-						rs.getInt("SoldCount"), rs.getLong("timestamp"));
+						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				
 				cartInfoList.add(pub);
 			}
