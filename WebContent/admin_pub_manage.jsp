@@ -43,12 +43,12 @@
                                 <td class="border-left padding-left-12"><table>
                                 	<tr><td valign="top">
                                 		<input type="hidden" id="submit-ajax-context-path" value="${contextPath}"/>
-                               			<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid1" class="link-as-text" id="submit-ajax-title"></a></h3>
+                               			<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=NULL" class="link-as-text" id="submit-ajax-title"></a></h3>
                                			<h5><i id="submit-ajax-authors-and-editors"></i></h5>
                              		<td></tr>
                              		<tr><td valign="bottom">
                              			<h4><b id="submit-ajax-price"></b></h4>
-                             			<h4><a href="#" id="" class="submit-hidden-ajax submit-ajax-remove">Remove</a></h4>
+                             			<h4><a href="#" id="NULL" class="submit-hidden-ajax submit-ajax-remove">Remove</a></h4>
                              			<p><i id="submit-ajax-seller"></i></p>
                              			<p><i id="submit-ajax-listed"></i></p>
                             		<td></tr>
@@ -57,8 +57,8 @@
                          </table>
 					</div>
 					<!-- Remove AJAX Form -->
-					<form action="${contextPath}/admin/pub/remove" method="post" id="" class="submit-ajax-remove">
-						<input type="hidden" name="id" value="pubid1"/>
+					<form action="${contextPath}/admin/pub/remove" method="post" id="NULL" class="submit-ajax-remove">
+						<input type="hidden" name="id" value="NULL"/>
 					</form>
 					<!-- Empty Result -->
 					<div class="submit-ajax-empty-result">

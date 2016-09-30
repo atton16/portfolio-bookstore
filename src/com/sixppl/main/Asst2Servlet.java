@@ -190,7 +190,6 @@ public class Asst2Servlet extends HttpServlet {
 		} else if(URI.equalsIgnoreCase("/results")){
 			commands.get(COMMAND.SEARCHTERMS).execute(request,response);
 			commands.get(COMMAND.SEARCH).execute(request, response);
-			//TODO: Do the search
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
 		} else if(URI.equalsIgnoreCase("/cart")){
@@ -202,7 +201,6 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Render: Publication Details
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
-			//TODO: Get publication info
 			commands.get(COMMAND.PUB_DETAIL).execute(request, response);
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
@@ -262,34 +260,24 @@ public class Asst2Servlet extends HttpServlet {
 			
 		// Admin: Manage Publications - Search
 		} else if(URI.equalsIgnoreCase("/admin/pub/find")){
-			String cmd = request.getParameter("cmd");
-			String Pubid = request.getParameter("id");
-			//response.getWriter().write("hello");
 			commands.get(COMMAND.ADMIN_GET_PUB).execute(request, response);
-			StringWriter out = new StringWriter();
-			JSONArray temp =(JSONArray) request.getAttribute("jsonreturn");
-			JSONValue.writeJSONString(temp, out);
-			PrintWriter outPrintWriter = response.getWriter();
-			outPrintWriter.write(temp.toString());
 			
-			
-			/*
-			//TODO: Admin: Manage Publications - Search
-	    	response.setStatus(HttpServletResponse.SC_OK);	//200
-	    	//response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
-	    	response.getWriter().write("{"
-	    			+ "\"id\":\"pubid1\","
-	    			+ "\"title\":\"1984\","
-	    			+ "\"authors\":[\"George Orwell\"],"
-	    			+ "\"editors\": [],"
-	    			+ "\"picurl\": \""+contextPath+"/uploads/1984.jpeg\","
-					+ "\"price\": 280.00,"
-					+ "\"seller\": \"Hale\","
-					+ "\"listed\": \"DD/MM/YY\""
-					+ "}"); // TODO: Response in JSON Format*/
-	    	response.getWriter().flush();
-	    	response.getWriter().close();
-	    	
+			if((Boolean)request.getAttribute("error") == true){
+		    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);	//204
+			} else {
+		    	response.setStatus(HttpServletResponse.SC_OK);	//200
+				JSONArray temp = (JSONArray) request.getAttribute("jsonreturn");
+				String escapedContextpath = contextPath;
+				String last = "";
+				while (!escapedContextpath.equals(last)) {
+					last = escapedContextpath;
+					escapedContextpath = contextPath.replace("/", "\\/");
+				}
+				System.out.println(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
+				response.getWriter().write(temp.get(0).toString().replace("\"picurl\":\"", "\"picurl\":\""+escapedContextpath));
+		    	response.getWriter().flush();
+		    	response.getWriter().close();
+			}
     	// Admin: Manage Users
 		} else if (URI.equalsIgnoreCase("/admin/users/manage")){
             commands.get(COMMAND.SEARCHTERMS).execute(request,response);
@@ -367,13 +355,13 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Set Listing
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/list")){
-			System.out.println("List:"+request.getParameter("id"));	//TODO: remove this
+			System.out.println("List:"+request.getParameter("id"));
 			commands.get(COMMAND.LIST).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
 		// Set Unlist
 		} else if(URI.equalsIgnoreCase("/rest/user/pub/unlist")){
-			System.out.println("Unlist:"+request.getParameter("id"));	//TODO: remove this
+			System.out.println("Unlist:"+request.getParameter("id"));
 			commands.get(COMMAND.UNLIST).execute(request, response);
 	    	response.setStatus(HttpServletResponse.SC_OK);	//200
 	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
@@ -387,12 +375,12 @@ public class Asst2Servlet extends HttpServlet {
 			
     	// Admin: Manage Publications - Remove
 		} else if(URI.equalsIgnoreCase("/admin/pub/remove")){
-			//TODO: Admin: Manage Publications - Remove
 			commands.get(COMMAND.ADMIN_REMOVE_PUB).execute(request, response);
-			
-			System.out.println("Remove:"+request.getParameter("id"));	//TODO: remove this
-	    	response.setStatus(HttpServletResponse.SC_OK);	//200
-	    	//response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+			System.out.println("Remove:"+request.getParameter("id"));
+			if((Boolean)request.getAttribute("error") == true)
+				response.setStatus(HttpServletResponse.SC_ACCEPTED);	//202
+			else
+		    	response.setStatus(HttpServletResponse.SC_OK);	//200
 		// Admin: Manage Users - Ban
 		} else if(URI.equalsIgnoreCase("/rest/admin/users/ban")){
 			commands.get(COMMAND.ADMIN_BAN_USER).execute(request, response);

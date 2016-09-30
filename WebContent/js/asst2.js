@@ -184,6 +184,8 @@ $("form.submit-ajax").submit(function(e){
 			$(".submit-ajax-remove").attr('id', id);
 			$("a.submit-ajax-remove").html('Remove');
 			$("a.submit-ajax-remove").attr('href', '#');
+			$("a.submit-ajax-remove").attr('id', id);
+			$("input[name=id]").val(id);
 			if(!$("a.submit-ajax-remove").hasClass('submit-hidden-ajax'))
 				$("a.submit-ajax-remove").addClass('submit-hidden-ajax');
 			$("a.submit-ajax-remove").removeClass('link-as-text');

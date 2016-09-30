@@ -19,9 +19,17 @@ public class AdminGetPubCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pubID = Integer.parseInt(request.getParameter("id"));
+		Integer pubID;
+		try {
+			pubID = Integer.parseInt(request.getParameter("id"));
+		} catch (Exception e) {
+			request.setAttribute("error", true);
+			return;
+		}
+		
 		JSONArray arrayj=adminPubDao.findPub(pubID);
 		request.setAttribute("jsonreturn", arrayj);
+		request.setAttribute("error", false);
 	}
 
 }
