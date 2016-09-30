@@ -2,7 +2,6 @@ package com.sixppl.cmd;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -11,12 +10,10 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.mindrot.jbcrypt.EmailSending;
 
-import com.sixppl.dao.DummyDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
@@ -45,7 +42,6 @@ public class UserRegCommand implements Command {
 		return matcher.find();
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	/* This method is for user registration */
 	public void execute(HttpServletRequest request, HttpServletResponse response)
