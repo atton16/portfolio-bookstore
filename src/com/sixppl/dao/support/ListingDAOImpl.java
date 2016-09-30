@@ -26,11 +26,14 @@ public class ListingDAOImpl implements ListingDAO {
 	public int getTotal(){
 		int total = 0;
 		PreparedStatement stmt = null;
-		String sql = "SELECT count(*) AS Count FROM Listing;";
+		String sql = "SELECT COUNT(*) AS Total FROM Listing";
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			total = rs.getInt("Count");
+			while(rs.next()){
+				total = rs.getInt("Total");
+			}
+			System.out.println("Total Pub : " + total);
 			//STEP 6: Clean-up environment
 			rs.close();
 			stmt.close();
@@ -133,7 +136,7 @@ public class ListingDAOImpl implements ListingDAO {
 	public boolean addListing(ListingDTO pubSell){
 		boolean pass = false;
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO `Listing` (`Title`,`Authors`,`Editors`,`Type`,`Year`,`Venue`,`Picture`,`Price`,`Status`) VALUES (?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO `Listing` (`Title`,`Authors`,`Editors`,`Type`,`Year`,`Venue`,`SellerID`,`Picture`,`Price`,`Status`) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, pubSell.title);
@@ -155,11 +158,12 @@ public class ListingDAOImpl implements ListingDAO {
 			stmt.setString(4, pubSell.type);
 			stmt.setInt(5, pubSell.year);
 			stmt.setString(6, pubSell.venue);
+			stmt.setInt(7, pubSell.sellerID);
 			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
 			String picString = s.hasNext() ? s.next() : "";
-			stmt.setString(7, picString);
-			stmt.setInt(8, pubSell.price);
-			stmt.setBoolean(9, true);
+			stmt.setString(8, picString);
+			stmt.setInt(9, pubSell.price);
+			stmt.setBoolean(10, true);
 			stmt.executeUpdate();
 			pass = true;
 
