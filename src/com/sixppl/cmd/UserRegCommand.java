@@ -199,11 +199,14 @@ public class UserRegCommand implements Command {
 	        
 			String strBackUrl = "https://" + ip   
 			                    + ":"   
-			                    + Application.getSharedInstance().getProductionPort();
+			                    + Application.getSharedInstance().getProductionPort()
+			                    + request.getContextPath()
+			                    + request.getServletPath();
+			
 			       
 			System.out.println("the addres is "+strBackUrl);
 			System.out.println("the full path is "+full_path);
-			emailSending.sendEmail(to, from, strBackUrl + "/asst2/signup/confirm?token="+token);
+			emailSending.sendEmail(to, from, strBackUrl + "/confirm?token="+token);
 			request.setAttribute("email", to);
 			request.setAttribute("error", false);
 		}
