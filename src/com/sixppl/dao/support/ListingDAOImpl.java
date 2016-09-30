@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import com.sixppl.dao.ListingDAO;
+import com.sixppl.dao.UserDAO;
 import com.sixppl.main.Application;
 
 //import sun.nio.cs.StandardCharsets;
@@ -349,5 +350,44 @@ public class ListingDAOImpl implements ListingDAO {
 		}//end try
 
 		return years;
+	}
+
+	@Override
+	public List<ListingDTO> getRandomPub() {
+		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
+		UserDAO userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		PreparedStatement stmt = null;
+		String sql = "SELECT * FROM Listing AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(PubID) FROM Listing)) AS PubID) AS r2 WHERE r1.PubID >= r2.PubID ORDER BY r1.PubID ASC LIMIT 1";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				ListingDTO pub = new ListingDTO();
+				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
+				pub.setSellerNickname(userDao.findUserByUserID(rs.getInt("SellerID")).getNickname());
+				results.add(pub);
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+		
+		return results;
 	}
 }
