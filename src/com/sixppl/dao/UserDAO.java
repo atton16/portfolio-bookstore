@@ -11,6 +11,4 @@ public interface UserDAO {
 	UserDTO findUserByToken(String token);
 	UserDTO findUserByEmail(String email);
 	UserDTO findUserByUserID(int userId);
-
-
 }

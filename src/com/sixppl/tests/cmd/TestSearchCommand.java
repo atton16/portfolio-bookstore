@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.sixppl.cmd.Command;
@@ -17,9 +18,10 @@ import com.sixppl.main.Application;
 import com.sixppl.tests.support.GenericTestHttpServletRequest;
 
 public class TestSearchCommand {
-	
+	@Before
 	public void init() {
 		Application.getSharedInstance().init(null);	//This statement is normally executed by servlet
+		System.out.println("Test initialized");
 	}
 
 	@Test

@@ -23,6 +23,34 @@ public class ListingDAOImpl implements ListingDAO {
 		conn = Application.getSharedInstance().getDAOSupport().getConnection();
 	}
 	
+	public int getTotal(){
+		int total = 0;
+		PreparedStatement stmt = null;
+		String sql = "SELECT count(*) AS Count FROM Listing;";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			total = rs.getInt("Count");
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+		return total;
+	}
+	
 	public ArrayList<ListingDTO> emptySearch(){
 		
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
