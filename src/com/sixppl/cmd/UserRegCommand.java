@@ -35,6 +35,15 @@ public class UserRegCommand implements Command {
 		String username, password, email, addr, cardno;
 		EmailSending emailSending = new EmailSending();
 
+		request.setAttribute("username", request.getParameter("username"));
+		request.setAttribute("password", request.getParameter("password"));
+		request.setAttribute("nickname", request.getParameter("nickname"));
+		request.setAttribute("firstname", request.getParameter("firstname"));
+		request.setAttribute("lastname", request.getParameter("lastname"));
+		request.setAttribute("email", request.getParameter("email"));
+		request.setAttribute("yob", request.getParameter("yob"));
+		request.setAttribute("address", request.getParameter("address"));
+		request.setAttribute("ccn", request.getParameter("ccn"));
 		
 		
 		user.setUsername(request.getParameter("username")); 

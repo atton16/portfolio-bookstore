@@ -38,7 +38,7 @@
 								<p>Username</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Username" name="username" />
+								<input type="text" class="form-control" placeholder="Username" name="username" value="${username}"/>
 							</div>
 						</div>
 						<div class="row">
@@ -54,7 +54,7 @@
 								<p>Nick Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Nick Name" name="nickname" />
+								<input type="text" class="form-control" placeholder="Nick Name" name="nickname" value="${nickname}"/>
 							</div>
 						</div>
 						<div class="row">
@@ -62,7 +62,7 @@
 								<p>First Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="First Name" name="firstname" />
+								<input type="text" class="form-control" placeholder="First Name" name="firstname" value="${firstname}"/>
 							</div>
 						</div>
 						<div class="row">
@@ -70,7 +70,7 @@
 								<p>Last Name</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Last Name" name="lastname" />
+								<input type="text" class="form-control" placeholder="Last Name" name="lastname" value="${lastname}"/>
 							</div>
 						</div>
 						<div class="row">
@@ -78,7 +78,7 @@
 								<p>Email</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Email" name="email" />
+								<input type="text" class="form-control" placeholder="Email" name="email" value="${email}"/>
 							</div>
 						</div>
 						<div class="row">
@@ -86,7 +86,7 @@
 								<p>Year of Birth</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Year of Birth" name="yob" />
+								<input type="text" class="form-control" placeholder="Year of Birth" name="yob" value="${yob }"/>
 							</div>
 						</div>
 						<div class="row">
@@ -94,7 +94,7 @@
 								<p>Full Address</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Full Address" name="address" />
+								<input type="text" class="form-control" placeholder="Full Address" name="address" value="${address }"/>
 							</div>
 						</div>
 						<div class="row">
@@ -102,7 +102,7 @@
 								<p>Credit Card Number</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Credit Card Number" name="ccn" />
+								<input type="text" class="form-control" placeholder="Credit Card Number" name="ccn" value="${ccn}"/>
 							</div>
 						</div>
 						<div class="row">
