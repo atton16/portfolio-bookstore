@@ -278,4 +278,57 @@ public class EntityDAOImpl implements EntityDAO{
 		}
 		return result;
 	}
+
+	@Override
+	public long getMaxNodeID(String Type) throws SQLException {
+		long result = 0;
+		String MaxEntityID = "";
+		String sql = "SELECT EntityID FROM Entity WHERE Type=? ORDER BY EntityID DESC LIMIT 0,1";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, Type);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				MaxEntityID = rs.getString("EntityID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		if(MaxEntityID != null && !MaxEntityID.equals("")) {
+			result = Long.parseLong(MaxEntityID.substring(1));
+		}
+		return result;
+	}
+
+	@Override
+	public long getMaxEdgeID() throws SQLException {
+		long result = 0;
+		String MaxEntityID = "";
+		String sql = "SELECT EntityID FROM Entity WHERE Class='Edge' ORDER BY EntityID DESC LIMIT 0,1";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				MaxEntityID = rs.getString("EntityID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		if(MaxEntityID != null && !MaxEntityID.equals("")) {
+			result = Long.parseLong(MaxEntityID.substring(1));
+		}
+		return result;
+	}
+
+	
 }
