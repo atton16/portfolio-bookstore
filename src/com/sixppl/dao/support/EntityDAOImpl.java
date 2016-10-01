@@ -34,6 +34,7 @@ public class EntityDAOImpl implements EntityDAO{
 	public void createEntityTable() throws SQLException {
 		String sql = "CREATE TABLE IF NOT EXISTS Entity ("
 			+ "ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,"
+			+ "PubID BIGINT(20) UNSIGNED NOT NULL,"
 			+ "EntityID text NOT NULL,"
 			+ "Class text NOT NULL,"
 			+ "Type text NOT NULL,"
@@ -53,16 +54,17 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void insertEntity(EntityDTO entity) throws SQLException {
-		String sql = "INSERT INTO Entity (EntityID, Class, Type, Caption) VALUES(?,?,?,?)";
+	public void insertEntity(EntityDTO entity, long PubID) throws SQLException {
+		String sql = "INSERT INTO Entity (PubID, EntityID, Class, Type, Caption) VALUES(?,?,?,?,?)";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, entity.getEntityID());
-			ps.setString(2, entity.getEntityClass());
-			ps.setString(3, entity.getEntityType());
-			ps.setString(4, entity.getEntityCaption());
+			ps.setLong(1, PubID);
+			ps.setString(2, entity.getEntityID());
+			ps.setString(3, entity.getEntityClass());
+			ps.setString(4, entity.getEntityType());
+			ps.setString(5, entity.getEntityCaption());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -72,8 +74,8 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void updateEntity(EntityDTO entity) throws SQLException {
-		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE ID=?";
+	public void updateEntity(EntityDTO entity, long PubID) throws SQLException {
+		String sql = "UPDATE Entity SET EntityID=?, Class=?, Type=?, Caption=? WHERE PubID=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
@@ -82,7 +84,7 @@ public class EntityDAOImpl implements EntityDAO{
 			ps.setString(2, entity.getEntityClass());
 			ps.setString(3, entity.getEntityType());
 			ps.setString(4, entity.getEntityCaption());
-			ps.setLong(5, entity.getID());
+			ps.setLong(5, PubID);
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -92,13 +94,13 @@ public class EntityDAOImpl implements EntityDAO{
 	}
 
 	@Override
-	public void deleteEntity(long ID) throws SQLException {
-		String sql = "DELETE FROM Entity WHERE ID=?";
+	public void deleteEntity(long PubID) throws SQLException {
+		String sql = "DELETE FROM Entity WHERE PubID=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setLong(1, ID);
+			ps.setLong(1, PubID);
 			ps.executeUpdate();
 			ps.close();
 		}
