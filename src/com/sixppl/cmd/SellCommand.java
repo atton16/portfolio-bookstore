@@ -31,6 +31,7 @@ public class SellCommand implements Command {
 	long countVenue;
 	long countEdge;
 	long countEntity;
+	ArrayList<EntityDTO> insertedEntity;
 	
 	public SellCommand(){
 		error = false;
@@ -40,6 +41,7 @@ public class SellCommand implements Command {
 		countAuthor = 0;
 		countEdge = 0;
 		countEntity = 0;
+		insertedEntity = new ArrayList<EntityDTO>();
 	}
 
 	@Override
@@ -142,7 +144,6 @@ public class SellCommand implements Command {
 	}
 	
 	public void addToGraph(PublicationDTO p){
-		ArrayList<EntityDTO> insertedEntity = new ArrayList<EntityDTO>();
 		ImportGraph dao = Application.getSharedInstance().getDAOFactory().getImportGraph();
 		EntityDTO ep = new EntityDTO();
 		EntityDTO ea = new EntityDTO();
@@ -216,7 +217,7 @@ public class SellCommand implements Command {
 			}
 		}
 		// Extract Venue
-		if (p.getJournal() != null || p.getJournal().isEmpty()) {
+		if (p.getJournal() != null && !p.getJournal().isEmpty()) {
 			ev = new EntityDTO(countEntity+1, "V" + Long.toString(countVenue+1), "Node", "Venue", p.getJournal());
 			if (EntityDTO.containsEntity(insertedEntity, ev)) {
 				ev = EntityDTO.findEntity(insertedEntity, ev);
