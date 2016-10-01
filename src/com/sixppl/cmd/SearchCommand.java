@@ -29,7 +29,7 @@ public class SearchCommand implements Command {
 		prevParams = null;
 		nextParams = null;
 		items = new ArrayList<ListingDTO>();
-		page = 0;
+		page = 1;
 		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 
 	}
@@ -43,7 +43,10 @@ public class SearchCommand implements Command {
 			// Empty Search
 			if(request.getParameter("page") != null){
 				page = Integer.valueOf(request.getParameter("page"));
-				System.out.println("page parameter found");
+				System.out.println("page parameter found :" + page);
+			}
+			else{
+				page = 1;
 			}
 			ArrayList<ListingDTO> results = listingDao.emptySearch(request.getSession().getId());
 			System.out.println("Item found = " + results.size());
@@ -126,14 +129,8 @@ public class SearchCommand implements Command {
 			request.setAttribute("items", new ArrayList<ListingDTO>());
 			return;
 		}
-		
-		page = 1;
-		if(request.getParameter("page") != null){
-			try {
-				page = Integer.parseInt(request.getParameter("page"));
-			} catch(Exception e) {}
-		}
-		while(page*10 > results.size()) page--;	// Overflow protection
+
+		while(page > results.size()%10+1) page--;	// Overflow protection
 		if(page < 1)
 			page = 1;
 		start = page*10-10+1;
@@ -141,20 +138,13 @@ public class SearchCommand implements Command {
 		end = end > results.size() ? results.size() : end;
 		
 		total = results.size();
-		System.out.println(start);
-		System.out.println(end);
-		System.out.println(total);
+		
 		for(int i = start-1; i < end; i++){
 			items.add(results.get(i));
 		}
 		
-		String urlpath = request.getContextPath();
-		if(urlpath.contains("?")){
-			urlpath = urlpath.substring(urlpath.indexOf("?")+1);
-		}
-		else{
-			urlpath = "";
-		}
+		String urlpath = request.getQueryString();
+		
 		int i = -1,j = -1;
 		if(total <= 10 && page == 1){
 			
@@ -172,21 +162,24 @@ public class SearchCommand implements Command {
 		if(urlpath.contains("page")){
 			urlpath = urlpath.substring(0, urlpath.lastIndexOf("&"));
 		}
+		if(request.getParameterMap().size() != 0){
+			urlpath = urlpath + "&";
+		}
 		if(i == -1 && j == -1){
 			prevParams = null;
 			nextParams = null;
 		}
 		else if(j == -1){
 			prevParams = null;
-			nextParams = urlpath + "&page=" + i;
+			nextParams = urlpath + "page=" + i;
 		}
 		else if(i == -1){
 			nextParams = null;
-			prevParams = urlpath + "&page=" + j;
+			prevParams = urlpath + "page=" + j;
 		}
 		else if(i != -1 && j != -1){
-			prevParams = urlpath + "&page=" + j;
-			nextParams = urlpath + "&page=" + i;
+			prevParams = urlpath + "page=" + j;
+			nextParams = urlpath + "page=" + i;
 		}
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);

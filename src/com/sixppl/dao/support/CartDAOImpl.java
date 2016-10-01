@@ -162,4 +162,82 @@ public class CartDAOImpl implements CartDAO {
 		}//end try
 		return (cartCount > 0) ? true : false;
 	}
+
+	@Override
+	public void removeAll(int userID) {
+		//Get OrderNumber
+		PreparedStatement stmt = null;
+		long orderNumber = -1;
+		String sql = "SELECT Value FROM Variable WHERE Name = ?";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "OrderNumber");
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				orderNumber = rs.getInt("Value");
+				orderNumber++;
+			}
+			//STEP 6: Clean-up environment
+			stmt.close();
+			// increase OrderNumber
+			sql = "UPDATE Transaction SET Value = ? WHERE Name = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, orderNumber);
+			stmt.setString(2, "OrderNumber");
+			stmt.executeUpdate();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+		
+		//Add Checkout items to transaction
+		ArrayList<ListingDTO> checkoutItems = viewCart(userID);
+		for(ListingDTO item: checkoutItems){
+			sql = "INSERT INTO `Transaction` (`BuyerID`,`SellerID`,`PubID`,`OrderNumber`,`SellingPrice`) VALUES (?,?,?,?,?)";
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.setLong(1, userID);
+				stmt.setLong(2, item.sellerID);
+				stmt.setLong(3, item.pubID);
+				stmt.setLong(4, orderNumber);
+				stmt.setLong(5, item.price);
+				stmt.executeUpdate();
+				stmt.close();
+				
+				sql = "UPDATE Cart SET RemoveTime = ? WHERE UserID = ? and PubID = ?;";
+				stmt = conn.prepareStatement(sql);
+				stmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+				stmt.setInt(2, userID);
+				stmt.setInt(3, item.pubID);
+				stmt.executeUpdate();
+				
+				//STEP 6: Clean-up environment
+				stmt.close();
+			}catch(SQLException se){
+				//Handle errors for JDBC
+				se.printStackTrace();
+			}catch(Exception e){
+				//Handle errors for Class.forName
+				e.printStackTrace();
+			}finally{
+				//finally block used to close resources
+				try{
+					if(stmt!=null)
+						stmt.close();
+				}catch(SQLException se2){
+				}// nothing we can do
+			}//end try
+		}
+	}
 }
