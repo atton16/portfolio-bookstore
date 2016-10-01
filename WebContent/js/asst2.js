@@ -16,6 +16,18 @@ $("a[href='#']").click(function(e){
 			
 			// Add to cart specific behaviour
 			if($(tmp_this).html().indexOf('Add to Cart') >= 0){
+				var shoppingCartLabel;
+				var pattern = /Shopping Cart \((\d+)\)/;
+				var text = $('#shopping-cart').text().trim();
+				var match = pattern.exec(text);
+				var count;
+
+				if (match != null) {
+					count = parseInt(match[1]);
+				} else {
+					count = 0;
+				}
+				
 				shoppingCartLabel = $('#shopping-cart').html().substring(0,$('#shopping-cart').html().indexOf('Shopping'));
 				$(tmp_this).removeAttr('href');
 				$(tmp_this).removeClass('text-link-info');
@@ -24,6 +36,10 @@ $("a[href='#']").click(function(e){
 					$(tmp_this).addClass('link-as-danger-text');
 					$(tmp_this).html('Cannot add to Cart!');
 					shoppingCartLabel += "Shopping Cart";
+				} else if(parseInt(data) == count){
+					$(tmp_this).addClass('link-as-danger-text');
+					$(tmp_this).html('Cannot add to Cart!');
+					shoppingCartLabel += "Shopping Cart ("+data+")";
 				} else {
 					$(tmp_this).html('In Cart');
 					$(tmp_this).addClass('link-as-text');
