@@ -1334,6 +1334,22 @@ CREATE TABLE IF NOT EXISTS `Listing` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `Listing` (`PubID`, `Title`, `Authors`, `Editors`, `Type`, `Year`, `Venue`, `SellerID`, `Picture`, `Price`, `Status`, `SoldCount`, `timestamp`) VALUES
+(1, 'Harry Potter and the philosopher stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic1.jpg', 199, 1, 0, '2016-10-01 01:12:17'),
+(2, 'Winnie the Pooh', 'Christopher Robin', 'Piglet,Tiger', 'Conference', 1879, 'Kids', 1, '/uploads/pic2.jpg', 79, 1, 0, '2016-10-01 01:14:00'),
+(3, 'The Maker of Swan', 'Paraic O''Donnell', '', 'Article', 2001, '', 1, '/uploads/pic3.jpg', 99, 1, 0, '2016-10-01 01:15:45'),
+(4, 'Responsive Web Design', 'Ethan Marcotte', 'Jeremy Keith', 'Journal', 2010, '', 1, '/uploads/pic4.jpg', 299, 1, 0, '2016-10-01 01:26:27'),
+(5, 'Mobile First', 'Luke Wroblewski', 'Jeffrey Zeldman', 'Article', 1790, '', 1, '/uploads/pic5.jpg', 219, 1, 0, '2016-10-01 01:29:24'),
+(6, 'Ancient Tales', 'Duncan Long,Raz Algul', '', 'Master Thesis', 1890, '', 1, '/uploads/pic6.jpg', 99, 1, 0, '2016-10-01 01:31:11'),
+(7, 'Enchantment The Art of Changing Heart, Minds, and Actions', 'Guy Kawasaki', 'Woz,Apple', 'Journal', 2016, '', 1, '/uploads/pic7.jpg', 449, 1, 0, '2016-10-01 01:32:47'),
+(8, 'To Kill a Mocking Bird', 'Harper Lee', '', 'Book', 2020, '', 1, '/uploads/pic8.jpg', 799, 1, 0, '2016-10-01 01:33:39'),
+(9, '1984', 'George Orwell', '', 'Article', 2000, '', 1, '/uploads/pic9.jpg', 399, 1, 0, '2016-10-01 01:34:26'),
+(10, 'Pieces of Light', 'Charles Fernyhough', 'Andre Aciman', 'Conference', 2009, 'Harvard', 1, '/uploads/pic10.jpg', 299, 1, 0, '2016-10-01 01:35:40'),
+(11, 'Jungle Book', 'IBM', '', 'Conference', 1809, 'IBM', 1, '/uploads/pic11.jpg', 199, 1, 0, '2016-10-01 01:39:14'),
+(12, 'Big-Hearted People', 'Randy J. Schum', '', 'Ph.D.Thesis', 2016, '', 1, '/uploads/pic12.jpg', 699, 1, 0, '2016-10-01 01:40:25'),
+(13, 'Code Quality', 'Diomidis Spinellis', '', 'Book', 1976, '', 1, '/uploads/pic13.jpg', 999, 1, 0, '2016-10-01 01:41:36'),
+(14, 'Our Lent Things we carry', 'David Crumm', '', 'Book', 2011, '', 1, '/uploads/pic14.jpg', 300, 1, 0, '2016-10-01 01:42:32');
+
 -- --------------------------------------------------------
 
 --
