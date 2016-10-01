@@ -8,9 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-
-import com.sixppl.main.Application;
+//import javax.servlet.http.HttpServletRequest;
+//
+//import com.sixppl.main.Application;
 
 @WebFilter(filterName="Session Filter", urlPatterns={ "/*" })
 public class SessionFilter implements Filter {
