@@ -1492,6 +1492,7 @@ INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `
 (41, 'user20', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user20', 'user20', 'user20', 'user20', 1000, 'user20', '9999999999999999'),
 (42, 'user21', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user21', 'user21', 'user21', 'user21', 1000, 'user21', '9999999999999999');
 
+
 -- --------------------------------------------------------
 
 --
@@ -1635,7 +1636,7 @@ ADD UNIQUE KEY `Title` (`Title`);
 -- Indexes for table `Transaction`
 --
 ALTER TABLE `Transaction`
-  ADD PRIMARY KEY (`BuyerID`,`SellerID`,`PubID`),
+  ADD PRIMARY KEY (`BuyerID`,`SellerID`,`PubID`,`OrderNumber`),
   ADD KEY `PubID` (`PubID`),
   ADD KEY `SellerID` (`SellerID`);
 
