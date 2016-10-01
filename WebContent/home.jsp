@@ -21,7 +21,7 @@ com.sixppl.main.Application.getSharedInstance().embedDefaults((HttpServletReques
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Random Picks</h3>
-			<p><i>From ${total_pub} publications</i></p>
+			<p><i>Displaying 10 from ${total_pub} publications</i></p>
 		</div>
 	</div>
 	<!-- Random Pick Contents: One item per row -->
