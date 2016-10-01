@@ -193,9 +193,11 @@ public class Asst2Servlet extends HttpServlet {
 		UserDTO user = (UserDTO) session.getAttribute("user");
 		UserDTO admin = (UserDTO) session.getAttribute("admin");
 		// Ban redirection
-		if(user != null && admin == null && !URI.equalsIgnoreCase("/ban")) {
-			if(user.isBanned())
+		if(user != null && admin == null && !URI.equalsIgnoreCase("/ban") && !URI.equalsIgnoreCase("/logout")) {
+			if(user.isBanned()){
 				response.sendRedirect(contextPath+"/ban");
+				return;
+			}
 		}
 		
 		// GET Actions
@@ -430,8 +432,10 @@ public class Asst2Servlet extends HttpServlet {
 		UserDTO admin = (UserDTO) session.getAttribute("admin");
 		// Ban redirection
 		if(user != null && admin == null && !URI.contains("/rest")) {
-			if(user.isBanned())
+			if(user.isBanned()){
 				response.sendRedirect(contextPath+"/ban");
+				return;
+			}
 		}
 		
 		// POST Actions
