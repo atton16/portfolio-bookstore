@@ -118,6 +118,53 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
 				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
+				if(pub.similar(pubKey) && pub.status == true){
+					System.out.println("found");
+					results.add(pub);
+				}
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+		
+		return results;
+	}
+	
+	@Override
+	public ArrayList<ListingDTO> searchAll(ListingDTO pubKey, String sessionId) {
+		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
+		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(sessionId);
+		int userID = sessionDao.finduserIDbySession(sessionDTO);
+		PreparedStatement stmt = null;
+		String sql = "SELECT * FROM Listing LEFT JOIN User ON Listing.SellerID=User.UserID";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				ListingDTO pub = new ListingDTO();
+				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
+				pub.setSellerNickname(rs.getString("Nickname"));
+				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
 				if(pub.similar(pubKey)){
 					System.out.println("found");
 					results.add(pub);
@@ -408,7 +455,7 @@ public class ListingDAOImpl implements ListingDAO {
 		int userID = sessionDao.finduserIDbySession(sessionDTO);
 		
 		PreparedStatement stmt = null;
-		String sql = "SELECT * FROM Listing AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(PubID) FROM Listing)) AS PubID) AS r2 WHERE r1.PubID >= r2.PubID ORDER BY r1.PubID ASC LIMIT 1";
+		String sql = "SELECT * FROM Listing AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(PubID) FROM Listing)) AS PubID) AS r2 WHERE r1.PubID >= r2.PubID AND r1.Status = 1 ORDER BY r1.PubID ASC LIMIT 1";
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
