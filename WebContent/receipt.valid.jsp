@@ -55,6 +55,22 @@
 		<h4><b>Total: A$${total_price}.00</b></h4>
 		</div>
 	</div>
+	<!-- Credit Card Title -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<h3>Credit Card Charged</h3>
+		</div>
+	</div>
+	<!-- Credit Card: Content -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p><b>${user.getCardno()}</b></p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Billing Details Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
@@ -67,8 +83,8 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					
-					<p><b>${user.getFirstname()} ${user.getLastname()}</b></p>
-					<p>${user.getAddr()}</p>
+					<p><b>Name: ${user.getFirstname()} ${user.getLastname()}</b></p>
+					<p>Address: ${user.getAddr()}</p>
 				</div>
 			</div>
 		</div>

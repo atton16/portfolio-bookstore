@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -27,12 +28,13 @@ public class SessionDAOImpl implements SessionDAO {
 	public  boolean addSession(SessionDTO session) {
 		boolean flag = true;
 
-		String sql = "UPDATE `LoginSessions` SET (`UserID`) VALUES (?) WHERE `JSESSIONID` = ?";
+		String sql = "UPDATE `LoginSessions` SET (`UserID`, `timestamp`) VALUES (?,?) WHERE `JSESSIONID` = ?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, session.getUserID());
-			stmt.setString(2, session.getSessionID());
+			stmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			stmt.setString(3, session.getSessionID());
 			try{
 				stmt.executeUpdate();
 				stmt.close();

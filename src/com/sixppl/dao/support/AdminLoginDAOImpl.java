@@ -63,17 +63,23 @@ public class AdminLoginDAOImpl implements AdminLoginDAO{
 
 	@Override
 	public boolean login(Integer UserID, String SessionID) {
-		Connection con = null;
+		Connection con = Application.getSharedInstance().getDAOSupport().getConnection();
 		boolean status = false;
+		String sql = "UPDATE `AdminLoginSessions` SET (`UserID`, `timestamp`) VALUES (?,?) WHERE `JSESSIONID` = ?";
 		try {
-			con = Application.getSharedInstance().getDAOSupport().getConnection();
-			PreparedStatement stmt = con.prepareStatement("INSERT INTO AdminLoginSessions (ID, timestamp, UserID, JSESSIONID) VALUE(NULL,?,?,? )");
-			java.sql.Timestamp  banTime = new java.sql.Timestamp(new java.util.Date().getTime());
-			stmt.setTimestamp(1, banTime);
-			stmt.setInt(2, UserID);
-			stmt.setString(3, SessionID);;
-
-			stmt.execute();
+			try {
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1, UserID);
+				stmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+				stmt.setString(3, SessionID);
+				stmt.execute();
+			} catch (Exception e) {
+				sql = "INSERT INTO AdminLoginSessions (UserID, JSESSIONID) VALUE(?,?)";
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.setInt(1, UserID);
+				stmt.setString(2, SessionID);;
+				stmt.execute();
+			}
 			status=true;
 		} 
 		catch (SQLException se) {
