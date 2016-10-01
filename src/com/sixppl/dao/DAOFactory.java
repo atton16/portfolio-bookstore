@@ -3,6 +3,7 @@ package com.sixppl.dao;
 import java.util.HashMap;
 import java.util.Map;
 import com.sixppl.dao.support.*;
+import com.sixppl.importData.ImportGraph;
 
 public class DAOFactory {
 	private enum DAO {
@@ -20,7 +21,8 @@ public class DAOFactory {
 		ADMIN_PUB,
 		PAGE_HITS,
 		IP_LOG,
-		LISTING_STATISTICS
+		LISTING_STATISTICS,
+		IMPORT_GRAPH
 	}
 
 	private Map<DAO, Object> daos;
@@ -42,7 +44,12 @@ public class DAOFactory {
 		daos.put(DAO.PAGE_HITS, new PageHitsDAOImpl());
 		daos.put(DAO.IP_LOG, new IPLogDAOImpl());
 		daos.put(DAO.LISTING_STATISTICS, new ListingStatisticsDAOImpl());
+		daos.put(DAO.IMPORT_GRAPH, new ImportGraph());
 
+	}
+	
+	public ImportGraph getImportGraph(){
+		return (ImportGraph) daos.get(DAO.IMPORT_GRAPH);
 	}
 	
 	public UserDAO getUserDAO() {
