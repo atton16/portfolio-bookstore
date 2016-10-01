@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sixppl.dao.AdminUserBanDAO;
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
@@ -16,10 +17,12 @@ import com.sixppl.main.Application;
 public class EmbedUserCommand implements Command {
 	private SessionDAO sessionDao;
 	private UserDAO userDao;
+	private AdminUserBanDAO adminUserBanDao;
 	
 	public EmbedUserCommand() {
 		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		adminUserBanDao = Application.getSharedInstance().getDAOFactory().getAdminUserBanDAO();
 	}
 
 	@Override
@@ -29,6 +32,8 @@ public class EmbedUserCommand implements Command {
 		sessionDto.setSessionID(request.getSession().getId());
 		int userid = sessionDao.finduserIDbySession(sessionDto);
 		UserDTO userDto = userDao.findUserByUserID(userid);
+		if(userDto != null)
+			userDto.setIsBanned(adminUserBanDao.isBanned(userDto.getUserID()));
 		session.setAttribute("user", userDto);
 
 	}

@@ -28,24 +28,30 @@ $("a[href='#']").click(function(e){
 					count = 0;
 				}
 				
-				shoppingCartLabel = $('#shopping-cart').html().substring(0,$('#shopping-cart').html().indexOf('Shopping'));
 				$(tmp_this).removeAttr('href');
 				$(tmp_this).removeClass('text-link-info');
 				$(tmp_this).removeClass('submit-hidden-ajax');
-				if(data == 0){
+				
+				if(isNaN(parseInt(data))){
 					$(tmp_this).addClass('link-as-danger-text');
-					$(tmp_this).html('Cannot add to Cart!');
-					shoppingCartLabel += "Shopping Cart";
-				} else if(parseInt(data) == count){
-					$(tmp_this).addClass('link-as-danger-text');
-					$(tmp_this).html('Cannot add to Cart!');
-					shoppingCartLabel += "Shopping Cart ("+data+")";
+					$(tmp_this).html(data);
 				} else {
-					$(tmp_this).html('In Cart');
-					$(tmp_this).addClass('link-as-text');
-					shoppingCartLabel += "Shopping Cart ("+data+")";
+					shoppingCartLabel = $('#shopping-cart').html().substring(0,$('#shopping-cart').html().indexOf('Shopping'));
+					if(data == 0){
+						$(tmp_this).addClass('link-as-danger-text');
+						$(tmp_this).html('Cannot add to Cart!');
+						shoppingCartLabel += "Shopping Cart";
+					} else if(parseInt(data) == count){
+						$(tmp_this).addClass('link-as-danger-text');
+						$(tmp_this).html('Cannot add to Cart!');
+						shoppingCartLabel += "Shopping Cart ("+data+")";
+					} else {
+						$(tmp_this).html('In Cart');
+						$(tmp_this).addClass('link-as-text');
+						shoppingCartLabel += "Shopping Cart ("+data+")";
+					}
+					$('#shopping-cart').html(shoppingCartLabel);
 				}
-				$('#shopping-cart').html(shoppingCartLabel);
 			}
 			
 			// Remove Pub specific behaviour

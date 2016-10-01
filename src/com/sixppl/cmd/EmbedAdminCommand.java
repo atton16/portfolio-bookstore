@@ -30,7 +30,6 @@ public class EmbedAdminCommand implements Command {
 		int userid = sessionDao.findAdminUserIDbySession(sessionDto);
 		UserDTO userDto = userDao.findUserByUserID(userid);
 		session.setAttribute("admin", userDto);
-
 	}
 
 }

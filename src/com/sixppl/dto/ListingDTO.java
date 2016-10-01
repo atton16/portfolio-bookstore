@@ -28,6 +28,8 @@ public class ListingDTO {
 	public Boolean inCart;
 	public Timestamp buyDate;
 	public Timestamp removeFromCartDate;
+	public Integer addedToCart;
+	public Integer viewed;
 	
 	public ListingDTO(){
 		this.pubID = 0;
@@ -51,6 +53,8 @@ public class ListingDTO {
 		this.inCart = false;
 		this.buyDate = null;
 		this.removeFromCartDate = null;
+		this.addedToCart = 0;
+		this.viewed = 0;
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
@@ -108,6 +112,23 @@ public class ListingDTO {
 		this.fromYear = fromYear;
 		this.toYear = toYear;
 	}
+	
+	public void setAddedToCart(Integer addedToCart) {
+		this.addedToCart = addedToCart;
+	}
+	
+	public void setViewed(Integer viewed) {
+		this.viewed = viewed;
+	}
+	
+	public Integer getAddedToCart() {
+		return addedToCart;
+	}
+	
+	public Integer getViewed() {
+		return viewed;
+	}
+	
 	public int getPubID(){
 		return pubID;
 	}

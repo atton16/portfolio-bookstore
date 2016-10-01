@@ -60,14 +60,12 @@
 					<h3 class="panel-title">10 Most Viewed</h3>
 				</div>
 				<div class="panel-body">
-<%-- 					<jstl:set var="entrylist" value="${app.getSharedInstance().getMostItemViewCounts(10) }" scope="page" />
-					<jstl:forEach var="entry" items="${entrylist}">
-						<jstl:set var="simpleInfo" value="${app.getSharedInstance().getPublicationInfoByKey(entry.getKey())}" scope="page" /> --%>
+					<jstl:forEach var="pub" items="${most_viewed}">
 						<div class="as-table">
-							<div class="as-cell as-cell-5"><b>1</b></div>
-							<div class="as-cell as-cell-95"><a href="${contextPath}/pubinfo?id=pubid1" target="_blank">1984</a></div>
+							<div class="as-cell as-cell-5"><b>${pub.getViewed()}</b></div>
+							<div class="as-cell as-cell-95"><a href="${contextPath}/pubinfo?id=${pub.getPubID()}" target="_blank">${pub.getTitle()}</a></div>
 						</div>
-					<%-- </jstl:forEach> --%>
+					</jstl:forEach>
 				</div>
 			</div>
 			
@@ -77,14 +75,12 @@
 					<h3 class="panel-title">10 Most Added To Cart</h3>
 				</div>
 				<div class="panel-body">
-					<%-- <jstl:set var="entrylist" value="${app.getSharedInstance().getMostItemAddToCartCounts(10) }" scope="page" /> --%>
-					<%-- <jstl:forEach var="entry" items="${entrylist}"> --%>
-						<%-- <jstl:set var="simpleInfo" value="${app.getSharedInstance().getPublicationInfoByKey(entry.getKey())}" scope="page" /> --%>
+					<jstl:forEach var="pub" items="${most_added_to_cart}">
 						<div class="as-table">
-							<div class="as-cell as-cell-5"><b>2</b></div>
-							<div class="as-cell as-cell-95"><a href="${contextPath}/pubinfo?id=pubid2" target="_blank">Responsive Web Design</a></div>
+							<div class="as-cell as-cell-5"><b>${pub.getAddedToCart()}</b></div>
+							<div class="as-cell as-cell-95"><a href="${contextPath}/pubinfo?id=${pub.getPubID()}" target="_blank">${pub.getTitle()}</a></div>
 						</div>
-					<%-- </jstl:forEach> --%>
+					</jstl:forEach>
 				</div>
 			</div>
 		</div>
