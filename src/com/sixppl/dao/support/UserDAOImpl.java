@@ -257,4 +257,30 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 
+	@Override
+	public Integer userCounts() {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Integer size = 0;
+		String sql = "SELECT COUNT(*) AS Total FROM `User`";
+		try {
+			stmt = connection.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				size = rs.getInt("Total");
+			}
+			stmt.close();
+		} catch (Exception e) {}
+		
+		try {
+			if(rs != null)
+				rs.close();
+			if(stmt != null)
+				stmt.close();
+		} catch (Exception e) {}
+		
+		return size;
+	}
+
+
 }

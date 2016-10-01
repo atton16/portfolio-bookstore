@@ -1366,6 +1366,39 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `IPLog`
+--
+
+CREATE TABLE IF NOT EXISTS `IPLog` (
+  `IPAddress` varchar(100) NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ListingStatistics`
+--
+
+CREATE TABLE IF NOT EXISTS `ListingStatistics` (
+  `PubID` bigint(20) unsigned NOT NULL,
+  `AddedToCart` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `Viewed` bigint(20) unsigned NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PageHits`
+--
+
+CREATE TABLE IF NOT EXISTS `PageHits` (
+  `Page` varchar(100) NOT NULL,
+  `Hits` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table Structure for table 'AdminLoginSessions'
 --
 
@@ -1425,23 +1458,6 @@ CREATE TABLE IF NOT EXISTS `User` (
 CREATE TABLE IF NOT EXISTS `PageHits` (
 	`Page` VARCHAR(100) NOT NULL,
     `Hits` int(11) NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Table structure for table 'MostAddedToCart'
---
-
-CREATE TABLE IF NOT EXISTS `MostAddedToCart` (
-	`Title` VARCHAR(100) NOT NULL,
-    `Count` int(11) NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Table structure for table 'MostViewed'
---
-CREATE TABLE IF NOT EXISTS `MostViewed` (
-	`Title` VARCHAR(100) NOT NULL,
-    `Count` int(11) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1619,18 +1635,16 @@ ALTER TABLE `PageHits`
 	ADD UNIQUE KEY `Page` (`Page`);
 
 --
--- Indexes for table `MostAddedToCart`
+-- Indexes for table `IPLog`
 --
-
-ALTER TABLE `MostAddedToCart`
-	ADD UNIQUE KEY `Title` (`Title`);
+ALTER TABLE `IPLog`
+  ADD PRIMARY KEY (`IPAddress`);
 
 --
--- Indexes for table `MostViewed`
+-- Indexes for table `ListingStatistics`
 --
-
-ALTER TABLE `MostViewed`
-ADD UNIQUE KEY `Title` (`Title`);
+ALTER TABLE `ListingStatistics`
+  ADD PRIMARY KEY (`PubID`);
 
 --
 -- Indexes for table `Transaction`
@@ -1725,6 +1739,12 @@ ALTER TABLE `Cart`
 ALTER TABLE `LoginSessions`
   ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
 
+--
+-- Constraints for table `ListingStatistics`
+--
+ALTER TABLE `ListingStatistics`
+  ADD CONSTRAINT `listingstatistics_ibfk_1` FOREIGN KEY (`PubID`) REFERENCES `Listing` (`PubID`) ON DELETE CASCADE;
+  
 --
 -- Constraints for table `AdminLoginSessions`
 --

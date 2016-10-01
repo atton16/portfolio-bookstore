@@ -61,53 +61,35 @@
 	<!-- Buy History Content -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<!-- Item 1 -->
+			<jstl:forEach var="buy" items="${buys}">
+			<!-- Item # -->
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<table class="fill-width">
 						<tr>
 							<td align="center" class="cell-180px padding-right-12">
-								<img src="${contextPath}/uploads/1984.jpeg" class="square-180-by-180">
+								<img src="${contextPath}${buy.getPicture()}" class="square-180-by-180">
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid1" class="link-as-text">1984</a></h3>
-									<h5><i>George Orwell</i></h5>
+									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${buy.getPubID()}" class="link-as-text">${buy.getTitle()}</a></h3>
+									<h5><i>
+									<jstl:forEach var="writer" items="${buy.getWriters()}" varStatus="stat">
+										${writer}${stat.last ? '' : ', '}
+									</jstl:forEach>
+									</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
-									<h4><b>A$40.00</b></h4>
-									<p><i>Seller: Nickname</i></p>
-									<p><i>Buy Date: DD/MM/YY</i></p>
+									<h4><b>A$${buy.getPrice()}.00</b></h4>
+									<p><i>Seller: ${buy.getSellerNickname()}</i></p>
+									<p><i>Buy Date: ${buy.getBuyDateString()}</i></p>
 								<td></tr>
 							</table></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			
-			<!-- Item 2 -->
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<table class="fill-width">
-						<tr>
-							<td align="center" class="cell-180px padding-right-12">
-								<img src="${contextPath}/uploads/aba-04.png" class="square-180-by-180">
-							</td>
-							<td class="border-left padding-left-12"><table>
-								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid2" class="link-as-text">Responsive Web Design</a></h3>
-									<h5><i>Ethan Marcotte</i></h5>
-								<td></tr>
-								<tr><td valign="bottom">
-									<h4><b>A$40.00</b></h4>
-									<p><i>Seller: Nickname</i></p>
-									<p><i>Buy Date: DD/MM/YY</i></p>
-								<td></tr>
-							</table></td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			</jstl:forEach>
 		</div>
 	</div>
 	
@@ -120,53 +102,35 @@
 	<!-- Removed From Car Content -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
+			<jstl:forEach var="remove" items="${removes}">
 			<!-- Item 1 -->
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<table class="fill-width">
 						<tr>
 							<td align="center" class="cell-180px padding-right-12">
-								<img src="${contextPath}/uploads/1984.jpeg" class="square-180-by-180">
+								<img src="${contextPath}${remove.getPicture()}" class="square-180-by-180">
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid1" class="link-as-text">1984</a></h3>
-									<h5><i>George Orwell</i></h5>
+									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${remove.getPubID()}" class="link-as-text">${remove.getTitle()}</a></h3>
+									<h5><i>
+									<jstl:forEach var="writer" items="${remove.getWriters()}" varStatus="stat">
+										${writer}${stat.last ? '' : ', '}
+									</jstl:forEach>
+									</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
-									<h4><b>A$40.00</b></h4>
-									<p><i>Seller: Nickname</i></p>
-									<p><i>Remove Date: DD/MM/YY</i></p>
+									<h4><b>A$${remove.getPrice()}.00</b></h4>
+									<p><i>Seller: ${buy.getSellerNickname()}</i></p>
+									<p><i>Remove Date: ${buy.getRemoveFromCartDateString()}</i></p>
 								<td></tr>
 							</table></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			
-			<!-- Item 2 -->
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<table class="fill-width">
-						<tr>
-							<td align="center" class="cell-180px padding-right-12">
-								<img src="${contextPath}/uploads/aba-04.png" class="square-180-by-180">
-							</td>
-							<td class="border-left padding-left-12"><table>
-								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=pubid2" class="link-as-text">Responsive Web Design</a></h3>
-									<h5><i>Ethan Marcotte</i></h5>
-								<td></tr>
-								<tr><td valign="bottom">
-									<h4><b>A$40.00</b></h4>
-									<p><i>Seller: Nickname</i></p>
-									<p><i>Remove Date: DD/MM/YY</i></p>
-								<td></tr>
-							</table></td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			</jstl:forEach>
 		</div>
 	</div>
 </div>

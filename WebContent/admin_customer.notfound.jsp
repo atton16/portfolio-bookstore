@@ -22,7 +22,7 @@
 	<!-- Admin - Customer Activity Contents -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<center><h3>Sorry, user not found.</h3></center>
+			<center><h3>Sorry, user not found or user is not a customer.</h3></center>
 		</div>
 	</div>
 </div>

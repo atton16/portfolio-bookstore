@@ -442,4 +442,48 @@ public class ListingDAOImpl implements ListingDAO {
 		
 		return results;
 	}
+
+	@Override
+	public ListingDTO getByPubID(int pubID) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ListingDTO pub = null;
+		UserDAO userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		String sql = "SELECT * FROM Listing WHERE `PubID` = ?";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, pubID);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				pub = new ListingDTO();
+				pub.setAttributes(
+						rs.getInt("PubID"),
+						rs.getString("Title"),
+						rs.getString("Authors"),
+						rs.getString("Editors"),
+						rs.getString("Type"), 
+						rs.getInt("Year"),
+						rs.getString("Venue"),
+						rs.getInt("SellerID"),
+						rs.getString("Picture"),
+						rs.getInt("Price"),
+						rs.getBoolean("Status"), 
+						rs.getInt("SoldCount"),
+						rs.getTimestamp("timestamp")
+						);
+				pub.setSellerNickname(userDao.findUserByUserID(rs.getInt("SellerID")).getNickname());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(rs != null)
+				rs.close();
+			if(stmt != null)
+				stmt.close();
+		} catch (Exception e) {}
+		
+		return pub;
+	}
 }

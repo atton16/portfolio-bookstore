@@ -141,6 +141,31 @@ public class SessionDAOImpl implements SessionDAO {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	@Override
+	public Integer sessionCounts() {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Integer size = 0;
+		String sql = "SELECT COUNT(*) AS Total FROM `LoginSessions`";
+		try {
+			stmt = connection.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				size = rs.getInt("Total");
+			}
+			stmt.close();
+		} catch (Exception e) {}
+		
+		try {
+			if(rs != null)
+				rs.close();
+			if(stmt != null)
+				stmt.close();
+		} catch (Exception e) {}
+		
+		return size;
 	};
 
 }

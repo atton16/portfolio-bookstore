@@ -5,44 +5,71 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.sixppl.dao.AdminUserActivityDAO;
+import com.sixppl.dao.CartDAO;
+import com.sixppl.dao.ListingDAO;
+import com.sixppl.dao.TransactionDAO;
 import com.sixppl.dao.UserDAO;
-import com.sixppl.dto.AdminCartDTO;
-import com.sixppl.dto.CustomerActivityDTO;
+import com.sixppl.dto.CartDTO;
+import com.sixppl.dto.ListingDTO;
+import com.sixppl.dto.TransactionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
 import java.util.*;
 
 public class AdminGetUserActivityCommand implements Command{
-	private AdminUserActivityDAO admunUserActivityDao;
 	private UserDAO userDao;
+	private CartDAO cartDao;
+	private TransactionDAO transactionDao;
+	private ListingDAO listingDAO;
 	
 	public AdminGetUserActivityCommand(){
-		admunUserActivityDao = Application.getSharedInstance().getDAOFactory().getAdminUserActivityDAO();
 		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
+		cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		transactionDao = Application.getSharedInstance().getDAOFactory().getTransactionDAO();
+		listingDAO = Application.getSharedInstance().getDAOFactory().getListingDAO();
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer UserID = null;
 		UserDTO userDto = null;
-		List<CustomerActivityDTO> buyList = new ArrayList<CustomerActivityDTO>();
-		List<AdminCartDTO> removedList = new ArrayList<AdminCartDTO>();
+		List<ListingDTO> buyList = new ArrayList<ListingDTO>();
+		List<ListingDTO> removedList = new ArrayList<ListingDTO>();
+		List<TransactionDTO> buyTransactions = new ArrayList<TransactionDTO>();
+		List<CartDTO> cart = new ArrayList<CartDTO>();
 		
 		try {
 			UserID = Integer.parseInt(request.getParameter("id"));
 		} catch(Exception E){
+			request.setAttribute("user", null);
 			return;
 		}
 		
 		userDto = userDao.findUserByUserID(UserID);
 		
-		if(userDto == null)
+		if(userDto == null){
+			request.setAttribute("user", null);
 			return;
+		}
 		
-		buyList = admunUserActivityDao.getBuyingHistory(UserID);
-		removedList = admunUserActivityDao.getCartHistory(UserID);
+		buyTransactions = transactionDao.getByBuyerID(UserID);
+		for(TransactionDTO buyTransaction: buyTransactions) {
+			ListingDTO pub = listingDAO.getByPubID(buyTransaction.getPubID());
+			pub.setBuyDate(buyTransaction.getPurchaseTime());
+			buyList.add(pub);
+		}
+		
+		cart = cartDao.getByUserID(UserID);
+		for(CartDTO cartItem: cart) {
+			if(cartItem.getRemovetime() != null)
+				removedList.add(listingDAO.getByPubID(cartItem.getPubID()));
+		}
+		
+		if(buyList.isEmpty() || cart.isEmpty()){
+			request.setAttribute("user", null);
+			return;
+		}
 		
 		request.setAttribute("user", userDto);
 		request.setAttribute("buys", buyList);

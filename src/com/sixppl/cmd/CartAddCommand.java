@@ -32,6 +32,7 @@ public class CartAddCommand implements Command {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		Application.getSharedInstance().getDAOFactory().getListingStatisticsDAO().incrementMostAddedToCart(pubID);
 		
 		request.setAttribute("cartCount", cartCount);
 	}

@@ -163,4 +163,12 @@ public class Application {
 	public String getProductionPort() {
 		return Application.PRODUCTION_PORT;
 	}
+	
+	public void incrementPageHitsCount(String Title) {
+		daoFactory.getPageHitsDAO().incrementHitCount(Title);
+	}
+	
+	public void addIP(String remoteAddress) {
+		daoFactory.getIPLogDAO().add(remoteAddress);
+	}
 }

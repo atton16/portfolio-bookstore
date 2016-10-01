@@ -26,6 +26,7 @@ public class PubDetailCommand implements Command {
 		pubKey.setPubID(pubId);
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		item = listing.Search(pubKey, request.getSession().getId()).get(0);
+		Application.getSharedInstance().getDAOFactory().getListingStatisticsDAO().incrementMostViewed(pubId);
 		
 		request.setAttribute("item", item);
 	}

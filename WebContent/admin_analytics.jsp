@@ -24,26 +24,12 @@
 					<h3 class="panel-title">Page Hits</h3>
 				</div>
 				<div class="panel-body">
+					<jstl:forEach var="page_hit" items="${page_hits}">
 					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Home</b></div>
-						<div class="as-cell as-cell-83">123</div>
+						<div class="as-cell as-cell-17"><b>${page_hit.getTitle()}</b></div>
+						<div class="as-cell as-cell-83">${page_hit.getHitCount()}</div>
 					</div>
-					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Advanced Search</b></div>
-						<div class="as-cell as-cell-83">321</div>
-					</div>
-					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Results</b></div>
-						<div class="as-cell as-cell-83">2</div>
-					</div>
-					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Cart</b></div>
-						<div class="as-cell as-cell-83">1</div>
-					</div>
-					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>PubInfo</b></div>
-						<div class="as-cell as-cell-83">33</div>
-					</div>
+					</jstl:forEach>
 				</div>
 			</div>
 			
@@ -55,19 +41,15 @@
 				<div class="panel-body">
 					<div class="as-table">
 						<div class="as-cell as-cell-17"><b>Unique IPs</b></div>
-						<div class="as-cell as-cell-83">12</div>
+						<div class="as-cell as-cell-83">${unique_ips}</div>
 					</div>
 					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Active Sessions</b></div>
-						<div class="as-cell as-cell-83">21</div>
+						<div class="as-cell as-cell-17"><b>Registered Users</b></div>
+						<div class="as-cell as-cell-83">${users}</div>
 					</div>
 					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Users</b></div>
-						<div class="as-cell as-cell-83">21</div>
-					</div>
-					<div class="as-table">
-						<div class="as-cell as-cell-17"><b>Logged In</b></div>
-						<div class="as-cell as-cell-83">12</div>
+						<div class="as-cell as-cell-17"><b>Logged In Sessions</b></div>
+						<div class="as-cell as-cell-83">${logins}</div>
 					</div>
 				</div>
 			</div>

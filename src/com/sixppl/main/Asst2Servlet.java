@@ -100,7 +100,6 @@ public class Asst2Servlet extends HttpServlet {
 	    ADMIN_UNBAN_USER,
 	    ADMIN_GET_USER_ACTIVITY,
 	    
-	    ADMIN_PAGE_HIT,
 	    ADMIN_GET_PAGE_HIT,
 	    
 	    SEARCH_GRAPH,
@@ -109,7 +108,10 @@ public class Asst2Servlet extends HttpServlet {
 	    USER_IS_BANNED, 
 	    CHECKOUT,
 	    PUB_DETAIL,
-	    MANAGE_PUB
+	    MANAGE_PUB,
+	    UNIQUE_IP,
+	    REGISTERED_USERS,
+	    ACTIVE_LOGINS
 	}
 	
 	Map<COMMAND,Command> commands;
@@ -148,7 +150,6 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(COMMAND.ADMIN_UNBAN_USER, new AdminUnbanUserCommand());
 		commands.put(COMMAND.ADMIN_GET_USER_ACTIVITY, new AdminGetUserActivityCommand());
 		commands.put(COMMAND.ADMIN_LOGIN, new AdminLoginCommand());
-		commands.put(COMMAND.ADMIN_PAGE_HIT, new AdminPageHitCommand());
 		commands.put(COMMAND.SEARCH_GRAPH, new SearchGraphCommand());
 		commands.put(COMMAND.ADMIN_GET_PAGE_HIT, new AdminGetPageHitCommand());
 		commands.put(COMMAND.ADMIN_LOGOUT, new AdminLogoutCommand());
@@ -156,8 +157,11 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(COMMAND.CHECKOUT, new CheckoutCommand());
 		commands.put(COMMAND.MANAGE_PUB, new ManagePubCommand());
 		commands.put(COMMAND.PUB_DETAIL, new PubDetailCommand());
-		
+
 		commands.put(COMMAND.YEAR_LIST, new YearListCommand());
+		commands.put(COMMAND.UNIQUE_IP, new UniqueIPCommand());
+		commands.put(COMMAND.REGISTERED_USERS, new RegisteredUsersCommand());
+		commands.put(COMMAND.ACTIVE_LOGINS, new ActiveLoginsCommand());
 		
 
     }
@@ -182,33 +186,40 @@ public class Asst2Servlet extends HttpServlet {
 		// GET Actions
 		// Render: Search Page
 		if(URI.equalsIgnoreCase("/search")){
+			Application.getSharedInstance().incrementPageHitsCount("Advanced Search");
 			commands.get(COMMAND.YEAR_LIST).execute(request,response);
 			request.getRequestDispatcher("/search.jsp").forward(request,response);
 		// Render: Results Page
 		} else if(URI.equalsIgnoreCase("/results")){
+			Application.getSharedInstance().incrementPageHitsCount("Search Results");
 			commands.get(COMMAND.SEARCHTERMS).execute(request,response);
 			commands.get(COMMAND.SEARCH).execute(request, response);
 			request.getRequestDispatcher("/results.jsp").forward(request,response);
 		// Render: Cart Page
 		} else if(URI.equalsIgnoreCase("/cart")){
+			Application.getSharedInstance().incrementPageHitsCount("Shopping Cart");
 			commands.get(COMMAND.CART_VIEW).execute(request, response);
 			request.getRequestDispatcher("/cart.jsp").forward(request,response);
 		// Render: Receipt Page
 		} else if(URI.equalsIgnoreCase("/receipt")){
+			Application.getSharedInstance().incrementPageHitsCount("Receipt");
 			request.setAttribute("items", new ArrayList<String>());
 			request.getRequestDispatcher("/receipt.jsp").forward(request,response);
 		// Render: Publication Details
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
+			Application.getSharedInstance().incrementPageHitsCount("Publication Details");
 			commands.get(COMMAND.PUB_DETAIL).execute(request, response);
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){
+			Application.getSharedInstance().incrementPageHitsCount("Ban");
 			if((Boolean) request.getAttribute("banned") == true)
 				request.getRequestDispatcher("/ban_notice.jsp").forward(request,response);
 			else
 				response.sendRedirect(contextPath);
 		// Render: Login Page
 		} else if(URI.equalsIgnoreCase("/login")){
+			Application.getSharedInstance().incrementPageHitsCount("Login");
 			request.getRequestDispatcher("/login.jsp").forward(request,response);
 		// Logout
 		} else if(URI.equalsIgnoreCase("/logout")){
@@ -216,30 +227,37 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/home.jsp").forward(request,response);
 		// Render: Registration Page
 		} else if(URI.equalsIgnoreCase("/signup")){
+			Application.getSharedInstance().incrementPageHitsCount("Registration");
 			request.getRequestDispatcher("/signup.jsp").forward(request,response);
 		// Confirm Email
 		} else if(URI.equalsIgnoreCase("/signup/confirm")){
+			Application.getSharedInstance().incrementPageHitsCount("Confirm Email");
 			commands.get(COMMAND.USER_CONFIRM).execute(request, response);
 			request.getRequestDispatcher("/signup_confirm.jsp").forward(request,response);
 		// Edit Profile Page
 		} else if(URI.equalsIgnoreCase("/user/profile")){
+			Application.getSharedInstance().incrementPageHitsCount("Edit Profile");
 			commands.get(COMMAND.USER_VIEW_PROFILE).execute(request,response);
 			request.getRequestDispatcher("/profile.jsp").forward(request,response);
 		// Resend Verification Email
 		} else if(URI.equalsIgnoreCase("/user/profile/verify")){
+			Application.getSharedInstance().incrementPageHitsCount("Resend Verification Email");
 			commands.get(COMMAND.USER_EMAIL_CHANGE).execute(request, response);
 			request.getRequestDispatcher("/profile_verify.jsp").forward(request,response);
 		// Confirm New Email
 		} else if(URI.equalsIgnoreCase("/user/profile/confirm")){
+			Application.getSharedInstance().incrementPageHitsCount("Confirm New Email");
 			commands.get(COMMAND.USER_CONFIRM).execute(request, response);
 			request.getRequestDispatcher("/profile_confirm.jsp").forward(request,response);
 		// Sell Page
 		} else if(URI.equalsIgnoreCase("/user/sell")){
+			Application.getSharedInstance().incrementPageHitsCount("Sell");
 			request.setAttribute("error", false);
 			request.setAttribute("error_msg", null);
 			request.getRequestDispatcher("/sell.jsp").forward(request,response);
 		// Manage Publications Page
 		} else if(URI.equalsIgnoreCase("/user/pub/manage")){
+			Application.getSharedInstance().incrementPageHitsCount("Manage Publications");
 			commands.get(COMMAND.MANAGE_PUB).execute(request, response);
 			request.getRequestDispatcher("/pub_manage.jsp").forward(request,response);
 		// Admin Dashboard Page
@@ -291,9 +309,14 @@ public class Asst2Servlet extends HttpServlet {
 			request.getRequestDispatcher("/admin_customer.jsp").forward(request,response);
     	// Admin: Analytics
 		} else if(URI.equalsIgnoreCase("/admin/analytics")){
+			commands.get(COMMAND.ADMIN_GET_PAGE_HIT).execute(request, response);
+			commands.get(COMMAND.UNIQUE_IP).execute(request, response);
+			commands.get(COMMAND.REGISTERED_USERS).execute(request, response);
+			commands.get(COMMAND.ACTIVE_LOGINS).execute(request, response);
 			request.getRequestDispatcher("/admin_analytics.jsp").forward(request,response);
     	// Graph Page
 		} else if(URI.equalsIgnoreCase("/graph")){
+			Application.getSharedInstance().incrementPageHitsCount("Graph");
             commands.get(COMMAND.SEARCHTERMS).execute(request,response);
 			commands.get(COMMAND.SEARCH_GRAPH).execute(request,response);
 			request.getRequestDispatcher("/graph.jsp").forward(request,response);

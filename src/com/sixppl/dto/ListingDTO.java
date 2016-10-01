@@ -26,6 +26,8 @@ public class ListingDTO {
 	public Date date;
 	public String sellerNickname;
 	public Boolean inCart;
+	public Timestamp buyDate;
+	public Timestamp removeFromCartDate;
 	
 	public ListingDTO(){
 		this.pubID = 0;
@@ -47,6 +49,8 @@ public class ListingDTO {
 		this.toYear = 9999;
 		this.sellerNickname = "";
 		this.inCart = false;
+		this.buyDate = null;
+		this.removeFromCartDate = null;
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
@@ -90,6 +94,14 @@ public class ListingDTO {
 	
 	public void setPubID(int id){
 		this.pubID = id;
+	}
+	
+	public void setBuyDate(Timestamp timestamp) {
+		this.buyDate = timestamp;
+	}
+	
+	public void setRemoveFromCartDate(Timestamp timestamp) {
+		this.removeFromCartDate = timestamp;
 	}
 	
 	public void setYearRange(int fromYear,int toYear){
@@ -143,6 +155,12 @@ public class ListingDTO {
 	}
 	public String getTimestampString(){
 		return new SimpleDateFormat("dd/MM/yy").format(timestamp);
+	}
+	public String getBuyDateString(){
+		return new SimpleDateFormat("dd/MM/yy").format(buyDate);
+	}
+	public String getRemoveFromCartDateString(){
+		return new SimpleDateFormat("dd/MM/yy").format(removeFromCartDate);
 	}
 	
 	public boolean similar(ListingDTO pubKey){

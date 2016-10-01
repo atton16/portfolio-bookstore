@@ -1,30 +1,25 @@
 package com.sixppl.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class CartDTO {
 	int pubID;
 	int userID;
-	long addtime;
-	long removetime;
-	Date addDate;
-	Date removeDate;
+	Timestamp addtime;
+	Timestamp removetime;
 	
 	public CartDTO(){
 		this.pubID = 0;
 		this.userID = 0;
-		this.addtime = 0;
-		this.removetime = 0;
-		this.addDate = new Date(addtime);
-		this.removeDate = new Date(removetime);
+		this.addtime = null;
+		this.removetime = null;
 	}
 	
-	public void setAttributes(int pubID,int userID,long addtime,long removetime){
+	public void setAttributes(int pubID,int userID,Timestamp addtime,Timestamp removetime){
 		this.pubID = pubID;
 		this.userID = userID;
 		this.addtime = addtime;
-		this.addDate = new Date(addtime);
-		this.removeDate = new Date(removetime);
+		this.removetime = removetime;
 	}
 	
 	public int getPubID(){
@@ -33,16 +28,10 @@ public class CartDTO {
 	public int getUserID(){
 		return userID;
 	}
-	public long getAddtime(){
+	public Timestamp getAddtime(){
 		return addtime;
 	}
-	public long getRemovetime(){
+	public Timestamp getRemovetime(){
 		return removetime;
-	}
-	public Date getAddDate(){
-		return addDate;
-	}
-	public Date getRemoveDate(){
-		return removeDate;
 	}
 }

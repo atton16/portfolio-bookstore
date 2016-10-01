@@ -18,4 +18,5 @@ public interface ListingDAO {
 	public List<Integer> getYearsDescending();
 	public int getTotal();
 	public List<ListingDTO> getRandomPub(String sessionId);
+	public ListingDTO getByPubID(int pubID);
 }

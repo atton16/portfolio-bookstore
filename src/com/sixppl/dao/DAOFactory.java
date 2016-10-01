@@ -12,13 +12,15 @@ public class DAOFactory {
 		GRAPH,
 		CART,
 		LISTING,
+		TRANSACTION,
 		ADMIN,
 		ADMIN_USER,
 		ADMIN_USER_BAN,
 		ADMIN_LOGIN,
-		ADMIN_ANALYTICS,
 		ADMIN_PUB,
-		ADMIN_USER_ACTIVITY
+		PAGE_HITS,
+		IP_LOG,
+		LISTING_STATISTICS
 	}
 
 	private Map<DAO, Object> daos;
@@ -31,13 +33,15 @@ public class DAOFactory {
 		daos.put(DAO.GRAPH, new GraphDAOImpl());
 		daos.put(DAO.CART, new CartDAOImpl());
 		daos.put(DAO.LISTING, new ListingDAOImpl());
+		daos.put(DAO.TRANSACTION, new TransactionDAOImpl());
 		daos.put(DAO.ADMIN, new AdminDAOImpl());
 		daos.put(DAO.ADMIN_USER, new AdminUserDAOImpl());
 		daos.put(DAO.ADMIN_USER_BAN, new AdminUserBanDAOImpl());
 		daos.put(DAO.ADMIN_LOGIN, new AdminLoginDAOImpl());
-		daos.put(DAO.ADMIN_ANALYTICS, new AdminAnalyticsDAOImpl());
 		daos.put(DAO.ADMIN_PUB, new AdminPubDAOImpl());
-		daos.put(DAO.ADMIN_USER_ACTIVITY, new AdminUserActivityDAOImpl());
+		daos.put(DAO.PAGE_HITS, new PageHitsDAOImpl());
+		daos.put(DAO.IP_LOG, new IPLogDAOImpl());
+		daos.put(DAO.LISTING_STATISTICS, new ListingStatisticsDAOImpl());
 
 	}
 	
@@ -65,6 +69,10 @@ public class DAOFactory {
 		return (ListingDAO) daos.get(DAO.LISTING);
 	}
 	
+	public TransactionDAO getTransactionDAO() {
+		return (TransactionDAO) daos.get(DAO.TRANSACTION);
+	}
+	
 	public AdminDAO getAdminDAO() {
 		return (AdminDAO) daos.get(DAO.ADMIN_USER);
 	}
@@ -81,15 +89,19 @@ public class DAOFactory {
 		return (AdminLoginDAO) daos.get(DAO.ADMIN_LOGIN);
 	}
 	
-	public AdminAnalyticsDAO getAdminAnalyticsDAO() {
-		return (AdminAnalyticsDAO) daos.get(DAO.ADMIN_ANALYTICS);
-	}
-	
 	public AdminPubDAO getAdminPubDAO() {
 		return (AdminPubDAO) daos.get(DAO.ADMIN_PUB);
 	}
 	
-	public AdminUserActivityDAO getAdminUserActivityDAO() {
-		return (AdminUserActivityDAO) daos.get(DAO.ADMIN_USER_ACTIVITY);
+	public PageHitsDAO getPageHitsDAO() {
+		return (PageHitsDAO) daos.get(DAO.PAGE_HITS);
+	}
+	
+	public IPLogDAO getIPLogDAO() {
+		return (IPLogDAO) daos.get(DAO.IP_LOG);
+	}
+	
+	public ListingStatisticsDAO getListingStatisticsDAO() {
+		return (ListingStatisticsDAO) daos.get(DAO.LISTING_STATISTICS);
 	}
 }

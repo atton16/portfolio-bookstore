@@ -1,23 +1,26 @@
 package com.sixppl.dao.support;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.sql.*;
 import com.sixppl.dao.CartDAO;
 import com.sixppl.dao.UserDAO;
+import com.sixppl.dto.CartDTO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
 public class CartDAOImpl implements CartDAO {
 
 	private Connection conn;
+	private UserDAO userDao;
+
 	public CartDAOImpl(){
 		conn = Application.getSharedInstance().getDAOSupport().getConnection();
+		userDao = new UserDAOImpl();
 	}
 	
 	public ArrayList<ListingDTO> viewCart(int userID){
 		ArrayList<ListingDTO> cartInfoList = new ArrayList<ListingDTO>();
-		UserDAO userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 		PreparedStatement stmt = null;
 		String sql = "select * from Listing where PubID in (select PubID from Cart where RemoveTime IS NULL AND UserID = ?);";
 		try {
@@ -242,5 +245,39 @@ public class CartDAOImpl implements CartDAO {
 				}// nothing we can do
 			}//end try
 		}
+	}
+
+	@Override
+	public List<CartDTO> getByUserID(int userID) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<CartDTO> cart = new ArrayList<CartDTO>();
+		String sql = "SELECT * FROM `Cart` WHERE `UserID` = ?";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, userID);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				CartDTO item = new CartDTO();
+				item.setAttributes(
+						rs.getInt("PubID"),
+						rs.getInt("UserID"),
+						rs.getTimestamp("AddTime"),
+						rs.getTimestamp("RemoveTime")
+						);
+				cart.add(item);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if(rs != null)
+				rs.close();
+			if(stmt != null)
+				stmt.close();
+		} catch (Exception E) {}
+
+		return cart;
 	}
 }
