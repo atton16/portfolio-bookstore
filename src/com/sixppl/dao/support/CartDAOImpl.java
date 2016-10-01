@@ -56,24 +56,27 @@ public class CartDAOImpl implements CartDAO {
 	public int addCart(int pubID,int userID){
 		PreparedStatement stmt = null;
 		int cartCount = 0;
-		String sql = "UPDATE Cart SET RemoveTime = ?, AddTime = ? WHERE UserID = ? and PubID = ?";
+		String sql = "DELETE FROM `Cart` WHERE `UserID` = ? AND `PubID` = ?";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setTimestamp(1, null);
-			stmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
-			stmt.setLong(3, userID);
-			stmt.setLong(4, pubID);
+			stmt.setLong(1, userID);
+			stmt.setLong(2, pubID);
 			try{
 				stmt.executeUpdate();
-				stmt.close();
-			}catch(SQLException e){
-				sql = "INSERT INTO `Cart` (`UserID`,`PubID`) VALUES (?,?)";
-				stmt = conn.prepareStatement(sql);
-				stmt.setLong(1, userID);
-				stmt.setLong(2, pubID);
-				stmt.executeUpdate();
-				stmt.close();
+			}catch(Exception e){
+				e.printStackTrace();
 			}
+			stmt.close();
+
+			sql = "INSERT INTO `Cart` (`UserID`,`PubID`) VALUES (?,?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, userID);
+			stmt.setLong(2, pubID);
+			stmt.executeUpdate();
+			System.out.println("Insert userID :" + userID+", PubID :" + pubID);
+
+
+
 			
 			sql = "SELECT COUNT(*) AS Total FROM Cart WHERE UserID = ? AND RemoveTime IS NULL";
 			stmt = conn.prepareStatement(sql);
@@ -81,7 +84,7 @@ public class CartDAOImpl implements CartDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
 				cartCount = rs.getInt("Total");
-				System.out.println(cartCount);
+				System.out.println("cartCount :" + cartCount);
 			}
 			//STEP 6: Clean-up environment
 			stmt.close();
@@ -180,7 +183,7 @@ public class CartDAOImpl implements CartDAO {
 			//STEP 6: Clean-up environment
 			stmt.close();
 			// increase OrderNumber
-			sql = "UPDATE Transaction SET Value = ? WHERE Name = ?";
+			sql = "UPDATE Variable SET Value = ? WHERE Name = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setLong(1, orderNumber);
 			stmt.setString(2, "OrderNumber");
