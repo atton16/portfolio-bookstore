@@ -41,7 +41,7 @@
 									<h4><b>A$${item.getPrice()}.00</b></h4>
 									<p><i>Sold: ${item.getSoldCount()}</i></p>
 									<p><i>Listed: ${item.getTimestampString()}</i></p>
-									<p><input type="checkbox" class="submit-hidden-ajax" name="id" value="${item.getPubID()}" id="${item.getPubID()}" /> Pause</p>
+									<p><input type="checkbox" class="submit-hidden-ajax" name="id" value="${item.getPubID()}" id="${item.getPubID()}" ${item.getStatus() ? '' : 'checked'}/> Pause</p>
 								<td></tr>
 							</table></td>
 						</tr>
