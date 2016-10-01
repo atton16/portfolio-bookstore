@@ -28,6 +28,7 @@
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
 									<h3 class="no-margin">${item.getTitle()}</h3>
+									<h5>Year Published: ${item.getYear()}</h5>
 									<jstl:if test="${!item.getAuthors().isEmpty()}">
 									<h5>Authors:
 										<jstl:forEach var="author" items="${item.getAuthors()}" varStatus="stat">
