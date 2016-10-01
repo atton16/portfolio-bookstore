@@ -13,4 +13,6 @@ public interface CartDAO {
 	public void removeCart(int userID,ArrayList<Integer> pubIDs);
 	
 	public Boolean isInCart(int pubID, int userID);
+	
+	public void removeAll(int userID);
 }

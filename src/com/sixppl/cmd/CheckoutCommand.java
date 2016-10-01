@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sixppl.dao.CartDAO;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
@@ -22,6 +23,7 @@ public class CheckoutCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
 		UserDTO user = new UserDTO();
 		ArrayList<ListingDTO> items = new ArrayList<ListingDTO>();
 		String[] pubIds = request.getParameterValues("id");
@@ -36,6 +38,10 @@ public class CheckoutCommand implements Command {
 		
 		UserDAO userDao = new UserDAOImpl();
 		user = userDao.findUserByUserID(userId);
+		
+		//Remove All item from cart and Add in Transaction
+		cartDao.removeAll(userId);
+		
 		
 		request.setAttribute("user", user);
 		request.setAttribute("items", items);
