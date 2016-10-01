@@ -86,7 +86,7 @@ public class SellCommand implements Command {
 			error_msg = "Successfully posted the publication!";
 		}
 		else{
-			error_msg = "ERROR: CANNOT ADD ITEM";
+			error_msg = "ERROR: Cannot Add Item, Please check if you are logged in.";
 		}
 		
 		request.setAttribute("error", error);
