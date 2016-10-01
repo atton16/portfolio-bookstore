@@ -143,7 +143,7 @@ public class SellCommand implements Command {
 	
 	public void addToGraph(PublicationDTO p){
 		ArrayList<EntityDTO> insertedEntity = new ArrayList<EntityDTO>();
-		ImportGraph dao = new ImportGraph();
+		ImportGraph dao = Application.getSharedInstance().getDAOFactory().getImportGraph();
 		EntityDTO ep = new EntityDTO();
 		EntityDTO ea = new EntityDTO();
 		EntityDTO ed = new EntityDTO();
@@ -159,6 +159,7 @@ public class SellCommand implements Command {
 		}
 		else {
 			dao.insertEntity(ep);
+			System.out.println("Insert Title");
 			insertedEntity.add(ep);
 			countPublication++;
 			countEntity++;
@@ -173,6 +174,7 @@ public class SellCommand implements Command {
 				}
 				else {
 					dao.insertEntity(ea);
+					System.out.println("Insert Author");
 					insertedEntity.add(ea);
 					countAuthor++;
 					countEntity++;
@@ -180,6 +182,7 @@ public class SellCommand implements Command {
 				// Link Publication authored by Author
 				ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "authored by");
 				dao.insertEntity(ee);
+				System.out.println("Link Title to author");
 				insertedEntity.add(ee);
 				pa = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ea.getEntityID());
 				dao.insertGraph(pa);
@@ -198,6 +201,7 @@ public class SellCommand implements Command {
 				else {
 					dao.insertEntity(ed);
 					insertedEntity.add(ed);
+					System.out.println("Insert editor");
 					countAuthor++;
 					countEntity++;
 				}
@@ -212,13 +216,14 @@ public class SellCommand implements Command {
 			}
 		}
 		// Extract Venue
-		if (p.getJournal() != null) {
+		if (p.getJournal() != null || p.getJournal().isEmpty()) {
 			ev = new EntityDTO(countEntity+1, "V" + Long.toString(countVenue+1), "Node", "Venue", p.getJournal());
 			if (EntityDTO.containsEntity(insertedEntity, ev)) {
 				ev = EntityDTO.findEntity(insertedEntity, ev);
 			}
 			else {
 				dao.insertEntity(ev);
+				System.out.println("Insert venue");
 				insertedEntity.add(ev);
 				countVenue++;		
 				countEntity++;
