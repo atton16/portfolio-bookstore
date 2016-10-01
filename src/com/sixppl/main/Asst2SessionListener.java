@@ -11,9 +11,9 @@ import javax.servlet.http.HttpSessionListener;
  */
 @WebListener()
 public class Asst2SessionListener implements HttpSessionListener {
-	private static int ONE_MINUTE = 60;
-	private static int TWO_MINUTES = 120;
-	private static int FIVE_MINUTES = 300;
+//	private static int ONE_MINUTE = 60;
+//	private static int TWO_MINUTES = 120;
+//	private static int FIVE_MINUTES = 300;
 	private static int THIRTY_MINUTES = 1800;
 
 	@Override
