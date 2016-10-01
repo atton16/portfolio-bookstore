@@ -31,7 +31,7 @@ public class ManagePubCommand implements Command {
 		int userId = session.finduserIDbySession(sessionDTO);
 		ListingDTO pubKey = new ListingDTO();
 		pubKey.sellerID = userId;
-		items = listing.Search(pubKey, request.getSession().getId());
+		items = listing.searchAll(pubKey, request.getSession().getId());
 		
 		request.setAttribute("items", items);
 	}

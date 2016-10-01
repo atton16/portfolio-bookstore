@@ -67,7 +67,7 @@ public class CartDAOImpl implements CartDAO {
 				e.printStackTrace();
 			}
 			stmt.close();
-
+ 
 			sql = "INSERT INTO `Cart` (`UserID`,`PubID`) VALUES (?,?)";
 			stmt = conn.prepareStatement(sql);
 			stmt.setLong(1, userID);
@@ -218,6 +218,14 @@ public class CartDAOImpl implements CartDAO {
 				stmt.executeUpdate();
 				stmt.close();
 				
+				//Add Sold Count
+				sql = "UPDATE Listing SET SoldCount = SoldCount + 1 WHERE PubID = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setLong(1, item.pubID);
+				stmt.executeUpdate();
+				stmt.close();
+				
+				//Remove item from cart
 				sql = "UPDATE Cart SET RemoveTime = ? WHERE UserID = ? and PubID = ?;";
 				stmt = conn.prepareStatement(sql);
 				stmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
