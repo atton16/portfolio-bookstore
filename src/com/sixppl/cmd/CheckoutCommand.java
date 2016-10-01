@@ -21,12 +21,21 @@ public class CheckoutCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Initialize DAO
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		SessionDAO sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
 		CartDAO cartDao = Application.getSharedInstance().getDAOFactory().getCartDAO();
+		
+		//Initialize attribute
 		UserDTO user = new UserDTO();
 		ArrayList<ListingDTO> items = new ArrayList<ListingDTO>();
+		
 		String[] pubIds = request.getParameterValues("id");
+		if(pubIds == null || pubIds.length == 0){
+			request.setAttribute("user", user);
+			request.setAttribute("items", items);
+			return;
+		}
 		for(String pubID: pubIds){
 			ListingDTO pubKey = new ListingDTO();
 			pubKey.setPubID(Integer.parseInt(pubID.trim()));
