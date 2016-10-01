@@ -35,6 +35,7 @@ public class GraphDAOImpl implements GraphDAO {
 	public void createGraphTable() throws SQLException {
 		String sql = "CREATE TABLE IF NOT EXISTS Graph ("
 				+ "ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,"
+				+ "PubID BIGINT(20) UNSIGNED NOT NULL,"
 				+ "NodeFrom text NOT NULL,"
 				+ "Edge text NOT NULL,"
 				+ "NodeTo text NOT NULL,"
@@ -53,15 +54,16 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void insertGraph(GraphDTO graph) {
-		String sql = "INSERT INTO Graph (NodeFrom, Edge, NodeTo) VALUES(?,?,?)";
+	public void insertGraph(GraphDTO graph, long PubID) {
+		String sql = "INSERT INTO Graph (PubID, NodeFrom, Edge, NodeTo) VALUES(?,?,?,?)";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, graph.getNodeFrom());
-			ps.setString(2, graph.getEdge());
-			ps.setString(3, graph.getNodeTo());
+			ps.setLong(1, PubID);
+			ps.setString(2, graph.getNodeFrom());
+			ps.setString(3, graph.getEdge());
+			ps.setString(4, graph.getNodeTo());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -71,8 +73,8 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void updateGraph(GraphDTO graph) {
-		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE ID=?";
+	public void updateGraph(GraphDTO graph, long PubID) {
+		String sql = "UPDATE Graph SET NodeFrom=?, Edge=?, NodeTo=? WHERE PubID=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
@@ -80,7 +82,7 @@ public class GraphDAOImpl implements GraphDAO {
 			ps.setString(1, graph.getNodeFrom());
 			ps.setString(2, graph.getEdge());
 			ps.setString(3, graph.getNodeTo());
-			ps.setLong(4, graph.getID());
+			ps.setLong(4, PubID);
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -90,13 +92,13 @@ public class GraphDAOImpl implements GraphDAO {
 	}
 
 	@Override
-	public void deleteGraph(long ID) {
-		String sql = "DELETE FROM Graph WHERE ID=?";
+	public void deleteGraph(long PubID) {
+		String sql = "DELETE FROM Graph WHERE PubID=?";
 		Connection connection = null;
 		try {
 			connection = Application.getSharedInstance().getDAOSupport().getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setLong(1, ID);
+			ps.setLong(1, PubID);
 			ps.executeUpdate();
 			ps.close();
 		}
