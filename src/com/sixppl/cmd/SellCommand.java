@@ -22,6 +22,7 @@ import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphDTO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.SessionDTO;
+import com.sixppl.importData.ImportGraph;
 import com.sixppl.importData.PublicationDTO;
 import com.sixppl.main.Application;
 
