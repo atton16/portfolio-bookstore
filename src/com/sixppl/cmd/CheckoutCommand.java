@@ -50,6 +50,7 @@ public class CheckoutCommand implements Command {
 		
 		//Remove All item from cart and Add in Transaction
 		cartDao.removeAll(userId);
+		new EmbedCartCommand().execute(request, response);
 		
 		
 		request.setAttribute("user", user);
