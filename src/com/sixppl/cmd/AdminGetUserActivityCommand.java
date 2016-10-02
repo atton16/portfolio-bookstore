@@ -42,6 +42,7 @@ public class AdminGetUserActivityCommand implements Command{
 		try {
 			UserID = Integer.parseInt(request.getParameter("id"));
 		} catch(Exception E){
+			request.setAttribute("error", true);
 			request.setAttribute("user", null);
 			return;
 		}
@@ -49,6 +50,7 @@ public class AdminGetUserActivityCommand implements Command{
 		userDto = userDao.findUserByUserID(UserID);
 		
 		if(userDto == null){
+			request.setAttribute("error", true);
 			request.setAttribute("user", null);
 			return;
 		}
@@ -66,7 +68,8 @@ public class AdminGetUserActivityCommand implements Command{
 				removedList.add(listingDAO.getByPubID(cartItem.getPubID()));
 		}
 		
-		if(buyList.isEmpty() && cart.isEmpty()){
+		if(buyList.isEmpty() && removedList.isEmpty()){
+			request.setAttribute("error", true);
 			request.setAttribute("user", null);
 			return;
 		}
@@ -74,5 +77,7 @@ public class AdminGetUserActivityCommand implements Command{
 		request.setAttribute("user", userDto);
 		request.setAttribute("buys", buyList);
 		request.setAttribute("removes", removedList);
+		request.setAttribute("error", false);
+		System.out.println(userDto.getUserID());
 	}
 }
