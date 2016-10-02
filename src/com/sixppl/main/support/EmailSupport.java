@@ -34,7 +34,7 @@ public class EmailSupport {
 		}
 		
 		return "Your item(s) have been purchased!<br/>"+
-				"List of item(s)<br>:"+
+				"List of item(s):<br>"+
 				itemList;
 	}
 }
