@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.mindrot.jbcrypt.EmailSending;
 
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.ApplicationSupport;
+import com.sixppl.main.support.EmailSending;
 
 public class UserRegCommand implements Command {
 	private UserDAO userDao;
@@ -32,7 +33,7 @@ public class UserRegCommand implements Command {
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
 		return matcher.find();
 	}
-	
+
 	private static final Pattern VALID_CCN_REGEX = 
 			Pattern.compile("^([0-9]){16}$", Pattern.CASE_INSENSITIVE);
 
@@ -94,7 +95,7 @@ public class UserRegCommand implements Command {
 			System.out.println("Invalid email pattern");
 			return;
 		}
-		
+
 		try {
 			yob = Integer.parseInt(request.getParameter("yob"));
 		} catch (Exception e) {
@@ -103,30 +104,30 @@ public class UserRegCommand implements Command {
 			System.out.println("Invalid year of birth");
 			return;
 		}
-		
+
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		
+
 		if (yob > year) {
 			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Are you sure you are born in the future???");
 			System.out.println("Are you sure you are born in the future???");
 			return;
 		}
-		
+
 		if (yob < year-150) {
 			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Hello overly old peep!");
 			System.out.println("Hello overly old peep!");
 			return;
 		}
-		
+
 		if (!UserRegCommand.validate_ccn(cardno)) {
 			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Credit card number must be 16-digit long!");
 			System.out.println("Credit card number must be 16-digit long!");
 			return;
 		}
-		
+
 		//user = userDao.findUserByName(request.getParameter("username"));
 		if (userDao.findUserByName(request.getParameter("username")) != null) {
 			request.setAttribute("error", true);
@@ -147,7 +148,7 @@ public class UserRegCommand implements Command {
 		user.setNickname(request.getParameter("nickname"));
 		user.setFirstname(request.getParameter("firstname"));
 		user.setLastname(request.getParameter("lastname"));
-		user.setEmail(request.getParameter("email"));
+		user.setNewemail(request.getParameter("email"));
 		user.setBirthyear(Integer.parseInt(request.getParameter("yob")));
 		user.setAddr(request.getParameter("address"));
 		user.setCardno(request.getParameter("ccn"));
@@ -158,60 +159,15 @@ public class UserRegCommand implements Command {
 
 		String to = request.getParameter("email");
 		String from = "asst2unsw@gmail.com";
-		
-		String Judge_env = Application.getSharedInstance().getEnvironment();
-		
-		if (Judge_env =="DEVELOPMENT"){
-			String contextPath = request.getContextPath();
-			String fullURI = request.getRequestURI();
-			String URI = fullURI.substring(contextPath.length());
-			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
-			System.out.println("the full path is"+full_path);
-			emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
-			request.setAttribute("email", to);
-			request.setAttribute("error", false);
-		}
-		else if (Judge_env =="PRODUCTION")
-		{	
-	    String ip = Application.getSharedInstance().getProductionIP();
-	    String port = Application.getSharedInstance().getProductionPort();
-		System.out.println("the ip  is"+ip);
-		String strUrl = "https://" + ip 
-		                          + ":"   
-		                          + port ;         
-		System.out.println("the addres is"+strUrl);
-		emailSending.sendEmail(to, from, strUrl  + "/asst2/signup/confirm?token="+token);
-		request.setAttribute("email", to);
-		request.setAttribute("error", false);}
-		
-		else if (Judge_env =="PRODUCTION_IP"){
-			String contextPath = request.getContextPath();
-			String fullURI = request.getRequestURI();
-			String URI = fullURI.substring(contextPath.length());
-			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
-		
-			String ip = Application.getIpAddress();
-		
-			System.out.println("the ip should be"+ip);
-	        
-			String strBackUrl = "https://" + ip   
-			                    + ":"   
-			                    + Application.getSharedInstance().getProductionPort()
-			                    + request.getContextPath()
-			                    + request.getServletPath();
-			
-			       
-			System.out.println("the addres is "+strBackUrl);
-			System.out.println("the full path is "+full_path);
-			emailSending.sendEmail(to, from, strBackUrl + "/confirm?token="+token);
-			request.setAttribute("email", to);
-			request.setAttribute("error", false);
-		}
-		else {
-			System.out.println("Please put the correct ENV in Application.java!!");
-		}
-	
 
+		String contextPath = request.getContextPath();
+		String fullURI = request.getRequestURI();
+		String URI = fullURI.substring(contextPath.length());
+		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
+		System.out.println("the full path is"+full_path);
+		emailSending.sendEmail(to, from, ApplicationSupport.RegistrationEmailSubject(), ApplicationSupport.RegistrationEmailContent(full_path + "/signup/confirm?token="+token));
+		request.setAttribute("email", to);
+		request.setAttribute("error", false);
 
 	}
 

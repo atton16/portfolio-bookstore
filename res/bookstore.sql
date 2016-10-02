@@ -1446,7 +1446,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Nickname` tinytext,
   `Firstname` tinytext,
   `Lastname` tinytext,
-  `Email` tinytext NOT NULL,
+  `Email` tinytext,
   `NewEmail` tinytext,
   `Birthyear` smallint(6) unsigned DEFAULT NULL,
   `Address` text NOT NULL,
