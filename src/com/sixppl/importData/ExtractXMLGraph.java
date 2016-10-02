@@ -89,7 +89,7 @@ public class ExtractXMLGraph {
 				picId = 20;
 			}
 			if (p.getTitle().length() > 255) {
-				pubSell.title = p.getTitle().substring(0, 255);
+				pubSell.title = p.getTitle().substring(0, 254);
 			}
 			else {
 				pubSell.title = p.getTitle();
