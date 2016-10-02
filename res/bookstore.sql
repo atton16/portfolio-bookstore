@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2016 at 03:34 AM
+-- Generation Time: Oct 02, 2016 at 11:28 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -122,7 +122,88 @@ CREATE TABLE IF NOT EXISTS `Entity` (
   `Class` text NOT NULL,
   `Type` text NOT NULL,
   `Caption` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=781 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=856 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Entity`
+--
+
+INSERT INTO `Entity` (`ID`, `PubID`, `EntityID`, `Class`, `Type`, `Caption`) VALUES
+(781, 15, 'P15', 'Node', 'Publication', 'Harry Potter and the Philosopher Stone'),
+(782, 15, 'A10', 'Node', 'Author', 'J.K. Rowling'),
+(783, 15, 'E40', 'Edge', 'DirectedLink', 'authored by'),
+(784, 16, 'P16', 'Node', 'Publication', 'Winnie the Pooh'),
+(785, 16, 'A11', 'Node', 'Author', 'Christopher Robin'),
+(786, 16, 'E41', 'Edge', 'DirectedLink', 'authored by'),
+(787, 16, 'A12', 'Node', 'Author', 'Tiger'),
+(788, 16, 'E42', 'Edge', 'DirectedLink', 'edited by'),
+(789, 16, 'A13', 'Node', 'Author', 'Rabbit'),
+(790, 16, 'E43', 'Edge', 'DirectedLink', 'edited by'),
+(791, 16, 'V1', 'Node', 'Venue', 'Kids'),
+(792, 16, 'E44', 'Edge', 'DirectedLink', 'published in'),
+(793, 17, 'P17', 'Node', 'Publication', 'The Maker of Swan'),
+(794, 17, 'A14', 'Node', 'Author', 'Paraic O''Donnell'),
+(795, 17, 'E45', 'Edge', 'DirectedLink', 'authored by'),
+(796, 17, 'A15', 'Node', 'Author', 'Helen Macdonald'),
+(797, 17, 'E46', 'Edge', 'DirectedLink', 'edited by'),
+(798, 18, 'P18', 'Node', 'Publication', 'Responsive Web Design'),
+(799, 18, 'A16', 'Node', 'Author', 'Ethan Marcotte'),
+(800, 18, 'E47', 'Edge', 'DirectedLink', 'authored by'),
+(801, 18, 'A17', 'Node', 'Author', 'Jeremy Keith'),
+(802, 18, 'E48', 'Edge', 'DirectedLink', 'edited by'),
+(803, 19, 'P19', 'Node', 'Publication', 'Mobile First'),
+(804, 19, 'A18', 'Node', 'Author', 'Luke Wroblewski'),
+(805, 19, 'E49', 'Edge', 'DirectedLink', 'authored by'),
+(806, 19, 'A19', 'Node', 'Author', 'Jeffrey Zeldman'),
+(807, 19, 'E50', 'Edge', 'DirectedLink', 'edited by'),
+(808, 19, 'V2', 'Node', 'Venue', 'A Book Apart'),
+(809, 19, 'E51', 'Edge', 'DirectedLink', 'published in'),
+(810, 20, 'P20', 'Node', 'Publication', 'Ancient Tales'),
+(811, 20, 'A20', 'Node', 'Author', 'Duncan Long'),
+(812, 20, 'E52', 'Edge', 'DirectedLink', 'authored by'),
+(813, 20, 'A21', 'Node', 'Author', 'Raz Algul'),
+(814, 20, 'E53', 'Edge', 'DirectedLink', 'authored by'),
+(815, 21, 'P21', 'Node', 'Publication', 'Enchantment The Art of Changing Heart, Minds, and Actions'),
+(816, 21, 'A22', 'Node', 'Author', 'Guy Kawasaki'),
+(817, 21, 'E54', 'Edge', 'DirectedLink', 'authored by'),
+(818, 21, 'A23', 'Node', 'Author', 'Woz'),
+(819, 21, 'E55', 'Edge', 'DirectedLink', 'edited by'),
+(820, 21, 'A24', 'Node', 'Author', 'Apple'),
+(821, 21, 'E56', 'Edge', 'DirectedLink', 'edited by'),
+(822, 21, 'E57', 'Edge', 'DirectedLink', 'published in'),
+(823, 22, 'P22', 'Node', 'Publication', 'To Kill a Mocking Bird'),
+(824, 22, 'A25', 'Node', 'Author', 'Harper Lee'),
+(825, 22, 'E58', 'Edge', 'DirectedLink', 'authored by'),
+(826, 22, 'E59', 'Edge', 'DirectedLink', 'published in'),
+(827, 23, 'P23', 'Node', 'Publication', '1984'),
+(828, 23, 'A26', 'Node', 'Author', 'George Orwell'),
+(829, 23, 'E60', 'Edge', 'DirectedLink', 'authored by'),
+(830, 23, 'E61', 'Edge', 'DirectedLink', 'published in'),
+(831, 24, 'P24', 'Node', 'Publication', 'Pieces of Light'),
+(832, 24, 'A27', 'Node', 'Author', 'Charles Fernyhough'),
+(833, 24, 'E62', 'Edge', 'DirectedLink', 'authored by'),
+(834, 24, 'A28', 'Node', 'Author', 'Andre Aciman'),
+(835, 24, 'E63', 'Edge', 'DirectedLink', 'edited by'),
+(836, 24, 'E64', 'Edge', 'DirectedLink', 'published in'),
+(837, 25, 'P25', 'Node', 'Publication', 'Jungle Book'),
+(838, 25, 'A29', 'Node', 'Author', 'IBM'),
+(839, 25, 'E65', 'Edge', 'DirectedLink', 'authored by'),
+(840, 25, 'E66', 'Edge', 'DirectedLink', 'published in'),
+(841, 26, 'P26', 'Node', 'Publication', 'Big-Hearted People'),
+(842, 26, 'A30', 'Node', 'Author', 'Randy J. Schum'),
+(843, 26, 'E67', 'Edge', 'DirectedLink', 'authored by'),
+(844, 27, 'P27', 'Node', 'Publication', 'Code Quality'),
+(845, 27, 'A31', 'Node', 'Author', 'Diomidis Spinellis'),
+(846, 27, 'E68', 'Edge', 'DirectedLink', 'authored by'),
+(847, 27, 'A32', 'Node', 'Author', 'Scott Mayers'),
+(848, 27, 'E69', 'Edge', 'DirectedLink', 'edited by'),
+(849, 28, 'P28', 'Node', 'Publication', 'Our Lent Things we carry'),
+(850, 28, 'A33', 'Node', 'Author', 'David Crumm'),
+(851, 28, 'E70', 'Edge', 'DirectedLink', 'authored by'),
+(852, 29, 'P29', 'Node', 'Publication', 'Harry Potter and The Deathly Hallow'),
+(853, 29, 'E71', 'Edge', 'DirectedLink', 'authored by'),
+(854, 29, 'A34', 'Node', 'Author', 'Pottermore'),
+(855, 29, 'E72', 'Edge', 'DirectedLink', 'edited by');
 
 -- --------------------------------------------------------
 
@@ -136,7 +217,46 @@ CREATE TABLE IF NOT EXISTS `Graph` (
   `NodeFrom` text NOT NULL,
   `Edge` text NOT NULL,
   `NodeTo` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Graph`
+--
+
+INSERT INTO `Graph` (`ID`, `PubID`, `NodeFrom`, `Edge`, `NodeTo`) VALUES
+(342, 15, 'P15', 'E40', 'A10'),
+(343, 16, 'P16', 'E41', 'A11'),
+(344, 16, 'P16', 'E42', 'A12'),
+(345, 16, 'P16', 'E43', 'A13'),
+(346, 16, 'P16', 'E44', 'V1'),
+(347, 17, 'P17', 'E45', 'A14'),
+(348, 17, 'P17', 'E46', 'A15'),
+(349, 18, 'P18', 'E47', 'A16'),
+(350, 18, 'P18', 'E48', 'A17'),
+(351, 19, 'P19', 'E49', 'A18'),
+(352, 19, 'P19', 'E50', 'A19'),
+(353, 19, 'P19', 'E51', 'V2'),
+(354, 20, 'P20', 'E52', 'A20'),
+(355, 20, 'P20', 'E53', 'A21'),
+(356, 21, 'P21', 'E54', 'A22'),
+(357, 21, 'P21', 'E55', 'A23'),
+(358, 21, 'P21', 'E56', 'A24'),
+(359, 21, 'P21', 'E57', 'V2'),
+(360, 22, 'P22', 'E58', 'A25'),
+(361, 22, 'P22', 'E59', 'V1'),
+(362, 23, 'P23', 'E60', 'A26'),
+(363, 23, 'P23', 'E61', 'V1'),
+(364, 24, 'P24', 'E62', 'A27'),
+(365, 24, 'P24', 'E63', 'A28'),
+(366, 24, 'P24', 'E64', 'V2'),
+(367, 25, 'P25', 'E65', 'A29'),
+(368, 25, 'P25', 'E66', 'V1'),
+(369, 26, 'P26', 'E67', 'A30'),
+(370, 27, 'P27', 'E68', 'A31'),
+(371, 27, 'P27', 'E69', 'A32'),
+(372, 28, 'P28', 'E70', 'A33'),
+(373, 29, 'P29', 'E71', 'A10'),
+(374, 29, 'P29', 'E72', 'A34');
 
 -- --------------------------------------------------------
 
@@ -209,6 +329,13 @@ CREATE TABLE IF NOT EXISTS `IPLog` (
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `IPLog`
+--
+
+INSERT INTO `IPLog` (`IPAddress`, `Timestamp`) VALUES
+('0:0:0:0:0:0:0:1%0', '2016-10-02 11:12:21');
+
 -- --------------------------------------------------------
 
 --
@@ -229,27 +356,28 @@ CREATE TABLE IF NOT EXISTS `Listing` (
   `Status` tinyint(1) unsigned NOT NULL,
   `SoldCount` int(11) unsigned NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Listing`
 --
 
 INSERT INTO `Listing` (`PubID`, `Title`, `Authors`, `Editors`, `Type`, `Year`, `Venue`, `SellerID`, `Picture`, `Price`, `Status`, `SoldCount`, `timestamp`) VALUES
-(1, 'Harry Potter and the philosopher stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic1.jpg', 199, 1, 0, '2016-10-01 01:12:17'),
-(2, 'Winnie the Pooh', 'Christopher Robin', 'Piglet,Tiger', 'Conference', 1879, 'Kids', 1, '/uploads/pic2.jpg', 79, 1, 0, '2016-10-01 01:14:00'),
-(3, 'The Maker of Swan', 'Paraic O''Donnell', '', 'Article', 2001, '', 1, '/uploads/pic3.jpg', 99, 1, 0, '2016-10-01 01:15:45'),
-(4, 'Responsive Web Design', 'Ethan Marcotte', 'Jeremy Keith', 'Journal', 2010, '', 1, '/uploads/pic4.jpg', 299, 1, 0, '2016-10-01 01:26:27'),
-(5, 'Mobile First', 'Luke Wroblewski', 'Jeffrey Zeldman', 'Article', 1790, '', 1, '/uploads/pic5.jpg', 219, 1, 0, '2016-10-01 01:29:24'),
-(6, 'Ancient Tales', 'Duncan Long,Raz Algul', '', 'Master Thesis', 1890, '', 1, '/uploads/pic6.jpg', 99, 1, 0, '2016-10-01 01:31:11'),
-(7, 'Enchantment The Art of Changing Heart, Minds, and Actions', 'Guy Kawasaki', 'Woz,Apple', 'Journal', 2016, '', 1, '/uploads/pic7.jpg', 449, 1, 0, '2016-10-01 01:32:47'),
-(8, 'To Kill a Mocking Bird', 'Harper Lee', '', 'Book', 2020, '', 1, '/uploads/pic8.jpg', 799, 1, 0, '2016-10-01 01:33:39'),
-(9, '1984', 'George Orwell', '', 'Article', 2000, '', 1, '/uploads/pic9.jpg', 399, 1, 0, '2016-10-01 01:34:26'),
-(10, 'Pieces of Light', 'Charles Fernyhough', 'Andre Aciman', 'Conference', 2009, 'Harvard', 1, '/uploads/pic10.jpg', 299, 1, 0, '2016-10-01 01:35:40'),
-(11, 'Jungle Book', 'IBM', '', 'Conference', 1809, 'IBM', 1, '/uploads/pic11.jpg', 199, 1, 0, '2016-10-01 01:39:14'),
-(12, 'Big-Hearted People', 'Randy J. Schum', '', 'Ph.D.Thesis', 2016, '', 1, '/uploads/pic12.jpg', 699, 1, 0, '2016-10-01 01:40:25'),
-(13, 'Code Quality', 'Diomidis Spinellis', '', 'Book', 1976, '', 1, '/uploads/pic13.jpg', 999, 1, 0, '2016-10-01 01:41:36'),
-(14, 'Our Lent Things we carry', 'David Crumm', '', 'Book', 2011, '', 1, '/uploads/pic14.jpg', 300, 1, 0, '2016-10-01 01:42:32');
+(15, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic1.jpg', 199.99, 1, 0, '2016-10-02 11:16:22'),
+(16, 'Winnie the Pooh', 'Christopher Robin', 'Tiger,Rabbit', 'Conference', 1980, 'Kids', 1, '/uploads/pic2.jpg', 49.5, 1, 0, '2016-10-02 11:17:28'),
+(17, 'The Maker of Swan', 'Paraic O''Donnell', 'Helen Macdonald', 'Article', 2001, '', 1, '/uploads/pic3.jpg', 210, 1, 0, '2016-10-02 11:18:37'),
+(18, 'Responsive Web Design', 'Ethan Marcotte', 'Jeremy Keith', 'Book', 1990, '', 1, '/uploads/pic4.jpg', 300, 1, 0, '2016-10-02 11:19:25'),
+(19, 'Mobile First', 'Luke Wroblewski', 'Jeffrey Zeldman', 'Conference', 2008, 'A Book Apart', 1, '/uploads/pic5.jpg', 299, 1, 0, '2016-10-02 11:20:41'),
+(20, 'Ancient Tales', 'Duncan Long,Raz Algul', '', 'Article', 1890, '', 1, '/uploads/pic6.jpg', 280, 1, 0, '2016-10-02 11:21:28'),
+(21, 'Enchantment The Art of Changing Heart, Minds, and Actions', 'Guy Kawasaki', 'Woz,Apple', 'Conference', 1987, 'A Book Apart', 1, '/uploads/pic7.jpg', 300, 1, 0, '2016-10-02 11:22:19'),
+(22, 'To Kill a Mocking Bird', 'Harper Lee', '', 'Conference', 2005, 'Kids', 2, '/uploads/pic8.jpg', 29.9, 1, 0, '2016-10-02 11:23:27'),
+(23, '1984', 'George Orwell', '', 'Conference', 2007, 'Kids', 2, '/uploads/pic9.jpg', 39.8, 1, 0, '2016-10-02 11:24:02'),
+(24, 'Pieces of Light', 'Charles Fernyhough', 'Andre Aciman', 'Conference', 2009, 'A Book Apart', 2, '/uploads/pic10.jpg', 280, 1, 0, '2016-10-02 11:24:43'),
+(25, 'Jungle Book', 'IBM', '', 'Conference', 1998, 'Kids', 2, '/uploads/pic11.jpg', 29, 1, 0, '2016-10-02 11:25:23'),
+(26, 'Big-Hearted People', 'Randy J. Schum', '', 'Book', 2013, '', 2, '/uploads/pic12.jpg', 239, 1, 0, '2016-10-02 11:26:05'),
+(27, 'Code Quality', 'Diomidis Spinellis', 'Scott Mayers', 'Master Thesis', 2011, '', 2, '/uploads/pic13.jpg', 390, 1, 0, '2016-10-02 11:27:01'),
+(28, 'Our Lent Things we carry', 'David Crumm', '', 'Ph.D.Thesis', 2016, '', 2, '/uploads/pic14.jpg', 390, 1, 0, '2016-10-02 11:27:40'),
+(29, 'Harry Potter and The Deathly Hallow', 'J.K. Rowling', 'Pottermore', 'Book', 2015, '', 2, '/uploads/pic15.jpg', 580.6, 1, 0, '2016-10-02 11:28:18');
 
 -- --------------------------------------------------------
 
@@ -274,7 +402,14 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
   `JSESSIONID` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `LoginSessions`
+--
+
+INSERT INTO `LoginSessions` (`ID`, `timestamp`, `UserID`, `JSESSIONID`) VALUES
+(2, '2016-10-02 11:22:40', 2, '6E12DDC927F58DF492C1EEE86E18E5DF');
 
 -- --------------------------------------------------------
 
@@ -286,6 +421,16 @@ CREATE TABLE IF NOT EXISTS `PageHits` (
   `Page` varchar(100) NOT NULL,
   `Hits` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PageHits`
+--
+
+INSERT INTO `PageHits` (`Page`, `Hits`) VALUES
+('Graph', 5),
+('Home', 6),
+('Login', 2),
+('Sell', 17);
 
 -- --------------------------------------------------------
 
@@ -330,29 +475,9 @@ CREATE TABLE IF NOT EXISTS `User` (
 INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `NewEmail`, `Birthyear`, `Address`, `CardNumber`, `TokenString`) VALUES
 (1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', NULL, 1000, 'admin', '9999999999999999', NULL),
 (2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'admin2', NULL, 1000, 'admin2', '9999999999999999', NULL),
-(3, 'admin3', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin3', 'admin3', 'admin3', 'admin3', NULL, 1000, 'admin3', '9999999999999999', NULL),
-(4, 'admin4', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin4', 'admin4', 'admin4', 'admin4', NULL, 1000, 'admin4', '9999999999999999', NULL),
-(5, 'admin5', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin5', 'admin5', 'admin5', 'admin5', NULL, 1000, 'admin5', '9999999999999999', NULL),
-(6, 'admin6', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin6', 'admin6', 'admin6', 'admin6', NULL, 1000, 'admin6', '9999999999999999', NULL),
-(7, 'admin7', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin7', 'admin7', 'admin7', 'admin7', NULL, 1000, 'admin7', '9999999999999999', NULL),
-(8, 'admin8', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin8', 'admin8', 'admin8', 'admin8', NULL, 1000, 'admin8', '9999999999999999', NULL),
-(9, 'admin9', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin9', 'admin9', 'admin9', 'admin9', NULL, 1000, 'admin9', '9999999999999999', NULL),
-(10, 'admin10', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin10', 'admin10', 'admin10', 'admin10', NULL, 1000, 'admin10', '9999999999999999', NULL),
-(11, 'admin11', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin11', 'admin11', 'admin11', 'admin11', NULL, 1000, 'admin11', '9999999999999999', NULL),
-(12, 'admin12', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin12', 'admin12', 'admin12', 'admin12', NULL, 1000, 'admin12', '9999999999999999', NULL),
-(13, 'admin13', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin13', 'admin13', 'admin13', 'admin13', NULL, 1000, 'admin13', '9999999999999999', NULL),
-(14, 'admin14', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin14', 'admin14', 'admin14', 'admin14', NULL, 1000, 'admin14', '9999999999999999', NULL),
-(15, 'admin15', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin15', 'admin15', 'admin15', 'admin15', NULL, 1000, 'admin15', '9999999999999999', NULL),
-(16, 'admin16', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin16', 'admin16', 'admin16', 'admin16', NULL, 1000, 'admin16', '9999999999999999', NULL),
-(17, 'admin17', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin17', 'admin17', 'admin17', 'admin17', NULL, 1000, 'admin17', '9999999999999999', NULL),
-(18, 'admin18', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin18', 'admin18', 'admin18', 'admin18', NULL, 1000, 'admin18', '9999999999999999', NULL),
-(19, 'admin19', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin19', 'admin19', 'admin19', 'admin19', NULL, 1000, 'admin19', '9999999999999999', NULL),
-(20, 'admin20', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin20', 'admin20', 'admin20', 'admin20', NULL, 1000, 'admin20', '9999999999999999', NULL),
-(21, 'admin21', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin21', 'admin21', 'admin21', 'admin21', NULL, 1000, 'admin21', '9999999999999999', NULL),
 (22, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', NULL, 1000, 'user', '9999999999999999', NULL),
 (23, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', NULL, 1000, 'user2', '9999999999999999', NULL),
 (24, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', NULL, 1000, 'user3', '9999999999999999', NULL),
-(25, 'user4', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user4', 'user4', 'user4', 'user4', NULL, 1000, 'user4', '9999999999999999', NULL),
 (26, 'user5', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user5', 'user5', 'user5', 'user5', NULL, 1000, 'user5', '9999999999999999', NULL),
 (27, 'user6', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user6', 'user6', 'user6', 'user6', NULL, 1000, 'user6', '9999999999999999', NULL),
 (28, 'user7', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user7', 'user7', 'user7', 'user7', NULL, 1000, 'user7', '9999999999999999', NULL),
@@ -544,22 +669,22 @@ ALTER TABLE `AdminLoginSessions`
 -- AUTO_INCREMENT for table `Entity`
 --
 ALTER TABLE `Entity`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=781;
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=856;
 --
 -- AUTO_INCREMENT for table `Graph`
 --
 ALTER TABLE `Graph`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=342;
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=375;
 --
 -- AUTO_INCREMENT for table `Listing`
 --
 ALTER TABLE `Listing`
-  MODIFY `PubID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `PubID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `LoginSessions`
 --
 ALTER TABLE `LoginSessions`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `User`
 --
