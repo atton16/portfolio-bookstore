@@ -15,4 +15,5 @@ public interface GraphDAO {
 	ArrayList<GraphOutputDTO> findGraphOutput(String node) throws SQLException;
 	ArrayList<GraphOutputDTO> findAllGraphOutput() throws SQLException;
 	public ArrayList<String> findDuplicatedNodeTo(int pubID);
+	public ArrayList<String> findDuplicatedNodeFrom(int pubID);
 }

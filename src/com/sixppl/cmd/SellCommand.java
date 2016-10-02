@@ -213,6 +213,12 @@ public class SellCommand implements Command {
 	}
 	
 	public void addToGraph(PublicationDTO p){
+		try {
+			insertedEntity = entityDao.findAllNodes();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		EntityDTO ep = new EntityDTO();
 		EntityDTO ea = new EntityDTO();
 		EntityDTO ed = new EntityDTO();
