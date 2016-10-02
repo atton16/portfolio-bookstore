@@ -92,6 +92,23 @@ public class EntityDAOImpl implements EntityDAO{
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	@Override
+	public void updatePubIDByEntityID(int pubID, String entityID) throws SQLException {
+		String sql = "UPDATE Entity SET PubID = ? WHERE EntityID=?";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setLong(1, pubID);
+			ps.setString(2, entityID);
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	@Override
 	public void deleteEntity(long PubID) throws SQLException {

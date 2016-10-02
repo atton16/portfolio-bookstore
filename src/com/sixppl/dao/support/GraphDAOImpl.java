@@ -174,4 +174,44 @@ public class GraphDAOImpl implements GraphDAO {
 		}
 		return result;
 	}
+	public ArrayList<String> findDuplicatedNodeTo(int pubID){
+		ArrayList<String> deletedNodes = new ArrayList<String>();
+		ArrayList<String> duplicatedNode = new ArrayList<String>();
+		String sql = "SELECT NodeTo FROM Graph WHERE PubID = ?";
+		Connection connection = null;
+		try{
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setLong(1, pubID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				String deletedNode = rs.getString("NodeTo");
+				deletedNodes.add(deletedNode);
+			}
+			rs.close();
+			ps.close();
+			
+			//Check for duplicated
+			for(String deletedNode : deletedNodes){
+				sql = "SELECT PubID, NodeTo FROM Graph WHERE PubID != ? AND NodeTo = ?";
+				ps = connection.prepareStatement(sql);
+				ps.setLong(1, pubID);
+				ps.setString(2, deletedNode);
+				rs = ps.executeQuery();
+				while(rs.next()){
+					if(rs.getString("NodeTo").contains(deletedNode)){
+						duplicatedNode.add(deletedNode);
+						long changedPubID = rs.getLong("PubID");
+						duplicatedNode.add(String.valueOf(changedPubID));
+					}
+				}
+				rs.close();
+				ps.close();
+			}
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		
+		return duplicatedNode;
+	}
 }

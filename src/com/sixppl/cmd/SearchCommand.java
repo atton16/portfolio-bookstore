@@ -110,7 +110,11 @@ public class SearchCommand implements Command {
 			if(!request.getParameter("year-to").toLowerCase().contains("end of humanity")){
 				pubKey.toYear = Integer.valueOf(request.getParameter("year-to"));
 			}
-			pubKey.venue = request.getParameter("venue").trim();
+			try{
+				pubKey.venue = request.getParameter("venue").trim();
+			}catch(NullPointerException e){
+				
+			}
 			
 			ArrayList<ListingDTO> results = listingDao.Search(pubKey, request.getSession().getId());
 			setResultsAttribute(request,results);
