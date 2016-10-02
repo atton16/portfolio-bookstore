@@ -37,8 +37,8 @@ public class Application {
 	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	//public static final String UPLOADS_PATH = "/Users/atton16/Documents/cs9321/workspace/asst2/WebContent/uploads/";
-	//public static final String UPLOADS_PATH = "/Users/Tanakrit/Desktop/COMP9321/asst2/WebContent/uploads/";
-	public static final String UPLOADS_PATH = "/Users/monai/Documents/workspace/asst2/WebContent/uploads";
+	public static final String UPLOADS_PATH = "/Users/Tanakrit/Desktop/COMP9321/asst2/WebContent/uploads/";
+//	public static final String UPLOADS_PATH = "/Users/monai/Documents/workspace/asst2/WebContent/uploads";
 	private static final String TITLE_ATTRIBUTE = "title";
 	private static final String CONTEXTPATH_ATTRIBUTE = "contextPath";
 	private static Application app;
