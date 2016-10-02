@@ -14,4 +14,5 @@ public interface GraphDAO {
 	void deleteGraph(long PubID) throws SQLException;
 	ArrayList<GraphOutputDTO> findGraphOutput(String node) throws SQLException;
 	ArrayList<GraphOutputDTO> findAllGraphOutput() throws SQLException;
+	public ArrayList<String> findDuplicatedNodeTo(int pubID);
 }

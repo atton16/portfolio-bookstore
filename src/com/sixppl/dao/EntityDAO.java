@@ -18,4 +18,5 @@ public interface EntityDAO {
 	ArrayList<EntityDTO> getRandomNodes(int nodeAmount) throws SQLException;
 	long getMaxNodeID(String Type) throws SQLException;
 	long getMaxEdgeID() throws SQLException;
+	void updatePubIDByEntityID(int pubID, String entityID) throws SQLException;
 }
