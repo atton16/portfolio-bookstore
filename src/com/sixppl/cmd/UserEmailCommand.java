@@ -6,11 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mindrot.jbcrypt.EmailSending;
-
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.EmailSending;
 
 public class UserEmailCommand implements Command {
 	private UserDAO userDao;

@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.mindrot.jbcrypt.EmailSending;
 
 import com.sixppl.dao.SessionDAO;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.ApplicationSupport;
+import com.sixppl.main.support.EmailSending;
 
 public class UserProfileCommand  implements Command {
 	private UserDAO userDao;
@@ -85,7 +86,7 @@ public class UserProfileCommand  implements Command {
 			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 			
 			EmailSending emailSending = new EmailSending();
-			emailSending.sendEmail(to, from, full_path + "/user/profile/confirm?token="+token);
+			emailSending.sendEmail(to, from, ApplicationSupport.ChangeEmailSubject(), ApplicationSupport.ChangeEmailContent(full_path + "/user/profile/confirm?token="+token));
 		}
 		userDao.updateUser(user);
 		session.setAttribute("user", user);
