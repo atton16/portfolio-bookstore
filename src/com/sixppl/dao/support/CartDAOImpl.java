@@ -231,9 +231,8 @@ public class CartDAOImpl implements CartDAO {
 				//Remove item from cart
 				sql = "DELETE FROM Cart WHERE UserID = ? and PubID = ?;";
 				stmt = conn.prepareStatement(sql);
-				stmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-				stmt.setInt(2, userID);
-				stmt.setInt(3, item.pubID);
+				stmt.setInt(1, userID);
+				stmt.setInt(2, item.pubID);
 				stmt.executeUpdate();
 				
 				//STEP 6: Clean-up environment
