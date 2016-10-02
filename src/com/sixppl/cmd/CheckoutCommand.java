@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mindrot.jbcrypt.EmailSending;
 
 import com.sixppl.dao.CartDAO;
 import com.sixppl.dao.ListingDAO;
@@ -20,6 +19,7 @@ import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.EmailSending;
 
 public class CheckoutCommand implements Command {
 
@@ -88,7 +88,7 @@ public class CheckoutCommand implements Command {
 					itemList += item.title + "/n";
 				}
 			}
-			emailSending.sendEmail(to, from, emailMSG + itemList);
+			emailSending.sendEmail(to, from, subject, emailMSG + itemList);
 		}
 		
 		request.setAttribute("user", user);
