@@ -55,8 +55,9 @@ import com.sixppl.main.Application;
 		"/user/profile/confirm",
 		"/user/sell",
 		"/user/pub/manage",
-		
+
 		"/admin",
+		"/admin/pubinfo",
 		"/admin/login",
 		"/admin/logout",
 		"/admin/pub/manage",
@@ -88,6 +89,7 @@ public class Asst2Servlet extends HttpServlet {
 	    USER_EMAIL_CHANGE,
 	    
 	    SEARCH,
+	    SEARCH_ALL,
 	    SELL,
 	    LIST,
 	    UNLIST,
@@ -144,6 +146,7 @@ public class Asst2Servlet extends HttpServlet {
 		commands.put(COMMAND.USER_IS_BANNED, new UserIsBannedCommand());
 
 		commands.put(COMMAND.SEARCH, new SearchCommand());
+		commands.put(COMMAND.SEARCH_ALL, new SearchAllCommand());
 		commands.put(COMMAND.SELL, new SellCommand());
 		commands.put(COMMAND.LIST, new ListCommand());
 		commands.put(COMMAND.UNLIST, new UnlistCommand());
@@ -238,7 +241,7 @@ public class Asst2Servlet extends HttpServlet {
 			if(item != null) {
 				if(item.getStatus() != true) {
 					if(user != null) {
-						if(user.getUserID() != item.pubID){
+						if(user.getUserID() != item.getSellerID()){
 							request.setAttribute("item", null);
 						}
 					} else {
@@ -248,6 +251,14 @@ public class Asst2Servlet extends HttpServlet {
 			}
 			Application.getSharedInstance().incrementPageHitsCount("Publication Details");
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
+		// Render: Admin - Publication Details
+		} else if(URI.equalsIgnoreCase("/admin/pubinfo")){
+			if(admin == null) {
+				response.sendRedirect(contextPath);
+			} else {
+				commands.get(COMMAND.PUB_DETAIL).execute(request, response);
+				request.getRequestDispatcher("/admin_pubinfo.jsp").forward(request,response);
+			}
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){
 			Application.getSharedInstance().incrementPageHitsCount("Ban");
@@ -354,6 +365,8 @@ public class Asst2Servlet extends HttpServlet {
 			if(admin == null) {
 				response.sendRedirect(contextPath);
 			} else {
+				commands.get(COMMAND.SEARCH_ALL).execute(request, response);
+				commands.get(COMMAND.SEARCHTERMS).execute(request, response);
 				request.getRequestDispatcher("/admin_pub_manage.jsp").forward(request,response);
 			}
 			
