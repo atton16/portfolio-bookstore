@@ -59,7 +59,7 @@ public class UserProfileCommand  implements Command {
 		}
 
 		if (npassword != null && !npassword.equals(""))
-			user.setPassword(npassword);
+			user.setPassword(BCrypt.hashpw(npassword, BCrypt.gensalt()));
 		if (nickname != null && !nickname.equals(""))
 			user.setNickname(nickname);
 		if (firstname != null && !firstname.equals(""))
