@@ -14,6 +14,7 @@ public interface ListingDAO {
 	public void setList(int pubID);
 	public void setUnlist(int pubID);
 	public Integer getListingCount();
+	public Integer getListingCountExceptPaused();
 	public Integer getListingCount(Integer userId);
 	public List<Integer> getYearsAscending();
 	public List<Integer> getYearsDescending();

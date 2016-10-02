@@ -553,4 +553,38 @@ public class ListingDAOImpl implements ListingDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public Integer getListingCountExceptPaused() {
+
+		Integer total = 0;
+		PreparedStatement stmt = null;
+		String sql = "SELECT COUNT(*) AS total FROM Listing WHERE `Status` = 1";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				total = rs.getInt("total");
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+
+		return total;
+	}
 }

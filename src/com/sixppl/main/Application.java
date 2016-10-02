@@ -90,11 +90,11 @@ public class Application {
 		return title;
 	}
 	
-	public Integer getListingCount() {
+	public Integer getListingCountExceptPaused() {
 		Integer count = 0;
 		ListingDAO dao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		try{
-			count = dao.getListingCount();
+			count = dao.getListingCountExceptPaused();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -105,7 +105,7 @@ public class Application {
 	public List<ListingDTO> getRandomPubs(String sessionId) {
 		List<ListingDTO> results = new ArrayList<ListingDTO>();
 		ListingDAO dao = Application.getSharedInstance().getDAOFactory().getListingDAO();
-		Integer count = getListingCount();
+		Integer count = getListingCountExceptPaused();
 		Integer limit = 10;
 		if(count < limit)
 			limit = count;

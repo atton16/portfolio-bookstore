@@ -4,7 +4,7 @@
 <jsp:useBean id="app" class="com.sixppl.main.Application"/>
 <jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
 <jstl:set var="title" value="${app.getSharedInstance().getTitle()}"/>
-<jstl:set var="total_pub" value="${app.getSharedInstance().getListingCount()}"/>
+<jstl:set var="total_pub" value="${app.getSharedInstance().getListingCountExceptPaused()}"/>
 <jstl:set var="items" value="${app.getSharedInstance().getRandomPubs(pageContext.session.id)}"/>
 <%
 com.sixppl.main.Application.getSharedInstance().embedDefaults((HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse());
@@ -23,7 +23,7 @@ com.sixppl.main.Application.getSharedInstance().incrementPageHitsCount("Home");
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Random Picks</h3>
-			<p><i>Displaying 10 from ${total_pub} publications</i></p>
+			<p><i>Displaying ${items.size()} from ${total_pub} publications</i></p>
 		</div>
 	</div>
 	<!-- Random Pick Contents: One item per row -->
