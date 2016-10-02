@@ -106,7 +106,21 @@ public class ExtractXMLGraph {
 			if (pubSell.editors.isEmpty()) {
 				pubSell.editors.add("");
 			}
-			pubSell.type = p.getType();
+			if (p.getType().equals("article")) {
+				pubSell.type = "Article";
+			}
+			else if (p.getType().equals("book")){
+				pubSell.type = "Book";
+			}
+			else if (p.getType().equals("mastersthesis")){
+				pubSell.type = "Master Thesis";
+			}
+			else if (p.getType().equals("phdthesis")){
+				pubSell.type = "Ph.D.Thesis";
+			}
+			else {
+				pubSell.type = "Conference";
+			}
 			if (p.getYear() == null) {
 				pubSell.year = 2016;
 			}
