@@ -14,7 +14,29 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
 			<h3>Manage Publications</h3>
-			<p><i>You have ${items.size()} publications listing in total.</i></p>
+			<p><i>You have ${total} publications listing in total, displaying ${start}-${end}.</i></p>
+		</div>
+	</div>
+	<!-- Manage Publications: Top -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="as-table">
+				<div class="as-cell">
+					<jstl:if test="${prevParams != null}">
+					<a href="${contextPath}/user/pub/manage?${prevParams}" class="no-decoration"> <span
+						class="glyphicon glyphicon-menu-left"></span> <span>
+							Previous</span>
+					</a>
+					</jstl:if>
+				</div>
+				<div class="as-cell right-text">
+					<jstl:if test="${nextParams != null}">
+					<a href="${contextPath}/user/pub/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
+						class="glyphicon glyphicon-menu-right"></span>
+					</a>
+					</jstl:if>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- Manage Publications Contents: One item per row -->
@@ -53,6 +75,28 @@
 			<form action="${contextPath}/rest/user/pub/list" method="post" id="${item.getPubID()}-unchecked"></form>
 			<form action="${contextPath}/rest/user/pub/unlist" method="post" id="${item.getPubID()}-checked"></form>
 			</jstl:forEach>
+		</div>
+	</div>
+	<!-- Manage Publications: Bottom -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="as-table">
+				<div class="as-cell">
+					<jstl:if test="${prevParams != null}">
+					<a href="${contextPath}/user/pub/manage?${prevParams}" class="no-decoration"> <span
+						class="glyphicon glyphicon-menu-left"></span> <span>
+							Previous</span>
+					</a>
+					</jstl:if>
+				</div>
+				<div class="as-cell right-text">
+					<jstl:if test="${nextParams != null}">
+					<a href="${contextPath}/user/pub/manage?${nextParams}" class="no-decoration"> <span>Next </span> <span
+						class="glyphicon glyphicon-menu-right"></span>
+					</a>
+					</jstl:if>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
