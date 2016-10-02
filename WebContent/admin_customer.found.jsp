@@ -123,8 +123,8 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${remove.getPrice()}" /></b></h4>
-									<p><i>Seller: ${buy.getSellerNickname()}</i></p>
-									<p><i>Remove Date: ${buy.getRemoveFromCartDateString()}</i></p>
+									<p><i>Seller: ${remove.getSellerNickname()}</i></p>
+									<p><i>Remove Date: ${remove.getRemoveFromCartDateString()}</i></p>
 								<td></tr>
 							</table></td>
 						</tr>

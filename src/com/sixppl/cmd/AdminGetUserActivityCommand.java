@@ -64,8 +64,11 @@ public class AdminGetUserActivityCommand implements Command{
 		
 		cart = cartDao.getByUserID(UserID);
 		for(CartDTO cartItem: cart) {
-			if(cartItem.getRemovetime() != null)
-				removedList.add(listingDAO.getByPubID(cartItem.getPubID()));
+			if(cartItem.getRemovetime() != null){
+				ListingDTO pub = listingDAO.getByPubID(cartItem.getPubID());
+				pub.setRemoveFromCartDate(cartItem.getRemovetime());
+				removedList.add(pub);
+			}
 		}
 		
 		if(buyList.isEmpty() && removedList.isEmpty()){
