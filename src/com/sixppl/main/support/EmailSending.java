@@ -5,12 +5,35 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmailSending {
+	
+	public static void main(String[] args) {
+		new EmailSending().sendEmail("admin", "a@a.com", "test", "test");
+	}
 
+	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+	
+	private static boolean validate(String emailStr) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+		return matcher.find();
+	}
+	
      public void sendEmail(String to, String from, String subject, String content){
     	final String username = "asst2unsw@gmail.com";
  		final String password = "asst22016";
+ 		
+ 		if(!validate(from)){
+ 			System.out.println("EmailSending: Invalid sender email");
+ 			return;
+ 		}
+ 		if(!validate(to)){
+ 			System.out.println("EmailSending: Invalid receiver email");
+ 			return;
+ 		}
 
  		Properties props = new Properties();
  		props.put("mail.smtp.auth", "true");
