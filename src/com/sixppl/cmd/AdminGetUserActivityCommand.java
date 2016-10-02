@@ -66,7 +66,7 @@ public class AdminGetUserActivityCommand implements Command{
 				removedList.add(listingDAO.getByPubID(cartItem.getPubID()));
 		}
 		
-		if(buyList.isEmpty() || cart.isEmpty()){
+		if(buyList.isEmpty() && cart.isEmpty()){
 			request.setAttribute("user", null);
 			return;
 		}
