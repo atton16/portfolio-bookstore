@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.*;
 
 import com.sixppl.cmd.*;
+import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
 
@@ -232,8 +233,20 @@ public class Asst2Servlet extends HttpServlet {
 			}
 		// Render: Publication Details
 		} else if(URI.equalsIgnoreCase("/pubinfo")){
-			Application.getSharedInstance().incrementPageHitsCount("Publication Details");
 			commands.get(COMMAND.PUB_DETAIL).execute(request, response);
+			ListingDTO item = (ListingDTO) request.getAttribute("item");
+			if(item != null) {
+				if(item.getStatus() != true) {
+					if(user != null) {
+						if(user.getUserID() != item.pubID){
+							request.setAttribute("item", null);
+						}
+					} else {
+						request.setAttribute("item", null);
+					}
+				}
+			}
+			Application.getSharedInstance().incrementPageHitsCount("Publication Details");
 			request.getRequestDispatcher("/pubinfo.jsp").forward(request,response);
 		// Render: Ban Page
 		} else if(URI.equalsIgnoreCase("/ban")){

@@ -1,6 +1,7 @@
 package com.sixppl.cmd;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,16 @@ public class PubDetailCommand implements Command {
 		ListingDTO pubKey = new ListingDTO();
 		pubKey.setPubID(pubId);
 		ListingDAO listing = Application.getSharedInstance().getDAOFactory().getListingDAO();
-		item = listing.Search(pubKey, request.getSession().getId()).get(0);
-		Application.getSharedInstance().getDAOFactory().getListingStatisticsDAO().incrementMostViewed(pubId);
+		List<ListingDTO> items = listing.searchAll(pubKey, request.getSession().getId());
 		
-		request.setAttribute("item", item);
+		if(!items.isEmpty()){
+			item = items.get(0);
+			Application.getSharedInstance().getDAOFactory().getListingStatisticsDAO().incrementMostViewed(pubId);
+			request.setAttribute("item", item);
+			return;
+		}
+		request.setAttribute("item", null);
+		
 	}
 
 }
