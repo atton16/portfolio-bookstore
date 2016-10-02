@@ -13,10 +13,10 @@ public class EmailSupport {
 		return "DBLP: Confirm Registration";
 	}
 	public static String ChangeEmailSubject() {
-		return "DBLP: Email Cahange Confirmation";
+		return "DBLP: Email Change Confirmation";
 	}
 	public static String PurchaseToSellerSubject() {
-		return "DBLP: DBLP: Purchase Notification";
+		return "DBLP: Purchase Notification";
 	}
 	
 	public static String RegistrationEmailContent(String tokenLink) {
