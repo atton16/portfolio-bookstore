@@ -456,7 +456,11 @@ public class Asst2Servlet extends HttpServlet {
 				response.getWriter().write("You are banned!");
 			} else {
 				commands.get(COMMAND.CART_ADD).execute(request, response);
-				response.getWriter().write(String.valueOf(request.getAttribute("cartCount")));
+				if(request.getAttribute("error_msg") != null) {
+					response.getWriter().write(String.valueOf(request.getAttribute("error_msg")));
+				} else {
+					response.getWriter().write(String.valueOf(request.getAttribute("cartCount")));
+				}
 			}
 			response.getWriter().flush();
 			response.getWriter().close();
