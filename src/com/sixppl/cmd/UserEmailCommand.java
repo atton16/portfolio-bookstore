@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.ApplicationSupport;
 import com.sixppl.main.support.EmailSending;
 
 public class UserEmailCommand implements Command {
@@ -49,7 +50,7 @@ public class UserEmailCommand implements Command {
 			request.setAttribute("error_msg", "User is already activated.");
 			return;
 		}
-		emailSending.sendEmail(to, from, full_path + "/signup/confirm?token="+token);
+		emailSending.sendEmail(to, from, ApplicationSupport.RegistrationEmailSubject(), ApplicationSupport.RegistrationEmailContent(full_path + "/user/profile/confirm?token="+token));
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);
 	}
