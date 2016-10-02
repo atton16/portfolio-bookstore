@@ -29,12 +29,6 @@ import com.sixppl.dto.ListingDTO;
  *
  */
 public class Application {
-	public static final String DEVELOPMENT_ENV = "DEVELOPMENT";
-	public static final String PRODUCTION_ENV = "PRODUCTION";
-	public static final String PRODUCTIONIP_ENV = "PRODUCTION_IP";
-	private static final String ENV = PRODUCTIONIP_ENV;
-	private static final String PRODUCTION_IP = "128.199.244.89";
-	private static final String PRODUCTION_PORT = "8443";
 	private static final String title = "DBLP";
 	//public static final String UPLOADS_PATH = "/Users/atton16/Documents/cs9321/workspace/asst2/WebContent/uploads/";
 	public static final String UPLOADS_PATH = "/Users/Tanakrit/Desktop/COMP9321/asst2/WebContent/uploads/";
@@ -152,18 +146,6 @@ public class Application {
 	
 	public void destroy() {
 		daoSupport.destroy();
-	}
-	
-	public String getEnvironment() {
-		return Application.ENV;
-	}
-	
-	public String getProductionIP() {
-		return Application.PRODUCTION_IP;
-	}
-	
-	public String getProductionPort() {
-		return Application.PRODUCTION_PORT;
 	}
 	
 	public void incrementPageHitsCount(String Title) {
