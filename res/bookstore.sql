@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `ListingStatistics` (
   `PubID` bigint(20) unsigned NOT NULL,
   `AddedToCart` bigint(20) unsigned NOT NULL DEFAULT '0',
   `Viewed` bigint(20) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
