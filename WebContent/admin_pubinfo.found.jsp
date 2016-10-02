@@ -13,7 +13,7 @@
 	<!-- Publication Details Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3><a href="${contextPath}/admin">Admin</a> / <a href="${contextPath}/admin/pub/manage">Manage Publications</a> / Publication Details</h3>
+			<h3><a href="${contextPath}/admin">Admin</a> / Publication Details</h3>
 		</div>
 	</div>
 	<!-- Publication Details: Contents -->

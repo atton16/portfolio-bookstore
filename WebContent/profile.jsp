@@ -33,7 +33,7 @@
 			</jstl:if>
 			<jstl:if test="${need_verify}">
 				<div class="alert alert-info">
-					Your email is not yet verify. <a href="${contextPath}/user/profile/verify" class="underline-text">Click here to resend verification Email</a>
+					Your email (${user.getNewemail()}) is not yet verify. <a href="${contextPath}/user/profile/verify" class="underline-text">Click here to resend verification Email</a>
 				</div>
 			</jstl:if>
 		</div>

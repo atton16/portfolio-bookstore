@@ -73,7 +73,7 @@
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${buy.getPubID()}" class="link-as-text">${buy.getTitle()}</a></h3>
+									<h3 class="no-margin"><a href="${contextPath}/admin/pubinfo?id=${buy.getPubID()}" class="link-as-text">${buy.getTitle()}</a></h3>
 									<h5><i>
 									<jstl:forEach var="writer" items="${buy.getWriters()}" varStatus="stat">
 										${writer}${stat.last ? '' : ', '}
@@ -114,7 +114,7 @@
 							</td>
 							<td class="border-left padding-left-12"><table>
 								<tr><td valign="top">
-									<h3 class="no-margin"><a href="${contextPath}/pubinfo?id=${remove.getPubID()}" class="link-as-text">${remove.getTitle()}</a></h3>
+									<h3 class="no-margin"><a href="${contextPath}/admin/pubinfo?id=${remove.getPubID()}" class="link-as-text">${remove.getTitle()}</a></h3>
 									<h5><i>
 									<jstl:forEach var="writer" items="${remove.getWriters()}" varStatus="stat">
 										${writer}${stat.last ? '' : ', '}
