@@ -1,4 +1,5 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,7 +40,7 @@
 									</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
-									<h4><b>A$${item.getPrice()}.00</b></h4>
+									<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${item.getPrice()}" /></b></h4>
 									<p><i>Seller: ${item.getSellerNickname()}</i></p>
 								<td></tr>
 							</table></td>
@@ -52,7 +53,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-		<h4><b>Total: A$${total_price}.00</b></h4>
+		<h4><b>Total: A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${total_price}" /></b></h4>
 		</div>
 	</div>
 	<!-- Credit Card Title -->

@@ -1,4 +1,5 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -80,7 +81,7 @@
 									</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
-									<h4><b>A$${buy.getPrice()}.00</b></h4>
+									<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${buy.getPrice()}" /></b></h4>
 									<p><i>Seller: ${buy.getSellerNickname()}</i></p>
 									<p><i>Buy Date: ${buy.getBuyDateString()}</i></p>
 								<td></tr>
@@ -121,7 +122,7 @@
 									</i></h5>
 								<td></tr>
 								<tr><td valign="bottom">
-									<h4><b>A$${remove.getPrice()}.00</b></h4>
+									<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${remove.getPrice()}" /></b></h4>
 									<p><i>Seller: ${buy.getSellerNickname()}</i></p>
 									<p><i>Remove Date: ${buy.getRemoveFromCartDateString()}</i></p>
 								<td></tr>
