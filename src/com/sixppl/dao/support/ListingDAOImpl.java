@@ -217,6 +217,7 @@ public class ListingDAOImpl implements ListingDAO {
 			stmt.setInt(5, pubSell.year);
 			stmt.setString(6, pubSell.venue);
 			stmt.setInt(7, pubSell.sellerID);
+			@SuppressWarnings("resource")
 			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
 			String picString = s.hasNext() ? s.next() : "";
 			stmt.setString(8, picString);
