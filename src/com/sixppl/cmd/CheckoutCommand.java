@@ -19,6 +19,7 @@ import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
+import com.sixppl.main.support.EmailSupport;
 import com.sixppl.main.support.EmailSending;
 
 public class CheckoutCommand implements Command {
@@ -73,22 +74,14 @@ public class CheckoutCommand implements Command {
 			}
 		}
 		
-		
-		
 		//Send Email to Seller
 		for(String email: sellerEmails){
-			EmailSending emailSending = new EmailSending();
-			String to = email;
-			String from = "asst2unsw@gmail.com";
-			String subject = "DBLP: Purchased Notification";
-			String emailMSG = "Your item(s) have been purchased!\nList of item(s)\n";
-			String itemList = "";
-			for(ListingDTO item: items){
-				if(purchasedMap.get(item.title).equalsIgnoreCase(email)){
-					itemList += item.title + "/n";
-				}
-			}
-			emailSending.sendEmail(to, from, subject, emailMSG + itemList);
+			new EmailSending().sendEmail(
+					email,
+					EmailSupport.SenderEmail(),
+					EmailSupport.PurchaseToSellerSubject(),
+					EmailSupport.PurchaseToSellerContent(email, items, purchasedMap)
+					);
 		}
 		
 		request.setAttribute("user", user);

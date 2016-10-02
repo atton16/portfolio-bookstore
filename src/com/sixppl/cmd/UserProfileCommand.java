@@ -15,7 +15,7 @@ import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
-import com.sixppl.main.support.ApplicationSupport;
+import com.sixppl.main.support.EmailSupport;
 import com.sixppl.main.support.EmailSending;
 
 public class UserProfileCommand  implements Command {
@@ -78,7 +78,6 @@ public class UserProfileCommand  implements Command {
 			String token = UUID.randomUUID().toString();
 			user.setTokenstring(token);
 			String to = request.getParameter("email");
-			String from = "asst2unsw@gmail.com";
 			
 			String contextPath = request.getContextPath();
 			String fullURI = request.getRequestURI();
@@ -86,7 +85,12 @@ public class UserProfileCommand  implements Command {
 			String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 			
 			EmailSending emailSending = new EmailSending();
-			emailSending.sendEmail(to, from, ApplicationSupport.ChangeEmailSubject(), ApplicationSupport.ChangeEmailContent(full_path + "/user/profile/confirm?token="+token));
+			emailSending.sendEmail(
+					to,
+					EmailSupport.SenderEmail(),
+					EmailSupport.ChangeEmailSubject(),
+					EmailSupport.ChangeEmailContent(full_path + "/user/profile/confirm?token="+token)
+					);
 		}
 		userDao.updateUser(user);
 		session.setAttribute("user", user);

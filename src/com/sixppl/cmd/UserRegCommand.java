@@ -15,7 +15,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
-import com.sixppl.main.support.ApplicationSupport;
+import com.sixppl.main.support.EmailSupport;
 import com.sixppl.main.support.EmailSending;
 
 public class UserRegCommand implements Command {
@@ -158,14 +158,18 @@ public class UserRegCommand implements Command {
 		userDao.addUser(user);
 
 		String to = request.getParameter("email");
-		String from = "asst2unsw@gmail.com";
 
 		String contextPath = request.getContextPath();
 		String fullURI = request.getRequestURI();
 		String URI = fullURI.substring(contextPath.length());
 		String full_path = request.getRequestURL().substring(0, request.getRequestURL().indexOf(URI));
 		System.out.println("the full path is"+full_path);
-		emailSending.sendEmail(to, from, ApplicationSupport.RegistrationEmailSubject(), ApplicationSupport.RegistrationEmailContent(full_path + "/signup/confirm?token="+token));
+		emailSending.sendEmail(
+				to,
+				EmailSupport.SenderEmail(),
+				EmailSupport.RegistrationEmailSubject(),
+				EmailSupport.RegistrationEmailContent(full_path + "/signup/confirm?token="+token)
+				);
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);
 

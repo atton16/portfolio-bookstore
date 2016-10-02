@@ -12,7 +12,7 @@ import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.SessionDTO;
 import com.sixppl.dto.UserDTO;
 import com.sixppl.main.Application;
-import com.sixppl.main.support.ApplicationSupport;
+import com.sixppl.main.support.EmailSupport;
 import com.sixppl.main.support.EmailSending;
 
 public class UserEmailChangeCommand implements Command {
@@ -39,7 +39,6 @@ public class UserEmailChangeCommand implements Command {
 		
 		EmailSending emailSending = new EmailSending();
 		String to = email;
-		String from = "asst2unsw@gmail.com";
 		String token = user.getTokenstring();
 		
 		String contextPath = request.getContextPath();
@@ -52,7 +51,12 @@ public class UserEmailChangeCommand implements Command {
 			request.setAttribute("error", true);
 			return;
 		}
-		emailSending.sendEmail(to, from, ApplicationSupport.ChangeEmailSubject(), ApplicationSupport.ChangeEmailContent(full_path + "/user/profile/confirm?token="+token));
+		emailSending.sendEmail(
+				to,
+				EmailSupport.SenderEmail(),
+				EmailSupport.ChangeEmailSubject(),
+				EmailSupport.ChangeEmailContent(full_path + "/user/profile/confirm?token="+token)
+				);
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);
 	}
