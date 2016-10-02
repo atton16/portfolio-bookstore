@@ -19,12 +19,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
+CREATE Database `bookstore`;
+USE `bookstore`;
 
 DELIMITER $$
 --
-
-CREATE Database `bookstore`;
-USE `bookstore`;
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ListNode`( IN StartNode VARCHAR(21) )
