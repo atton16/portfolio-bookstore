@@ -17,11 +17,12 @@ import com.sixppl.dao.EntityDAO;
 import com.sixppl.dao.GraphDAO;
 import com.sixppl.dao.ListingDAO;
 import com.sixppl.dao.SessionDAO;
-import com.sixppl.dao.support.SessionDAOImpl;
+import com.sixppl.dao.UserDAO;
 import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphDTO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.SessionDTO;
+import com.sixppl.dto.UserDTO;
 import com.sixppl.importData.PublicationDTO;
 import com.sixppl.main.Application;
 
@@ -33,6 +34,8 @@ public class SellCommand implements Command {
 	private ListingDAO listingDao;
 	private EntityDAO entityDao;
 	private GraphDAO graphDao;
+	private SessionDAO sessionDao;
+	private UserDAO userDao;
 	long countPublication;
 	long countAuthor;
 	long countVenue;
@@ -46,6 +49,8 @@ public class SellCommand implements Command {
 		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
 		graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
+		sessionDao = Application.getSharedInstance().getDAOFactory().getSessionDAO();
+		userDao = Application.getSharedInstance().getDAOFactory().getUserDAO();
 		countEntity = 0;
 //		countPublication = 0;
 //		countAuthor = 0;
@@ -83,6 +88,7 @@ public class SellCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Check if all field is filled
 		if(parameterChecker(request) == false){
 			error = true;
 			error_msg = "Please enter the required fields.";
@@ -90,6 +96,20 @@ public class SellCommand implements Command {
 			request.setAttribute("error_msg", error_msg);
 			return;
 		}
+		
+		//Check if Seller have a valid email
+		SessionDTO sessionDTO = new SessionDTO();
+		sessionDTO.setSessionID(request.getSession().getId());
+		int sellerID = sessionDao.finduserIDbySession(sessionDTO);
+		UserDTO seller = userDao.findUserByUserID(sellerID);
+		if(seller.getEmail() == null || seller.getEmail().isEmpty()){
+			error = true;
+			error_msg = "Your email address is invalid. You can check your email in Edit Profile.";
+			request.setAttribute("error", error);
+			request.setAttribute("error_msg", error_msg);
+			return;
+		}
+		
 		ListingDTO pubSell = new ListingDTO();
 		PublicationDTO pubGraph = new PublicationDTO();
 		ArrayList<String> pubGraphAuthor = new ArrayList<String>();
@@ -113,8 +133,7 @@ public class SellCommand implements Command {
 				}
 			}
 		}
-		SessionDAO sessionDao = new SessionDAOImpl();
-		SessionDTO sessionDTO = new SessionDTO();
+	
 		sessionDTO.setSessionID(request.getSession().getId());
 		pubSell.sellerID = sessionDao.finduserIDbySession(sessionDTO);
 		
