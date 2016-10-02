@@ -45,7 +45,7 @@
 								<p>Authors</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Author 1, Author 2, Author 3 (Optional)" name="authors" />
+								<input type="text" class="form-control" placeholder="Author 1, Author 2, Author 3" name="authors" />
 							</div>
 						</div>
 						<div class="row">
@@ -53,7 +53,7 @@
 								<p>Editors</p>
 							</div>
 							<div class="col-md-10 col-lg-space">
-								<input type="text" class="form-control" placeholder="Editor 1, Editor 2, Editor 3 (Optional)" name="editors" />
+								<input type="text" class="form-control" placeholder="Editor 1, Editor 2, Editor 3" name="editors" />
 							</div>
 						</div>
 						<div class="row">

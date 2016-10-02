@@ -1,4 +1,5 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:useBean id="app" class="com.sixppl.main.Application"/>
 <jstl:set var="contextPath" value="${app.getSharedInstance().getContextPath()}"/>
@@ -53,7 +54,7 @@ com.sixppl.main.Application.getSharedInstance().incrementPageHitsCount("Home");
 										</i></h5>
 									<td></tr>
 									<tr><td valign="bottom">
-										<h4><b>A$${item.getPrice()}.00</b></h4>
+										<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${item.getPrice()}" /></b></h4>
 										<h4>
 											<jstl:if test="${item.isInCart()}">
 												<a id="${item.getPubID()}" class="link-as-text">In Cart</a>
