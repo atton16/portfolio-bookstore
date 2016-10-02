@@ -37,6 +37,7 @@ public class AdminRemovePubCommand implements Command{
 		
 		//Check graph
 		ArrayList<String> duplicatedNodes = graphDao.findDuplicatedNodeTo(pubID);
+		duplicatedNodes.addAll(graphDao.findDuplicatedNodeFrom(pubID));
 		for(int i = 0; i < duplicatedNodes.size(); i+=2){
 			try {
 				entityDao.updatePubIDByEntityID(Integer.valueOf(duplicatedNodes.get(i+1)), duplicatedNodes.get(i));
