@@ -532,4 +532,25 @@ public class ListingDAOImpl implements ListingDAO {
 		
 		return pub;
 	}
+
+	@Override
+	public long getMaxPubID() {
+		long result = 0;
+		String sql = "SELECT MAX(PubID) AS CurrentPubID FROM Listing";
+		Connection connection = null;
+		try {
+			connection = Application.getSharedInstance().getDAOSupport().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				result = rs.getLong("CurrentPubID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 }
