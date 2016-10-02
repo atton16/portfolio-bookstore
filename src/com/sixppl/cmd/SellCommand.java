@@ -141,7 +141,8 @@ public class SellCommand implements Command {
 
 		pubSell.picture = "/uploads/pic"+picId+".jpg";
 		
-		pubSell.price = Integer.valueOf(request.getParameter("price"));
+		pubSell.price = Float.valueOf(request.getParameter("price"));
+
 		
 		// Add Listing
 		error = !listingDao.addListing(pubSell);
@@ -193,9 +194,6 @@ public class SellCommand implements Command {
 	}
 	
 	public void addToGraph(PublicationDTO p){
-		EntityDAO entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
-		GraphDAO graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
-		ListingDAO listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		EntityDTO ep = new EntityDTO();
 		EntityDTO ea = new EntityDTO();
 		EntityDTO ed = new EntityDTO();

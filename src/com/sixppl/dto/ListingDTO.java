@@ -67,15 +67,18 @@ public class ListingDTO {
 			if(author.trim().length() > 0)
 				this.authors.add(author.trim());
 		}
+	
 		String[] editors_buf = editors.split(",");
 		for(String editor:editors_buf){
 			if(editor.trim().length() > 0)
 				this.editors.add(editor.trim());
 		}
-		writers = this.authors;
+		writers.addAll(this.authors);
 		for(String editor: this.editors){
 			writers.add(editor);
 		}
+		
+		
 		this.type = type;
 		this.soldCount = soldCount;
 		this.year = year;
