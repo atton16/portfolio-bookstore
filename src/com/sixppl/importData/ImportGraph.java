@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphDTO;
+import com.sixppl.dto.ListingDTO;
 
 public class ImportGraph {
 
@@ -21,6 +23,139 @@ public class ImportGraph {
 	Connection connection;
 	
 	public ImportGraph() {
+	}
+	
+	public long getMaxPubID() {
+		long result = 0;
+		String sql = "SELECT MAX(PubID) AS CurrentPubID FROM Listing";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				result = rs.getLong("CurrentPubID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally{
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		return result;
+	}
+	
+	public int getTotal(){
+		int total = 0;
+		PreparedStatement stmt = null;
+		Connection connection = null;
+		String sql = "SELECT COUNT(*) AS Total FROM Listing";
+		try {
+			connection = getDBConnection();
+			stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				total = rs.getInt("Total");
+			}
+			System.out.println("Total Pub : " + total);
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}//end try
+		return total;
+	}
+	
+	public boolean addListing(ListingDTO pubSell){
+		boolean pass = false;
+		PreparedStatement stmt = null;
+		Connection connection = null;
+		String sql = "INSERT INTO `Listing` (`Title`,`Authors`,`Editors`,`Type`,`Year`,`Venue`,`SellerID`,`Picture`,`Price`,`Status`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		try {
+			connection = getDBConnection();
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, pubSell.title);
+			String authors = "";
+			for(String author: pubSell.authors){
+				authors += author;
+				authors += ",";
+			}
+			authors = authors.substring(0,authors.lastIndexOf(","));
+			stmt.setString(2, authors);
+			String editors = "";
+			for(String editor: pubSell.editors){
+				editors += editor;
+				editors += ",";
+			}
+			editors = editors.substring(0,editors.lastIndexOf(","));
+			stmt.setString(3, editors);
+			
+			stmt.setString(4, pubSell.type);
+			stmt.setInt(5, pubSell.year);
+			stmt.setString(6, pubSell.venue);
+			stmt.setInt(7, pubSell.sellerID);
+			@SuppressWarnings("resource")
+			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
+			String picString = s.hasNext() ? s.next() : "";
+			stmt.setString(8, picString);
+			stmt.setFloat(9, pubSell.price);
+			stmt.setBoolean(10, true);
+			stmt.executeUpdate();
+			pass = true;
+
+			//STEP 6: Clean-up environment
+			
+			s.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			pass = false;
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+			pass = false;
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}//end try
+		return pass;
 	}
 	
 	public void dropEntityTable() throws SQLException {
@@ -334,6 +469,71 @@ public class ImportGraph {
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	
+	public long getMaxNodeID(String Type) throws SQLException {
+		long result = 0;
+		String MaxEntityID = "";
+		String sql = "SELECT EntityID FROM Entity WHERE Type=? ORDER BY EntityID DESC LIMIT 0,1";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, Type);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				MaxEntityID = rs.getString("EntityID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		if(MaxEntityID != null && !MaxEntityID.equals("")) {
+			result = Long.parseLong(MaxEntityID.substring(1));
+		}
+		return result;
+	}
+	
+	public long getMaxEdgeID() throws SQLException {
+		long result = 0;
+		String MaxEntityID = "";
+		String sql = "SELECT EntityID FROM Entity WHERE Class='Edge' ORDER BY EntityID DESC LIMIT 0,1";
+		Connection connection = null;
+		try {
+			connection = getDBConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				MaxEntityID = rs.getString("EntityID");
+			}
+		    rs.close();
+			ps.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}
+				catch (SQLException e) {}
+			}
+		}
+		if(MaxEntityID != null && !MaxEntityID.equals("")) {
+			result = Long.parseLong(MaxEntityID.substring(1));
 		}
 		return result;
 	}

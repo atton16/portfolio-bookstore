@@ -3,6 +3,7 @@ package com.sixppl.importData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,6 +15,7 @@ import org.xml.sax.InputSource;
 
 import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphDTO;
+import com.sixppl.dto.ListingDTO;
 
 public class ExtractXMLGraph {
 
@@ -55,32 +57,76 @@ public class ExtractXMLGraph {
 			PublicationHandler handler = new PublicationHandler();
 			random_publications.add(handler.toPublication(nodeList.item(randomlist.get(i))));
 		}
-	// 2. Drop existing Table
+		ImportGraph dao = new ImportGraph();
+	// 2. Drop existing Entity and Graph Table
 		try {
-			ImportGraph dao = new ImportGraph();
 			dao.dropEntityTable();
 			dao.dropGraphTable();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-	// 3. Create Table
+	// 3. Create Entity and Graph Table
 		try {
-			ImportGraph dao = new ImportGraph();
 			dao.createEntityTable();
 			dao.createGraphTable();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-	// 4. Insert into database
-		long countPublication = 0;
-		long countAuthor = 0;
-		long countVenue = 0;
-		long countSchool = 0;
-		long countEdge = 0;
+		
+		long countPublication = dao.getMaxNodeID("Publication");
+		long countAuthor = dao.getMaxNodeID("Author");
+		long countVenue = dao.getMaxNodeID("Venue");
+		long countSchool = dao.getMaxNodeID("School");
+		long countEdge = dao.getMaxEdgeID();
 		long countEntity = 0;
 		ArrayList<EntityDTO> insertedEntity = new ArrayList<EntityDTO>();
+		
 		for (PublicationDTO p : random_publications) {
-			ImportGraph dao = new ImportGraph();
+		// 4. Insert into Listing Table
+			ListingDTO pubSell = new ListingDTO();
+			int picId = (dao.getTotal()+1) % 20;
+			if (picId == 0) {
+				picId = 20;
+			}
+			if (p.getTitle().length() > 255) {
+				pubSell.title = p.getTitle().substring(0, 255);
+			}
+			else {
+				pubSell.title = p.getTitle();
+			}
+			for (String author : p.getAuthor()) {
+				pubSell.authors.add(author);
+			}
+			if (pubSell.authors.isEmpty()) {
+				pubSell.authors.add("");
+			}
+			for (String editor : p.getEditor()) {
+				pubSell.editors.add(editor);
+			}
+			if (pubSell.editors.isEmpty()) {
+				pubSell.editors.add("");
+			}
+			pubSell.type = p.getType();
+			if (p.getYear() == null) {
+				pubSell.year = 2016;
+			}
+			else {
+				pubSell.year = Integer.parseInt(p.getYear());
+			}
+			if (p.getJournal() == null) {
+				pubSell.venue = "";
+			}
+			else {
+				pubSell.venue = p.getJournal();
+			}
+			pubSell.sellerID = 1;
+			pubSell.picture = "/uploads/pic"+picId+".jpg";
+			Random r = new Random();
+			float random = (float) (r.nextInt(10000) / 100.00);
+			pubSell.price = random;
+			dao.addListing(pubSell);
+		// 5. Insert into Entity and Graph Table
+			long PubID = dao.getMaxPubID();
 			EntityDTO ep = new EntityDTO();
 			EntityDTO es = new EntityDTO();
 			EntityDTO ea = new EntityDTO();
@@ -97,7 +143,7 @@ public class ExtractXMLGraph {
 				ep = EntityDTO.findEntity(insertedEntity, ep);
 			}
 			else {
-				dao.insertEntity(ep,countPublication+1);
+				dao.insertEntity(ep,PubID);
 				insertedEntity.add(ep);
 				countPublication++;
 				countEntity++;
@@ -109,7 +155,7 @@ public class ExtractXMLGraph {
 					es = EntityDTO.findEntity(insertedEntity, es);
 				}
 				else {
-					dao.insertEntity(es,countPublication);
+					dao.insertEntity(es,PubID);
 					insertedEntity.add(es);
 					countSchool++;
 					countEntity++;
@@ -123,26 +169,26 @@ public class ExtractXMLGraph {
 						ea = EntityDTO.findEntity(insertedEntity, ea);
 					}
 					else {
-						dao.insertEntity(ea,countPublication);
+						dao.insertEntity(ea,PubID);
 						insertedEntity.add(ea);
 						countAuthor++;
 						countEntity++;
 					}
 		// Link Publication authored by Author
 					ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "authored by");
-					dao.insertEntity(ee,countPublication);
+					dao.insertEntity(ee,PubID);
 					insertedEntity.add(ee);
 					pa = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ea.getEntityID());
-					dao.insertGraph(pa,countPublication);
+					dao.insertGraph(pa,PubID);
 					countEdge++;
 					countEntity++;
 		// Link Author affiliated in School 
 					if(p.getSchool() != null) {
 						ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "affiliated in");
-						dao.insertEntity(ee,countPublication);
+						dao.insertEntity(ee,PubID);
 						insertedEntity.add(ee);
 						as = new GraphDTO(0, ea.getEntityID(), ee.getEntityID(), es.getEntityID());
-						dao.insertGraph(as,countPublication);
+						dao.insertGraph(as,PubID);
 						countEdge++;
 						countEntity++;
 					}
@@ -156,17 +202,17 @@ public class ExtractXMLGraph {
 						ed = EntityDTO.findEntity(insertedEntity, ed);
 					}
 					else {
-						dao.insertEntity(ed,countPublication);
+						dao.insertEntity(ed,PubID);
 						insertedEntity.add(ed);
 						countAuthor++;
 						countEntity++;
 					}
 		// Link Publication edited by Editor
 					ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "edited by");
-					dao.insertEntity(ee,countPublication);
+					dao.insertEntity(ee,PubID);
 					insertedEntity.add(ee);
 					pd = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ed.getEntityID());
-					dao.insertGraph(pd,countPublication);
+					dao.insertGraph(pd,PubID);
 					countEdge++;
 					countEntity++;
 				}
@@ -178,17 +224,17 @@ public class ExtractXMLGraph {
 					ev = EntityDTO.findEntity(insertedEntity, ev);
 				}
 				else {
-					dao.insertEntity(ev,countPublication);
+					dao.insertEntity(ev,PubID);
 					insertedEntity.add(ev);
 					countVenue++;		
 					countEntity++;
 				}
 		// Link Publication published in Venue
 				ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "published in");
-				dao.insertEntity(ee,countPublication);
+				dao.insertEntity(ee,PubID);
 				insertedEntity.add(ee);
 				pv = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ev.getEntityID());
-				dao.insertGraph(pv,countPublication);
+				dao.insertGraph(pv,PubID);
 				countEdge++;
 				countEntity++;
 			}
