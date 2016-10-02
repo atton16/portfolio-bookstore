@@ -31,7 +31,7 @@ public class CartDAOImpl implements CartDAO {
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
-						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getFloat("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(userDao.findUserByUserID(rs.getInt("SellerID")).getNickname());
 				cartInfoList.add(pub);
@@ -217,7 +217,7 @@ public class CartDAOImpl implements CartDAO {
 				stmt.setLong(2, item.sellerID);
 				stmt.setLong(3, item.pubID);
 				stmt.setLong(4, orderNumber);
-				stmt.setLong(5, item.price);
+				stmt.setFloat(5, item.price);
 				stmt.executeUpdate();
 				stmt.close();
 				

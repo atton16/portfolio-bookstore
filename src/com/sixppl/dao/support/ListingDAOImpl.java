@@ -70,7 +70,7 @@ public class ListingDAOImpl implements ListingDAO {
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
-						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getFloat("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
 				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
@@ -114,7 +114,7 @@ public class ListingDAOImpl implements ListingDAO {
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
-						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getFloat("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
 				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
@@ -161,7 +161,7 @@ public class ListingDAOImpl implements ListingDAO {
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
-						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getFloat("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(rs.getString("Nickname"));
 				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
@@ -217,11 +217,10 @@ public class ListingDAOImpl implements ListingDAO {
 			stmt.setInt(5, pubSell.year);
 			stmt.setString(6, pubSell.venue);
 			stmt.setInt(7, pubSell.sellerID);
-			@SuppressWarnings("resource")
 			Scanner s = new Scanner(pubSell.picture).useDelimiter("\\A");
 			String picString = s.hasNext() ? s.next() : "";
 			stmt.setString(8, picString);
-			stmt.setInt(9, pubSell.price);
+			stmt.setFloat(9, pubSell.price);
 			stmt.setBoolean(10, true);
 			stmt.executeUpdate();
 			pass = true;
@@ -463,7 +462,7 @@ public class ListingDAOImpl implements ListingDAO {
 			while(rs.next()){
 				ListingDTO pub = new ListingDTO();
 				pub.setAttributes(rs.getInt("PubID"), rs.getString("Title"), rs.getString("Authors"), rs.getString("Editors"), rs.getString("Type"), 
-						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getInt("Price"), rs.getBoolean("Status"), 
+						rs.getInt("Year"), rs.getString("Venue"), rs.getInt("SellerID"), rs.getString("Picture"), rs.getFloat("Price"), rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"), rs.getTimestamp("timestamp"));
 				pub.setSellerNickname(userDao.findUserByUserID(rs.getInt("SellerID")).getNickname());
 				pub.setInCart(cartDao.isInCart(rs.getInt("PubID"), userID));
@@ -513,7 +512,7 @@ public class ListingDAOImpl implements ListingDAO {
 						rs.getString("Venue"),
 						rs.getInt("SellerID"),
 						rs.getString("Picture"),
-						rs.getInt("Price"),
+						rs.getFloat("Price"),
 						rs.getBoolean("Status"), 
 						rs.getInt("SoldCount"),
 						rs.getTimestamp("timestamp")

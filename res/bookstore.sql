@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2016 at 07:01 PM
+-- Generation Time: Oct 02, 2016 at 12:58 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -20,11 +20,11 @@ SET time_zone = "+00:00";
 -- Database: `bookstore`
 --
 
-CREATE Database `bookstore`;
-USE `bookstore`;
-
 DELIMITER $$
 --
+
+CREATE Database `bookstore`;
+USE `bookstore`;
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ListNode`( IN StartNode VARCHAR(21) )
@@ -66,7 +66,25 @@ CREATE TABLE IF NOT EXISTS `Admin` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `Admin` (`UserID`, `Level`) VALUES (1, 99);
+--
+-- Dumping data for table `Admin`
+--
+
+INSERT INTO `Admin` (`UserID`, `Level`, `timestamp`) VALUES
+(1, 99, '2016-10-02 00:56:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AdminLoginSessions`
+--
+
+CREATE TABLE IF NOT EXISTS `AdminLoginSessions` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `JSESSIONID` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1315,6 +1333,17 @@ CREATE TABLE IF NOT EXISTS `graphoutput` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `IPLog`
+--
+
+CREATE TABLE IF NOT EXISTS `IPLog` (
+  `IPAddress` varchar(100) NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Listing`
 --
 
@@ -1328,11 +1357,15 @@ CREATE TABLE IF NOT EXISTS `Listing` (
   `Venue` tinytext,
   `SellerID` bigint(20) unsigned NOT NULL,
   `Picture` tinytext NOT NULL,
-  `Price` smallint(5) unsigned NOT NULL,
+  `Price` float unsigned NOT NULL,
   `Status` tinyint(1) unsigned NOT NULL,
   `SoldCount` int(11) unsigned NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Listing`
+--
 
 INSERT INTO `Listing` (`PubID`, `Title`, `Authors`, `Editors`, `Type`, `Year`, `Venue`, `SellerID`, `Picture`, `Price`, `Status`, `SoldCount`, `timestamp`) VALUES
 (1, 'Harry Potter and the philosopher stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic1.jpg', 199, 1, 0, '2016-10-01 01:12:17'),
@@ -1353,31 +1386,6 @@ INSERT INTO `Listing` (`PubID`, `Title`, `Authors`, `Editors`, `Type`, `Year`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `LoginSessions`
---
-
-CREATE TABLE IF NOT EXISTS `LoginSessions` (
-  `ID` bigint(20) unsigned NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` varchar(40)  NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `IPLog`
---
-
-CREATE TABLE IF NOT EXISTS `IPLog` (
-  `IPAddress` varchar(100) NOT NULL,
-  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- --------------------------------------------------------
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ListingStatistics`
 --
 
@@ -1390,23 +1398,25 @@ CREATE TABLE IF NOT EXISTS `ListingStatistics` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `LoginSessions`
+--
+
+CREATE TABLE IF NOT EXISTS `LoginSessions` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserID` bigint(20) unsigned NOT NULL,
+  `JSESSIONID` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `PageHits`
 --
 
 CREATE TABLE IF NOT EXISTS `PageHits` (
   `Page` varchar(100) NOT NULL,
   `Hits` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Table Structure for table 'AdminLoginSessions'
---
-
-CREATE TABLE IF NOT EXISTS `AdminLoginSessions` (
-  `ID` bigint(20) unsigned NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserID` bigint(20) unsigned NOT NULL,
-  `JSESSIONID` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1427,12 +1437,6 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Unactivated`
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `User`
 --
 
@@ -1440,74 +1444,64 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserID` bigint(20) unsigned NOT NULL,
   `Username` varchar(16) NOT NULL,
   `Password` varchar(60) NOT NULL,
-  `Nickname` tinytext   NULL,
-  `Firstname` tinytext  NULL,
-  `Lastname` tinytext   NULL,
+  `Nickname` tinytext,
+  `Firstname` tinytext,
+  `Lastname` tinytext,
   `Email` tinytext NOT NULL,
-  `NewEmail` tinytext   NULL,
-  `Birthyear` smallint(6) unsigned  NULL,
+  `NewEmail` tinytext,
+  `Birthyear` smallint(6) unsigned DEFAULT NULL,
   `Address` text NOT NULL,
   `CardNumber` tinytext NOT NULL,
-  `TokenString` varchar(36)  NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
---
--- Table structure for table 'Pagehits'
---
-CREATE TABLE IF NOT EXISTS `PageHits` (
-	`Page` VARCHAR(100) NOT NULL,
-    `Hits` int(11) NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `TokenString` varchar(36) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `Birthyear`, `Address`, `CardNumber`) VALUES
-(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', 1000, 'admin', '9999999999999999'),
-(2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'admin2', 1000, 'admin2', '9999999999999999'),
-(3, 'admin3', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin3', 'admin3', 'admin3', 'admin3', 1000, 'admin3', '9999999999999999'),
-(4, 'admin4', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin4', 'admin4', 'admin4', 'admin4', 1000, 'admin4', '9999999999999999'),
-(5, 'admin5', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin5', 'admin5', 'admin5', 'admin5', 1000, 'admin5', '9999999999999999'),
-(6, 'admin6', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin6', 'admin6', 'admin6', 'admin6', 1000, 'admin6', '9999999999999999'),
-(7, 'admin7', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin7', 'admin7', 'admin7', 'admin7', 1000, 'admin7', '9999999999999999'),
-(8, 'admin8', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin8', 'admin8', 'admin8', 'admin8', 1000, 'admin8', '9999999999999999'),
-(9, 'admin9', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin9', 'admin9', 'admin9', 'admin9', 1000, 'admin9', '9999999999999999'),
-(10, 'admin10', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin10', 'admin10', 'admin10', 'admin10', 1000, 'admin10', '9999999999999999'),
-(11, 'admin11', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin11', 'admin11', 'admin11', 'admin11', 1000, 'admin11', '9999999999999999'),
-(12, 'admin12', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin12', 'admin12', 'admin12', 'admin12', 1000, 'admin12', '9999999999999999'),
-(13, 'admin13', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin13', 'admin13', 'admin13', 'admin13', 1000, 'admin13', '9999999999999999'),
-(14, 'admin14', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin14', 'admin14', 'admin14', 'admin14', 1000, 'admin14', '9999999999999999'),
-(15, 'admin15', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin15', 'admin15', 'admin15', 'admin15', 1000, 'admin15', '9999999999999999'),
-(16, 'admin16', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin16', 'admin16', 'admin16', 'admin16', 1000, 'admin16', '9999999999999999'),
-(17, 'admin17', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin17', 'admin17', 'admin17', 'admin17', 1000, 'admin17', '9999999999999999'),
-(18, 'admin18', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin18', 'admin18', 'admin18', 'admin18', 1000, 'admin18', '9999999999999999'),
-(19, 'admin19', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin19', 'admin19', 'admin19', 'admin19', 1000, 'admin19', '9999999999999999'),
-(20, 'admin20', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin20', 'admin20', 'admin20', 'admin20', 1000, 'admin20', '9999999999999999'),
-(21, 'admin21', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin21', 'admin21', 'admin21', 'admin21', 1000, 'admin21', '9999999999999999'),
-(22, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', 1000, 'user', '9999999999999999'),
-(23, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', 1000, 'user2', '9999999999999999'),
-(24, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', 1000, 'user3', '9999999999999999'),
-(25, 'user4', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user4', 'user4', 'user4', 'user4', 1000, 'user4', '9999999999999999'),
-(26, 'user5', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user5', 'user5', 'user5', 'user5', 1000, 'user5', '9999999999999999'),
-(27, 'user6', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user6', 'user6', 'user6', 'user6', 1000, 'user6', '9999999999999999'),
-(28, 'user7', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user7', 'user7', 'user7', 'user7', 1000, 'user7', '9999999999999999'),
-(29, 'user8', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user8', 'user8', 'user8', 'user8', 1000, 'user8', '9999999999999999'),
-(30, 'user9', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user9', 'user9', 'user9', 'user9', 1000, 'user9', '9999999999999999'),
-(31, 'user10', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user10', 'user10', 'user10', 'user10', 1000, 'user10', '9999999999999999'),
-(32, 'user11', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user11', 'user11', 'user11', 'user11', 1000, 'user11', '9999999999999999'),
-(33, 'user12', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user12', 'user12', 'user12', 'user12', 1000, 'user12', '9999999999999999'),
-(34, 'user13', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user13', 'user13', 'user13', 'user13', 1000, 'user13', '9999999999999999'),
-(35, 'user14', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user14', 'user14', 'user14', 'user14', 1000, 'user14', '9999999999999999'),
-(36, 'user15', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user15', 'user15', 'user15', 'user15', 1000, 'user15', '9999999999999999'),
-(37, 'user16', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user16', 'user16', 'user16', 'user16', 1000, 'user16', '9999999999999999'),
-(38, 'user17', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user17', 'user17', 'user17', 'user17', 1000, 'user17', '9999999999999999'),
-(39, 'user18', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user18', 'user18', 'user18', 'user18', 1000, 'user18', '9999999999999999'),
-(40, 'user19', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user19', 'user19', 'user19', 'user19', 1000, 'user19', '9999999999999999'),
-(41, 'user20', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user20', 'user20', 'user20', 'user20', 1000, 'user20', '9999999999999999'),
-(42, 'user21', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user21', 'user21', 'user21', 'user21', 1000, 'user21', '9999999999999999');
-
+INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `NewEmail`, `Birthyear`, `Address`, `CardNumber`, `TokenString`) VALUES
+(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', NULL, 1000, 'admin', '9999999999999999', NULL),
+(2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'admin2', NULL, 1000, 'admin2', '9999999999999999', NULL),
+(3, 'admin3', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin3', 'admin3', 'admin3', 'admin3', NULL, 1000, 'admin3', '9999999999999999', NULL),
+(4, 'admin4', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin4', 'admin4', 'admin4', 'admin4', NULL, 1000, 'admin4', '9999999999999999', NULL),
+(5, 'admin5', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin5', 'admin5', 'admin5', 'admin5', NULL, 1000, 'admin5', '9999999999999999', NULL),
+(6, 'admin6', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin6', 'admin6', 'admin6', 'admin6', NULL, 1000, 'admin6', '9999999999999999', NULL),
+(7, 'admin7', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin7', 'admin7', 'admin7', 'admin7', NULL, 1000, 'admin7', '9999999999999999', NULL),
+(8, 'admin8', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin8', 'admin8', 'admin8', 'admin8', NULL, 1000, 'admin8', '9999999999999999', NULL),
+(9, 'admin9', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin9', 'admin9', 'admin9', 'admin9', NULL, 1000, 'admin9', '9999999999999999', NULL),
+(10, 'admin10', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin10', 'admin10', 'admin10', 'admin10', NULL, 1000, 'admin10', '9999999999999999', NULL),
+(11, 'admin11', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin11', 'admin11', 'admin11', 'admin11', NULL, 1000, 'admin11', '9999999999999999', NULL),
+(12, 'admin12', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin12', 'admin12', 'admin12', 'admin12', NULL, 1000, 'admin12', '9999999999999999', NULL),
+(13, 'admin13', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin13', 'admin13', 'admin13', 'admin13', NULL, 1000, 'admin13', '9999999999999999', NULL),
+(14, 'admin14', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin14', 'admin14', 'admin14', 'admin14', NULL, 1000, 'admin14', '9999999999999999', NULL),
+(15, 'admin15', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin15', 'admin15', 'admin15', 'admin15', NULL, 1000, 'admin15', '9999999999999999', NULL),
+(16, 'admin16', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin16', 'admin16', 'admin16', 'admin16', NULL, 1000, 'admin16', '9999999999999999', NULL),
+(17, 'admin17', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin17', 'admin17', 'admin17', 'admin17', NULL, 1000, 'admin17', '9999999999999999', NULL),
+(18, 'admin18', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin18', 'admin18', 'admin18', 'admin18', NULL, 1000, 'admin18', '9999999999999999', NULL),
+(19, 'admin19', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin19', 'admin19', 'admin19', 'admin19', NULL, 1000, 'admin19', '9999999999999999', NULL),
+(20, 'admin20', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin20', 'admin20', 'admin20', 'admin20', NULL, 1000, 'admin20', '9999999999999999', NULL),
+(21, 'admin21', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin21', 'admin21', 'admin21', 'admin21', NULL, 1000, 'admin21', '9999999999999999', NULL),
+(22, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', NULL, 1000, 'user', '9999999999999999', NULL),
+(23, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', NULL, 1000, 'user2', '9999999999999999', NULL),
+(24, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', NULL, 1000, 'user3', '9999999999999999', NULL),
+(25, 'user4', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user4', 'user4', 'user4', 'user4', NULL, 1000, 'user4', '9999999999999999', NULL),
+(26, 'user5', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user5', 'user5', 'user5', 'user5', NULL, 1000, 'user5', '9999999999999999', NULL),
+(27, 'user6', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user6', 'user6', 'user6', 'user6', NULL, 1000, 'user6', '9999999999999999', NULL),
+(28, 'user7', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user7', 'user7', 'user7', 'user7', NULL, 1000, 'user7', '9999999999999999', NULL),
+(29, 'user8', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user8', 'user8', 'user8', 'user8', NULL, 1000, 'user8', '9999999999999999', NULL),
+(30, 'user9', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user9', 'user9', 'user9', 'user9', NULL, 1000, 'user9', '9999999999999999', NULL),
+(31, 'user10', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user10', 'user10', 'user10', 'user10', NULL, 1000, 'user10', '9999999999999999', NULL),
+(32, 'user11', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user11', 'user11', 'user11', 'user11', NULL, 1000, 'user11', '9999999999999999', NULL),
+(33, 'user12', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user12', 'user12', 'user12', 'user12', NULL, 1000, 'user12', '9999999999999999', NULL),
+(34, 'user13', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user13', 'user13', 'user13', 'user13', NULL, 1000, 'user13', '9999999999999999', NULL),
+(35, 'user14', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user14', 'user14', 'user14', 'user14', NULL, 1000, 'user14', '9999999999999999', NULL),
+(36, 'user15', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user15', 'user15', 'user15', 'user15', NULL, 1000, 'user15', '9999999999999999', NULL),
+(37, 'user16', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user16', 'user16', 'user16', 'user16', NULL, 1000, 'user16', '9999999999999999', NULL),
+(38, 'user17', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user17', 'user17', 'user17', 'user17', NULL, 1000, 'user17', '9999999999999999', NULL),
+(39, 'user18', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user18', 'user18', 'user18', 'user18', NULL, 1000, 'user18', '9999999999999999', NULL),
+(40, 'user19', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user19', 'user19', 'user19', 'user19', NULL, 1000, 'user19', '9999999999999999', NULL),
+(41, 'user20', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user20', 'user20', 'user20', 'user20', NULL, 1000, 'user20', '9999999999999999', NULL),
+(42, 'user21', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user21', 'user21', 'user21', 'user21', NULL, 1000, 'user21', '9999999999999999', NULL);
 
 -- --------------------------------------------------------
 
@@ -1575,6 +1569,15 @@ ALTER TABLE `Admin`
   ADD UNIQUE KEY `UserID` (`UserID`);
 
 --
+-- Indexes for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `JSESSIONID` (`JSESSIONID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
 -- Indexes for table `Ban`
 --
 ALTER TABLE `Ban`
@@ -1602,12 +1605,24 @@ ALTER TABLE `Graph`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `IPLog`
+--
+ALTER TABLE `IPLog`
+  ADD PRIMARY KEY (`IPAddress`);
+
+--
 -- Indexes for table `Listing`
 --
 ALTER TABLE `Listing`
   ADD PRIMARY KEY (`PubID`),
   ADD UNIQUE KEY `PubID` (`PubID`),
   ADD KEY `SellerID` (`SellerID`);
+
+--
+-- Indexes for table `ListingStatistics`
+--
+ALTER TABLE `ListingStatistics`
+  ADD PRIMARY KEY (`PubID`);
 
 --
 -- Indexes for table `LoginSessions`
@@ -1619,32 +1634,10 @@ ALTER TABLE `LoginSessions`
   ADD KEY `UserID` (`UserID`);
 
 --
--- Indexes for table `AdminLoginSessions`
---
-ALTER TABLE `AdminLoginSessions`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `JSESSIONID` (`JSESSIONID`),
-  ADD UNIQUE KEY `ID` (`ID`),
-  ADD KEY `UserID` (`UserID`);
-
---
 -- Indexes for table `PageHits`
 --
-
 ALTER TABLE `PageHits`
-	ADD UNIQUE KEY `Page` (`Page`);
-
---
--- Indexes for table `IPLog`
---
-ALTER TABLE `IPLog`
-  ADD PRIMARY KEY (`IPAddress`);
-
---
--- Indexes for table `ListingStatistics`
---
-ALTER TABLE `ListingStatistics`
-  ADD PRIMARY KEY (`PubID`);
+  ADD UNIQUE KEY `Page` (`Page`);
 
 --
 -- Indexes for table `Transaction`
@@ -1653,11 +1646,6 @@ ALTER TABLE `Transaction`
   ADD PRIMARY KEY (`BuyerID`,`SellerID`,`PubID`,`OrderNumber`),
   ADD KEY `PubID` (`PubID`),
   ADD KEY `SellerID` (`SellerID`);
-
---
--- Indexes for table `Unactivated`
---
-
 
 --
 -- Indexes for table `User`
@@ -1678,6 +1666,11 @@ ALTER TABLE `Variable`
 --
 
 --
+-- AUTO_INCREMENT for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `Entity`
 --
 ALTER TABLE `Entity`
@@ -1691,25 +1684,17 @@ ALTER TABLE `Graph`
 -- AUTO_INCREMENT for table `Listing`
 --
 ALTER TABLE `Listing`
-  MODIFY `PubID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `PubID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `LoginSessions`
 --
 ALTER TABLE `LoginSessions`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
-
--- AUTO_INCREMENT for table `AdminLoginSessions`
 --
-ALTER TABLE `AdminLoginSessions`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `Unactivated`
-
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- Constraints for dumped tables
 --
@@ -1719,6 +1704,12 @@ ALTER TABLE `User`
 --
 ALTER TABLE `Admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `AdminLoginSessions`
+--
+ALTER TABLE `AdminLoginSessions`
+  ADD CONSTRAINT `adminloginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `Ban`
@@ -1734,22 +1725,16 @@ ALTER TABLE `Cart`
   ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
 
 --
--- Constraints for table `LoginSessions`
---
-ALTER TABLE `LoginSessions`
-  ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
-
---
 -- Constraints for table `ListingStatistics`
 --
 ALTER TABLE `ListingStatistics`
   ADD CONSTRAINT `listingstatistics_ibfk_1` FOREIGN KEY (`PubID`) REFERENCES `Listing` (`PubID`) ON DELETE CASCADE;
-  
+
 --
--- Constraints for table `AdminLoginSessions`
+-- Constraints for table `LoginSessions`
 --
-ALTER TABLE `AdminLoginSessions`
-  ADD CONSTRAINT `adminloginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
+ALTER TABLE `LoginSessions`
+  ADD CONSTRAINT `loginsessions_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `Transaction`
@@ -1758,10 +1743,6 @@ ALTER TABLE `Transaction`
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`PubID`) REFERENCES `Listing` (`PubID`) ON DELETE CASCADE,
   ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`BuyerID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE,
   ADD CONSTRAINT `transaction_ibfk_5` FOREIGN KEY (`SellerID`) REFERENCES `User` (`UserID`) ON DELETE CASCADE;
-
---
--- Constraints for table `Unactivated`
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

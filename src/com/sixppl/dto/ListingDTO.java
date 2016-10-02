@@ -19,7 +19,7 @@ public class ListingDTO {
 	public String venue;
 	public int sellerID;
 	public String picture;
-	public int price;
+	public float price;
 	public boolean status;
 	public int soldCount;
 	public Timestamp timestamp;
@@ -58,7 +58,7 @@ public class ListingDTO {
 	}
 	
 	public void setAttributes(int pubID,String title,String authors,String editors,String type,
-			int year,String venue,int sellerID,String picture,int price,boolean status,
+			int year,String venue,int sellerID,String picture,float price,boolean status,
 			int soldCount,Timestamp timestamp) throws Exception{
 		this.pubID = pubID;
 		this.title = title;
@@ -162,7 +162,7 @@ public class ListingDTO {
 	public int getSellerID(){
 		return sellerID;
 	}
-	public int getPrice(){
+	public float getPrice(){
 		return price;
 	}
 	public boolean getStatus(){
