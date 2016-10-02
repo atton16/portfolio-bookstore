@@ -20,4 +20,5 @@ public interface ListingDAO {
 	public int getTotal();
 	public List<ListingDTO> getRandomPub(String sessionId);
 	public ListingDTO getByPubID(int pubID);
+	public long getMaxPubID();
 }

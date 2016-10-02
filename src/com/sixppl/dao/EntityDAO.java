@@ -16,4 +16,6 @@ public interface EntityDAO {
 	ArrayList<String> findLinkedEntity(String node) throws SQLException;
 	ArrayList<EntityDTO> findAllNodes() throws SQLException;
 	ArrayList<EntityDTO> getRandomNodes(int nodeAmount) throws SQLException;
+	long getMaxNodeID(String Type) throws SQLException;
+	long getMaxEdgeID() throws SQLException;
 }

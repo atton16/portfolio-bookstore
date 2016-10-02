@@ -31,6 +31,8 @@ public class SellCommand implements Command {
 	private boolean error;
 	private String error_msg;
 	private ListingDAO listingDao;
+	private EntityDAO entityDao;
+	private GraphDAO graphDao;
 	long countPublication;
 	long countAuthor;
 	long countVenue;
@@ -42,11 +44,41 @@ public class SellCommand implements Command {
 		error = false;
 		error_msg = null;
 		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
-		countPublication = 0;
-		countAuthor = 0;
-		countEdge = 0;
+		entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
+		graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
 		countEntity = 0;
-		insertedEntity = new ArrayList<EntityDTO>();
+//		countPublication = 0;
+//		countAuthor = 0;
+//		countEdge = 0;
+		
+		// Get all existing nodes from entity table
+		try {
+			insertedEntity = entityDao.findAllNodes();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		// Get max ID of each node class
+		try {
+			countPublication = entityDao.getMaxNodeID("Publication");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			countAuthor = entityDao.getMaxNodeID("Author");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			countVenue = entityDao.getMaxNodeID("Venue");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			countEdge = entityDao.getMaxEdgeID();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -59,17 +91,26 @@ public class SellCommand implements Command {
 			return;
 		}
 		ListingDTO pubSell = new ListingDTO();
+		PublicationDTO pubGraph = new PublicationDTO();
+		ArrayList<String> pubGraphAuthor = new ArrayList<String>();
+		ArrayList<String> pubGraphEditor = new ArrayList<String>();
 		pubSell.title = request.getParameter("title").trim();
 		if(request.getParameter("authors") != null){
 			String[] authors = request.getParameter("authors").split(",");
 			for(String author: authors){
 				pubSell.authors.add(author.trim());
+				if (!author.trim().equals("")) {
+					pubGraphAuthor.add(author.trim());
+				}
 			}
 		}
 		if(request.getParameter("editors") != null){
 			String[] editors = request.getParameter("editors").split(",");
 			for(String editor: editors){
 				pubSell.editors.add(editor.trim());
+				if (!editor.trim().equals("")) {
+					pubGraphEditor.add(editor.trim());
+				}
 			}
 		}
 		SessionDAO sessionDao = new SessionDAOImpl();
@@ -112,10 +153,13 @@ public class SellCommand implements Command {
 		}
 		
 		// Add to Graph
-		PublicationDTO pubGraph = new PublicationDTO();
 		pubGraph.setTitle(pubSell.title);
-		pubGraph.setAuthor(pubSell.authors);
-		pubGraph.setEditor(pubSell.editors);
+		if (!pubGraphAuthor.isEmpty()){
+			pubGraph.setAuthor(pubGraphAuthor);
+		}
+		if (!pubGraphEditor.isEmpty()){
+			pubGraph.setEditor(pubGraphEditor);
+		}
 		pubGraph.setJournal(pubSell.venue);
 		
 		addToGraph(pubGraph);
@@ -151,6 +195,7 @@ public class SellCommand implements Command {
 	public void addToGraph(PublicationDTO p){
 		EntityDAO entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
 		GraphDAO graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
+		ListingDAO listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 		EntityDTO ep = new EntityDTO();
 		EntityDTO ea = new EntityDTO();
 		EntityDTO ed = new EntityDTO();
@@ -159,16 +204,16 @@ public class SellCommand implements Command {
 		GraphDTO pa = new GraphDTO();
 		GraphDTO pd = new GraphDTO();
 		GraphDTO pv = new GraphDTO();
+		long PubID = listingDao.getMaxPubID();
 		// Extract publication
-		ep = new EntityDTO(countEntity+1, "P"+ Long.toString(countPublication+1), "Node", "Publication", p.getTitle());
+		ep = new EntityDTO(countEntity+1, "P"+ Long.toString(PubID), "Node", "Publication", p.getTitle());
 		if (EntityDTO.containsEntity(insertedEntity, ep)) {
 			ep = EntityDTO.findEntity(insertedEntity, ep);
 		}
 		else {
 			try {
-				entityDao.insertEntity(ep,countPublication+1);
+				entityDao.insertEntity(ep,PubID);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println("Insert Title");
@@ -186,9 +231,8 @@ public class SellCommand implements Command {
 				}
 				else {
 					try {
-						entityDao.insertEntity(ea,countPublication);
+						entityDao.insertEntity(ea,PubID);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.out.println("Insert Author");
@@ -199,18 +243,16 @@ public class SellCommand implements Command {
 				// Link Publication authored by Author
 				ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "authored by");
 				try {
-					entityDao.insertEntity(ee,countPublication);
+					entityDao.insertEntity(ee,PubID);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("Link Title to author");
 				insertedEntity.add(ee);
 				pa = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ea.getEntityID());
 				try {
-					graphDao.insertGraph(pa,countPublication);
+					graphDao.insertGraph(pa,PubID);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				countEdge++;
@@ -227,9 +269,8 @@ public class SellCommand implements Command {
 				}
 				else {
 					try {
-						entityDao.insertEntity(ed,countPublication);
+						entityDao.insertEntity(ed,PubID);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					insertedEntity.add(ed);
@@ -240,17 +281,15 @@ public class SellCommand implements Command {
 				// Link Publication edited by Editor
 				ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "edited by");
 				try {
-					entityDao.insertEntity(ee,countPublication);
+					entityDao.insertEntity(ee,PubID);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				insertedEntity.add(ee);
 				pd = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ed.getEntityID());
 				try {
-					graphDao.insertGraph(pd,countPublication);
+					graphDao.insertGraph(pd,PubID);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				countEdge++;
@@ -265,9 +304,8 @@ public class SellCommand implements Command {
 			}
 			else {
 				try {
-					entityDao.insertEntity(ev,countPublication);
+					entityDao.insertEntity(ev,PubID);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("Insert venue");
@@ -278,17 +316,15 @@ public class SellCommand implements Command {
 			// Link Publication published in Venue
 			ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "published in");
 			try {
-				entityDao.insertEntity(ee,countPublication);
+				entityDao.insertEntity(ee,PubID);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			insertedEntity.add(ee);
 			pv = new GraphDTO(0, ep.getEntityID(), ee.getEntityID(), ev.getEntityID());
 			try {
-				graphDao.insertGraph(pv,countPublication);
+				graphDao.insertGraph(pv,PubID);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			countEdge++;
