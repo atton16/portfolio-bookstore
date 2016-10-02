@@ -10,10 +10,10 @@ public class EmailSupport {
 		return "asst2unsw@gmail.com";
 	}
 	public static String RegistrationEmailSubject() {
-		return "DBLP: Confirm Registration";
+		return "DBLP: Verified Email Address";
 	}
 	public static String ChangeEmailSubject() {
-		return "DBLP: Email Change Confirmation";
+		return "DBLP: Verified Email Address";
 	}
 	public static String PurchaseToSellerSubject() {
 		return "DBLP: Purchase Notification";

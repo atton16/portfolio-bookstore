@@ -104,7 +104,7 @@ public class SellCommand implements Command {
 		UserDTO seller = userDao.findUserByUserID(sellerID);
 		if(seller.getEmail() == null || seller.getEmail().isEmpty()){
 			error = true;
-			error_msg = "Your email address is invalid. You can check your email in Edit Profile.";
+			error_msg = "Please verified your email in Edit Profile.";
 			request.setAttribute("error", error);
 			request.setAttribute("error_msg", error_msg);
 			return;
