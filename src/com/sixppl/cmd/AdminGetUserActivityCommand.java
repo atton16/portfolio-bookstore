@@ -78,6 +78,5 @@ public class AdminGetUserActivityCommand implements Command{
 		request.setAttribute("buys", buyList);
 		request.setAttribute("removes", removedList);
 		request.setAttribute("error", false);
-		System.out.println(userDto.getUserID());
 	}
 }
