@@ -31,7 +31,7 @@ public class UserDAOImpl implements UserDAO{
 	public boolean addUser(UserDTO user){
 	boolean flag = true;
 	String sql = "insert into User (Username, Password, Nickname, Firstname, "
-			+ "Lastname,Email, Birthyear,Address, CardNumber,TokenString) values (?,?,?,?,?,?,?,?,?,?)";
+			+ "Lastname,NewEmail, Birthyear,Address, CardNumber,TokenString) values (?,?,?,?,?,?,?,?,?,?)";
 	PreparedStatement stmt = null;
 	try {
 		stmt = connection.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO{
 		stmt.setString(3, user.getNickname());
 		stmt.setString(4, user.getFirstname());
 		stmt.setString(5, user.getLastname());
-		stmt.setString(6, user.getEmail());
+		stmt.setString(6, user.getNewemail());
 		stmt.setInt(7, user.getBirthyear());
 		stmt.setString(8, user.getAddr());
 		stmt.setString(9, user.getCardno());
@@ -182,6 +182,44 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public UserDTO findUserByEmail(String email) {
 		String sql = String.format("SELECT * from `User` where `Email`=?");
+		List<UserDTO> users = new LinkedList<UserDTO>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, email);
+			rs = stmt.executeQuery();
+
+			while(rs.next()){
+				UserDTO ue = new UserDTO();
+				ue.setUserID(Integer.parseInt(rs.getString("UserID")));
+				ue.setUsername(rs.getString("Username"));
+				ue.setPassword(rs.getString("Password"));
+				ue.setNickname(rs.getString("Nickname"));
+				ue.setFirstname(rs.getString("Firstname"));
+				ue.setLastname(rs.getString("Lastname"));
+				ue.setEmail(rs.getString("Email"));
+				ue.setNewemail(rs.getString("NewEmail"));
+				ue.setBirthyear(rs.getInt("Birthyear"));
+				ue.setAddr(rs.getString("Address"));
+				ue.setCardno(rs.getString("CardNumber"));
+				ue.setTokenstring(rs.getString("TokenString"));
+				users.add(ue);
+			}
+			
+			if(users != null && !users.isEmpty()){
+				rs.close();
+				stmt.close();
+				return users.get(0);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@Override
+	public UserDTO findUserByNewEmail(String email) {
+		String sql = String.format("SELECT * from `User` where `NewEmail`=?");
 		List<UserDTO> users = new LinkedList<UserDTO>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

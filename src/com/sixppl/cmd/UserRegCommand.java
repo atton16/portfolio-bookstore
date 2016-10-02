@@ -148,7 +148,7 @@ public class UserRegCommand implements Command {
 		user.setNickname(request.getParameter("nickname"));
 		user.setFirstname(request.getParameter("firstname"));
 		user.setLastname(request.getParameter("lastname"));
-		user.setEmail(request.getParameter("email"));
+		user.setNewemail(request.getParameter("email"));
 		user.setBirthyear(Integer.parseInt(request.getParameter("yob")));
 		user.setAddr(request.getParameter("address"));
 		user.setCardno(request.getParameter("ccn"));

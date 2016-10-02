@@ -28,7 +28,7 @@ public class UserEmailCommand implements Command {
 			return;
 		}
 		
-		UserDTO user  = userDao.findUserByEmail(email);
+		UserDTO user  = userDao.findUserByNewEmail(email);
 		if(user == null){
 			request.setAttribute("error", true);
 			request.setAttribute("error_msg", "Cannot find username");
@@ -50,7 +50,7 @@ public class UserEmailCommand implements Command {
 			request.setAttribute("error_msg", "User is already activated.");
 			return;
 		}
-		emailSending.sendEmail(to, from, ApplicationSupport.RegistrationEmailSubject(), ApplicationSupport.RegistrationEmailContent(full_path + "/user/profile/confirm?token="+token));
+		emailSending.sendEmail(to, from, ApplicationSupport.RegistrationEmailSubject(), ApplicationSupport.RegistrationEmailContent(full_path + "/signup/confirm?token="+token));
 		request.setAttribute("email", to);
 		request.setAttribute("error", false);
 	}
