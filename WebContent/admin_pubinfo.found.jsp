@@ -5,15 +5,15 @@
 <html>
 <head>
 <jsp:include page="inc.head.jsp" />
-<title>${title}: Publication Details</title>
+<title>${title}: Admin - Publication Details</title>
 </head>
 <body>
-<jsp:include page="inc.body.header.jsp" />
+<jsp:include page="inc.body.admin_header.jsp" />
 <div class="container">
 	<!-- Publication Details Title -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 col-lg-space">
-			<h3>Publication Details</h3>
+			<h3><a href="${contextPath}/admin">Admin</a> / <a href="${contextPath}/admin/pub/manage">Manage Publications</a> / Publication Details</h3>
 		</div>
 	</div>
 	<!-- Publication Details: Contents -->
@@ -51,14 +51,7 @@
 								<td></tr>
 								<tr><td valign="bottom">
 									<h4><b>A$<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${item.getPrice()}" /></b></h4>
-									<h4>
-										<jstl:if test="${item.isInCart()}">
-											<a id="${item.getPubID()}" class="link-as-text">In Cart</a>
-										</jstl:if>
-										<jstl:if test="${!item.isInCart()}">
-											<a href="#" id="${item.getPubID()}" class="submit-hidden-ajax">Add to Cart</a>
-										</jstl:if>
-									</h4>
+									<h4><a href="#" id="${item.getPubID()}" class="submit-hidden-ajax submit-ajax-remove">Remove</a></h4>
 									<p><i>Seller: ${item.getSellerNickname()}</i></p>
 									<p><i>Listed: ${item.getTimestampString()}</i></p>
 								<td></tr>
@@ -69,8 +62,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- Add to Cart AJAX Form: Item # -->
-	<form action="${contextPath}/rest/cart/add" method="post" id="${item.getPubID()}">
+	<!-- Remove AJAX Form -->
+	<form action="${contextPath}/admin/pub/remove" method="post" id="${item.getPubID()}" class="submit-ajax-remove">
 		<input type="hidden" name="id" value="${item.getPubID()}"/>
 	</form>
 </div>

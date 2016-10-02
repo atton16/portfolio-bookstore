@@ -13,10 +13,10 @@ import com.sixppl.dao.ListingDAO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.main.Application;
 
-public class SearchCommand implements Command {
+public class SearchAllCommand implements Command {
 	private ListingDAO listingDao;
 	
-	public SearchCommand(){
+	public SearchAllCommand(){
 		listingDao = Application.getSharedInstance().getDAOFactory().getListingDAO();
 
 	}
@@ -25,11 +25,7 @@ public class SearchCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("SearchCommand EXECUTED");
 		if(request.getParameterMap() == null || request.getParameterMap().size() <= 1){
-			System.out.println("Empty Search Executed");
-			ArrayList<ListingDTO> results = listingDao.emptySearch(request.getSession().getId());
-			System.out.println("Item found = " + results.size());
-			setResultsAttribute(request,results);
-			
+			return;
 		}
 		else if(request.getParameter("keyword") != null){
 			// Simple Search
@@ -61,11 +57,12 @@ public class SearchCommand implements Command {
 				System.out.println("Cannot Find Parmeters");
 				return;
 			}
-			ArrayList<ListingDTO> results = listingDao.Search(pubKey, request.getSession().getId());
+			ArrayList<ListingDTO> results = listingDao.searchAll(pubKey, request.getSession().getId());
 			setResultsAttribute(request,results);
 		}
 		else{
 			System.out.println("Advanced Search Executed");
+			//Advance Search
 			ListingDTO pubKey = new ListingDTO();
 			pubKey.title = request.getParameter("title").trim();
 			String[] writers = request.getParameter("authors-and-editors").split(",");
@@ -81,13 +78,9 @@ public class SearchCommand implements Command {
 			if(!request.getParameter("year-to").toLowerCase().contains("end of humanity")){
 				pubKey.toYear = Integer.valueOf(request.getParameter("year-to"));
 			}
-			try{
-				pubKey.venue = request.getParameter("venue").trim();
-			}catch(NullPointerException e){
-				
-			}
+			pubKey.venue = request.getParameter("venue").trim();
 			
-			ArrayList<ListingDTO> results = listingDao.Search(pubKey, request.getSession().getId());
+			ArrayList<ListingDTO> results = listingDao.searchAll(pubKey, request.getSession().getId());
 			setResultsAttribute(request,results);
 			
 		}
