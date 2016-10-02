@@ -22,7 +22,6 @@ import com.sixppl.dto.EntityDTO;
 import com.sixppl.dto.GraphDTO;
 import com.sixppl.dto.ListingDTO;
 import com.sixppl.dto.SessionDTO;
-import com.sixppl.importData.ImportGraph;
 import com.sixppl.importData.PublicationDTO;
 import com.sixppl.main.Application;
 
@@ -150,7 +149,6 @@ public class SellCommand implements Command {
 	}
 	
 	public void addToGraph(PublicationDTO p){
-		ImportGraph dao = Application.getSharedInstance().getDAOFactory().getImportGraph();
 		EntityDAO entityDao = Application.getSharedInstance().getDAOFactory().getEntityDAO();
 		GraphDAO graphDao = Application.getSharedInstance().getDAOFactory().getGraphDAO();
 		EntityDTO ep = new EntityDTO();
@@ -167,7 +165,6 @@ public class SellCommand implements Command {
 			ep = EntityDTO.findEntity(insertedEntity, ep);
 		}
 		else {
-			dao.insertEntity(ep);
 			try {
 				entityDao.insertEntity(ep,countPublication+1);
 			} catch (SQLException e) {
@@ -188,7 +185,6 @@ public class SellCommand implements Command {
 					ea = EntityDTO.findEntity(insertedEntity, ea);
 				}
 				else {
-					dao.insertEntity(ea);
 					try {
 						entityDao.insertEntity(ea,countPublication);
 					} catch (SQLException e) {
@@ -202,7 +198,6 @@ public class SellCommand implements Command {
 				}
 				// Link Publication authored by Author
 				ee = new EntityDTO(countEntity+1, "E" + Long.toString(countEdge+1), "Edge", "DirectedLink", "authored by");
-				dao.insertEntity(ee);
 				try {
 					entityDao.insertEntity(ee,countPublication);
 				} catch (SQLException e) {
@@ -269,7 +264,6 @@ public class SellCommand implements Command {
 				ev = EntityDTO.findEntity(insertedEntity, ev);
 			}
 			else {
-				dao.insertEntity(ev);
 				try {
 					entityDao.insertEntity(ev,countPublication);
 				} catch (SQLException e) {
