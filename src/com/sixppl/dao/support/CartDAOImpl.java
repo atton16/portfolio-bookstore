@@ -291,7 +291,7 @@ public class CartDAOImpl implements CartDAO {
 	@Override
 	public void removeAllMatchedPubID(int pubID) {
 		PreparedStatement stmt = null;
-		String sql = "DELETE FROM Cart WHERE PubID = ?";
+		String sql = "DELETE FROM Cart WHERE PubID = ? AND RemoveTime = NULL";
 		try {
 			//Remove item from cart
 			stmt = conn.prepareStatement(sql);
