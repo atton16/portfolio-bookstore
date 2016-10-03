@@ -16,4 +16,6 @@ public interface CartDAO {
 	public Boolean isInCart(int pubID, int userID);
 	
 	public void removeAll(int userID);
+	
+	public void removeAllMatchedPubID(int pubID);
 }
