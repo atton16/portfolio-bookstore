@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2016 at 11:28 AM
+-- Generation Time: Oct 04, 2016 at 07:40 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -70,7 +70,8 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 --
 
 INSERT INTO `Admin` (`UserID`, `Level`, `timestamp`) VALUES
-(1, 99, '2016-10-02 00:56:33');
+(1, 99, '2016-10-02 00:56:33'),
+(2, 99, '2016-10-04 06:51:28');
 
 -- --------------------------------------------------------
 
@@ -329,13 +330,6 @@ CREATE TABLE IF NOT EXISTS `IPLog` (
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `IPLog`
---
-
-INSERT INTO `IPLog` (`IPAddress`, `Timestamp`) VALUES
-('0:0:0:0:0:0:0:1%0', '2016-10-02 11:12:21');
-
 -- --------------------------------------------------------
 
 --
@@ -402,14 +396,7 @@ CREATE TABLE IF NOT EXISTS `LoginSessions` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` bigint(20) unsigned NOT NULL,
   `JSESSIONID` varchar(40) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `LoginSessions`
---
-
-INSERT INTO `LoginSessions` (`ID`, `timestamp`, `UserID`, `JSESSIONID`) VALUES
-(2, '2016-10-02 11:22:40', 2, '6E12DDC927F58DF492C1EEE86E18E5DF');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -421,16 +408,6 @@ CREATE TABLE IF NOT EXISTS `PageHits` (
   `Page` varchar(100) NOT NULL,
   `Hits` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `PageHits`
---
-
-INSERT INTO `PageHits` (`Page`, `Hits`) VALUES
-('Graph', 5),
-('Home', 6),
-('Login', 2),
-('Sell', 17);
 
 -- --------------------------------------------------------
 
@@ -466,35 +443,18 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Address` text NOT NULL,
   `CardNumber` tinytext NOT NULL,
   `TokenString` varchar(36) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `User`
 --
 
 INSERT INTO `User` (`UserID`, `Username`, `Password`, `Nickname`, `Firstname`, `Lastname`, `Email`, `NewEmail`, `Birthyear`, `Address`, `CardNumber`, `TokenString`) VALUES
-(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'admin', NULL, 1000, 'admin', '9999999999999999', NULL),
-(2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'admin2', NULL, 1000, 'admin2', '9999999999999999', NULL),
-(22, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', NULL, 1000, 'user', '9999999999999999', NULL),
-(23, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', NULL, 1000, 'user2', '9999999999999999', NULL),
-(24, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', NULL, 1000, 'user3', '9999999999999999', NULL),
-(26, 'user5', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user5', 'user5', 'user5', 'user5', NULL, 1000, 'user5', '9999999999999999', NULL),
-(27, 'user6', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user6', 'user6', 'user6', 'user6', NULL, 1000, 'user6', '9999999999999999', NULL),
-(28, 'user7', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user7', 'user7', 'user7', 'user7', NULL, 1000, 'user7', '9999999999999999', NULL),
-(29, 'user8', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user8', 'user8', 'user8', 'user8', NULL, 1000, 'user8', '9999999999999999', NULL),
-(30, 'user9', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user9', 'user9', 'user9', 'user9', NULL, 1000, 'user9', '9999999999999999', NULL),
-(31, 'user10', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user10', 'user10', 'user10', 'user10', NULL, 1000, 'user10', '9999999999999999', NULL),
-(32, 'user11', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user11', 'user11', 'user11', 'user11', NULL, 1000, 'user11', '9999999999999999', NULL),
-(33, 'user12', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user12', 'user12', 'user12', 'user12', NULL, 1000, 'user12', '9999999999999999', NULL),
-(34, 'user13', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user13', 'user13', 'user13', 'user13', NULL, 1000, 'user13', '9999999999999999', NULL),
-(35, 'user14', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user14', 'user14', 'user14', 'user14', NULL, 1000, 'user14', '9999999999999999', NULL),
-(36, 'user15', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user15', 'user15', 'user15', 'user15', NULL, 1000, 'user15', '9999999999999999', NULL),
-(37, 'user16', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user16', 'user16', 'user16', 'user16', NULL, 1000, 'user16', '9999999999999999', NULL),
-(38, 'user17', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user17', 'user17', 'user17', 'user17', NULL, 1000, 'user17', '9999999999999999', NULL),
-(39, 'user18', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user18', 'user18', 'user18', 'user18', NULL, 1000, 'user18', '9999999999999999', NULL),
-(40, 'user19', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user19', 'user19', 'user19', 'user19', NULL, 1000, 'user19', '9999999999999999', NULL),
-(41, 'user20', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user20', 'user20', 'user20', 'user20', NULL, 1000, 'user20', '9999999999999999', NULL),
-(42, 'user21', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user21', 'user21', 'user21', 'user21', NULL, 1000, 'user21', '9999999999999999', NULL);
+(1, 'admin', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin', 'admin', 'admin', 'atton16@gmail.com', NULL, 1000, 'admin', '9999999999999999', NULL),
+(2, 'admin2', '$2a$10$YhPMmAf4w/yW0O1qiT3.3eG.Q29Fb/rllUZV6Mh0WHKDKRUkLC6PG', 'admin2', 'admin2', 'admin2', 'atton16@me.com', NULL, 1000, 'admin2', '9999999999999999', NULL),
+(3, 'user', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user', 'user', 'user', 'user', NULL, 1000, 'user', '9999999999999999', NULL),
+(4, 'user2', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user2', 'user2', 'user2', 'user2', NULL, 1000, 'user2', '9999999999999999', NULL),
+(5, 'user3', '$2a$10$GYqbUOQjUSEMfs4oGuwc3.m0e25cEtFHAzLl6b0Aztt/bu1HXwdZa', 'user3', 'user3', 'user3', 'user3', NULL, 1000, 'user3', '9999999999999999', NULL);
 
 -- --------------------------------------------------------
 
@@ -684,12 +644,12 @@ ALTER TABLE `Listing`
 -- AUTO_INCREMENT for table `LoginSessions`
 --
 ALTER TABLE `LoginSessions`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `UserID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

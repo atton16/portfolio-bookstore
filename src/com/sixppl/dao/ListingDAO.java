@@ -19,6 +19,7 @@ public interface ListingDAO {
 	public List<Integer> getYearsAscending();
 	public List<Integer> getYearsDescending();
 	public int getTotal();
+	public int getLastPubID();
 	public List<ListingDTO> getRandomPub(String sessionId);
 	public ListingDTO getByPubID(int pubID);
 	public long getMaxPubID();

@@ -145,7 +145,7 @@ public class SellCommand implements Command {
 		
 		Part filePart = request.getPart("pic");
 		InputStream inputStream = filePart.getInputStream();
-		int picId = listingDao.getTotal()+1;
+		int picId = listingDao.getLastPubID()+1;
 		String picUrl = Application.UPLOADS_PATH + "pic"+picId+".jpg";
 		System.out.println(picUrl);
 		OutputStream outputStream = new FileOutputStream(new File(picUrl));

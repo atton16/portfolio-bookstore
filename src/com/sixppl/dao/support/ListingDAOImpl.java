@@ -53,6 +53,37 @@ public class ListingDAOImpl implements ListingDAO {
 		return total;
 	}
 	
+	public int getLastPubID(){
+		int pubID = 0;
+		PreparedStatement stmt = null;
+		String sql = "SELECT PubID FROM Listing ORDER BY PubID DESC LIMIT 1";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				pubID = rs.getInt("PubID");
+			}
+			System.out.println("Last Pub ID : " + pubID);
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			//finally block used to close resources
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+			}// nothing we can do
+		}//end try
+		return pubID;
+	}
+	
 	public ArrayList<ListingDTO> emptySearch(String sessionId){
 		
 		ArrayList<ListingDTO> results = new ArrayList<ListingDTO>();
