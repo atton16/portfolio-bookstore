@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2016 at 07:40 AM
+-- Generation Time: Oct 04, 2016 at 08:07 AM
 -- Server version: 5.6.30
 -- PHP Version: 5.5.35
 
@@ -357,21 +357,21 @@ CREATE TABLE IF NOT EXISTS `Listing` (
 --
 
 INSERT INTO `Listing` (`PubID`, `Title`, `Authors`, `Editors`, `Type`, `Year`, `Venue`, `SellerID`, `Picture`, `Price`, `Status`, `SoldCount`, `timestamp`) VALUES
-(15, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic1.jpg', 199.99, 1, 0, '2016-10-02 11:16:22'),
-(16, 'Winnie the Pooh', 'Christopher Robin', 'Tiger,Rabbit', 'Conference', 1980, 'Kids', 1, '/uploads/pic2.jpg', 49.5, 1, 0, '2016-10-02 11:17:28'),
-(17, 'The Maker of Swan', 'Paraic O''Donnell', 'Helen Macdonald', 'Article', 2001, '', 1, '/uploads/pic3.jpg', 210, 1, 0, '2016-10-02 11:18:37'),
-(18, 'Responsive Web Design', 'Ethan Marcotte', 'Jeremy Keith', 'Book', 1990, '', 1, '/uploads/pic4.jpg', 300, 1, 0, '2016-10-02 11:19:25'),
-(19, 'Mobile First', 'Luke Wroblewski', 'Jeffrey Zeldman', 'Conference', 2008, 'A Book Apart', 1, '/uploads/pic5.jpg', 299, 1, 0, '2016-10-02 11:20:41'),
-(20, 'Ancient Tales', 'Duncan Long,Raz Algul', '', 'Article', 1890, '', 1, '/uploads/pic6.jpg', 280, 1, 0, '2016-10-02 11:21:28'),
-(21, 'Enchantment The Art of Changing Heart, Minds, and Actions', 'Guy Kawasaki', 'Woz,Apple', 'Conference', 1987, 'A Book Apart', 1, '/uploads/pic7.jpg', 300, 1, 0, '2016-10-02 11:22:19'),
-(22, 'To Kill a Mocking Bird', 'Harper Lee', '', 'Conference', 2005, 'Kids', 2, '/uploads/pic8.jpg', 29.9, 1, 0, '2016-10-02 11:23:27'),
-(23, '1984', 'George Orwell', '', 'Conference', 2007, 'Kids', 2, '/uploads/pic9.jpg', 39.8, 1, 0, '2016-10-02 11:24:02'),
-(24, 'Pieces of Light', 'Charles Fernyhough', 'Andre Aciman', 'Conference', 2009, 'A Book Apart', 2, '/uploads/pic10.jpg', 280, 1, 0, '2016-10-02 11:24:43'),
-(25, 'Jungle Book', 'IBM', '', 'Conference', 1998, 'Kids', 2, '/uploads/pic11.jpg', 29, 1, 0, '2016-10-02 11:25:23'),
-(26, 'Big-Hearted People', 'Randy J. Schum', '', 'Book', 2013, '', 2, '/uploads/pic12.jpg', 239, 1, 0, '2016-10-02 11:26:05'),
-(27, 'Code Quality', 'Diomidis Spinellis', 'Scott Mayers', 'Master Thesis', 2011, '', 2, '/uploads/pic13.jpg', 390, 1, 0, '2016-10-02 11:27:01'),
-(28, 'Our Lent Things we carry', 'David Crumm', '', 'Ph.D.Thesis', 2016, '', 2, '/uploads/pic14.jpg', 390, 1, 0, '2016-10-02 11:27:40'),
-(29, 'Harry Potter and The Deathly Hallow', 'J.K. Rowling', 'Pottermore', 'Book', 2015, '', 2, '/uploads/pic15.jpg', 580.6, 1, 0, '2016-10-02 11:28:18');
+(15, 'Harry Potter and the Philosopher Stone', 'J.K. Rowling', '', 'Book', 1999, '', 1, '/uploads/pic15.jpg', 199.99, 1, 0, '2016-10-02 11:16:22'),
+(16, 'Winnie the Pooh', 'Christopher Robin', 'Tiger,Rabbit', 'Conference', 1980, 'Kids', 1, '/uploads/pic16.jpg', 49.5, 1, 0, '2016-10-02 11:17:28'),
+(17, 'The Maker of Swan', 'Paraic O''Donnell', 'Helen Macdonald', 'Article', 2001, '', 1, '/uploads/pic17.jpg', 210, 1, 0, '2016-10-02 11:18:37'),
+(18, 'Responsive Web Design', 'Ethan Marcotte', 'Jeremy Keith', 'Book', 1990, '', 1, '/uploads/pic18.jpg', 300, 1, 0, '2016-10-02 11:19:25'),
+(19, 'Mobile First', 'Luke Wroblewski', 'Jeffrey Zeldman', 'Conference', 2008, 'A Book Apart', 1, '/uploads/pic19.jpg', 299, 1, 0, '2016-10-02 11:20:41'),
+(20, 'Ancient Tales', 'Duncan Long,Raz Algul', '', 'Article', 1890, '', 1, '/uploads/pic20.jpg', 280, 1, 0, '2016-10-02 11:21:28'),
+(21, 'Enchantment The Art of Changing Heart, Minds, and Actions', 'Guy Kawasaki', 'Woz,Apple', 'Conference', 1987, 'A Book Apart', 1, '/uploads/pic21.jpg', 300, 1, 0, '2016-10-02 11:22:19'),
+(22, 'To Kill a Mocking Bird', 'Harper Lee', '', 'Conference', 2005, 'Kids', 2, '/uploads/pic22.jpg', 29.9, 1, 0, '2016-10-02 11:23:27'),
+(23, '1984', 'George Orwell', '', 'Conference', 2007, 'Kids', 2, '/uploads/pic23.jpg', 39.8, 1, 0, '2016-10-02 11:24:02'),
+(24, 'Pieces of Light', 'Charles Fernyhough', 'Andre Aciman', 'Conference', 2009, 'A Book Apart', 2, '/uploads/pic24.jpg', 280, 1, 0, '2016-10-02 11:24:43'),
+(25, 'Jungle Book', 'IBM', '', 'Conference', 1998, 'Kids', 2, '/uploads/pic25.jpg', 29, 1, 0, '2016-10-02 11:25:23'),
+(26, 'Big-Hearted People', 'Randy J. Schum', '', 'Book', 2013, '', 2, '/uploads/pic26.jpg', 239, 1, 0, '2016-10-02 11:26:05'),
+(27, 'Code Quality', 'Diomidis Spinellis', 'Scott Mayers', 'Master Thesis', 2011, '', 2, '/uploads/pic27.jpg', 390, 1, 0, '2016-10-02 11:27:01'),
+(28, 'Our Lent Things we carry', 'David Crumm', '', 'Ph.D.Thesis', 2016, '', 2, '/uploads/pic28.jpg', 390, 1, 0, '2016-10-02 11:27:40'),
+(29, 'Harry Potter and The Deathly Hallow', 'J.K. Rowling', 'Pottermore', 'Book', 2015, '', 2, '/uploads/pic29.jpg', 580.6, 1, 0, '2016-10-02 11:28:18');
 
 -- --------------------------------------------------------
 
